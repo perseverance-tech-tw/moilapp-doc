@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>controllers.control_message_box &mdash; MoilApp Documentation 4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=3b2dd2c4"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">MoilApp of Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin_extention.html">Plugin Extention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting_issue.html">Troubleshooting Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup_issue.html">Reporting Bugs and Issues</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MoilApp Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">controllers.control_message_box</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for controllers.control_message_box</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module docstring: This module contains the ControlMessageBox class which provides functionality for displaying various types of message boxes in the MoilApp application.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span>
+
+<span class="kn">from</span> <span class="nn">PyQt6.QtWidgets</span> <span class="kn">import</span> <span class="n">QPushButton</span>
+
+
+<div class="viewcode-block" id="ControlMessageBox">
+<a class="viewcode-back" href="../../controller.html#controllers.control_message_box.ControlMessageBox">[docs]</a>
+<span class="k">class</span> <span class="nc">ControlMessageBox</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       ControlMessageBox class provides functionality for displaying various types of message boxes in the MoilApp application.</span>
+<span class="sd">       &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main_controller</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span> <span class="o">=</span> <span class="n">main_controller</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">main_controller</span><span class="o">.</span><span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span> <span class="o">=</span> <span class="n">main_controller</span><span class="o">.</span><span class="n">ui_object</span>
+
+<div class="viewcode-block" id="ControlMessageBox.display_ask_confirmation">
+<a class="viewcode-back" href="../../controller.html#controllers.control_message_box.ControlMessageBox.display_ask_confirmation">[docs]</a>
+    <span class="k">def</span> <span class="nf">display_ask_confirmation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Displays a confirmation message box with the given message.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            message (str): The message to display in the confirmation box.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool: True if the user clicks Yes, False if the user clicks No.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ControlMessageBox: display_ask_confirmation(), &quot;</span>
+                                             <span class="sa">f</span><span class="s2">&quot;Display confirmation ask </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">reply</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="p">)</span>
+        <span class="n">reply</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Question</span><span class="p">)</span>
+        <span class="n">reply</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Question?&quot;</span><span class="p">)</span>
+        <span class="n">reply</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="n">reply</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;color:black;&quot;</span><span class="p">)</span>
+        <span class="n">reply</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Yes</span> <span class="o">|</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
+
+        <span class="c1"># Change button style</span>
+        <span class="n">yes_button</span> <span class="o">=</span> <span class="n">reply</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Yes</span><span class="p">)</span>
+        <span class="n">yes_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Yes&quot;</span><span class="p">)</span>
+        <span class="n">yes_button</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+        <span class="n">yes_button</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span>
+        <span class="n">yes_button</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;QPushButton{</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                 <span class="s2">&quot;    background-color : rgb(25, 200, 72);</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                 <span class="s2">&quot;    color : rgb(0, 0, 0);</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                 <span class="s2">&quot;    border-radius: 3px;}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                 <span class="s2">&quot;QPushButton:hover{</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                 <span class="s2">&quot;    background-color : rgb(0, 150, 50);</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                 <span class="s2">&quot;}&quot;</span><span class="p">)</span>
+
+        <span class="n">no_button</span> <span class="o">=</span> <span class="n">reply</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
+        <span class="n">no_button</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;No&quot;</span><span class="p">)</span>
+        <span class="n">no_button</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+        <span class="n">no_button</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span>
+        <span class="n">no_button</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;QPushButton{</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;    background-color : rgb(210, 59, 72);</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;    color : rgb(0, 0, 0);</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;    border-radius: 3px;}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;QPushButton:hover{</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;    background-color : rgb(150, 100, 0);</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;}&quot;</span><span class="p">)</span>
+
+        <span class="n">x</span> <span class="o">=</span> <span class="n">reply</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="ControlMessageBox.display_message_box">
+<a class="viewcode-back" href="../../controller.html#controllers.control_message_box.ControlMessageBox.display_message_box">[docs]</a>
+    <span class="k">def</span> <span class="nf">display_message_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Default Message!&quot;</span><span class="p">,</span> <span class="n">type_mode</span><span class="o">=</span><span class="s2">&quot;information&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Displays a message box with the given message and type.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            message (str): The message to display in the message box. Defaults to &quot;Default Message!&quot;.</span>
+<span class="sd">            type_mode (str): The type of message box to display. Should be either &quot;information&quot; or &quot;warning&quot;.</span>
+<span class="sd">                Defaults to &quot;information&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ControlMessageBox: display_message_box(), &quot;</span>
+                                             <span class="sa">f</span><span class="s2">&quot;Display message box about </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">type_mode</span> <span class="o">==</span> <span class="s2">&quot;information&quot;</span><span class="p">:</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Information!&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">type_mode</span> <span class="o">==</span> <span class="s2">&quot;warning&quot;</span><span class="p">:</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Warning!&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;color: black;&quot;</span><span class="p">)</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+
+        <span class="n">ok_button</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+        <span class="n">ok_button</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+        <span class="n">ok_button</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="mi">25</span><span class="p">)</span>
+        <span class="n">ok_button</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;QPushButton{</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;    background-color : rgb(25, 200, 72);</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;    color : rgb(0, 0, 0);</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;    border-radius: 3px;}</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;QPushButton:hover{</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;    background-color : rgb(0, 150, 50);</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;}&quot;</span><span class="p">)</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">close_msg</span><span class="p">():</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">done</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">QtCore</span><span class="o">.</span><span class="n">QTimer</span><span class="o">.</span><span class="n">singleShot</span><span class="p">(</span><span class="mi">5000</span><span class="p">,</span> <span class="n">close_msg</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ControlMessageBox.show_update_dialog">
+<a class="viewcode-back" href="../../controller.html#controllers.control_message_box.ControlMessageBox.show_update_dialog">[docs]</a>
+    <span class="k">def</span> <span class="nf">show_update_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Displays a message box with options for the user to choose.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            message: A string containing the message to be displayed in the message box.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            An integer representing the user&#39;s response to the message box. The value will be one of the</span>
+<span class="sd">            following constants from the QMessageBox.StandardButton enum: QMessageBox.Yes, QMessageBox.No.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ControlMessageBox: show_update_dialog(), &quot;</span>
+                                             <span class="sa">f</span><span class="s2">&quot;Show update dialog with message </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">reply</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+        <span class="n">reply</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Update&quot;</span><span class="p">)</span>
+        <span class="n">reply</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="n">reply</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Yes</span> <span class="o">|</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">reply</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ControlMessageBox.show_message_box_record">
+<a class="viewcode-back" href="../../controller.html#controllers.control_message_box.ControlMessageBox.show_message_box_record">[docs]</a>
+    <span class="k">def</span> <span class="nf">show_message_box_record</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Displays a message box for selecting the recording option (Original or Processed Video).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ControlMessageBox: show_message_box_record(), &quot;</span>
+                                             <span class="s2">&quot;Show message box for record video&quot;</span><span class="p">)</span>
+        <span class="n">message_box</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+        <span class="n">message_box</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Select Record&#39;</span><span class="p">)</span>
+        <span class="n">message_box</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Please select record option (Original or Processed Video)&#39;</span><span class="p">)</span>
+        <span class="n">message_box</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Cancel</span><span class="p">)</span>
+
+        <span class="n">pushbutton_record_ori</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Record Original Video&#39;</span><span class="p">)</span>
+        <span class="n">pushbutton_record_ori</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">record_original_video</span><span class="p">)</span>
+        <span class="n">message_box</span><span class="o">.</span><span class="n">addButton</span><span class="p">(</span><span class="n">pushbutton_record_ori</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">ButtonRole</span><span class="o">.</span><span class="n">ActionRole</span><span class="p">)</span>
+
+        <span class="n">pushbutton_record_pro</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Record Processed Video&#39;</span><span class="p">)</span>
+        <span class="n">pushbutton_record_pro</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">record_processed_video</span><span class="p">)</span>
+        <span class="n">message_box</span><span class="o">.</span><span class="n">addButton</span><span class="p">(</span><span class="n">pushbutton_record_pro</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">ButtonRole</span><span class="o">.</span><span class="n">ActionRole</span><span class="p">)</span>
+
+        <span class="n">cancel_button</span> <span class="o">=</span> <span class="n">message_box</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Cancel</span><span class="p">)</span>
+        <span class="n">cancel_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">record_cancel</span><span class="p">)</span>
+
+        <span class="n">message_box</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ControlMessageBox.show_message_box_save_image">
+<a class="viewcode-back" href="../../controller.html#controllers.control_message_box.ControlMessageBox.show_message_box_save_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">show_message_box_save_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Displays a message box for selecting the save option (Original or Processed Video).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ControlMessageBox: show_message_box_save_image(), &quot;</span>
+                                             <span class="s2">&quot;Show message box for save image&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">message_box</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+            <span class="n">message_box</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Select Save Image&#39;</span><span class="p">)</span>
+            <span class="n">message_box</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Please select Save option (Original or Processed Video)&#39;</span><span class="p">)</span>
+            <span class="n">message_box</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Cancel</span><span class="p">)</span>
+
+            <span class="n">pushbutton_record_ori</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Save Original Video&#39;</span><span class="p">)</span>
+            <span class="n">pushbutton_record_ori</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_save_media</span><span class="o">.</span><span class="n">save_image_ori_result</span><span class="p">(</span><span class="kc">False</span><span class="p">))</span>
+            <span class="n">message_box</span><span class="o">.</span><span class="n">addButton</span><span class="p">(</span><span class="n">pushbutton_record_ori</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">ButtonRole</span><span class="o">.</span><span class="n">ActionRole</span><span class="p">)</span>
+
+            <span class="n">pushbutton_record_pro</span> <span class="o">=</span> <span class="n">QPushButton</span><span class="p">(</span><span class="s1">&#39;Save Processed Video&#39;</span><span class="p">)</span>
+            <span class="n">pushbutton_record_pro</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_save_media</span><span class="o">.</span><span class="n">save_image_ori_result</span><span class="p">(</span><span class="kc">True</span><span class="p">))</span>
+            <span class="n">message_box</span><span class="o">.</span><span class="n">addButton</span><span class="p">(</span><span class="n">pushbutton_record_pro</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">ButtonRole</span><span class="o">.</span><span class="n">ActionRole</span><span class="p">)</span>
+
+            <span class="n">cancel_button</span> <span class="o">=</span> <span class="n">message_box</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Cancel</span><span class="p">)</span>
+            <span class="n">cancel_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">record_cancel</span><span class="p">)</span>
+
+            <span class="n">message_box</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ControlMessageBox.record_original_video">
+<a class="viewcode-back" href="../../controller.html#controllers.control_message_box.ControlMessageBox.record_original_video">[docs]</a>
+    <span class="k">def</span> <span class="nf">record_original_video</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the recording option to &quot;Original&quot; and logs the action if debug mode is enabled.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_save_media</span><span class="o">.</span><span class="n">record_option</span> <span class="o">=</span> <span class="s2">&quot;Original&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ControlMessageBox: record_original_video(), &quot;</span>
+                                             <span class="s2">&quot;change record video to Original&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ControlMessageBox.record_processed_video">
+<a class="viewcode-back" href="../../controller.html#controllers.control_message_box.ControlMessageBox.record_processed_video">[docs]</a>
+    <span class="k">def</span> <span class="nf">record_processed_video</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the recording option to &quot;Processed&quot; and logs the action if debug mode is enabled.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_save_media</span><span class="o">.</span><span class="n">record_option</span> <span class="o">=</span> <span class="s2">&quot;Processed&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ControlMessageBox: record_processed_video(), &quot;</span>
+                                             <span class="s2">&quot;change record video to Processed&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ControlMessageBox.record_cancel">
+<a class="viewcode-back" href="../../controller.html#controllers.control_message_box.ControlMessageBox.record_cancel">[docs]</a>
+    <span class="k">def</span> <span class="nf">record_cancel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Cancels the recording process by setting the recording option to None and logs the action if debug mode is</span>
+<span class="sd">        enabled.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_save_media</span><span class="o">.</span><span class="n">record_option</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ControlMessageBox: record_cancel(), &quot;</span>
+                                             <span class="s2">&quot;change record video to None&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ControlMessageBox.show_information_of_image">
+<a class="viewcode-back" href="../../controller.html#controllers.control_message_box.ControlMessageBox.show_information_of_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">show_information_of_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Displays information about the current image view.</span>
+
+<span class="sd">        Displays a message box with information about the current image view, including whether it is a fisheye,</span>
+<span class="sd">        anypoint, or panorama view. If the current view has a polygon drawn on it, the message box will indicate</span>
+<span class="sd">        that the polygon is being shown and the user can change the ROI by clicking on the image.</span>
+
+<span class="sd">        If the application is in zooming mode to view a specific ROI, a message box will be displayed indicating</span>
+<span class="sd">        that the user should close the preview or press &#39;Esc&#39; on the keyboard to return.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            label (str): The label of the current image view.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ControlMessageBox: show_information_of_image(), &quot;</span>
+                                             <span class="sa">f</span><span class="s2">&quot;Show information of image in label </span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;You&#39;re in zooming mode to see the specific ROI, </span><span class="se">\n</span><span class="s2">&quot;</span>
+                       <span class="s2">&quot;close preview or press &#39;Esc&#39; on the keyboard for return&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">display_message_box</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s2">&quot;information&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">info</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;label_result&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;FisheyeView&quot;</span><span class="p">:</span>
+                <span class="n">info</span> <span class="o">=</span> <span class="s2">&quot;Window result: showing original fisheye image.&quot;</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;AnypointView&quot;</span><span class="p">:</span>
+                <span class="n">mode</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">radio_mode_1</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="k">else</span> <span class="mi">2</span>
+                <span class="n">info</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Window result: Showing Anypoint mode </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2"> image&quot;</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;PanoramaView&quot;</span><span class="p">:</span>
+                <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;car&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">radioButton_car</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;Tube&quot;</span>
+                <span class="n">info</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Window result: ShowingPanorama </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2"> image&quot;</span>
+
+        <span class="k">elif</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;label_recenter&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;FisheyeView&quot;</span><span class="p">:</span>
+                <span class="n">info</span> <span class="o">=</span> <span class="s2">&quot;Window recenter: Showing Original fisheye image after recenter the optical point&quot;</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;AnypointView&quot;</span><span class="p">:</span>
+                <span class="n">mode</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">radio_mode_1</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="k">else</span> <span class="mi">2</span>
+                <span class="n">info</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Window recenter: Showing Anypoint mode </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2"> image, </span><span class="se">\n</span><span class="s2">&quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot;based on recenter image  with polygon. </span><span class="se">\n</span><span class="s2">&quot;</span>
+                        <span class="s2">&quot;You can change the ROI by clicking this image!! &quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;PanoramaView&quot;</span><span class="p">:</span>
+                <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;car&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">radioButton_car</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;Tube&quot;</span>
+                <span class="n">info</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Window recenter: Showing original Panorama </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2"> image&quot;</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">recenter_mode_view</span><span class="p">:</span>
+                <span class="n">info</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Window original: showing fisheye image, </span><span class="se">\n</span><span class="s2">&quot;</span>
+                        <span class="s2">&quot;You can adjust the optical center by clicking on </span><span class="se">\n</span><span class="s2">&quot;</span>
+                        <span class="s2">&quot;the image below to set a new optical center.&quot;</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;FisheyeView&quot;</span><span class="p">:</span>
+                    <span class="n">info</span> <span class="o">=</span> <span class="s2">&quot;original fisheye image in label original&quot;</span>
+
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;AnypointView&quot;</span><span class="p">:</span>
+                    <span class="n">mode</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">radio_mode_1</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="k">else</span> <span class="mi">2</span>
+                    <span class="n">info</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Showing original fisheye image with polygon</span><span class="se">\n</span><span class="s2">&quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;for showing anypoint mode </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">. You can change</span><span class="se">\n</span><span class="s2">&quot;</span>
+                            <span class="s2">&quot;the ROI by clicking this image!!&quot;</span><span class="p">)</span>
+
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;PanoramaView&quot;</span><span class="p">:</span>
+                    <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;car&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">adioButton_car</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;tube&quot;</span>
+                    <span class="n">info</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Showing original fisheye image with polygon</span><span class="se">\n</span><span class="s2">&quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot;for showing panorama </span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">. You can change</span><span class="se">\n</span><span class="s2">&quot;</span>
+                            <span class="s2">&quot;the ROI by clicking this image!!&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">display_message_box</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="s2">&quot;information&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ControlMessageBox.show_accessibility">
+<a class="viewcode-back" href="../../controller.html#controllers.control_message_box.ControlMessageBox.show_accessibility">[docs]</a>
+    <span class="k">def</span> <span class="nf">show_accessibility</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Opens a prompt displaying accessibility shortcuts for MoilApp.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ControlMessageBox: show_accessibility(), &quot;</span>
+                                             <span class="s2">&quot;Show accessibility shortcut action&quot;</span><span class="p">)</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;MoilApp Accessibility</span><span class="se">\n</span><span class="s2">&quot;</span>
+                   <span class="s2">&quot;###################</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+                   <span class="s2">&quot;Crtl + O</span><span class="se">\t</span><span class="s2">: Open Image</span><span class="se">\n</span><span class="s2">&quot;</span>
+                   <span class="s2">&quot;Ctrl + P</span><span class="se">\t</span><span class="s2">: Open Camera parameters form</span><span class="se">\n</span><span class="s2">&quot;</span>
+                   <span class="s2">&quot;Ctrl + R</span><span class="se">\t</span><span class="s2">: Record Video</span><span class="se">\n</span><span class="s2">&quot;</span>
+                   <span class="s2">&quot;Ctrl + S</span><span class="se">\t</span><span class="s2">: Save image</span><span class="se">\n</span><span class="s2">&quot;</span>
+                   <span class="s2">&quot;+ </span><span class="se">\t</span><span class="s2">: Zoom In</span><span class="se">\n</span><span class="s2">&quot;</span>
+                   <span class="s2">&quot;- </span><span class="se">\t</span><span class="s2">: Zoom Out</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+                   <span class="s2">&quot;F11 </span><span class="se">\t</span><span class="s2">: Maximized window</span><span class="se">\n</span><span class="s2">&quot;</span>
+                   <span class="s2">&quot;Esc </span><span class="se">\t</span><span class="s2">: Minimized window</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+                   <span class="s2">&quot;Space</span><span class="se">\t</span><span class="s2">: play/pause video</span><span class="se">\n</span><span class="s2">&quot;</span>
+                   <span class="s2">&quot;0 </span><span class="se">\t</span><span class="s2">: Stop video</span><span class="se">\n</span><span class="s2">&quot;</span>
+                   <span class="s2">&quot;Left</span><span class="se">\t</span><span class="s2">: Backward video in 5 seconds</span><span class="se">\n</span><span class="s2">&quot;</span>
+                   <span class="s2">&quot;Right</span><span class="se">\t</span><span class="s2">: Forward video in 5 seconds</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+                   <span class="s2">&quot;Ctrl+Up</span><span class="se">\t\t</span><span class="s2">: Up View in Anypoint Mode</span><span class="se">\n</span><span class="s2">&quot;</span>
+                   <span class="s2">&quot;Ctrl+Right</span><span class="se">\t</span><span class="s2">: Right View in Anypoint Mode</span><span class="se">\n</span><span class="s2">&quot;</span>
+                   <span class="s2">&quot;Ctrl+Left</span><span class="se">\t</span><span class="s2">: Left View in Anypoint Mode</span><span class="se">\n</span><span class="s2">&quot;</span>
+                   <span class="s2">&quot;Ctrl+Down</span><span class="se">\t</span><span class="s2">: Down View in Anypoint Mode</span><span class="se">\n</span><span class="s2">&quot;</span>
+                   <span class="s2">&quot;Ctrl + A</span><span class="se">\t\t</span><span class="s2">: Show Accessibility</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">display_message_box</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s2">&quot;information&quot;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Perseverance Technology, Taiwan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

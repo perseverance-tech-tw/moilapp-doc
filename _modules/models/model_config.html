@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>models.model_config &mdash; MoilApp Documentation 4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=3b2dd2c4"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">MoilApp of Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin_extention.html">Plugin Extention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting_issue.html">Troubleshooting Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup_issue.html">Reporting Bugs and Issues</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MoilApp Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">models.model_config</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for models.model_config</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The model_config module manages configuration files for MoilApp.</span>
+
+<span class="sd">This module contains the ModelConfigApps class, which handles the management of configuration files</span>
+<span class="sd">used by MoilApp. It includes methods for loading, saving, resetting, and updating configuration settings,</span>
+<span class="sd">as well as managing recent project configurations.</span>
+
+<span class="sd">Classes:</span>
+<span class="sd">    ModelConfigApps: A class for managing configuration files for MoilApp.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+
+<div class="viewcode-block" id="ModelConfigApps">
+<a class="viewcode-back" href="../../models.html#models.model_config.ModelConfigApps">[docs]</a>
+<span class="k">class</span> <span class="nc">ModelConfigApps</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       The ModelConfigApps class manages configuration files for MoilApp.</span>
+
+<span class="sd">       Attributes:</span>
+<span class="sd">           _model: The ModelApps instance for accessing application data and functionalities.</span>
+<span class="sd">           _path_file (str): The path to the directory containing configuration files.</span>
+<span class="sd">           _config_file (str): The path to the main configuration file.</span>
+<span class="sd">           _config_project_file (str): The path to the recent project configuration file.</span>
+<span class="sd">           _recent_config_dir (str): The path to the directory containing recent project configuration files.</span>
+
+<span class="sd">       Methods:</span>
+<span class="sd">           - get_config_file: Manages the main configuration file for MoilApp.</span>
+<span class="sd">           - save_update_main_config: Saves updated configuration data to the main configuration file.</span>
+<span class="sd">           - reset_value_main_config: Resets the configuration view to its default values.</span>
+<span class="sd">           - read_recent_config_path: Reads recent project configuration files from the specified directory.</span>
+<span class="sd">           - get_timestamp: Extracts the timestamp from a filename to sort recent project configurations.</span>
+<span class="sd">           - load_json_file: Loads a JSON file from the specified path and returns its content.</span>
+<span class="sd">           - load_json_file_project: Loads a &#39;recent__.json&#39; file from the specified directory and returns its content.</span>
+<span class="sd">           - remove_json_file_project: Removes a specific &#39;recent__.json&#39; file from the recent configuration directory.</span>
+<span class="sd">           - create_config_recent: Creates a new recent configuration file with a unique name based on the current timestamp.</span>
+<span class="sd">           - create_new_data_recent: Creates a new &#39;recent__.json&#39; file for the recent open project.</span>
+<span class="sd">           - update_main_config_from_recent: Updates the main configuration from the recent configuration.</span>
+<span class="sd">       &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_path_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_config_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path_file</span> <span class="o">+</span> <span class="s2">&quot;/models/cached/main_config.json&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_config_project_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path_file</span> <span class="o">+</span> <span class="s2">&quot;/models/cached/recent_main.json&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_recent_config_dir</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path_file</span> <span class="o">+</span> <span class="s2">&quot;/models/cached/&quot;</span>
+
+<div class="viewcode-block" id="ModelConfigApps.get_config_file">
+<a class="viewcode-back" href="../../models.html#models.model_config.ModelConfigApps.get_config_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_config_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Manages the main configuration file for MoilApp.</span>
+
+<span class="sd">        This method checks if the main configuration file exists. If the file exists, it loads its content.</span>
+<span class="sd">        If the file doesn&#39;t exist or encounters an error during loading, it resets the configuration to default values.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The path to the main configuration file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelConfigApps: get_config_file(), &quot;</span>
+                                             <span class="s2">&quot;Create config_main file if not exist on path and load the config if exist&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config_file</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset_value_main_config</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_json_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config_file</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">reset_value_main_config</span><span class="p">()</span>
+            <span class="k">except</span> <span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">JSONDecodeError</span><span class="p">,</span> <span class="ne">FileNotFoundError</span><span class="p">):</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">({},</span> <span class="n">f</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reset_value_main_config</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config_file</span></div>
+
+
+<div class="viewcode-block" id="ModelConfigApps.save_update_main_config">
+<a class="viewcode-back" href="../../models.html#models.model_config.ModelConfigApps.save_update_main_config">[docs]</a>
+    <span class="k">def</span> <span class="nf">save_update_main_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Saves updated configuration data to the main configuration file for MoilApp.</span>
+
+<span class="sd">        This method writes the provided configuration data to the main configuration file.</span>
+<span class="sd">        The configuration file is formatted with an indentation of 5 spaces for better readability.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data (dict): The updated configuration data to be saved.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelConfigApps: save_update_main_config(), &quot;</span>
+                                             <span class="s2">&quot;Save config that updated on program with argument data(config)&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config_file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">json_file</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">json_file</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">create_config_recent</span><span class="p">()</span></div>
+
+
+    <span class="c1"># Reset config to the default value ++++++</span>
+<div class="viewcode-block" id="ModelConfigApps.reset_value_main_config">
+<a class="viewcode-back" href="../../models.html#models.model_config.ModelConfigApps.reset_value_main_config">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset_value_main_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resets the configuration view to its default values.</span>
+
+<span class="sd">        This function sets all the fields of the configuration view to their default values,</span>
+<span class="sd">        and saves the new configuration to the config file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelConfigApps: reset_value_main_config(), &quot;</span>
+                                             <span class="s2">&quot;Reset all value of main_config in dictionary data type&quot;</span><span class="p">)</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;Debug_mode&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">&quot;Plugin_run&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;Github_config&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;active_branch&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s2">&quot;list_branch&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+                <span class="s2">&quot;origin_url&quot;</span><span class="p">:</span> <span class="s2">&quot;Can&#39;t found remote repository URL!&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s2">&quot;user_name&quot;</span><span class="p">:</span> <span class="kc">None</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;Media_path&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;Cam_type&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;Parameter_name&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;Source_type&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;Zoom_size&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+            <span class="s2">&quot;Recent_view&quot;</span><span class="p">:</span> <span class="s2">&quot;FisheyeView&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Recenter_view&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">&quot;Active_view&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;Rotate_result&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;Image_original&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;rotate&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s2">&quot;center_coord&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="s2">&quot;pointer&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;Image_recenter&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;Recenter_coordinate&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+                <span class="s2">&quot;pointer&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+                <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;beta&quot;</span><span class="p">:</span> <span class="mi">0</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;Mode_1&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;coord&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;beta&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;zoom&quot;</span><span class="p">:</span> <span class="mi">4</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;Mode_2&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;coord&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="s2">&quot;pitch&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;yaw&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;roll&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;zoom&quot;</span><span class="p">:</span> <span class="mi">4</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;Pano_tube&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;alpha_min&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+                <span class="s2">&quot;alpha_max&quot;</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span>
+                <span class="s2">&quot;crop_top&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;crop_bottom&quot;</span><span class="p">:</span> <span class="mi">1</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;Pano_car&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;coord&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="s2">&quot;alpha_max&quot;</span><span class="p">:</span> <span class="mi">110</span><span class="p">,</span>
+                <span class="s2">&quot;flip&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;beta&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;crop_left&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;crop_right&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="s2">&quot;crop_top&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">&quot;crop_bottom&quot;</span><span class="p">:</span> <span class="mi">1</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;Image_saved&quot;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">&quot;Open_directory&quot;</span><span class="p">:</span> <span class="kc">None</span>
+        <span class="p">}</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">write_file</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">write_file</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModelConfigApps.read_recent_config_path">
+<a class="viewcode-back" href="../../models.html#models.model_config.ModelConfigApps.read_recent_config_path">[docs]</a>
+    <span class="k">def</span> <span class="nf">read_recent_config_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads the recent project configuration files from the specified directory.</span>
+
+<span class="sd">        This method scans the directory for files with names starting with &#39;recent_&#39; and ending with &#39;.json&#39;.</span>
+<span class="sd">        It reads each file and checks if it contains a valid &#39;Media_path&#39; key. If valid, the file name</span>
+<span class="sd">        is added to the list of recent project configurations; otherwise, the file is removed.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelConfigApps: read_recent_config_path(), &quot;</span>
+                                             <span class="s2">&quot;Read all file recent&#39;__&#39;.json for recent open project&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">recent_project_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">recent_file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_recent_config_dir</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">recent_file</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;recent_&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">recent_file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">):</span>
+                <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_json_file_project</span><span class="p">(</span><span class="n">recent_file</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Media_path&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">recent_project_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">recent_file</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">remove_json_file_project</span><span class="p">(</span><span class="n">recent_file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">recent_project_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">recent_project_list</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">,</span>
+                                                     <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModelConfigApps.get_timestamp">
+<a class="viewcode-back" href="../../models.html#models.model_config.ModelConfigApps.get_timestamp">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_timestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extracts the timestamp from a filename to sort recent project configurations.</span>
+
+<span class="sd">        This method parses the given filename to extract the timestamp embedded in the format &#39;recent_[timestamp].json&#39;.</span>
+<span class="sd">        The extracted timestamp is returned for sorting the recent project configurations by their creation time.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            filename (str): The name of the recent project configuration file.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The extracted timestamp from the filename.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelConfigApps: get_timestamp(), &quot;</span>
+                                             <span class="s2">&quot;Split name of &#39;recent__.json&#39; for get newest and oldest project&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="ModelConfigApps.load_json_file">
+<a class="viewcode-back" href="../../models.html#models.model_config.ModelConfigApps.load_json_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_json_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Loads a JSON file from the specified path and returns its content.</span>
+
+<span class="sd">        This method reads the JSON file located at the given path and parses its content into a Python dictionary.</span>
+<span class="sd">        The parsed content is then returned to the caller.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path (str): The path to the JSON file to be loaded.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The parsed content of the JSON file as a dictionary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelConfigApps: load_json_file(), &quot;</span>
+                                             <span class="s2">&quot;Load &#39;.json&#39; file in path and return in variable&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">content</span></div>
+
+
+<div class="viewcode-block" id="ModelConfigApps.load_json_file_project">
+<a class="viewcode-back" href="../../models.html#models.model_config.ModelConfigApps.load_json_file_project">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_json_file_project</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Loads a &#39;recent__.json&#39; file from the specified directory and returns its content.</span>
+
+<span class="sd">        This method constructs the full path to the &#39;recent__.json&#39; file using the provided path and the directory where</span>
+<span class="sd">        recent configuration files are stored. It then calls the `load_json_file` method to read and parse the JSON content.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path (str): The filename of the &#39;recent__.json&#39; file to be loaded.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            dict: The parsed content of the &#39;recent__.json&#39; file as a dictionary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelConfigApps: load_json_file_project(), &quot;</span>
+                                             <span class="s2">&quot;Load &#39;recent__.json&#39; file in path and return in variable&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_json_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_recent_config_dir</span> <span class="o">+</span> <span class="n">path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModelConfigApps.remove_json_file_project">
+<a class="viewcode-back" href="../../models.html#models.model_config.ModelConfigApps.remove_json_file_project">[docs]</a>
+    <span class="k">def</span> <span class="nf">remove_json_file_project</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Removes a specific &#39;recent__.json&#39; file from the recent configuration directory.</span>
+
+<span class="sd">        This method constructs the full path to the &#39;recent__.json&#39; file using the provided filename and the directory</span>
+<span class="sd">        where recent configuration files are stored. It then deletes the file from the file system.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path (str): The filename of the &#39;recent__.json&#39; file to be removed.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelConfigApps: remove_json_file_project(), &quot;</span>
+                                             <span class="s2">&quot;Remove specific &#39;recent__.json&#39; file in path&quot;</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_recent_config_dir</span> <span class="o">+</span> <span class="n">path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModelConfigApps.create_config_recent">
+<a class="viewcode-back" href="../../models.html#models.model_config.ModelConfigApps.create_config_recent">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_config_recent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates a new recent configuration file with a unique name based on the current timestamp.</span>
+
+<span class="sd">        This method generates a unique filename for the new recent configuration file using the current date and time.</span>
+<span class="sd">        It then checks the existing recent configuration files to ensure that there are no duplicates or overlaps</span>
+<span class="sd">        with the current project&#39;s media path. If a duplicate is found, it removes the old recent configuration file</span>
+<span class="sd">        and creates a new one.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelConfigApps: create_config_recent(), &quot;</span>
+                                             <span class="s2">&quot;Create config recent with deference name and logic to not &quot;</span>
+                                             <span class="s2">&quot;overlap with other project&quot;</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_recent_config_dir</span><span class="si">}</span><span class="s2">recent_&quot;</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">_%H%M%S</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.json&quot;</span>
+        <span class="k">for</span> <span class="n">recent_file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_recent_config_dir</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">recent_file</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;recent_&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">recent_file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">):</span>
+                <span class="n">config_recent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_json_file_project</span><span class="p">(</span><span class="n">recent_file</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">config_recent</span><span class="p">[</span><span class="s2">&quot;Media_path&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Media_path&quot;</span><span class="p">]:</span>
+                    <span class="c1"># self.update_main_config_from_recent(config_recent, load=False)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">create_new_data_recent</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">remove_json_file_project</span><span class="p">(</span><span class="n">recent_file</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_new_data_recent</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">read_recent_config_path</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ModelConfigApps.create_new_data_recent">
+<a class="viewcode-back" href="../../models.html#models.model_config.ModelConfigApps.create_new_data_recent">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_new_data_recent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a new &#39;recent__.json&#39; file for the recent open project.</span>
+
+<span class="sd">        This method constructs a new recent configuration data based on the main configuration data of the current project.</span>
+<span class="sd">        It gathers essential parameters such as source type, camera type, media path, and various mode settings from the</span>
+<span class="sd">        main configuration. This data is then saved into a new &#39;recent__.json&#39; file with the specified filename.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            filename (str): The filename for the new recent configuration file.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelConfigApps: create_new_data_recent(), &quot;</span>
+                                             <span class="s2">&quot;Create new file &#39;recent__.json&#39; for recent open project with argument &quot;</span>
+                                             <span class="s2">&quot;filename to make sure not overlap&quot;</span><span class="p">)</span>
+        <span class="n">main_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span>
+
+        <span class="n">new_data_recent</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;Source_type&quot;</span><span class="p">:</span> <span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Source_type&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Cam_type&quot;</span><span class="p">:</span> <span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Cam_type&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Media_path&quot;</span><span class="p">:</span> <span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Media_path&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Parameter_name&quot;</span><span class="p">:</span> <span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Parameter_name&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Recent_view&quot;</span><span class="p">:</span> <span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Recent_view&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Recenter_view&quot;</span><span class="p">:</span> <span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Recenter_view&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Active_view&quot;</span><span class="p">:</span> <span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Active_view&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Rotate_result&quot;</span><span class="p">:</span> <span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Rotate_result&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Image_original&quot;</span><span class="p">:</span> <span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_original&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Image_recenter&quot;</span><span class="p">:</span> <span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_recenter&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Mode_1&quot;</span><span class="p">:</span> <span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Mode_2&quot;</span><span class="p">:</span> <span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Pano_car&quot;</span><span class="p">:</span> <span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;Pano_tube&quot;</span><span class="p">:</span> <span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_tube&quot;</span><span class="p">],</span>
+        <span class="p">}</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">write_file</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">new_data_recent</span><span class="p">,</span> <span class="n">write_file</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModelConfigApps.update_main_config_from_recent">
+<a class="viewcode-back" href="../../models.html#models.model_config.ModelConfigApps.update_main_config_from_recent">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_main_config_from_recent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">load</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the main configuration from the recent configuration.</span>
+
+<span class="sd">        Updates the main configuration attributes based on the values provided in the recent configuration.</span>
+<span class="sd">        Optionally, saves the updated main configuration to the configuration file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config (dict): The recent configuration dictionary.</span>
+<span class="sd">            load (bool, optional): Whether to load the updated main configuration. Defaults to True.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Source_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Source_type&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Cam_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Cam_type&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Media_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Media_path&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Parameter_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Parameter_name&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Recent_view&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Recent_view&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Recenter_view&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Recenter_view&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Active_view&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Active_view&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Rotate_result&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Rotate_result&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_original&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Image_original&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_recenter&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Image_recenter&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_tube&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Pano_tube&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">load</span><span class="p">:</span>
+            <span class="c1"># pass</span>
+            <span class="c1"># self._model.main_config = self.get_config_file()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_update_main_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Perseverance Technology, Taiwan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

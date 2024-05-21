@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>models.model_view_panorama &mdash; MoilApp Documentation 4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=3b2dd2c4"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">MoilApp of Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin_extention.html">Plugin Extention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting_issue.html">Troubleshooting Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup_issue.html">Reporting Bugs and Issues</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MoilApp Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">models.model_view_panorama</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for models.model_view_panorama</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This model_view_panorama module handles Panorama view settings and operations within the MoilApp</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+
+
+<div class="viewcode-block" id="ModelViewPanorama">
+<a class="viewcode-back" href="../../models.html#models.model_view_panorama.ModelViewPanorama">[docs]</a>
+<span class="k">class</span> <span class="nc">ModelViewPanorama</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       Class responsible for managing Panorama view settings and operations.</span>
+
+<span class="sd">       Attributes:</span>
+<span class="sd">           _model (object): The main model instance of the application.</span>
+<span class="sd">           _map_x_pano (numpy.ndarray): Map for the x-coordinate transformation in Panorama view.</span>
+<span class="sd">           _map_y_pano (numpy.ndarray): Map for the y-coordinate transformation in Panorama view.</span>
+<span class="sd">           _panorama_mode (str): Current Panorama mode.</span>
+
+<span class="sd">       Methods:</span>
+<span class="sd">           panorama_mode.setter: Setter method for the current Panorama mode.</span>
+<span class="sd">           maps_panorama: Getter method for the Panorama maps.</span>
+<span class="sd">           panorama_image(image): Transforms the image using the Panorama maps.</span>
+<span class="sd">           get_cr_left_right_panorama_car(pano_car): Calculates the left and right coordinates of the panorama car.</span>
+<span class="sd">           crop_panorama_car(image): Crops the input image for the panorama car feature.</span>
+<span class="sd">           create_maps_panorama_car(): Creates Panorama maps for the car feature based on the configuration file.</span>
+<span class="sd">           image_car_with_color_polygon(): Creates an image of the car with polygon color drawing.</span>
+<span class="sd">           create_maps_panorama_tube(): Creates Panorama maps for the tube feature based on the configuration file.</span>
+<span class="sd">           crop_panorama_tube(image): Crops the input image for the panorama tube feature.</span>
+<span class="sd">       &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_map_x_pano</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_map_y_pano</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># self.cr_left_car_color = None</span>
+        <span class="c1"># self.cr_right_car_color = None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_panorama_mode</span> <span class="o">=</span> <span class="s2">&quot;car&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">panorama_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Get the current mode for panorama transformation.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               str: The current mode for panorama transformation.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_panorama_mode</span>
+
+    <span class="nd">@panorama_mode</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">panorama_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Set the mode for panorama transformation.</span>
+
+<span class="sd">           Args:</span>
+<span class="sd">               mode (str): The mode to set for panorama transformation.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_panorama_mode</span> <span class="o">=</span> <span class="n">mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">active_view_mode</span> <span class="o">=</span> <span class="n">mode</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">maps_panorama</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Get the panorama maps.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                tuple: A tuple containing the X and Y panorama maps.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_x_pano</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_y_pano</span>
+
+<div class="viewcode-block" id="ModelViewPanorama.panorama_image">
+<a class="viewcode-back" href="../../models.html#models.model_view_panorama.ModelViewPanorama.panorama_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">panorama_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">          Apply panorama transformation to the given image.</span>
+
+<span class="sd">          Args:</span>
+<span class="sd">              image: The image to be transformed.</span>
+
+<span class="sd">          Returns:</span>
+<span class="sd">              The transformed image.</span>
+<span class="sd">          &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">remap_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_x_pano</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_y_pano</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModelViewPanorama.get_cr_left_right_panorama_car">
+<a class="viewcode-back" href="../../models.html#models.model_view_panorama.ModelViewPanorama.get_cr_left_right_panorama_car">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_cr_left_right_panorama_car</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pano_car</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the left and right coordinates of the panorama car in the image.</span>
+
+<span class="sd">        This method identifies the left and right coordinates of the panorama car in the given image.</span>
+<span class="sd">        It searches for pixels with the color [0, 255, 0] and collects their x-coordinates to determine</span>
+<span class="sd">        the left and right boundaries of the car.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            pano_car: The input image of the panorama car.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            cr_left_car_color, cr_right_car_color: Left and right coordinates of the panorama car.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">width1</span> <span class="o">=</span> <span class="n">pano_car</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span>
+        <span class="n">width2</span> <span class="o">=</span> <span class="n">pano_car</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">height1</span> <span class="o">=</span> <span class="n">pano_car</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span>
+        <span class="n">height1_min</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">height1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">height2_max</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">height1_min</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">coordinate</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height1_min</span><span class="p">,</span> <span class="n">height2_max</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">width1</span><span class="p">):</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">pano_car</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">list</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">]:</span>
+                    <span class="n">coordinate</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="n">coordinate2</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">height1_min</span><span class="p">,</span> <span class="n">height2_max</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">width1</span><span class="p">,</span> <span class="n">width2</span><span class="p">):</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">pano_car</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">list</span><span class="p">(</span><span class="n">color</span><span class="p">)</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">]:</span>
+                    <span class="n">coordinate2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div>
+
+
+        <span class="c1"># cr_left_car_color = (max(list(coordinate))) * 2</span>
+        <span class="c1"># cr_right_car_color = (min(list(coordinate2))) * 2</span>
+
+<div class="viewcode-block" id="ModelViewPanorama.crop_panorama_car">
+<a class="viewcode-back" href="../../models.html#models.model_view_panorama.ModelViewPanorama.crop_panorama_car">[docs]</a>
+    <span class="k">def</span> <span class="nf">crop_panorama_car</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Crop the input image for the panorama car feature.</span>
+
+<span class="sd">        This method crops the input image for the panorama car feature using the cropping parameters defined in the configuration</span>
+<span class="sd">        file loaded through the private method __load_config(). It resizes the image to twice its original width, then crops the</span>
+<span class="sd">        image using the crop_left, crop_right, crop_top, and crop_bottom parameters. The resulting image is then returned.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            image: The input image to be cropped.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The cropped image.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelViewPanorama: crop_panorama_car(), &quot;</span>
+                                             <span class="s2">&quot;Crop image panorama car on top, bottom, left and right&quot;</span><span class="p">)</span>
+        <span class="n">crop_left</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;crop_left&quot;</span><span class="p">]</span>
+        <span class="n">crop_right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;crop_right&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">crop_left</span>
+        <span class="n">crop_top</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;crop_top&quot;</span><span class="p">]</span>
+        <span class="n">crop_bottom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;crop_bottom&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">crop_top</span>
+
+        <span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="c1"># if self.__cr_left_car_color is not None and self.__cr_right_car_color is not None:</span>
+        <span class="c1">#     image = image[0:image.shape[0], self._cr_left_car_color:self.__cr_right_car_color]</span>
+        <span class="c1">#     image = self._model.cropping_image(image, 0, 1, crop_top, crop_bottom)</span>
+        <span class="c1">#</span>
+        <span class="c1"># else:</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">cropping_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">crop_left</span><span class="p">,</span> <span class="n">crop_right</span><span class="p">,</span> <span class="n">crop_top</span><span class="p">,</span> <span class="n">crop_bottom</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">image</span></div>
+
+
+<div class="viewcode-block" id="ModelViewPanorama.create_maps_panorama_car">
+<a class="viewcode-back" href="../../models.html#models.model_view_panorama.ModelViewPanorama.create_maps_panorama_car">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_maps_panorama_car</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create maps x and y images for panorama car feature.</span>
+
+<span class="sd">        This method creates the map x and map y images needed for the panorama car feature using the parameters</span>
+<span class="sd">        from the configuration file. It sets the generated maps to the respective attributes.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelViewPanorama: create_maps_panorama_car(), &quot;</span>
+                                             <span class="s2">&quot;Creating a maps x and map y image to create panorama Car&quot;</span><span class="p">)</span>
+        <span class="n">alpha_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;alpha_max&quot;</span><span class="p">]</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span>
+        <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span>
+        <span class="n">flip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;flip&quot;</span><span class="p">]</span>
+        <span class="n">moildev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">set_moildev</span><span class="o">.</span><span class="n">moildev_main</span>
+        <span class="k">if</span> <span class="n">moildev</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_map_x_pano</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_y_pano</span> <span class="o">=</span> <span class="n">moildev</span><span class="o">.</span><span class="n">maps_panorama_car</span><span class="p">(</span><span class="n">alpha_max</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">flip</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModelViewPanorama.image_car_with_color_polygon">
+<a class="viewcode-back" href="../../models.html#models.model_view_panorama.ModelViewPanorama.image_car_with_color_polygon">[docs]</a>
+    <span class="k">def</span> <span class="nf">image_car_with_color_polygon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create image of car with color polygon drawing.</span>
+
+<span class="sd">        This method creates an image of the car with polygon color drawing. It draws a polygon on the resized image</span>
+<span class="sd">        using the FOV maps and then remaps the image to the panorama view.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelViewPanorama: image_car_with_color_polygon(), &quot;</span>
+                                             <span class="s2">&quot;Crete image car with polygon color drawing&quot;</span><span class="p">)</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">draw_polygon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_resize</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">maps_x_fov</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">maps_y_fov</span><span class="p">,</span> <span class="n">is_fov</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">image_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">remap_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">map_x_pano</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">map_y_pano</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">get_cr_left_right_panorama_car</span><span class="p">(</span><span class="n">image_result</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModelViewPanorama.create_maps_panorama_tube">
+<a class="viewcode-back" href="../../models.html#models.model_view_panorama.ModelViewPanorama.create_maps_panorama_tube">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_maps_panorama_tube</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create the map images for the panorama tube feature.</span>
+
+<span class="sd">        This method creates the map images for the panorama tube feature using the MOIL SDK. If the configuration file exists,</span>
+<span class="sd">        it retrieves the minimum and maximum alpha values for the tube from the configuration file using the private method</span>
+<span class="sd">        __load_config(). If the MOIL device object is not None, this method creates the map images for the panorama tube</span>
+<span class="sd">        feature using the alpha values and sets the image result.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelViewPanorama: create_maps_panorama_tube(), &quot;</span>
+                                             <span class="s2">&quot;Creating a maps x and map y image to create panorama Tube&quot;</span><span class="p">)</span>
+        <span class="n">alpha_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_tube&quot;</span><span class="p">][</span><span class="s2">&quot;alpha_min&quot;</span><span class="p">]</span>
+        <span class="n">alpha_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_tube&quot;</span><span class="p">][</span><span class="s2">&quot;alpha_max&quot;</span><span class="p">]</span>
+        <span class="n">moildev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">set_moildev</span><span class="o">.</span><span class="n">moildev_main</span>
+        <span class="k">if</span> <span class="n">moildev</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_map_x_pano</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_y_pano</span> <span class="o">=</span> <span class="n">moildev</span><span class="o">.</span><span class="n">maps_panorama_tube</span><span class="p">(</span><span class="n">alpha_min</span><span class="p">,</span> <span class="n">alpha_max</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModelViewPanorama.crop_panorama_tube">
+<a class="viewcode-back" href="../../models.html#models.model_view_panorama.ModelViewPanorama.crop_panorama_tube">[docs]</a>
+    <span class="k">def</span> <span class="nf">crop_panorama_tube</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Crop the top and bottom of the input image based on configuration values.</span>
+
+<span class="sd">        This method crops the top and bottom of the input image based on configuration values for the panorama tube</span>
+<span class="sd">        feature. The crop values are retrieved from the configuration file using the private method load_config().</span>
+<span class="sd">        The cropped image is then returned.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            image: The input image to crop.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The cropped image.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelViewPanorama: crop_panorama_tube(), &quot;</span>
+                                             <span class="s2">&quot;Crop image panorama car on top and bottom side&quot;</span><span class="p">)</span>
+        <span class="n">crop_top</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_tube&quot;</span><span class="p">][</span><span class="s2">&quot;crop_top&quot;</span><span class="p">]</span>
+        <span class="n">crop_bottom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_tube&quot;</span><span class="p">][</span><span class="s2">&quot;crop_bottom&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="n">crop_top</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">cropping_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">crop_top</span><span class="p">,</span> <span class="n">crop_bottom</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">image</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Perseverance Technology, Taiwan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
