@@ -1,0 +1,8 @@
+API References
+###############
+
+.. include:: moilapp-Moilapp-V2.0.src.rst
+.. include:: moilapp-Moilapp-V2.0.src.Moildev.rst
+.. include:: moilapp-Moilapp-V2.0.src.libs.rst
+.. include:: moilapp-Moilapp-V2.0.src.MoildevUi.rst
+.. include:: moilapp-Moilapp-V2.0.src.MoildevUi.spam.rst

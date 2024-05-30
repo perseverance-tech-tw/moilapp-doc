@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OpenCamera &mdash; MoilApp w.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=14197c27"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">API References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MoilApp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">OpenCamera</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for OpenCamera</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains the OpenCameras class, which is responsible for managing camera opening and settings.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">MoildevUi.OpenCam</span> <span class="kn">import</span> <span class="n">Ui_Dialog</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtWidgets</span>
+
+
+<div class="viewcode-block" id="OpenCameras">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#OpenCamera.OpenCameras">[docs]</a>
+<span class="k">class</span> <span class="nc">OpenCameras</span><span class="p">(</span><span class="n">Ui_Dialog</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to manage camera opening and settings.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        MainWindow: The main window of the application.</span>
+<span class="sd">        recentWindow: The recent window of the application.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        parent_win: Reference to the MainWindow object.</span>
+<span class="sd">        parent_dialog: Reference to the recentWindow object.</span>
+<span class="sd">        videoStreamURL: URL of the video stream.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MainWindow</span><span class="p">,</span> <span class="n">recentWindow</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">MainWindow</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">         &gt;&gt; Main window is the the inheritance from the main UI this program</span>
+<span class="sd">         &gt;&gt; Recent window is the UI for this window. </span>
+<span class="sd">         this make it possible to communication between this two UI</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent_win</span> <span class="o">=</span> <span class="n">MainWindow</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent_dialog</span> <span class="o">=</span> <span class="n">recentWindow</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent_dialog</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">videoStreamURL</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lineEdit_14</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;http://192.168.100.226:8000/stream.mjpg&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">handleActivatedCombobox</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connectToButton</span><span class="p">()</span>
+
+<div class="viewcode-block" id="OpenCameras.connectToButton">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#OpenCamera.OpenCameras.connectToButton">[docs]</a>
+    <span class="k">def</span> <span class="nf">connectToButton</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connects UI buttons to their respective functions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">activated</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handleActivatedCombobox</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonBox</span><span class="o">.</span><span class="n">accepted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ok</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonBox</span><span class="o">.</span><span class="n">rejected</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detectPort</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checkPortCamera</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="OpenCameras.handleActivatedCombobox">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#OpenCamera.OpenCameras.handleActivatedCombobox">[docs]</a>
+    <span class="k">def</span> <span class="nf">handleActivatedCombobox</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the activation of the combo box to show/hide elements based on selection.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;USB Camera&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_59</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lineEdit_14</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">framePortUsb</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="c1"># self.parent_win.stop_camera()</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># self.frame_2.show()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_59</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lineEdit_14</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">framePortUsb</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span></div>
+
+            <span class="c1"># self.parent_win.stop_camera()</span>
+
+<div class="viewcode-block" id="OpenCameras.checkPortCamera">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#OpenCamera.OpenCameras.checkPortCamera">[docs]</a>
+    <span class="k">def</span> <span class="nf">checkPortCamera</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks available camera ports and displays them in a message box.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">all_camera_idx_available</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">camera_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+            <span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">camera_idx</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">cap</span><span class="o">.</span><span class="n">isOpened</span><span class="p">():</span>
+                <span class="n">all_camera_idx_available</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">camera_idx</span><span class="p">)</span>
+                <span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+
+        <span class="n">msgbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+        <span class="n">msgbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Camera Port Available&quot;</span><span class="p">)</span>
+        <span class="n">msgbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="s2">&quot;Select the port camera from the number in list !! </span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;Available Port = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">all_camera_idx_available</span><span class="p">))</span>
+        <span class="n">msgbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="OpenCameras.vidUrl">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#OpenCamera.OpenCameras.vidUrl">[docs]</a>
+    <span class="k">def</span> <span class="nf">vidUrl</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the video stream URL based on the current selection.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str or int: The URL of the video stream or the port number of the USB camera.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;USB Camera&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">videoStreamURL</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">portCamera</span><span class="o">.</span><span class="n">currentText</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">videoStreamURL</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lineEdit_14</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">videoStreamURL</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">videoStreamURL</span></div>
+
+
+<div class="viewcode-block" id="OpenCameras.ok">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#OpenCamera.OpenCameras.ok">[docs]</a>
+    <span class="k">def</span> <span class="nf">ok</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the &quot;OK&quot; button click event to open the camera and close the dialog.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent_win</span><span class="o">.</span><span class="n">cameraOpen</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent_dialog</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="OpenCameras.exit">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#OpenCamera.OpenCameras.exit">[docs]</a>
+    <span class="k">def</span> <span class="nf">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the &quot;Exit&quot; button click event to close the dialog.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent_dialog</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Haryanto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

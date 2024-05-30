@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apps_Measurment &mdash; MoilApp w.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=14197c27"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">API References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MoilApp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Apps_Measurment</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Apps_Measurment</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module defines the Measurement class, which handles measurement-related operations in a PyQt application.</span>
+
+<span class="sd">Classes:</span>
+<span class="sd">    - Measurement: A class for managing measurement operations.</span>
+
+<span class="sd">Dependencies:</span>
+<span class="sd">    - ShowResult: A module providing functionality to display various types of images.</span>
+<span class="sd">    - cv2: OpenCV library for image processing.</span>
+<span class="sd">    - PyQt5.QtCore, PyQt5.QtGui: PyQt5 modules for the graphical user interface.</span>
+<span class="sd">    - Utils: A module providing utility functions for image processing.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">ShowResult</span> <span class="kn">import</span> <span class="n">ShowImageResult</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+<span class="kn">from</span> <span class="nn">Utils</span> <span class="kn">import</span> <span class="n">corner_detect</span><span class="p">,</span> <span class="n">get_corner_list</span><span class="p">,</span> <span class="n">draw_corners</span><span class="p">,</span> <span class="n">distance</span>
+
+
+<div class="viewcode-block" id="Measurement">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#Apps_Measurment.Measurement">[docs]</a>
+<span class="k">class</span> <span class="nc">Measurement</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Measurement class handles measurement-related operations in a PyQt application.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MainWindow</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">MainWindow</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show</span> <span class="o">=</span> <span class="n">ShowImageResult</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clicked_time_l</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clicked_time_r</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coor_1</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coor_2</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connectToButtonUi</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Measurement.connectToButtonUi">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#Apps_Measurment.Measurement.connectToButtonUi">[docs]</a>
+    <span class="k">def</span> <span class="nf">connectToButtonUi</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connects UI elements to their respective functions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">checkBox_2</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">show_corner_detection</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label3Dimage1</span><span class="o">.</span><span class="n">mousePressEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mousePressEvent_image_1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label3Dimage2</span><span class="o">.</span><span class="n">mousePressEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mousePressEvent_image_2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">ClearBtn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">CalculateBtn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calculate</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Measurement.corner_detection">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#Apps_Measurment.Measurement.corner_detection">[docs]</a>
+    <span class="k">def</span> <span class="nf">corner_detection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs corner detection on the images.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sigma: Standard deviation for Gaussian kernel (default: 3).</span>
+<span class="sd">            threshold: Threshold value for corner detection (default: 0.01).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">image_1</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">frame_2</span><span class="o">.</span><span class="n">setDisabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">img_result_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">img_result_1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">image_1</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">img_result_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">img_result_2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="c1"># convert rgb image to gray for image 1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gray_1</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">img_result_1</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+            <span class="n">corner</span> <span class="o">=</span> <span class="n">corner_detect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gray_1</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">coor_1</span> <span class="o">=</span> <span class="n">get_corner_list</span><span class="p">(</span><span class="n">corner</span><span class="p">)</span>
+
+            <span class="c1"># convert rgb image to gray for image 2</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gray_2</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_result_2</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+            <span class="n">corner</span> <span class="o">=</span> <span class="n">corner_detect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gray_2</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">threshold</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">coor_2</span> <span class="o">=</span> <span class="n">get_corner_list</span><span class="p">(</span><span class="n">corner</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ratioLabel</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">display_3D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_result_1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">img_result_2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Measurement.show_corner_detection">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#Apps_Measurment.Measurement.show_corner_detection">[docs]</a>
+    <span class="k">def</span> <span class="nf">show_corner_detection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Displays corner detection results based on checkbox state.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">checkBox_2</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">img_result_1</span> <span class="o">=</span> <span class="n">draw_corners</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor_1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">img_result_1</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">img_result_2</span> <span class="o">=</span> <span class="n">draw_corners</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor_2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">img_result_2</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">img_result_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">img_result_1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">img_result_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">img_result_2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">display_3D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_result_1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_result_2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Measurement.clear">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#Apps_Measurment.Measurement.clear">[docs]</a>
+    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clears any drawn points or lines on the images.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img_result_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">img_result_1</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img_result_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">img_result_2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">display_3D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_result_1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_result_2</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Measurement.calculate">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#Apps_Measurment.Measurement.calculate">[docs]</a>
+    <span class="k">def</span> <span class="nf">calculate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates measurements between selected points.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">statusMessage</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Function still on Development&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Measurement.ratioLabel">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#Apps_Measurment.Measurement.ratioLabel">[docs]</a>
+    <span class="k">def</span> <span class="nf">ratioLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates the ratio of image dimensions to label dimensions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">label_w_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label3Dimage1</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+        <span class="n">label_h_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label3Dimage1</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ratio_x_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">/</span> <span class="n">label_w_1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ratio_y_1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">label_h_1</span>
+        <span class="n">label_w_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label3Dimage2</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+        <span class="n">label_h_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label3Dimage2</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ratio_x_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">/</span> <span class="n">label_w_2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ratio_y_2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">label_h_2</span></div>
+
+
+<div class="viewcode-block" id="Measurement.mousePressEvent_image_1">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#Apps_Measurment.Measurement.mousePressEvent_image_1">[docs]</a>
+    <span class="k">def</span> <span class="nf">mousePressEvent_image_1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the position coordinate from mouse event</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">clicked_time_l</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">currPos</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pos_x</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">x</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pos_y</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">y</span><span class="p">())</span>
+                <span class="n">pos</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">,</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_x</span><span class="p">)</span>
+                <span class="n">pos</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)))</span>
+                <span class="n">nearest</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor_1</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">distance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">point_l_1</span> <span class="o">=</span> <span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">nearest</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">list</span><span class="p">(</span><span class="n">nearest</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_result_1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">point_l_1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">coor_y</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nearest</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ratio_y_1</span>
+                <span class="n">coor_x</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nearest</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ratio_x_1</span>
+                <span class="n">point</span> <span class="o">=</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">coor_y</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">coor_x</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_22</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">point</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">display_3D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_result_1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_result_2</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">clicked_time_l</span> <span class="o">=</span> <span class="mi">1</span>
+
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">clicked_time_l</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">currPos</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pos_x</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">x</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pos_y</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">y</span><span class="p">())</span>
+                <span class="n">pos</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">,</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_x</span><span class="p">)</span>
+                <span class="n">pos</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)))</span>
+                <span class="n">nearest</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor_1</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">distance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">point_l_2</span> <span class="o">=</span> <span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">nearest</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">list</span><span class="p">(</span><span class="n">nearest</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_result_1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">point_l_2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_result_1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">point_l_1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">point_l_2</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">coor_y</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nearest</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ratio_y_1</span>
+                <span class="n">coor_x</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nearest</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ratio_x_1</span>
+                <span class="n">point</span> <span class="o">=</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">coor_y</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">coor_x</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_6</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">point</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">display_3D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_result_1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_result_2</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">clicked_time_l</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No Left Image !!!&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Measurement.mousePressEvent_image_2">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#Apps_Measurment.Measurement.mousePressEvent_image_2">[docs]</a>
+    <span class="k">def</span> <span class="nf">mousePressEvent_image_2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the position coordinate from mouse event</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">clicked_time_r</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;11111111111111&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">currPos</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pos_x</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">x</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pos_y</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">y</span><span class="p">())</span>
+                <span class="n">pos</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">,</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_x</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+                <span class="n">pos</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)))</span>
+                <span class="n">nearest</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor_2</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">distance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">point_r_1</span> <span class="o">=</span> <span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">nearest</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">list</span><span class="p">(</span><span class="n">nearest</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_result_2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">point_r_1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">coor_y</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nearest</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ratio_y_2</span>
+                <span class="n">coor_x</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nearest</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ratio_x_2</span>
+                <span class="n">point</span> <span class="o">=</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">coor_y</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">coor_x</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_23</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">point</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">display_3D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_result_1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_result_2</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">clicked_time_r</span> <span class="o">=</span> <span class="mi">1</span>
+
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">clicked_time_r</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">currPos</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pos_x</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">x</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pos_y</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">y</span><span class="p">())</span>
+                <span class="n">pos</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">,</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pos_y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pos_x</span><span class="p">)</span>
+                <span class="n">pos</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)))</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+                <span class="n">nearest</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor_2</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">distance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">point_r_2</span> <span class="o">=</span> <span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">nearest</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">list</span><span class="p">(</span><span class="n">nearest</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_result_2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">point_r_2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_result_2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">point_r_1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">point_r_2</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">coor_y</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nearest</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ratio_y_2</span>
+                <span class="n">coor_x</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nearest</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">ratio_x_2</span>
+                <span class="n">point</span> <span class="o">=</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">coor_y</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">coor_x</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_7</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">point</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">display_3D</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_result_1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_result_2</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">clicked_time_r</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No Left Image !!!&quot;</span><span class="p">)</span></div>
+</div>
+
+
+    <span class="c1"># def loadImage_R(self):</span>
+    <span class="c1">#     if self.parent.img_file_path_r:</span>
+    <span class="c1">#         self.pixmap_r = QtGui.QPixmap(self.parent.img_file_path_r)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Haryanto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
