@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>plugins.Thread_inspection.main &mdash; MoilApp 3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../_static/documentation_options.js?v=110ea713"></script>
+        <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html">
+            
+              <img src="../../../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">API References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">MoilApp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">plugins.Thread_inspection.main</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for plugins.Thread_inspection.main</h1><div class="highlight"><pre>
+<span></span><span class="c1"># MoilApp with thread inspection application</span>
+<span class="c1"># Writer: Haryanto</span>
+<span class="c1"># Moil (Ming Chi University of Technology)</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">exif_lib</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">Moildev</span> <span class="kn">import</span> <span class="n">Moildev</span>
+<span class="kn">from</span> <span class="nn">Moildev</span> <span class="kn">import</span> <span class="n">draw_polygon</span>
+<span class="kn">from</span> <span class="nn">base_plugin</span> <span class="kn">import</span> <span class="n">Plugin</span>
+
+<span class="kn">from</span> <span class="nn">.widgets.Ui_MainWindow</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.process_image.anypoint</span> <span class="kn">import</span> <span class="n">AnypointView</span>
+<span class="kn">from</span> <span class="nn">.process_image.panorama</span> <span class="kn">import</span> <span class="n">PanoramaView</span>
+<span class="kn">from</span> <span class="nn">.controller.video_controller</span> <span class="kn">import</span> <span class="n">VideoController</span>
+<span class="kn">from</span> <span class="nn">.controller.select_source_camera</span> <span class="kn">import</span> <span class="n">OpenCameraSource</span>
+<span class="kn">from</span> <span class="nn">.help.help</span> <span class="kn">import</span> <span class="n">open_information_moildev</span><span class="p">,</span> <span class="n">help_moildev_apps</span><span class="p">,</span> <span class="n">about_us</span>
+<span class="kn">from</span> <span class="nn">.view.show_to_widgets</span> <span class="kn">import</span> <span class="n">ShowImage</span>
+<span class="kn">from</span> <span class="nn">.view.manipulate_view</span> <span class="kn">import</span> <span class="n">ManipulateView</span>
+<span class="kn">from</span> <span class="nn">.view.control_frame</span> <span class="kn">import</span> <span class="n">FrameWidgets</span>
+<span class="kn">from</span> <span class="nn">.controller.serial_controller</span> <span class="kn">import</span> <span class="n">AxisController</span>
+<span class="kn">from</span> <span class="nn">.tools.utils</span> <span class="kn">import</span> <span class="n">select_file</span><span class="p">,</span> <span class="n">resize_image</span><span class="p">,</span> <span class="n">calculate_height</span><span class="p">,</span> <span class="n">read_image</span>
+<span class="kn">from</span> <span class="nn">.controller.mouse_control_event</span> <span class="kn">import</span> <span class="n">MouseController</span>
+<span class="kn">from</span> <span class="nn">.parameter_source.camera_parameters</span> <span class="kn">import</span> <span class="n">CameraParameters</span>
+
+
+<div class="viewcode-block" id="Controller">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller">[docs]</a>
+<span class="k">class</span> <span class="nc">Controller</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">):</span>
+    <span class="c1"># create public variable.</span>
+    <span class="n">resized</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">pyqtSignal</span><span class="p">()</span>
+    <span class="n">camera_parameter</span> <span class="o">=</span> <span class="s1">&#39;camera_parameters/camera_parameters.json&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main_application</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This Class is for control the widget event to the execute function.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            main_application (): This argument send QWidget from main application.</span>
+<span class="sd">            This also be a parent of this class, which is can access the function and variable from that class</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">Ui_MainWindow</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">main_application</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cap</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cam</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">normal_view</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">panorama_view</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">anypoint_view</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axis_controller</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dir_save</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapX</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapY</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapX_pano</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapY_pano</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moildev</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span> <span class="o">=</span> <span class="s2">&quot;Raspi&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pos_x</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result_image</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width_original_image</span> <span class="o">=</span> <span class="mi">300</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width_result_image</span> <span class="o">=</span> <span class="mi">1400</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect_event</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">openCam</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QDialog</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">winOpenCam</span> <span class="o">=</span> <span class="n">OpenCameraSource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">openCam</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">camParams</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QDialog</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">winCamParams</span> <span class="o">=</span> <span class="n">CameraParameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">camParams</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_image</span> <span class="o">=</span> <span class="n">ShowImage</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span> <span class="o">=</span> <span class="n">VideoController</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">anypoint</span> <span class="o">=</span> <span class="n">AnypointView</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">panorama</span> <span class="o">=</span> <span class="n">PanoramaView</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axis_control</span> <span class="o">=</span> <span class="n">AxisController</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">control_mouse</span> <span class="o">=</span> <span class="n">MouseController</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">manipulate</span> <span class="o">=</span> <span class="n">ManipulateView</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">control_frame</span> <span class="o">=</span> <span class="n">FrameWidgets</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">set_button_disable</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">frame_panorama</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">frame_navigator</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">frame_axis</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Controller.connect_event">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.connect_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">connect_event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connect every event on user interface like button event, mouse event</span>
+<span class="sd">        and etc to the function processing.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionLoad_Image</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionLoad_Video</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_load_video</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionOpen_Cam</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">onclick_open_camera_button</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionSave_Image</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionAbout_Apps</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">about_us</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionAbout_Us</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">open_information_moildev</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionCamera_Parameters</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">open_cam_params_window</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">actionExit</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_exit</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_Open_Image</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_Home</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">go_to_home_application</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_Open_Cam</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_open_camera_button</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_Open_Video</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_load_video</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_Quit</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_exit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_show_help</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">help</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_Save_Image</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">listWidget</span><span class="o">.</span><span class="n">currentItemChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">saved_image_activated</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">pushButton_29</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">about_us</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">pushButton_18</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">open_information_moildev</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_normal</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">show_normal</span><span class="p">)</span></div>
+
+        <span class="c1"># self.resized.connect(self.set_place_frame_parameter)</span>
+
+<div class="viewcode-block" id="Controller.open_image">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.open_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">open_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open Dialog to search the file image from directory. This function also will read the comment from</span>
+<span class="sd">        metadata image.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset_mode_view</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">stop_video</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">select_file</span><span class="p">(</span>
+            <span class="s2">&quot;Select Image&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;../&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Image Files (*.jpeg *.jpg *.png *.gif *.bmg)&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">exif_lib</span><span class="o">.</span><span class="n">MetaImage</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">read_comment</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">read_image</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">set_button_disable</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_to_window</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cam</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">img</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.connect_to_moildev">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.connect_to_moildev">[docs]</a>
+    <span class="k">def</span> <span class="nf">connect_to_moildev</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connect to Moildev SDK, need provide camera parameter database and type of camera.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">moildev</span> <span class="o">=</span> <span class="n">Moildev</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_parameter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="bp">self</span><span class="p">,</span>
+                <span class="s2">&quot;Warning!!&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;The image not support for this application, </span><span class="se">\n\n</span><span class="s2">Please contact developer!!&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;the image not support for this application, please contact developer!!&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.onclick_load_video">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.onclick_load_video">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclick_load_video</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open Dialog to search video file from Directory. after you select the video file, it will show the prompt</span>
+<span class="sd">        to select the type of camera.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset_mode_view</span><span class="p">()</span>
+        <span class="n">video_source</span> <span class="o">=</span> <span class="n">select_file</span><span class="p">(</span>
+            <span class="s2">&quot;Select Video Files&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;../&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Video Files (*.mp4 *.avi *.mpg *.gif *.mov)&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">video_source</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">select_camera_type</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">moildev</span> <span class="o">=</span> <span class="n">Moildev</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_parameter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">running_video</span><span class="p">(</span><span class="n">video_source</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.select_camera_type">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.select_camera_type">[docs]</a>
+    <span class="k">def</span> <span class="nf">select_camera_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Select the camera type prompt.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_parameter</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">new_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">new_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Dialog</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QDialog</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Dialog</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;Dialog&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Dialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Select Camera !!!&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Dialog</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">240</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
+        <span class="n">buttonBox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QDialogButtonBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Dialog</span><span class="p">)</span>
+        <span class="n">buttonBox</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QRect</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">80</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+        <span class="n">buttonBox</span><span class="o">.</span><span class="n">setOrientation</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Horizontal</span><span class="p">)</span>
+        <span class="n">buttonBox</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span>
+            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">Cancel</span> <span class="o">|</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QDialogButtonBox</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+        <span class="n">buttonBox</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;buttonBox&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboBox_cam_type</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QComboBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Dialog</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboBox_cam_type</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QRect</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboBox_cam_type</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;comboBox&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboBox_cam_type</span><span class="o">.</span><span class="n">addItems</span><span class="p">(</span><span class="n">new_list</span><span class="p">)</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Dialog</span><span class="p">)</span>
+        <span class="n">label</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QRect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">220</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+        <span class="n">font</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QFont</span><span class="p">()</span>
+        <span class="n">font</span><span class="o">.</span><span class="n">setFamily</span><span class="p">(</span><span class="s2">&quot;DejaVu Serif&quot;</span><span class="p">)</span>
+        <span class="n">font</span><span class="o">.</span><span class="n">setPointSize</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+        <span class="n">label</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
+        <span class="n">label</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+        <span class="n">label</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">)</span>
+        <span class="n">label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Select the camera type !!!&quot;</span><span class="p">)</span>
+
+        <span class="n">buttonBox</span><span class="o">.</span><span class="n">accepted</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dialog_camera_oke</span><span class="p">)</span>
+        <span class="n">buttonBox</span><span class="o">.</span><span class="n">rejected</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Dialog</span><span class="o">.</span><span class="n">reject</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.dialog_camera_oke">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.dialog_camera_oke">[docs]</a>
+    <span class="k">def</span> <span class="nf">dialog_camera_oke</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The function will execute when you press accept or ok in dialog camera type selection.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comboBox_cam_type</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Dialog</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.onclick_open_camera_button">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.onclick_open_camera_button">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclick_open_camera_button</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Show the window of selection camera source.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">openCam</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.open_cam_params_window">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.open_cam_params_window">[docs]</a>
+    <span class="k">def</span> <span class="nf">open_cam_params_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open the window of camera parameter form, this window you can update, add, and</span>
+<span class="sd">        delete the camera parameter from database.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camParams</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.open_camera">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.open_camera">[docs]</a>
+    <span class="k">def</span> <span class="nf">open_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        open the camera from the available source in the system,</span>
+<span class="sd">        this function provide 2 source namely USB cam and Streaming Cam from Raspberry pi.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset_mode_view</span><span class="p">()</span>
+        <span class="n">camera_source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">winOpenCam</span><span class="o">.</span><span class="n">camera_source_used</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">select_camera_type</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">moildev</span> <span class="o">=</span> <span class="n">Moildev</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">camera_parameter</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">running_video</span><span class="p">(</span><span class="n">camera_source</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.running_video">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.running_video">[docs]</a>
+    <span class="k">def</span> <span class="nf">running_video</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">video_source</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open Video following the source given.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            video_source (): the source of media, can be camera and video file.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">set_button_enable</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">video_source</span><span class="p">)</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span>
+                <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Information&quot;</span><span class="p">,</span> <span class="s2">&quot;No source camera founded&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># print(&quot;here&quot;)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cam</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">next_frame_slot</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.show_normal">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.show_normal">[docs]</a>
+    <span class="k">def</span> <span class="nf">show_normal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Showing the original image into Label frame in UI.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">normal_view</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">panorama_view</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">anypoint_view</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_image</span><span class="o">.</span><span class="n">show_original_image</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width_original_image</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_image</span><span class="o">.</span><span class="n">show_result_image</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width_result_image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">frame_navigator</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">frame_panorama</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span></div>
+
+
+    <span class="c1"># migrate to show result</span>
+<div class="viewcode-block" id="Controller.show_to_window">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.show_to_window">[docs]</a>
+    <span class="k">def</span> <span class="nf">show_to_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Showing the processing result image into the frame UI.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">normal_view</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_image</span><span class="o">.</span><span class="n">show_original_image</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width_original_image</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_image</span><span class="o">.</span><span class="n">show_result_image</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width_result_image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">panorama_view</span><span class="p">:</span>
+                <span class="c1"># image = draw_polygon(</span>
+                <span class="c1">#     self.image.copy(),</span>
+                <span class="c1">#     self.mapX_pano,</span>
+                <span class="c1">#     self.mapY_pano)</span>
+                <span class="n">mapX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+                    <span class="s1">&#39;./plugins/Thread_inspection/process_image/maps_pano/mapX.npy&#39;</span><span class="p">)</span>
+                <span class="n">mapY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+                    <span class="s1">&#39;./plugins/Thread_inspection/process_image/maps_pano/mapY.npy&#39;</span><span class="p">)</span>
+                <span class="n">rho</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">panorama</span><span class="o">.</span><span class="n">rho</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">result_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">remap</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span>
+                    <span class="n">mapX</span><span class="p">,</span>
+                    <span class="n">mapY</span><span class="p">,</span>
+                    <span class="n">cv2</span><span class="o">.</span><span class="n">INTER_CUBIC</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">result_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_image</span><span class="p">[</span><span class="nb">round</span><span class="p">(</span>
+                    <span class="n">rho</span> <span class="o">+</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">moildev</span><span class="o">.</span><span class="n">getRhoFromAlpha</span><span class="p">(</span><span class="mi">30</span><span class="p">))):</span><span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">]</span>
+                <span class="c1"># print(self.width_result_image)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">show_image</span><span class="o">.</span><span class="n">show_original_image</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width_original_image</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">image</span> <span class="o">=</span> <span class="n">draw_polygon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapX</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapY</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">result_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">remap</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">mapX</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">mapY</span><span class="p">,</span>
+                    <span class="n">cv2</span><span class="o">.</span><span class="n">INTER_CUBIC</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">show_image</span><span class="o">.</span><span class="n">show_original_image</span><span class="p">(</span>
+                    <span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width_original_image</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_image</span><span class="o">.</span><span class="n">show_result_image</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">result_image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width_result_image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.help">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.help">[docs]</a>
+    <span class="k">def</span> <span class="nf">help</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Showing the message box to show help information obout this application.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">openCam</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="n">help_moildev_apps</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.save_image">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.save_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">save_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save image into local directory, it can save original image or</span>
+<span class="sd">        result image from panorama or anypoint processing.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ss</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%m</span><span class="si">%d</span><span class="s2">%H_%M%S&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">normal_view</span><span class="p">:</span>
+                <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_image</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir_save</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir_save</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">selectDir</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir_save</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ss</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+                <span class="n">img</span> <span class="o">=</span> <span class="n">exif_lib</span><span class="o">.</span><span class="n">MetaImage</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">img</span><span class="o">.</span><span class="n">modify_comment</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+                <span class="n">img</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Information&quot;</span><span class="p">,</span> <span class="s2">&quot;Image saved !!</span><span class="se">\n\n</span><span class="s2">Loc @: &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir_save</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.addWidget">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.addWidget">[docs]</a>
+    <span class="k">def</span> <span class="nf">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the image widget in the list view of saved image. it can be reopen when you select.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            image (): the image saved.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">calculate_height</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="mi">140</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">listWidget</span><span class="o">.</span><span class="n">setIconSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+        <span class="n">new_widget</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QListWidgetItem</span><span class="p">()</span>
+
+        <span class="n">image_</span> <span class="o">=</span> <span class="n">resize_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="mi">140</span><span class="p">)</span>
+        <span class="n">imagePixmap</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QImage</span><span class="p">(</span>
+            <span class="n">image_</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">image_</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">image_</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">QtGui</span><span class="o">.</span><span class="n">QImage</span><span class="o">.</span><span class="n">Format_RGB888</span><span class="p">)</span><span class="o">.</span><span class="n">rgbSwapped</span><span class="p">()</span>
+        <span class="n">icon</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">()</span>
+        <span class="n">icon</span><span class="o">.</span><span class="n">addPixmap</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="p">(</span><span class="n">imagePixmap</span><span class="p">))</span>
+        <span class="n">new_widget</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">)</span>
+        <span class="n">new_widget</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%m</span><span class="si">%d</span><span class="s2">%H_%M%S&quot;</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">listWidget</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">new_widget</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.saved_image_activated">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.saved_image_activated">[docs]</a>
+    <span class="k">def</span> <span class="nf">saved_image_activated</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function that for connect with the event in list widget to reopen the image.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir_save</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">listWidget</span><span class="o">.</span><span class="n">currentItem</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">exif_lib</span><span class="o">.</span><span class="n">MetaImage</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">read_comment</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">pause_video</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset_mode_view</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">read_image</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+            <span class="n">img</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_to_window</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.selectDir">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.selectDir">[docs]</a>
+    <span class="k">def</span> <span class="nf">selectDir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Select directory to save image. This function create to make it not always ask the directory by open dialog,</span>
+<span class="sd">        after directory save not None, it will pass open dialog prompt.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dir_save</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Select Save Folder&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir_save</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_image</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.reset_mode_view">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.reset_mode_view">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset_mode_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the properties view when you reset.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moildev</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">normal_view</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_Record_video</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.go_to_home_application">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.go_to_home_application">[docs]</a>
+    <span class="k">def</span> <span class="nf">go_to_home_application</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function is for close the main window and show the home application</span>
+<span class="sd">        to chose another application</span>
+
+<span class="sd">        - self : represent the current user interface</span>
+<span class="sd">        - self parent : represent the home window to select the application</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Back to home apps!!</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">stop_video</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.onclick_exit">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.onclick_exit">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclick_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function that connect to exit button to close tha window.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.resizeEvent">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.resizeEvent">[docs]</a>
+    <span class="k">def</span> <span class="nf">resizeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resize window event controller.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            event ():</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resized</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.closeEvent">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Controller.closeEvent">[docs]</a>
+    <span class="k">def</span> <span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Control the close event by ask the question yes or no.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            event ():</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">reply</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">question</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="s1">&#39;Message&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;Are you sure to quit?&quot;</span><span class="p">,</span>
+            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span> <span class="o">|</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">,</span>
+            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">reply</span> <span class="o">==</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">onclick_exit</span><span class="p">()</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">ignore</span><span class="p">()</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="Internal_Inspection">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Internal_Inspection">[docs]</a>
+<span class="k">class</span> <span class="nc">Internal_Inspection</span><span class="p">(</span><span class="n">Plugin</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The class that represent the plugins application, class name will be read as</span>
+<span class="sd">        the name of application.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apps</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;This is default application&quot;</span>
+
+<div class="viewcode-block" id="Internal_Inspection.perform_operation">
+<a class="viewcode-back" href="../../../src.plugins.Thread_inspection.html#plugins.Thread_inspection.main.Internal_Inspection.perform_operation">[docs]</a>
+    <span class="k">def</span> <span class="nf">perform_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argument</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The main application will execute this function when click button open.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            argument (): is the object widget from main application class.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Will show the window of application.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apps</span> <span class="o">=</span> <span class="n">Controller</span><span class="p">(</span><span class="n">argument</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Haryanto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

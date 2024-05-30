@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>main &mdash; MoilApp 3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=110ea713"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">API References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MoilApp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">main</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for main</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module defines the main application controller for MoilApp, a software to process fisheye images</span>
+<span class="sd">resulting in panorama and Anypoint views. It includes functions for directory operations, displaying</span>
+<span class="sd">help information, and a main application controller class that manages the UI and plugin interactions.</span>
+
+<span class="sd">MoilApp provides a panoramic view that offers a horizontal view in a specific immersed environment</span>
+<span class="sd">to meet common human visual perception. The Anypoint view presents an undistorted image in a certain</span>
+<span class="sd">area according to the input coordinates.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtWidgets</span>
+<span class="kn">from</span> <span class="nn">Ui_MoilApp</span> <span class="kn">import</span> <span class="n">Ui_MainWindow</span>
+<span class="kn">from</span> <span class="nn">plugin_collection</span> <span class="kn">import</span> <span class="n">PluginCollection</span>
+
+
+<div class="viewcode-block" id="dir_copy">
+<a class="viewcode-back" href="../src.html#main.dir_copy">[docs]</a>
+<span class="k">def</span> <span class="nf">dir_copy</span><span class="p">(</span><span class="n">srcpath</span><span class="p">,</span> <span class="n">dstdir</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Copy directory.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        srcpath (): source path or original path folder</span>
+<span class="sd">        dstdir (): destination directory.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        file copied in destination directory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">srcpath</span><span class="p">)</span>
+    <span class="n">dstpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dstdir</span><span class="p">,</span> <span class="n">dirname</span><span class="p">)</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="n">srcpath</span><span class="p">,</span> <span class="n">dstpath</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="open_help">
+<a class="viewcode-back" href="../src.html#main.open_help">[docs]</a>
+<span class="k">def</span> <span class="nf">open_help</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provide the information about MoilApp.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Showing Window.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">msgbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+    <span class="n">msgbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Help !!&quot;</span><span class="p">)</span>
+    <span class="n">msgbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+        <span class="s2">&quot;MoilApp</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;MoilApp is software to process fisheye &quot;</span>
+        <span class="s2">&quot;image with the result panorama view and Anypoint&quot;</span>
+        <span class="s2">&quot; view. </span><span class="se">\n\n</span><span class="s2">The panoramic view may present a horizontal&quot;</span>
+        <span class="s2">&quot;view in a specific immersed environment to meet the&quot;</span>
+        <span class="s2">&quot;common human visual perception, while the Anypoint&quot;</span>
+        <span class="s2">&quot;view is an image that has been undistorted in a certain&quot;</span>
+        <span class="s2">&quot;area according to the input coordinates.&quot;</span>
+        <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">More reference about Moildev, contact us</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">msgbox</span><span class="o">.</span><span class="n">setIconPixmap</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="p">(</span><span class="s1">&#39;./images/moildev.png&#39;</span><span class="p">))</span>
+    <span class="n">msgbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="ControllerMainApps">
+<a class="viewcode-back" href="../src.html#main.ControllerMainApps">[docs]</a>
+<span class="k">class</span> <span class="nc">ControllerMainApps</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The initial class controller Main application to control UI MainWindow.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent (): None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ControllerMainApps</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="o">=</span><span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">Ui_MainWindow</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span> <span class="o">=</span> <span class="n">PluginCollection</span><span class="p">(</span><span class="s2">&quot;plugins&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect_button</span><span class="p">()</span>
+
+<div class="viewcode-block" id="ControllerMainApps.connect_button">
+<a class="viewcode-back" href="../src.html#main.ControllerMainApps.connect_button">[docs]</a>
+    <span class="k">def</span> <span class="nf">connect_button</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connect button in widget to execute function.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">addItems</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">name_application</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">Open_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_application</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">Delete_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">delete_apps</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">add_apps</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">add_application</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_Exit</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">exit</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">pushButton</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">open_help</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ControllerMainApps.open_application">
+<a class="viewcode-back" href="../src.html#main.ControllerMainApps.open_application">[docs]</a>
+    <span class="k">def</span> <span class="nf">open_application</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open application depend on selected application available on comboBox.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Will hide the main apps window and show the selection application.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">__index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">application</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">__index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ControllerMainApps.delete_apps">
+<a class="viewcode-back" href="../src.html#main.ControllerMainApps.delete_apps">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_apps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Delete selected application from the list.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">__index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">name_application</span><span class="p">[</span><span class="n">__index</span><span class="p">]</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">path_folder</span><span class="p">[</span><span class="n">__index</span><span class="p">]</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">path</span> <span class="o">==</span> <span class="s2">&quot;default&quot;</span><span class="p">:</span>
+            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span>
+                <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Information&quot;</span><span class="p">,</span> <span class="s2">&quot;Default apps can&#39;t delete !!&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;./plugins/&quot;</span> <span class="o">+</span> <span class="n">path</span>
+            <span class="n">reply</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">question</span><span class="p">(</span>
+                <span class="bp">self</span><span class="p">,</span>
+                <span class="s1">&#39;Message&#39;</span><span class="p">,</span>
+                <span class="s2">&quot;Are you sure want to delete </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
+                <span class="n">name</span> <span class="o">+</span>
+                <span class="s2">&quot; application ?</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span> <span class="o">|</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">,</span>
+                <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">reply</span> <span class="o">==</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">ignore_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">reload_plugins</span><span class="p">()</span>
+                <span class="n">new_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">name_application</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">addItems</span><span class="p">(</span><span class="n">new_list</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="ControllerMainApps.add_application">
+<a class="viewcode-back" href="../src.html#main.ControllerMainApps.add_application">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_application</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add application plugin collection.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dir_plugin</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;Select Application Folder&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dir_plugin</span><span class="p">:</span>
+            <span class="n">original</span> <span class="o">=</span> <span class="n">dir_plugin</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="s1">&#39;plugins/&#39;</span>
+            <span class="n">dir_copy</span><span class="p">(</span><span class="n">original</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">reload_plugins</span><span class="p">()</span>
+            <span class="n">new_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">name_application</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">addItems</span><span class="p">(</span><span class="n">new_list</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ControllerMainApps.exit">
+<a class="viewcode-back" href="../src.html#main.ControllerMainApps.exit">[docs]</a>
+    <span class="k">def</span> <span class="nf">exit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Exit main window function, Its will connect to close function</span>
+<span class="sd">        which is will ask question before close.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../src.html#main.main">[docs]</a>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create instance Main window to create the main window of Application.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="n">apps</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">window</span> <span class="o">=</span> <span class="n">ControllerMainApps</span><span class="p">()</span>
+    <span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">apps</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Haryanto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>plugin_collection &mdash; MoilApp 3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=110ea713"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">API References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MoilApp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">plugin_collection</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for plugin_collection</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module defines the PluginCollection class, which is responsible for discovering and loading</span>
+<span class="sd">plugin modules that inherit from a base Plugin class. The PluginCollection class recursively walks</span>
+<span class="sd">through a specified package to find and instantiate plugin classes.</span>
+
+<span class="sd">Plugins are expected to perform specific operations within a larger application framework, ensuring</span>
+<span class="sd">a consistent interface for interaction.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pkgutil</span>
+<span class="kn">from</span> <span class="nn">base_plugin</span> <span class="kn">import</span> <span class="n">Plugin</span>
+
+
+<div class="viewcode-block" id="PluginCollection">
+<a class="viewcode-back" href="../src.html#plugin_collection.PluginCollection">[docs]</a>
+<span class="k">class</span> <span class="nc">PluginCollection</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Manages the collection of plugins by discovering and loading them from a specified package.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        plugins (list): A list of instantiated plugin objects.</span>
+<span class="sd">        name_application (list): A list of plugin class names.</span>
+<span class="sd">        seen_paths (list): A list of paths that have already been scanned for plugins.</span>
+<span class="sd">        path_folder (list): A list of module paths where plugins were found.</span>
+<span class="sd">        plugin_package (str): The name of the package to search for plugins.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plugin_package</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Upon creation, this class will read the plugins package for modules that contains</span>
+<span class="sd">        a class definition that is inheriting from the Plugin class.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            plugin_package (): The folder name of plugins directory. i.e here is &quot;plugins&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name_application</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seen_paths</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_folder</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plugin_package</span> <span class="o">=</span> <span class="n">plugin_package</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reload_plugins</span><span class="p">()</span>
+
+<div class="viewcode-block" id="PluginCollection.reload_plugins">
+<a class="viewcode-back" href="../src.html#plugin_collection.PluginCollection.reload_plugins">[docs]</a>
+    <span class="k">def</span> <span class="nf">reload_plugins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reset the list of all plugins and initiate the walk over the main provided</span>
+<span class="sd">        plugin package to load all available plugins.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name_application</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seen_paths</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path_folder</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">walk_package</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plugin_package</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PluginCollection.application">
+<a class="viewcode-back" href="../src.html#plugin_collection.PluginCollection.application">[docs]</a>
+    <span class="k">def</span> <span class="nf">application</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argument</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Apply all of the plugin on the argument supplied to this function.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            argument (): this is the widget send from main apps(QMainWindow)</span>
+<span class="sd">            index (): The index number from the list plugins available</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">plugin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+            <span class="n">plugin</span><span class="o">.</span><span class="n">perform_operation</span><span class="p">(</span><span class="n">argument</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No Application available!!&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PluginCollection.walk_package">
+<a class="viewcode-back" href="../src.html#plugin_collection.PluginCollection.walk_package">[docs]</a>
+    <span class="k">def</span> <span class="nf">walk_package</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">package</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Recursively walk the supplied package to retrieve all plugins.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            package (): The name folder e define. i.e &quot;plugins&quot;</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Create list plugins that find from plugin directory.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">imported_package</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">package</span><span class="p">,</span> <span class="n">fromlist</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;blah&#39;</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">pluginname</span><span class="p">,</span> <span class="n">ispkg</span> <span class="ow">in</span> <span class="n">pkgutil</span><span class="o">.</span><span class="n">iter_modules</span><span class="p">(</span>
+                <span class="n">imported_package</span><span class="o">.</span><span class="n">__path__</span><span class="p">,</span> <span class="n">imported_package</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ispkg</span><span class="p">:</span>
+                <span class="n">plugin_module</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">pluginname</span><span class="p">,</span> <span class="n">fromlist</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;blah&#39;</span><span class="p">])</span>
+                <span class="n">clsmembers</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmembers</span><span class="p">(</span><span class="n">plugin_module</span><span class="p">,</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">)</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="ow">in</span> <span class="n">clsmembers</span><span class="p">:</span>
+                    <span class="c1"># only add classes that are a sub class of plugin, but not</span>
+                    <span class="c1"># plugin it self</span>
+                    <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">Plugin</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">c</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Plugin</span><span class="p">):</span>
+                        <span class="c1"># print(f&#39;Found Plugin class: {c.__module__}&#39;)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">path_folder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="vm">__module__</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">name_application</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">())</span>
+
+        <span class="c1"># Now that we have looked at all the modules in the current package, start looking</span>
+        <span class="c1"># recursively for additional modules in sub packages</span>
+        <span class="n">all_curent_paths</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">imported_package</span><span class="o">.</span><span class="n">__path__</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">all_curent_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">imported_package</span><span class="o">.</span><span class="n">__path__</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">all_curent_paths</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">imported_package</span><span class="o">.</span><span class="n">__path__</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">pkg_path</span> <span class="ow">in</span> <span class="n">all_curent_paths</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pkg_path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">seen_paths</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">seen_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pkg_path</span><span class="p">)</span>
+
+                <span class="c1"># get sub directory of curent package path directory</span>
+                <span class="n">child_pkgs</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">pkg_path</span><span class="p">)</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span>
+                        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                            <span class="n">pkg_path</span><span class="p">,</span> <span class="n">p</span><span class="p">))]</span>
+                <span class="c1"># For each sub directory, apply the walk_package method</span>
+                <span class="c1"># recursively</span>
+                <span class="k">for</span> <span class="n">child_pkg</span> <span class="ow">in</span> <span class="n">child_pkgs</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">walk_package</span><span class="p">(</span><span class="n">package</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">child_pkg</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Haryanto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

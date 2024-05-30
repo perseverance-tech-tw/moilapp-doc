@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>plugins.default.contoller.resize_image &mdash; MoilApp 3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../_static/documentation_options.js?v=110ea713"></script>
+        <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html">
+            
+              <img src="../../../../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">API References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">MoilApp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">plugins.default.contoller.resize_image</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for plugins.default.contoller.resize_image</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+
+
+<div class="viewcode-block" id="ResizeImage">
+<a class="viewcode-back" href="../../../../src.plugins.default.contoller.html#plugins.default.contoller.resize_image.ResizeImage">[docs]</a>
+<span class="k">class</span> <span class="nc">ResizeImage</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MainWindow</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initial class setting ratio image To solve the ratio image problem where using the various of camera type.h</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            MainWindow (): Is the parent class to access the user interface widget in this application.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">MainWindow</span>
+
+<div class="viewcode-block" id="ResizeImage.resize_original_image">
+<a class="viewcode-back" href="../../../../src.plugins.default.contoller.html#plugins.default.contoller.resize_image.ResizeImage.resize_original_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">resize_original_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        resize image for showing on Label original image user interface</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            image (): original input image</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Resized image.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="mi">400</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="n">hi</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">h</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">windowOri</span><span class="o">.</span><span class="n">setMinimumSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="n">hi</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">labelImagerecenter</span><span class="o">.</span><span class="n">setMinimumSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="n">hi</span><span class="p">))</span>
+        <span class="n">resized_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span>
+            <span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="n">hi</span><span class="p">),</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">INTER_AREA</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">resized_image</span></div>
+
+
+<div class="viewcode-block" id="ResizeImage.resize_result_image">
+<a class="viewcode-back" href="../../../../src.plugins.default.contoller.html#plugins.default.contoller.resize_image.ResizeImage.resize_result_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">resize_result_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">width_image</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resize result image and the label result image based on width given.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            image ():</span>
+<span class="sd">            width_image ():</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">width_image</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="n">hi2</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">h</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">windowResult</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span>
+            <span class="n">QtCore</span><span class="o">.</span><span class="n">QRect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">width_image</span><span class="p">,</span> <span class="n">hi2</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">PlussIcon</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span>
+            <span class="n">QtCore</span><span class="o">.</span><span class="n">QRect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">width_image</span><span class="p">,</span> <span class="n">hi2</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">btn_Panorama</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="n">blue</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="p">(</span><span class="n">width_image</span><span class="p">,</span> <span class="n">hi2</span><span class="p">)</span>
+            <span class="n">blue</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">transparent</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">PlussIcon</span><span class="o">.</span><span class="n">setPixmap</span><span class="p">(</span><span class="n">blue</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">blue</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="p">(</span><span class="n">width_image</span><span class="p">,</span> <span class="n">hi2</span><span class="p">)</span>
+            <span class="n">blue</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">transparent</span><span class="p">)</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPainter</span><span class="p">(</span><span class="n">blue</span><span class="p">)</span>
+            <span class="n">pen</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">pen</span><span class="p">)</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">drawLine</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">width_image</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">10</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">hi2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+                       <span class="nb">round</span><span class="p">((</span><span class="n">width_image</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">10</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">hi2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">drawLine</span><span class="p">(</span>
+                <span class="nb">round</span><span class="p">(</span>
+                    <span class="n">width_image</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+                <span class="nb">round</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">hi2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">10</span><span class="p">),</span>
+                <span class="nb">round</span><span class="p">(</span>
+                    <span class="n">width_image</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span>
+                <span class="nb">round</span><span class="p">(</span>
+                    <span class="p">(</span><span class="n">hi2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">10</span><span class="p">))</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">PlussIcon</span><span class="o">.</span><span class="n">setPixmap</span><span class="p">(</span><span class="n">blue</span><span class="p">)</span>
+        <span class="n">resized_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span>
+            <span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">width_image</span><span class="p">,</span> <span class="n">hi2</span><span class="p">),</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">INTER_AREA</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">resized_image</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Haryanto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

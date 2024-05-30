@@ -1,0 +1,18 @@
+Image
+=======================================
+
+Anypoint
+-----------------------------------------------
+
+.. automodule:: plugins.default.view_image.anypoint
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Panorama
+-----------------------------------------------
+
+.. automodule:: plugins.default.view_image.panorama
+   :members:
+   :undoc-members:
+   :show-inheritance:
