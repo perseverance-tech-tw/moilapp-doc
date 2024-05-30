@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>How to Contribute &mdash; MoilApp 3.0 documentation</title>
+  <title>How to Contribute &mdash; MoilApp Documentation 3.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -15,14 +15,14 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=110ea713"></script>
+        <script src="_static/documentation_options.js?v=b576230a"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API References" href="modules.html" />
-    <link rel="prev" title="MOIL app Installation Guide" href="installation_guide.html" /> 
+    <link rel="next" title="API References" href="api_reference.html" />
+    <link rel="prev" title="Definition and overview" href="Overview.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,11 +45,10 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="release_note.html">Release Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Overview.html">Definition and overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation_guide.html">MOIL app Installation Guide</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">How to Contribute</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#getting-started-with-contributing">Getting Started with Contributing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#contribution-workflow">Contribution Workflow</a></li>
@@ -66,7 +65,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#code-review-process">Code Review Process</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">API References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API References</a></li>
 </ul>
 
         </div>
@@ -75,7 +74,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">MoilApp</a>
+          <a href="index.html">MoilApp Documentation</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -145,15 +144,31 @@ It is essential to keep in mind that the guidelines and instructions may differ 
 <p>To share a GitHub repository, first note its name and go to its page on GitHub. Then, click the &lt;b&gt;Fork&lt;/b&gt; button in the upper
 right corner to make a copy on your own account. Be sure to select <strong>“Copy Main Only”</strong> in the confirmation windows to avoid
 affecting the original repository and its other branches with changes or updates.</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="_images/1.contribute.png"><img alt="Forking the Repository" src="_images/1.contribute.png" style="width: 944.3px; height: 463.4px;" /></a>
+<figcaption>
+<p><span class="caption-text">Fork the Repository</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
 </section>
 <section id="cloning-a-repository">
 <h3>Cloning a Repository<a class="headerlink" href="#cloning-a-repository" title="Link to this heading"></a></h3>
 <p>It is recommended for the user to create a new branch under the <strong>Develop</strong> branch of the MoilApp repository after cloning, in order to prevent conflicts between their changes and updates made to the original repository. This is crucial, as it enables the user to work on their modifications separately, without impacting the primary codebase.</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="_images/2.clone-config.png"><img alt="Cloning the Repository" src="_images/2.clone-config.png" style="width: 867.3px; height: 381.5px;" /></a>
+<figcaption>
+<p><span class="caption-text">Clone the Repository</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
 </section>
 <section id="creating-the-virtual-environment">
 <h3>Creating the Virtual Environment<a class="headerlink" href="#creating-the-virtual-environment" title="Link to this heading"></a></h3>
-<p>Once you have finished cloning the repository, you can open the project folder using PyCharm and create a virtual environment configuration by pressing <strong>Ctrl + Alt + S</strong>. This step is necessary before installing the required library. It is important to carefully follow each step in order to create a local environment for your project, ensuring that the application runs properly as required.
-By adhering to these instructions, you can guarantee that the application operates as planned and that there are no inconsistencies between its requirements and other projects’ dependencies on your system. Establishing a virtual environment for each project is a recommended approach that can assist you in more efficiently managing dependencies and ensuring that your projects are kept separate from one another.</p>
+<p>Once you have finished cloning the repository, you can open the project folder using PyCharm and create a virtual environment configuration by pressing <strong>Ctrl + Alt + S</strong>. This step is necessary before installing the required library. It is important to carefully follow each step in order to create a local environment for your project, ensuring that the application runs properly as required.</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="_images/3.venv-installation.png"><img alt="Creating the Virtual Environment" src="_images/3.venv-installation.png" style="width: 798.6999999999999px; height: 366.09999999999997px;" /></a>
+</figure>
+<p>Setting the virtual environment and installation requirements</p>
+<p>By adhering to these instructions, you can guarantee that the application operates as planned and that there are no inconsistencies between its requirements and other projects’ dependencies on your system. Establishing a virtual environment for each project is a recommended approach that can assist you in more efficiently managing dependencies and ensuring that your projects are kept separate from one another.</p>
 </section>
 </section>
 <section id="guidelines-for-pull-requests">
@@ -194,14 +209,14 @@ and provide a relevant feedback or explanations for your colleagues. Once its do
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="installation_guide.html" class="btn btn-neutral float-left" title="MOIL app Installation Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="modules.html" class="btn btn-neutral float-right" title="API References" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Overview.html" class="btn btn-neutral float-left" title="Definition and overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api_reference.html" class="btn btn-neutral float-right" title="API References" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Haryanto.</p>
+    <p>&#169; Copyright 2024, Perseverance Technology, Taiwan.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

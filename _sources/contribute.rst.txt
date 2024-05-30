@@ -56,16 +56,37 @@ right corner to make a copy on your own account. Be sure to select **"Copy Main 
 affecting the original repository and its other branches with changes or updates.
 
 
+.. figure:: assets/1.contribute.png
+   :scale: 70%
+   :alt: Forking the Repository
+   :align: center
+
+   Fork the Repository
+
 Cloning a Repository
 --------------------
 
 It is recommended for the user to create a new branch under the **Develop** branch of the MoilApp repository after cloning, in order to prevent conflicts between their changes and updates made to the original repository. This is crucial, as it enables the user to work on their modifications separately, without impacting the primary codebase.
 
+.. figure:: assets/2.clone-config.png
+   :scale: 70 %
+   :alt: Cloning the Repository
+   :align: center
+
+   Clone the Repository
 
 Creating the Virtual Environment
 --------------------------------
 
 Once you have finished cloning the repository, you can open the project folder using PyCharm and create a virtual environment configuration by pressing **Ctrl + Alt + S**. This step is necessary before installing the required library. It is important to carefully follow each step in order to create a local environment for your project, ensuring that the application runs properly as required.
+
+.. figure:: assets/3.venv-installation.png
+   :scale: 70 %
+   :alt: Creating the Virtual Environment
+   :align: center
+
+Setting the virtual environment and installation requirements
+
 By adhering to these instructions, you can guarantee that the application operates as planned and that there are no inconsistencies between its requirements and other projects' dependencies on your system. Establishing a virtual environment for each project is a recommended approach that can assist you in more efficiently managing dependencies and ensuring that your projects are kept separate from one another.
 
 

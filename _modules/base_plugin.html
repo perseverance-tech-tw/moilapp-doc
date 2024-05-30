@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>base_plugin &mdash; MoilApp 3.0 documentation</title>
+  <title>base_plugin &mdash; MoilApp Documentation 3.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
@@ -14,7 +14,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=110ea713"></script>
+        <script src="../_static/documentation_options.js?v=b576230a"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -42,13 +42,12 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../release_note.html">Release Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Overview.html">Definition and overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installation_guide.html">MOIL app Installation Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../contribute.html">How to Contribute</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules.html">API References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API References</a></li>
 </ul>
 
         </div>
@@ -57,7 +56,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">MoilApp</a>
+          <a href="../index.html">MoilApp Documentation</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -76,37 +75,21 @@
            <div itemprop="articleBody">
              
   <h1>Source code for base_plugin</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">This module defines a base class for creating plugins. Each plugin must inherit from the `Plugin` class</span>
-<span class="sd">and implement the necessary methods defined in it.</span>
-
-<span class="sd">Plugins are expected to perform specific operations as part of a larger application framework.</span>
-<span class="sd">By inheriting from the `Plugin` base class, plugins are guaranteed to have a consistent interface</span>
-<span class="sd">that the main application can interact with.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span></span>
 
 <div class="viewcode-block" id="Plugin">
-<a class="viewcode-back" href="../src.html#base_plugin.Plugin">[docs]</a>
+<a class="viewcode-back" href="../plugin.html#base_plugin.Plugin">[docs]</a>
 <span class="k">class</span> <span class="nc">Plugin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Base class for all plugins.</span>
-
-<span class="sd">    Each plugin must inherit from this class and implement the required methods.</span>
-<span class="sd">    This ensures that all plugins have a consistent interface, making it easier</span>
-<span class="sd">    to integrate them into the main application.</span>
-
-<span class="sd">    Attributes:</span>
-<span class="sd">        description (str): A brief description of the plugin. Defaults to &quot;UNKNOWN&quot;.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This is the base class that each plugin must inheritance from. Within this class you have to define the</span>
 <span class="sd">        methods that all of your plugins must implement.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;UNKNOWN&quot;</span>
 
 <div class="viewcode-block" id="Plugin.perform_operation">
-<a class="viewcode-back" href="../src.html#base_plugin.Plugin.perform_operation">[docs]</a>
+<a class="viewcode-back" href="../plugin.html#base_plugin.Plugin.perform_operation">[docs]</a>
     <span class="k">def</span> <span class="nf">perform_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">argument</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The method that we expect all plugins to implement. this is the framework our method will call.</span>
@@ -129,7 +112,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Haryanto.</p>
+    <p>&#169; Copyright 2024, Perseverance Technology, Taiwan.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

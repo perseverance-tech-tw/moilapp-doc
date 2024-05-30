@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Search &mdash; MoilApp Documentation 3.1 documentation</title>
+  <title>Plugin &mdash; MoilApp Documentation 3.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
   
-    
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -19,10 +19,8 @@
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
-    <script src="_static/searchtools.js"></script>
-    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="#" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -38,7 +36,7 @@
               <img src="_static/light-moilapp.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -67,7 +65,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Search</li>
+      <li class="breadcrumb-item active">Plugin</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -76,18 +74,35 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <noscript>
-  <div id="fallback" class="admonition warning">
-    <p class="last">
-      Please activate JavaScript to enable the search functionality.
-    </p>
-  </div>
-  </noscript>
+  <section id="plugin">
+<h1>Plugin<a class="headerlink" href="#plugin" title="Link to this heading"></a></h1>
+<section id="module-base_plugin">
+<span id="main-plugin"></span><h2>Main Plugin<a class="headerlink" href="#module-base_plugin" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="base_plugin.Plugin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">base_plugin.</span></span><span class="sig-name descname"><span class="pre">Plugin</span></span><a class="reference internal" href="_modules/base_plugin.html#Plugin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#base_plugin.Plugin" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is the base class that each plugin must inheritance from. Within this class you have to define the
+methods that all of your plugins must implement.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="base_plugin.Plugin.perform_operation">
+<span class="sig-name descname"><span class="pre">perform_operation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argument</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/base_plugin.html#Plugin.perform_operation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#base_plugin.Plugin.perform_operation" title="Link to this definition"></a></dt>
+<dd><p>The method that we expect all plugins to implement. this is the framework our method will call.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>)</strong> (<em>argument</em>) – The object widget from main application.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
 
-  
-  <div id="search-results">
-  
-  </div>
+</dd></dl>
+
+</section>
+</section>
+
 
            </div>
           </div>
@@ -113,14 +128,7 @@
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-  <script>
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script id="searchindexloader"></script>
-   
-
+  </script> 
 
 </body>
 </html>
