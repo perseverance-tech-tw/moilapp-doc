@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Controller &mdash; MoilApp Documentation 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MoilApp Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Controller</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="controller">
+<h1>Controller<a class="headerlink" href="#controller" title="Link to this heading"></a></h1>
+<section id="module-InitMoildev">
+<span id="initmoildev"></span><h2>InitMoildev<a class="headerlink" href="#module-InitMoildev" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="InitMoildev.Config">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">InitMoildev.</span></span><span class="sig-name descname"><span class="pre">Config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Reading the parameter camera from <a href="#id1"><span class="problematic" id="id2">*</span></a>.json file</p>
+<p>Constructor method
+:param filename = .json file:
+:param filename = dictionary:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>camera name
+camera sensor width
+camera sensor height
+iCx
+iCy
+ratio
+image width
+image height
+calibration ratio
+parameter0
+parameter1
+parameter2
+parameter3
+parameter4
+parameter5</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="InitMoildev.Config.get_cameraName">
+<span class="sig-name descname"><span class="pre">get_cameraName</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config.get_cameraName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config.get_cameraName" title="Link to this definition"></a></dt>
+<dd><p>get camera name</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InitMoildev.Config.get_sensorWidth">
+<span class="sig-name descname"><span class="pre">get_sensorWidth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config.get_sensorWidth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config.get_sensorWidth" title="Link to this definition"></a></dt>
+<dd><p>get sensor width</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InitMoildev.Config.get_sensor_height">
+<span class="sig-name descname"><span class="pre">get_sensor_height</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config.get_sensor_height"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config.get_sensor_height" title="Link to this definition"></a></dt>
+<dd><p>get sensor height</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InitMoildev.Config.get_Icx">
+<span class="sig-name descname"><span class="pre">get_Icx</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config.get_Icx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config.get_Icx" title="Link to this definition"></a></dt>
+<dd><p>get center image in X axis</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InitMoildev.Config.get_Icy">
+<span class="sig-name descname"><span class="pre">get_Icy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config.get_Icy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config.get_Icy" title="Link to this definition"></a></dt>
+<dd><p>get center image in Y axis</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InitMoildev.Config.get_ratio">
+<span class="sig-name descname"><span class="pre">get_ratio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config.get_ratio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config.get_ratio" title="Link to this definition"></a></dt>
+<dd><p>get ratio image</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InitMoildev.Config.get_imageWidth">
+<span class="sig-name descname"><span class="pre">get_imageWidth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config.get_imageWidth"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config.get_imageWidth" title="Link to this definition"></a></dt>
+<dd><p>get image width</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InitMoildev.Config.get_imageHeight">
+<span class="sig-name descname"><span class="pre">get_imageHeight</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config.get_imageHeight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config.get_imageHeight" title="Link to this definition"></a></dt>
+<dd><p>get image height</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InitMoildev.Config.get_calibrationRatio">
+<span class="sig-name descname"><span class="pre">get_calibrationRatio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config.get_calibrationRatio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config.get_calibrationRatio" title="Link to this definition"></a></dt>
+<dd><p>get calibration ratio</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InitMoildev.Config.get_parameter0">
+<span class="sig-name descname"><span class="pre">get_parameter0</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config.get_parameter0"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config.get_parameter0" title="Link to this definition"></a></dt>
+<dd><p>get parameter 0</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InitMoildev.Config.get_parameter1">
+<span class="sig-name descname"><span class="pre">get_parameter1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config.get_parameter1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config.get_parameter1" title="Link to this definition"></a></dt>
+<dd><p>get parameter 1</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InitMoildev.Config.get_parameter2">
+<span class="sig-name descname"><span class="pre">get_parameter2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config.get_parameter2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config.get_parameter2" title="Link to this definition"></a></dt>
+<dd><p>get parameter 2</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InitMoildev.Config.get_parameter3">
+<span class="sig-name descname"><span class="pre">get_parameter3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config.get_parameter3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config.get_parameter3" title="Link to this definition"></a></dt>
+<dd><p>get parameter 3</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InitMoildev.Config.get_parameter4">
+<span class="sig-name descname"><span class="pre">get_parameter4</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config.get_parameter4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config.get_parameter4" title="Link to this definition"></a></dt>
+<dd><p>get parameter 4</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InitMoildev.Config.get_parameter5">
+<span class="sig-name descname"><span class="pre">get_parameter5</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config.get_parameter5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config.get_parameter5" title="Link to this definition"></a></dt>
+<dd><p>get parameter 5</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InitMoildev.Config.initAlphaRho_Table">
+<span class="sig-name descname"><span class="pre">initAlphaRho_Table</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config.initAlphaRho_Table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config.initAlphaRho_Table" title="Link to this definition"></a></dt>
+<dd><p>create list for initial alpha to rho(height image)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InitMoildev.Config.getAlphaFromRho">
+<span class="sig-name descname"><span class="pre">getAlphaFromRho</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rho</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config.getAlphaFromRho"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config.getAlphaFromRho" title="Link to this definition"></a></dt>
+<dd><p>return the alpha from rho image</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InitMoildev.Config.getRhoFromAlpha">
+<span class="sig-name descname"><span class="pre">getRhoFromAlpha</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config.getRhoFromAlpha"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config.getRhoFromAlpha" title="Link to this definition"></a></dt>
+<dd><p>return rho image from alpha given</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="InitMoildev.Config.get_alpha_beta">
+<span class="sig-name descname"><span class="pre">get_alpha_beta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/InitMoildev.html#Config.get_alpha_beta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#InitMoildev.Config.get_alpha_beta" title="Link to this definition"></a></dt>
+<dd><p>calculate the alpha beta from specific coordinate image.
+:param mode = the anypoint mode.:
+:param mode = integer.:
+:param delta_x = the coordinate point in quadrant 1 X axis.:
+:param delta_x = integer.:
+:param delta_y = the coordinate point in quadrant 1 Y axis.:
+:param delta_y = integer.:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>alpha
+beta.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-OpenCam">
+<span id="opencam"></span><h2>OpenCam<a class="headerlink" href="#module-OpenCam" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="OpenCam.Ui_Dialog">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">OpenCam.</span></span><span class="sig-name descname"><span class="pre">Ui_Dialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/OpenCam.html#Ui_Dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#OpenCam.Ui_Dialog" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QWidget</span></code></p>
+<p>This class is to create window for selecting camera _source</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="OpenCam.Ui_Dialog.setupUi">
+<span class="sig-name descname"><span class="pre">setupUi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Dialog</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/OpenCam.html#Ui_Dialog.setupUi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#OpenCam.Ui_Dialog.setupUi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="OpenCam.Ui_Dialog.retranslateUi">
+<span class="sig-name descname"><span class="pre">retranslateUi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Dialog</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/OpenCam.html#Ui_Dialog.retranslateUi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#OpenCam.Ui_Dialog.retranslateUi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-OpenCamera">
+<span id="opencamera"></span><h2>OpenCamera<a class="headerlink" href="#module-OpenCamera" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="OpenCamera.OpenCameras">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">OpenCamera.</span></span><span class="sig-name descname"><span class="pre">OpenCameras</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/OpenCamera.html#OpenCameras"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#OpenCamera.OpenCameras" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#OpenCam.Ui_Dialog" title="OpenCam.Ui_Dialog"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ui_Dialog</span></code></a></p>
+<p>This class is to control the window selecting camera.
+:param MainWindow = Is the parent class window.
+:type MainWindow = QtWidget of mainWindow UI.
+:param recentWindow = is the object of this recent window.
+:type recentWindow = QtDialog inheritance from mainWindow class.</p>
+<p>Constructor method.
+<a href="#id3"><span class="problematic" id="id4">*</span></a>this is the way to make the ui can link each other.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="OpenCamera.OpenCameras.connect_to_button">
+<span class="sig-name descname"><span class="pre">connect_to_button</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/OpenCamera.html#OpenCameras.connect_to_button"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#OpenCamera.OpenCameras.connect_to_button" title="Link to this definition"></a></dt>
+<dd><p>This is for connect the button or event with class function.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="OpenCamera.OpenCameras.handle_activated_combobox">
+<span class="sig-name descname"><span class="pre">handle_activated_combobox</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/OpenCamera.html#OpenCameras.handle_activated_combobox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#OpenCamera.OpenCameras.handle_activated_combobox" title="Link to this definition"></a></dt>
+<dd><p>This function is to handle combo box to select _source camera.
+- if select USB Camera then it will hide the object UI for streaming camera
+- On the other hand, if you choose a streaming camera, it will hide the component object UI for the USB camera</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="OpenCamera.OpenCameras.check_port_camera">
+<span class="sig-name descname"><span class="pre">check_port_camera</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/OpenCamera.html#OpenCameras.check_port_camera"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#OpenCamera.OpenCameras.check_port_camera" title="Link to this definition"></a></dt>
+<dd><p>Check the camera usb that available in computer</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>will showing the port camera available</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="OpenCamera.OpenCameras.video_source">
+<span class="sig-name descname"><span class="pre">video_source</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/OpenCamera.html#OpenCameras.video_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#OpenCamera.OpenCameras.video_source" title="Link to this definition"></a></dt>
+<dd><p>To select the video _source want to use</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>videoStreamURL</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="OpenCamera.OpenCameras.push_button_ok">
+<span class="sig-name descname"><span class="pre">push_button_ok</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/OpenCamera.html#OpenCameras.push_button_ok"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#OpenCamera.OpenCameras.push_button_ok" title="Link to this definition"></a></dt>
+<dd><p>to process the final decisions the open camera</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>execute open camera function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="OpenCamera.OpenCameras.exit">
+<span class="sig-name descname"><span class="pre">exit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/OpenCamera.html#OpenCameras.exit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#OpenCamera.OpenCameras.exit" title="Link to this definition"></a></dt>
+<dd><p>Exit open camera window when reject the choice</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>close the window</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-RatioImage">
+<span id="ratioimage"></span><h2>RatioImage<a class="headerlink" href="#module-RatioImage" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="RatioImage.Set_RatioImage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">RatioImage.</span></span><span class="sig-name descname"><span class="pre">Set_RatioImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">MainWindow</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/RatioImage.html#Set_RatioImage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#RatioImage.Set_RatioImage" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>To solve the ratio image problem where using the various of camera type.h</p>
+<p>:param parent= MainWindow of User Interface
+:type parent = QtWidget object</p>
+<p>Constructor Method</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="RatioImage.Set_RatioImage.resize_original_image">
+<span class="sig-name descname"><span class="pre">resize_original_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/RatioImage.html#Set_RatioImage.resize_original_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#RatioImage.Set_RatioImage.resize_original_image" title="Link to this definition"></a></dt>
+<dd><p>resize image for showing on Label original image user interface</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>image = original</em>)</p></li>
+<li><p><strong>array</strong> (<em>image =</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Resized image</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="RatioImage.Set_RatioImage.resize_result_image">
+<span class="sig-name descname"><span class="pre">resize_result_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width_image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/RatioImage.html#Set_RatioImage.resize_result_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#RatioImage.Set_RatioImage.resize_result_image" title="Link to this definition"></a></dt>
+<dd><p>Resize result image and the label result image based on width given</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<em>image =</em>)</p></li>
+<li><p><strong>integer</strong> (<em>width_image =</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Resized image</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-VideoControler">
+<span id="video-controller"></span><h2>Video Controller<a class="headerlink" href="#module-VideoControler" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="VideoControler.Video_Controler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">VideoControler.</span></span><span class="sig-name descname"><span class="pre">Video_Controler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Mainwindow</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoControler.html#Video_Controler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#VideoControler.Video_Controler" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The class to control the video. this class also inheritance from mainwindow class.
+:param parent : main window class
+:type : -</p>
+<p>Constructor method</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="VideoControler.Video_Controler.connectToButton">
+<span class="sig-name descname"><span class="pre">connectToButton</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoControler.html#Video_Controler.connectToButton"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#VideoControler.Video_Controler.connectToButton" title="Link to this definition"></a></dt>
+<dd><p>This functions to connect each button on the user interface</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VideoControler.Video_Controler.videoButtonDisable">
+<span class="sig-name descname"><span class="pre">videoButtonDisable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoControler.html#Video_Controler.videoButtonDisable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#VideoControler.Video_Controler.videoButtonDisable" title="Link to this definition"></a></dt>
+<dd><p>This method has function to disable the buttons control video when not in video mode.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VideoControler.Video_Controler.videoButtonEnable">
+<span class="sig-name descname"><span class="pre">videoButtonEnable</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoControler.html#Video_Controler.videoButtonEnable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#VideoControler.Video_Controler.videoButtonEnable" title="Link to this definition"></a></dt>
+<dd><p>This method has function to enable the buttons control video when in video mode.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VideoControler.Video_Controler.videoButtonCamera">
+<span class="sig-name descname"><span class="pre">videoButtonCamera</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoControler.html#Video_Controler.videoButtonCamera"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#VideoControler.Video_Controler.videoButtonCamera" title="Link to this definition"></a></dt>
+<dd><p>Control the video controller when in camera mode</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VideoControler.Video_Controler.reset_time">
+<span class="sig-name descname"><span class="pre">reset_time</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoControler.html#Video_Controler.reset_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#VideoControler.Video_Controler.reset_time" title="Link to this definition"></a></dt>
+<dd><p>Reset the time when open the new video.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VideoControler.Video_Controler.videoPlayPouse">
+<span class="sig-name descname"><span class="pre">videoPlayPouse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoControler.html#Video_Controler.videoPlayPouse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#VideoControler.Video_Controler.videoPlayPouse" title="Link to this definition"></a></dt>
+<dd><p>Control play and pause when playing video or camera.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VideoControler.Video_Controler.play_video">
+<span class="sig-name descname"><span class="pre">play_video</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoControler.html#Video_Controler.play_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#VideoControler.Video_Controler.play_video" title="Link to this definition"></a></dt>
+<dd><p>Play video.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VideoControler.Video_Controler.pause_video">
+<span class="sig-name descname"><span class="pre">pause_video</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoControler.html#Video_Controler.pause_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#VideoControler.Video_Controler.pause_video" title="Link to this definition"></a></dt>
+<dd><p>Pause video.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VideoControler.Video_Controler.stop_video">
+<span class="sig-name descname"><span class="pre">stop_video</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoControler.html#Video_Controler.stop_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#VideoControler.Video_Controler.stop_video" title="Link to this definition"></a></dt>
+<dd><p>Stop Video.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VideoControler.Video_Controler.stop_camera">
+<span class="sig-name descname"><span class="pre">stop_camera</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoControler.html#Video_Controler.stop_camera"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#VideoControler.Video_Controler.stop_camera" title="Link to this definition"></a></dt>
+<dd><p>Stop camera and clear label view.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VideoControler.Video_Controler.prev_video">
+<span class="sig-name descname"><span class="pre">prev_video</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoControler.html#Video_Controler.prev_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#VideoControler.Video_Controler.prev_video" title="Link to this definition"></a></dt>
+<dd><p>Previous video in 5 second.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VideoControler.Video_Controler.skip_video">
+<span class="sig-name descname"><span class="pre">skip_video</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoControler.html#Video_Controler.skip_video"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#VideoControler.Video_Controler.skip_video" title="Link to this definition"></a></dt>
+<dd><p>skip video in 5 second.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VideoControler.Video_Controler.changeValue">
+<span class="sig-name descname"><span class="pre">changeValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoControler.html#Video_Controler.changeValue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#VideoControler.Video_Controler.changeValue" title="Link to this definition"></a></dt>
+<dd><p>Control slider time video.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VideoControler.Video_Controler.controler">
+<span class="sig-name descname"><span class="pre">controler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoControler.html#Video_Controler.controler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#VideoControler.Video_Controler.controler" title="Link to this definition"></a></dt>
+<dd><p>Manage the video to setup the current timer.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VideoControler.Video_Controler.recordVideo">
+<span class="sig-name descname"><span class="pre">recordVideo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoControler.html#Video_Controler.recordVideo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#VideoControler.Video_Controler.recordVideo" title="Link to this definition"></a></dt>
+<dd><p>Create video writer to save video.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="VideoControler.Video_Controler.selectDir">
+<span class="sig-name descname"><span class="pre">selectDir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/VideoControler.html#Video_Controler.selectDir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#VideoControler.Video_Controler.selectDir" title="Link to this definition"></a></dt>
+<dd><p>Select destination directory to save the video file.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Perseverance Technology, Taiwan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
