@@ -2,7 +2,7 @@ Definition and overview
 #######################
 
 What is the MOIL app?
-================
+=======================
 
 .. raw:: html
 
@@ -14,7 +14,7 @@ What is the MOIL app?
    </p>
 
 What is Fisheye Lens Technology?
-========================
+=================================
 .. raw:: html
 
    <p style="text-align: justify;">
@@ -35,44 +35,6 @@ What is Fisheye Lens Technology?
     </p>
 
 
-.. image:: assets/hemisphare.jpg
-   :scale: 65%
-   :alt: Hemisphere image
-   :align: center
-
-.. raw:: html
-
-   <p style="text-align: justify;">
-
-    <p>
-    Based on the coordinate system, the angles respectively defined by the incident rays and the optical axis are the
-    <b><i>zenithal angle (α)</i></b> and the<b><i> azimuthal angle (β)</i></b>, which surround the optical axis.
-    They have a relationship with the coordinate system X, Y, and Z, where the optical axis is defined by the Z-axis.
-    The  <b><i>zenithal angle</i></b> is the angle from the vertical optical axis to the X- and Y-axes, as shown in
-    Figure 2. The  <b><i>azimuthal angle</i></b> is defined as the angle of the positive Y axis as the reference point, with a value of 0°,
-    and the Z-axis as the rotation axis, as shown in Figure 3. The rotation around the optical axis is the angle of the Y axis, starting from the positive direction and rotating clockwise around the X-axis.
-    </p>
-
-
-.. image:: assets/coordinate.jpg
-   :scale: 100%
-   :alt: Zenithal Angle anf Azimuthal Angle
-   :align: center
-
-What is Anypoint View?
-======================
-
-.. raw:: html
-
-   <p style="text-align: justify;">
-
-   <p>
-    This method adjusts the optical axis to the specified <b><i>zenithal (alpha)
-    </i></b>and <b><i>azimuthal (beta)</i></b> angles depending on the coordinates
-    provided, changing the picture plane coordinates to hemispherical coordinates.
-    The Anypoint view is an image that has been undistorted in a certain area according to the input coordinates.
-   </p>
-
 
 What is Panorama View?
 ======================
@@ -91,13 +53,9 @@ What is Panorama View?
     and using the method's formula to calculate.
   </p>
 
-.. image:: assets/fisheye.jpg
-   :scale: 120 %
-   :alt: Fisheye Image af the Target Plane
-   :align: center
 
 What is the purpose of this app?
-=============================
+================================
 
 .. raw:: html
 

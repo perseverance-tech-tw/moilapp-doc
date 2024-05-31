@@ -1,0 +1,9 @@
+Plugins
+===================
+
+.. toctree::
+   :maxdepth: 4
+
+   src.plugins.Thread_inspection
+   src.plugins.default
+
