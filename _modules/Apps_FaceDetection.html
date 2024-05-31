@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apps_FaceDetection &mdash; MoilApp w.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=14197c27"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">API References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MoilApp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Apps_FaceDetection</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Apps_FaceDetection</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides functionality for detecting and recognizing faces in images.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">from</span> <span class="nn">ShowResult</span> <span class="kn">import</span> <span class="n">ShowImageResult</span>
+<span class="c1"># import face_recognition</span>
+
+
+<div class="viewcode-block" id="FaceDetect">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#Apps_FaceDetection.FaceDetect">[docs]</a>
+<span class="k">class</span> <span class="nc">FaceDetect</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class encapsulates methods for detecting and recognizing faces in images.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MainWindow</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">MainWindow</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show</span> <span class="o">=</span> <span class="n">ShowImageResult</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+        <span class="c1"># self.init_face_recog()</span>
+        <span class="c1"># self.face_recognition = face_recognition</span>
+
+<div class="viewcode-block" id="FaceDetect.init_face_recog">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#Apps_FaceDetection.FaceDetect.init_face_recog">[docs]</a>
+    <span class="k">def</span> <span class="nf">init_face_recog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># self.anto_image = face_recognition.load_image_file(&#39;train_face/anto/anto_1.png&#39;)</span>
+        <span class="c1"># self.anto_face_encodings = face_recognition.face_encodings(self.anto_image)[0]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">obama_image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="s1">&#39;train_face/adam/adam.png&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obama_face_encodings</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obama_image</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">slender_image</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">load_image_file</span><span class="p">(</span><span class="s1">&#39;train_face/slender/slender_12.png&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slender_face_encodings</span> <span class="o">=</span> <span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slender_image</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">known_face_encoding</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">obama_face_encodings</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">slender_face_encodings</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">known_face_name</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;adam&quot;</span><span class="p">,</span> <span class="s2">&quot;slender&quot;</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_face_locations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_face_encodings</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_face_names</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+
+<div class="viewcode-block" id="FaceDetect.faceRecognition">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#Apps_FaceDetection.FaceDetect.faceRecognition">[docs]</a>
+    <span class="k">def</span> <span class="nf">faceRecognition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform face recognition on the current image.</span>
+
+<span class="sd">        If the image is None, no action is taken.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">checkPanorama</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">panorama_Image</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">checkAnypoint</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">anypoint_Image</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">faceImage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">showOriginalImage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">showResult</span><span class="p">(</span><span class="n">faceImage</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FaceDetect.detector">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#Apps_FaceDetection.FaceDetect.detector">[docs]</a>
+    <span class="k">def</span> <span class="nf">detector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Detect faces in the given image.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            image: The image in which faces need to be detected.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Image with detected faces.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">image_1</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">fx</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">fy</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+        <span class="n">all_face_locations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_recognition</span><span class="o">.</span><span class="n">face_locations</span><span class="p">(</span><span class="n">image_1</span><span class="p">,</span> <span class="n">number_of_times_to_upsample</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                                                  <span class="n">model</span><span class="o">=</span><span class="s1">&#39;hog&#39;</span><span class="p">)</span>
+        <span class="n">all_face_encodings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_recognition</span><span class="o">.</span><span class="n">face_encodings</span><span class="p">(</span><span class="n">image_1</span><span class="p">,</span> <span class="n">all_face_locations</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">current_face_location</span><span class="p">,</span> <span class="n">current_face_encoding</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">all_face_locations</span><span class="p">,</span> <span class="n">all_face_encodings</span><span class="p">):</span>
+            <span class="n">top_pos</span><span class="p">,</span> <span class="n">right_pos</span><span class="p">,</span> <span class="n">bottom_pos</span><span class="p">,</span> <span class="n">left_pos</span> <span class="o">=</span> <span class="n">current_face_location</span>
+
+            <span class="n">top_pos</span> <span class="o">=</span> <span class="n">top_pos</span> <span class="o">*</span> <span class="mi">4</span>
+            <span class="n">right_pos</span> <span class="o">=</span> <span class="n">right_pos</span> <span class="o">*</span> <span class="mi">4</span>
+            <span class="n">bottom_pos</span> <span class="o">=</span> <span class="n">bottom_pos</span> <span class="o">*</span> <span class="mi">4</span>
+            <span class="n">left_pos</span> <span class="o">=</span> <span class="n">left_pos</span> <span class="o">*</span> <span class="mi">4</span>
+
+            <span class="c1"># find all the matches and get the list of matches</span>
+            <span class="n">all_matches</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">face_recognition</span><span class="o">.</span><span class="n">compare_faces</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">known_face_encoding</span><span class="p">,</span> <span class="n">current_face_encoding</span><span class="p">)</span>
+
+            <span class="c1"># string to hold the label</span>
+            <span class="n">name_of_person</span> <span class="o">=</span> <span class="s1">&#39;Unknown face&#39;</span>
+
+            <span class="k">if</span> <span class="kc">True</span> <span class="ow">in</span> <span class="n">all_matches</span><span class="p">:</span>
+                <span class="n">first_match_index</span> <span class="o">=</span> <span class="n">all_matches</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">name_of_person</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">known_face_name</span><span class="p">[</span><span class="n">first_match_index</span><span class="p">]</span>
+
+            <span class="n">cv2</span><span class="o">.</span><span class="n">rectangle</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">left_pos</span><span class="p">,</span> <span class="n">top_pos</span><span class="p">),</span> <span class="p">(</span><span class="n">right_pos</span><span class="p">,</span> <span class="n">bottom_pos</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+
+            <span class="n">font</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">FONT_HERSHEY_DUPLEX</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">name_of_person</span><span class="p">,</span> <span class="p">(</span><span class="n">left_pos</span> <span class="o">+</span> <span class="mi">5</span><span class="p">,</span> <span class="n">bottom_pos</span> <span class="o">-</span> <span class="mi">10</span><span class="p">),</span> <span class="n">font</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">image</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Haryanto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

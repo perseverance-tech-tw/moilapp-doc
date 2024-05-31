@@ -122,7 +122,10 @@
 <span class="sd">           Returns:</span>
 <span class="sd">               The current zooming size.</span>
 <span class="sd">           &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_size</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_current_size</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelViewProperties.zooming_size(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="nd">@zooming_size</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">zooming_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
@@ -132,8 +135,10 @@
 <span class="sd">           Args:</span>
 <span class="sd">               value: The value to set as the zooming size.</span>
 <span class="sd">           &quot;&quot;&quot;</span>
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">_current_size</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_current_size</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelViewProperties.zooming_size(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">rotate_degree</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -143,7 +148,10 @@
 <span class="sd">           Returns:</span>
 <span class="sd">               The current rotation degree.</span>
 <span class="sd">           &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_result</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_result</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelViewProperties.rotate_degree(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="nd">@rotate_degree</span><span class="o">.</span><span class="n">setter</span>
     <span class="k">def</span> <span class="nf">rotate_degree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
@@ -153,9 +161,12 @@
 <span class="sd">           Args:</span>
 <span class="sd">               value: The value to set as the rotation degree.</span>
 <span class="sd">           &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_result</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Rotate_result&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">save_main_config_update</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_result</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Rotate_result&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">save_main_config_update</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelViewProperties.rotate_degree(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="ModelViewProperties.zoom_in">
 <a class="viewcode-back" href="../../models.html#models.model_view_properties.ModelViewProperties.zoom_in">[docs]</a>
@@ -166,13 +177,16 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            int: The new size after increasing by 100.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">zooming_size</span> <span class="o">&gt;</span> <span class="mi">6000</span><span class="p">:</span>
-            <span class="k">pass</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">zooming_size</span> <span class="o">+=</span> <span class="mi">100</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelViewProperties: zoom_in(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Zoom in image process with value </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zooming_size</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">zooming_size</span> <span class="o">&gt;</span> <span class="mi">6000</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">zooming_size</span> <span class="o">+=</span> <span class="mi">100</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelViewProperties: zoom_in(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Zoom in image process with value </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zooming_size</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelViewProperties.zoom_in(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelViewProperties.zoom_out">
@@ -184,13 +198,16 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            int: The new size after decreasing by 100, or the original `current_size` if it&#39;s already below 640.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">zooming_size</span> <span class="o">&lt;</span> <span class="mi">640</span><span class="p">:</span>
-            <span class="k">pass</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">zooming_size</span> <span class="o">-=</span> <span class="mi">100</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelViewProperties: zoom_out(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Zoom out image process with value </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zooming_size</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">zooming_size</span> <span class="o">&lt;</span> <span class="mi">640</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">zooming_size</span> <span class="o">-=</span> <span class="mi">100</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelViewProperties: zoom_out(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Zoom out image process with value </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zooming_size</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelViewProperties.zoom_out(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelViewProperties.percentage_zoom">
@@ -208,14 +225,17 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelViewProperties: percentage_zoom(), &quot;</span>
-                                             <span class="s2">&quot;list zoom percentage available on image &quot;</span><span class="p">)</span>
-        <span class="n">list_zoom</span> <span class="o">=</span> <span class="p">[</span><span class="mi">520</span><span class="p">,</span> <span class="mi">560</span><span class="p">,</span> <span class="mi">596</span><span class="p">,</span> <span class="mi">696</span><span class="p">,</span> <span class="mi">796</span><span class="p">,</span> <span class="mi">896</span><span class="p">,</span> <span class="mi">996</span><span class="p">,</span> <span class="mi">1096</span><span class="p">,</span> <span class="mi">1196</span><span class="p">,</span> <span class="mi">1296</span><span class="p">,</span> <span class="mi">1396</span><span class="p">,</span> <span class="mi">1496</span><span class="p">,</span> <span class="mi">1596</span><span class="p">,</span> <span class="mi">1696</span><span class="p">,</span> <span class="mi">1796</span><span class="p">,</span> <span class="mi">1896</span><span class="p">,</span> <span class="mi">1996</span><span class="p">,</span>
-                     <span class="mi">2096</span><span class="p">,</span> <span class="mi">2196</span><span class="p">,</span> <span class="mi">2296</span><span class="p">,</span> <span class="mi">2396</span><span class="p">,</span> <span class="mi">2496</span><span class="p">,</span> <span class="mi">2596</span><span class="p">,</span> <span class="mi">2596</span><span class="p">,</span> <span class="mi">2696</span><span class="p">,</span> <span class="mi">2796</span><span class="p">,</span> <span class="mi">2896</span><span class="p">,</span> <span class="mi">3096</span><span class="p">,</span> <span class="mi">3196</span><span class="p">,</span> <span class="mi">3296</span><span class="p">,</span> <span class="mi">3396</span><span class="p">,</span> <span class="mi">3496</span><span class="p">,</span> <span class="mi">3596</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelViewProperties: percentage_zoom(), &quot;</span>
+                                                 <span class="s2">&quot;list zoom percentage available on image &quot;</span><span class="p">)</span>
+            <span class="n">list_zoom</span> <span class="o">=</span> <span class="p">[</span><span class="mi">520</span><span class="p">,</span> <span class="mi">560</span><span class="p">,</span> <span class="mi">596</span><span class="p">,</span> <span class="mi">696</span><span class="p">,</span> <span class="mi">796</span><span class="p">,</span> <span class="mi">896</span><span class="p">,</span> <span class="mi">996</span><span class="p">,</span> <span class="mi">1096</span><span class="p">,</span> <span class="mi">1196</span><span class="p">,</span> <span class="mi">1296</span><span class="p">,</span> <span class="mi">1396</span><span class="p">,</span> <span class="mi">1496</span><span class="p">,</span> <span class="mi">1596</span><span class="p">,</span> <span class="mi">1696</span><span class="p">,</span> <span class="mi">1796</span><span class="p">,</span> <span class="mi">1896</span><span class="p">,</span> <span class="mi">1996</span><span class="p">,</span>
+                         <span class="mi">2096</span><span class="p">,</span> <span class="mi">2196</span><span class="p">,</span> <span class="mi">2296</span><span class="p">,</span> <span class="mi">2396</span><span class="p">,</span> <span class="mi">2496</span><span class="p">,</span> <span class="mi">2596</span><span class="p">,</span> <span class="mi">2596</span><span class="p">,</span> <span class="mi">2696</span><span class="p">,</span> <span class="mi">2796</span><span class="p">,</span> <span class="mi">2896</span><span class="p">,</span> <span class="mi">3096</span><span class="p">,</span> <span class="mi">3196</span><span class="p">,</span> <span class="mi">3296</span><span class="p">,</span> <span class="mi">3396</span><span class="p">,</span> <span class="mi">3496</span><span class="p">,</span> <span class="mi">3596</span><span class="p">]</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">zooming_size</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">list_zoom</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">value</span><span class="p">))</span></div>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">zooming_size</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">list_zoom</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">value</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelViewProperties.percentage_zoom(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelViewProperties.rotate_left">
@@ -227,13 +247,16 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            int: The new angle of rotation after rotating left by 5 degrees.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotate_degree</span> <span class="o">==</span> <span class="o">-</span><span class="mi">180</span><span class="p">:</span>
-            <span class="k">pass</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">rotate_degree</span> <span class="o">-=</span> <span class="mi">5</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelViewProperties: rotate_left(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;rotate left image process with </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zooming_size</span><span class="p">)</span><span class="si">}</span><span class="s2"> degree&quot;</span><span class="p">)</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotate_degree</span> <span class="o">==</span> <span class="o">-</span><span class="mi">180</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rotate_degree</span> <span class="o">-=</span> <span class="mi">5</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelViewProperties: rotate_left(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;rotate left image process with </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zooming_size</span><span class="p">)</span><span class="si">}</span><span class="s2"> degree&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelViewProperties.rotate_left(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelViewProperties.rotate_right">
@@ -245,13 +268,16 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            int: The new angle after rotation to the right.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotate_degree</span> <span class="o">==</span> <span class="mi">180</span><span class="p">:</span>
-            <span class="k">pass</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">rotate_degree</span> <span class="o">+=</span> <span class="mi">5</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelViewProperties: rotate_right(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;rotate right image process with </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zooming_size</span><span class="p">)</span><span class="si">}</span><span class="s2"> degree&quot;</span><span class="p">)</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">rotate_degree</span> <span class="o">==</span> <span class="mi">180</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rotate_degree</span> <span class="o">+=</span> <span class="mi">5</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelViewProperties: rotate_right(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;rotate right image process with </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zooming_size</span><span class="p">)</span><span class="si">}</span><span class="s2"> degree&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelViewProperties.rotate_right(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelViewProperties.change_rotate_value">
@@ -268,10 +294,13 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelViewProperties: change_rotate_value(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;change rotate value with </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2"> degree&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">rotate_degree</span> <span class="o">=</span> <span class="n">value</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelViewProperties: change_rotate_value(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;change rotate value with </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2"> degree&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rotate_degree</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelViewProperties.change_rotate_value(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelViewProperties.change_rotation_original_value">
@@ -288,10 +317,13 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelViewProperties: change_rotation_original_value(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;change rotate value image original with </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2"> degree&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_original</span> <span class="o">=</span> <span class="n">value</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelViewProperties: change_rotation_original_value(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;change rotate value image original with </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="si">}</span><span class="s2"> degree&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_rotate_original</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelViewProperties.change_rotation_original_value(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

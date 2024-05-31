@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>View_AutoPanorama &mdash; MoilApp w.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=14197c27"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">API References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MoilApp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">View_AutoPanorama</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for View_AutoPanorama</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module defines the AutoPanorama class which handles the automatic panorama view</span>
+<span class="sd">functionality in the MoilApp application.</span>
+
+<span class="sd">Dependencies:</span>
+<span class="sd">- cv2: OpenCV library for image processing.</span>
+<span class="sd">- ShowResult: Import ShowImageResult class for displaying images.</span>
+
+<span class="sd">Classes:</span>
+<span class="sd">- AutoPanorama: Manages the automatic panorama view functionality in the main application window.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="c1"># from libs.CenterDetector import FindCenter</span>
+<span class="kn">from</span> <span class="nn">ShowResult</span> <span class="kn">import</span> <span class="n">ShowImageResult</span>
+
+
+<div class="viewcode-block" id="AutoPanorama">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#View_AutoPanorama.AutoPanorama">[docs]</a>
+<span class="k">class</span> <span class="nc">AutoPanorama</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The AutoPanorama class manages the automatic panorama view functionality in the main application window.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        parent (MainWindow): The main application window instance.</span>
+<span class="sd">        show (ShowImageResult): Instance of ShowImageResult for displaying images.</span>
+<span class="sd">        annot_image (numpy.ndarray): Annotated image for display.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MainWindow</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">MainWindow</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show</span> <span class="o">=</span> <span class="n">ShowImageResult</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+        <span class="c1"># self.detector = FindCenter()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">checkBox_CenterLumen</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">centerLumen</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">checkPanoramaAuto</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">autoMode</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AutoPanorama.frameAuto">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#View_AutoPanorama.AutoPanorama.frameAuto">[docs]</a>
+    <span class="k">def</span> <span class="nf">frameAuto</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Shows and sets up the UI elements for the automatic panorama view mode.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">labelRecenter</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">labelImagerecenter</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">checkBox_ShowRecenterImage_2</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_31</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_32</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="AutoPanorama.hideAutoframe">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#View_AutoPanorama.AutoPanorama.hideAutoframe">[docs]</a>
+    <span class="k">def</span> <span class="nf">hideAutoframe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Hides and clears the UI elements related to the automatic panorama view mode.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_31</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_32</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">labelRecenter</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">labelRecenter</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">labelImagerecenter</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="AutoPanorama.centerLumen">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#View_AutoPanorama.AutoPanorama.centerLumen">[docs]</a>
+    <span class="k">def</span> <span class="nf">centerLumen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Detects the center of the lumen and updates the image view accordingly.</span>
+
+<span class="sd">        If the &quot;Center Lumen&quot; checkbox is checked, this method will annotate the center of the lumen</span>
+<span class="sd">        on the image and update the display. If the lumen is not detected, it will show a message indicating so.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">checkBox_CenterLumen</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">checkPanoramaAuto</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frameAuto</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">annot_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+            <span class="n">coordinate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector</span><span class="o">.</span><span class="n">center_coordinate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">annot_image</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">coordinate</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">int</span><span class="p">:</span>
+                <span class="n">delta_x</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">coordinate</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">imageWidth</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>
+                <span class="n">delta_y</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span> <span class="p">(</span><span class="n">coordinate</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">imageHeight</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">get_alpha_beta</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">delta_x</span><span class="p">,</span> <span class="n">delta_y</span><span class="p">)</span>
+                <span class="c1"># print(&quot;Alpha: &quot; + str(self.alpha), &quot;Beta: &quot; + str(self.beta))</span>
+                <span class="c1"># cv2.putText(self.annot_image, &quot;center = &quot; + str(coordinate),</span>
+                <span class="c1">#             (15, 55), cv2.FONT_HERSHEY_COMPLEX, 2, (255, 255, 255), 1)</span>
+                <span class="n">cv2</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">annot_image</span><span class="p">,</span> <span class="n">coordinate</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">showInRecenterLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">annot_image</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">showResult</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">annot_image</span><span class="p">)</span>
+                <span class="n">coordinate</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">coordinate</span><span class="p">)</span>
+                <span class="n">center_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_32</span>
+                <span class="n">center_p</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">coordinate</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># cv2.putText(self.annot_image, &quot;Not detected&quot;,</span>
+                <span class="c1">#             (15, 15), cv2.FONT_HERSHEY_COMPLEX, 0.4, (0, 255, 0), 1)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">showInRecenterLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">annot_image</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">showResult</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">annot_image</span><span class="p">)</span>
+                <span class="n">center_p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_32</span>
+                <span class="n">center_p</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Not Detected&quot;</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hideAutoframe</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">showOriginalImage</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="n">showResult</span><span class="p">(</span><span class="n">image</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AutoPanorama.autoMode">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#View_AutoPanorama.AutoPanorama.autoMode">[docs]</a>
+    <span class="k">def</span> <span class="nf">autoMode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Activates or deactivates the automatic panorama mode based on the state of the &quot;Auto Panorama&quot; checkbox.</span>
+
+<span class="sd">        When activated, this method will set up the automatic panorama view functionality.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">checkPanoramaAuto</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">checkBox_CenterLumen</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">statusMessage</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Debug still on development&quot;</span><span class="p">)</span>
+            <span class="c1"># self.annot_image = self.parent.image.copy()</span>
+            <span class="c1"># self.frameAuto()</span>
+            <span class="c1"># coordinate = self.detector.center_coordinate(self.annot_image)</span>
+            <span class="c1"># x = coordinate[0]</span>
+            <span class="c1">#</span>
+            <span class="c1"># if type(x) is int:</span>
+            <span class="c1">#     delta_x = round(coordinate[0] - self.parent.imageWidth * 0.5)</span>
+            <span class="c1">#     delta_y = round(- (coordinate[1] - self.parent.imageHeight * 0.5))</span>
+            <span class="c1">#     self.alpha, self.beta = self.parent.config.get_alpha_beta(0, delta_x, delta_y)</span>
+            <span class="c1">#     # print(&quot;Alpha: &quot; + str(self.alpha), &quot;Beta: &quot; + str(self.beta))</span>
+            <span class="c1">#     # cv2.putText(self.annot_image, &quot;center = &quot; + str(coordinate),</span>
+            <span class="c1">#     #             (15, 55), cv2.FONT_HERSHEY_COMPLEX, 2, (255, 25, 5), 1)</span>
+            <span class="c1">#     cv2.circle(self.annot_image, coordinate, 25, (255, 255, 255), -1)</span>
+            <span class="c1">#</span>
+            <span class="c1">#     self.show.showInRecenterLabel(self.annot_image)</span>
+            <span class="c1">#     self.max = float(self.parent.ui.lineEdit_Max.text())</span>
+            <span class="c1">#     self.min = float(self.parent.ui.lineEdit_Min.text())</span>
+            <span class="c1">#     self.parent.revImage = self.parent.recenter.reverseImage(self.parent.image, self.parent.res,</span>
+            <span class="c1">#                                                              self.parent.alpha,</span>
+            <span class="c1">#                                                              self.parent.beta)</span>
+            <span class="c1">#     self.parent.moildev.PanoramaX(self.parent.mapX, self.parent.mapY, self.parent.imageWidth,</span>
+            <span class="c1">#                                   self.parent.imageHeight,</span>
+            <span class="c1">#                                   self.parent.m_ratio, self.max, self.min)</span>
+            <span class="c1">#     self.show.showInRecenterLabel(self.parent.revImage)</span>
+            <span class="c1">#     self.show.showPanoAnyImage(self.parent.angle)</span>
+            <span class="c1">#     coordinate = str(coordinate)</span>
+            <span class="c1">#     center_p = self.parent.ui.label_32</span>
+            <span class="c1">#     center_p.setText(coordinate)</span>
+            <span class="c1">#</span>
+            <span class="c1"># else:</span>
+            <span class="c1">#     cv2.putText(self.annot_image, &quot;Not detected&quot;,</span>
+            <span class="c1">#                 (15, 15), cv2.FONT_HERSHEY_COMPLEX, 0.4, (0, 255, 0), 1)</span>
+            <span class="c1">#     self.parent.revImage = image</span>
+            <span class="c1">#</span>
+            <span class="c1">#     self.show.showInRecenterLabel(self.parent.revImage)</span>
+            <span class="c1">#     self.show.showPanoAnyImage(self.parent.angle)</span>
+            <span class="c1">#     center_p = self.parent.ui.label_32</span>
+            <span class="c1">#     center_p.setText(&quot;Not Detected&quot;)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">statusMessage</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">comboBox</span><span class="o">.</span><span class="n">currentText</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hideAutoframe</span><span class="p">()</span></div>
+</div>
+
+            <span class="c1"># self.show.showOriginalImage(image)</span>
+            <span class="c1"># self.show.showResult(image)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Haryanto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

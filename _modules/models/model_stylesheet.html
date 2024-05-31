@@ -125,14 +125,17 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: A string representing the Qt stylesheet to use for QPushButton widgets in the current theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelStylesheet: pushbutton_stylesheet(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Change pushbutton stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span><span class="p">:</span>
-            <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_pushbutton_light</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_pushbutton_dark</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">stylesheet</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelStylesheet: pushbutton_stylesheet(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Change pushbutton stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span><span class="p">:</span>
+                <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_pushbutton_light</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_pushbutton_dark</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">stylesheet</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet.pushbutton_stylesheet(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelStylesheet.pushbutton_play_pause_video_stylesheet">
@@ -148,12 +151,15 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: A string representing the Qt stylesheet to use for QPushButton widgets in the current theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelStylesheet: pushbutton_play_pause_video_stylesheet(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Change pushbutton play pause video stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
-        <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_button_pp_video_light</span><span class="p">()</span> \
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_button_pp_video_dark</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">stylesheet</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelStylesheet: pushbutton_play_pause_video_stylesheet(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Change pushbutton play pause video stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
+            <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_button_pp_video_light</span><span class="p">()</span> \
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_button_pp_video_dark</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">stylesheet</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet.pushbutton_play_pause_video_stylesheet(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelStylesheet.label_stylesheet">
@@ -169,11 +175,14 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: A string representing the Qt stylesheet to use for QLabel widgets in the current theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelStylesheet: label_stylesheet(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Change label stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
-        <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_label_light</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_label_dark</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">stylesheet</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelStylesheet: label_stylesheet(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Change label stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
+            <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_label_light</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_label_dark</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">stylesheet</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet.label_stylesheet(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelStylesheet.label_title_stylesheet">
@@ -189,12 +198,15 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: A string representing the Qt stylesheet to use for QLabel widgets in the current theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelStylesheet: label_title_stylesheet(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Change label title stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
-        <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_label_title_light</span><span class="p">()</span> \
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_label_title_dark</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">stylesheet</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelStylesheet: label_title_stylesheet(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Change label title stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
+            <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_label_title_light</span><span class="p">()</span> \
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_label_title_dark</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">stylesheet</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet.label_title_stylesheet(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelStylesheet.transparent_label_stylesheet">
@@ -210,12 +222,15 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: A string representing the Qt stylesheet to use for QLabel widgets in the current theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: label_title_stylesheet(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Change label title stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
-        <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_transparent_label_light</span><span class="p">()</span> \
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_transparent_label_dark</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">stylesheet</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: label_title_stylesheet(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Change label title stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
+            <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_transparent_label_light</span><span class="p">()</span> \
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_transparent_label_dark</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">stylesheet</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet.transparent_label_stylesheet(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelStylesheet.frame_main_stylesheet">
@@ -231,12 +246,15 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: A string representing the Qt stylesheet to use for QLabel widgets in the current theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: frame_main_stylesheet(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Change frame main stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
-        <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_frame_main_light</span><span class="p">()</span> \
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_frame_main_dark</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">stylesheet</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: frame_main_stylesheet(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Change frame main stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
+            <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_frame_main_light</span><span class="p">()</span> \
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_frame_main_dark</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">stylesheet</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet.frame_main_stylesheet(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelStylesheet.font_12_stylesheet">
@@ -248,10 +266,13 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: A string representing the Qt stylesheet to use for QFont with 12pt size in the current theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: font_12_stylesheet(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Change font stylesheet to 12 size and in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_font_12_light</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_font_12_dark</span><span class="p">()</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: font_12_stylesheet(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Change font stylesheet to 12 size and in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_font_12_light</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_font_12_dark</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet.font_12_stylesheet(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelStylesheet.font_14_stylesheet">
@@ -263,10 +284,13 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: A string representing the Qt stylesheet to use for QFont with 14pt size in the current theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: font_14_stylesheet(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Change font stylesheet to 14 size and in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_font_14_light</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_font_14_dark</span><span class="p">()</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: font_14_stylesheet(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Change font stylesheet to 14 size and in </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_font_14_light</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_font_14_dark</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet.font_14_stylesheet(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelStylesheet.frame_object_stylesheet">
@@ -282,12 +306,15 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: A string representing the Qt stylesheet to use for QLabel widgets in the current theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: frame_object_stylesheet(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Change frame object stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
-        <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_frame_object_light</span><span class="p">()</span> \
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_frame_object_dark</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">stylesheet</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: frame_object_stylesheet(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Change frame object stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
+            <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_frame_object_light</span><span class="p">()</span> \
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_frame_object_dark</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">stylesheet</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet.frame_object_stylesheet(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelStylesheet.frame_transparent_stylesheet">
@@ -299,12 +326,15 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: A string representing the Qt stylesheet to use for a transparent frame in the current theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: frame_transparent_stylesheet(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Change frame transparent stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
-        <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_frame_transparent_light</span><span class="p">()</span> \
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_frame_transparent_dark</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">stylesheet</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: frame_transparent_stylesheet(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Change frame transparent stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
+            <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_frame_transparent_light</span><span class="p">()</span> \
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_frame_transparent_dark</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">stylesheet</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet.frame_transparent_stylesheet(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelStylesheet.line_stylesheet">
@@ -316,12 +346,15 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: A string representing the Qt stylesheet to use for a line widget in the current theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: line_stylesheet(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Change line stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
-        <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_line_light</span><span class="p">()</span> \
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_line_dark</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">stylesheet</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: line_stylesheet(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Change line stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
+            <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_line_light</span><span class="p">()</span> \
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_line_dark</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">stylesheet</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet.line_stylesheet(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelStylesheet.combobox_stylesheet">
@@ -336,12 +369,15 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            A string containing the Qt stylesheet for the QComboBox widget, based on the current theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: combobox_stylesheet(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Change combo box stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
-        <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_combobox_light</span><span class="p">()</span> \
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_combobox_dark</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">stylesheet</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: combobox_stylesheet(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Change combo box stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
+            <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_combobox_light</span><span class="p">()</span> \
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_combobox_dark</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">stylesheet</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet.combobox_stylesheet(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelStylesheet.scroll_area_stylesheet">
@@ -353,12 +389,15 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: A string representing the Qt stylesheet to use for a scroll area widget in the current theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: scroll_area_stylesheet(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Change scroll area stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
-        <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_scroll_area_light</span><span class="p">()</span> \
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_scroll_area_dark</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">stylesheet</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: scroll_area_stylesheet(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Change scroll area stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
+            <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_scroll_area_light</span><span class="p">()</span> \
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_scroll_area_dark</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">stylesheet</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet.scroll_area_stylesheet(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelStylesheet.radio_button_stylesheet">
@@ -370,12 +409,15 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: A string representing the Qt stylesheet to use for a radio button widget in the current theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: radio_button_stylesheet(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Change radio button stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
-        <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_radio_button_light</span><span class="p">()</span> \
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_radio_button_dark</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">stylesheet</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: radio_button_stylesheet(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Change radio button stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
+            <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_radio_button_light</span><span class="p">()</span> \
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_radio_button_dark</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">stylesheet</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet.radio_button_stylesheet(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelStylesheet.slider_stylesheet">
@@ -387,12 +429,15 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: A string representing the Qt stylesheet to use for a slider widget in the current theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: slider_stylesheet(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Change slider stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
-        <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_slider_light</span><span class="p">()</span> \
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_slider_dark</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">stylesheet</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: slider_stylesheet(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Change slider stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
+            <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_slider_light</span><span class="p">()</span> \
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_slider_dark</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">stylesheet</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet.slider_stylesheet(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelStylesheet.checkbox_stylesheet">
@@ -404,12 +449,15 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: A string representing the Qt stylesheet to use for a checkbox widget in the current theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: checkbox_stylesheet(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Change check box stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
-        <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_checkbox_light</span><span class="p">()</span> \
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_checkbox_dark</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">stylesheet</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: checkbox_stylesheet(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Change check box stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
+            <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_checkbox_light</span><span class="p">()</span> \
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_checkbox_dark</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">stylesheet</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet.checkbox_stylesheet(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelStylesheet.spinbox_stylesheet">
@@ -421,12 +469,15 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: A string representing the Qt stylesheet to use for a spin box widget in the current theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: spinbox_stylesheet(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Change spin box stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
-        <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_spinbox_light</span><span class="p">()</span> \
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_spinbox_dark</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">stylesheet</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: spinbox_stylesheet(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Change spin box stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
+            <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_spinbox_light</span><span class="p">()</span> \
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_spinbox_dark</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">stylesheet</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet.spinbox_stylesheet(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelStylesheet.double_spinbox_stylesheet">
@@ -438,12 +489,15 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            str: A string representing the Qt stylesheet to use for a double spin box widget in the current theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: double_spinbox_stylesheet(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Change double spin box stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
-        <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_double_spinbox_light</span><span class="p">()</span> \
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_double_spinbox_dark</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">stylesheet</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: double_spinbox_stylesheet(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Change double spin box stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
+            <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_double_spinbox_light</span><span class="p">()</span> \
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_double_spinbox_dark</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">stylesheet</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet.double_spinbox_stylesheet(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelStylesheet.line_edit_stylesheet">
@@ -455,12 +509,15 @@
 <span class="sd">         Returns:</span>
 <span class="sd">             str: A string representing the Qt stylesheet to use for a line edit widget in the current theme.</span>
 <span class="sd">         &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: double_spinbox_stylesheet(), &quot;</span>
-                                             <span class="sa">f</span><span class="s2">&quot;Change line edit stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
-        <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_line_edit_light</span><span class="p">()</span> \
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_line_edit_dark</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">stylesheet</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet: double_spinbox_stylesheet(), &quot;</span>
+                                                 <span class="sa">f</span><span class="s2">&quot;Change line edit stylesheet to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_theme</span><span class="si">}</span><span class="s2"> mode&quot;</span><span class="p">)</span>
+            <span class="n">stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_line_edit_light</span><span class="p">()</span> \
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet_line_edit_dark</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">stylesheet</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelStylesheet.line_edit_stylesheet(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ModelStylesheet.stylesheet_button_additional">
