@@ -1,5 +1,5 @@
 MoilApp of Usage
-#############
+#################
 
 .. raw:: html
 
@@ -15,7 +15,7 @@ MoilApp of Usage
    Operations of the MoilApp
 
 Overview of Apps
-==============
+=================
 
 .. raw:: html
 
@@ -160,7 +160,7 @@ Overview of Apps
     the user can select the zoom scale to be smaller by a minimum of <i>25 degrees</i> and above to make the final image.</p>
 
 .. figure:: assets/usage/5.Zoom-Image.png
-   :scale: 40%
+   :scale: 40 %
    :alt: Zoom in and out of the images
    :align: center
 
@@ -277,7 +277,7 @@ as it provides insights into the application's inner workings and helps identify
    Information About US
 
 11. Theme Application
---------------------
+----------------------
 
 .. raw:: html
 
@@ -294,7 +294,7 @@ as it provides insights into the application's inner workings and helps identify
    Light theme & Dark Theme application
 
 12. Show/Hide Information Button
----------------------------
+---------------------------------
 
 .. raw:: html
 
@@ -524,7 +524,7 @@ The image below is the result of image processing panorama view.
     including through menus or a dedicated Help button within the app.</p>
 
 20. Application Settings
------------------
+-------------------------
 
 .. raw:: html
 
@@ -583,24 +583,88 @@ If you right click on the mouse, it will display menu options like maximize, min
 
 Mouse wheel
 -----------
-
-    <b>Wheel event</b> will work by pressing the ctrl key simultaneously to zoom in and zoom out images on the user interface display.
+**Wheel event** will work by pressing the ctrl key simultaneously to zoom in and zoom out images on the user interface display.
 
 Keyboard Shortcut
-=========================
+=====================
 
 .. raw:: html
 
    <p style="text-align: justify;">
+   The majority of MoilApp's processing- and other-related commands have keyboard shortcuts. By keeping your hands on
+   the keyboard and increasing your productivity, learning these hotkeys might be helpful. Some of the most beneficial
+   shortcuts to learn are listed in the following table:</p>
 
-    The majority of MoilApp's processing- and other-related commands have keyboard shortcuts. By keeping your hands on
-    the keyboard and increasing your productivity, learning these hotkeys might be helpful. Some of the most beneficial
-    shortcuts to learn are listed in the following table:</p>
+.. list-table:: Table 1. Shortcut application
+   :widths: 40 80
+   :header-rows: 1
+
+   * - Shortcut
+     - Action
+
+   * - **General Shortcuts**
+     -
+   * - Ctrl+Shift+R
+     - Open panel recent project
+   * - Ctrl+Shift+S
+     - Open setting panel on left side
+   * - Ctrl+Shift+A
+     - Open Panel About US
+   * - Ctrl+Shift+Del
+     - Remove all the data from user interface
+   * - Ctrl+O
+     - Open dialog to select media source
+   * - Ctrl+C
+     - Open dialog to open camera Parameter Form
+   * - Ctrl+R
+     - Record video
+   * - Ctrl+S
+     - Save image
+   * - Ctrl+H
+     - Open Help dialog
+   * - Ctrl+F
+     - Original fisheye image view
+   * - Ctrl+A
+     - Anypoint image view
+   * - Ctrl+P
+     - Panorama image view
+   * - Ctrl+D
+     - Active/Deactivate Debug mode
+   * - Ctrl+T
+     - Change theme apps
+   * - F1
+     - Read the document, it will open in browser
+   * - F5
+     - Reset view, back to original
+   * - **+**
+     - Zoom in image view in result window
+   * - **-**
+     - Zoom out image view in result window
+   * - Esc
+     - Close additional panel left and right when open
+
+   * - **Media Player**
+     -
+   * - Space
+     - Play/Pause media
+   * - ←
+     - Backward video in 5 seconds
+   * - →
+     - Forward video in 5 seconds
+   * - 0
+     - Stop video, back to initial
+
+   * - **In Anypoint Mode**
+     -
+   * - Ctrl+←
+     - Showing anypoint transformation in left area
+   * - Ctrl+↑
+     - Showing anypoint transformation in top area
+   * - Ctrl+→
+     - Showing anypoint transformation in right area
+   * - Ctrl+↓
+     - Showing anypoint transformation in down area
 
 
-.. figure:: assets/shortcut.jpg
-   :scale: 75%
-   :alt: Shortcuts Image
-   :align: center
 
-   Shortcut application
+
