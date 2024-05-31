@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InitMoildev &mdash; MoilApp Documentation 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MoilApp Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">InitMoildev</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for InitMoildev</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+
+<div class="viewcode-block" id="Config">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config">[docs]</a>
+<span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Reading the parameter camera from *.json file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Constructor method</span>
+<span class="sd">        Args:</span>
+<span class="sd">            filename = .json file</span>
+<span class="sd">            filename = dictionary</span>
+
+<span class="sd">        return:</span>
+<span class="sd">            camera name</span>
+<span class="sd">            camera sensor width</span>
+<span class="sd">            camera sensor height</span>
+<span class="sd">            iCx</span>
+<span class="sd">            iCy</span>
+<span class="sd">            ratio</span>
+<span class="sd">            image width</span>
+<span class="sd">            image height</span>
+<span class="sd">            calibration ratio</span>
+<span class="sd">            parameter0</span>
+<span class="sd">            parameter1</span>
+<span class="sd">            parameter2</span>
+<span class="sd">            parameter3</span>
+<span class="sd">            parameter4</span>
+<span class="sd">            parameter5</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Config</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">PI</span> <span class="o">=</span> <span class="mf">3.1415926</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">alphaToRho_Table</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rhoToAlpha_Table</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">camera</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;cameraName&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sensor_width</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;cameraSensorWidth&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sensor_height</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;cameraSensorHeight&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Icx</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;iCx&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">Icy</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;iCy&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ratio</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;ratio&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">imageWidth</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;imageWidth&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">imageHeight</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;imageHeight&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calibrationRatio</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;calibrationRatio&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameter0</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;parameter0&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameter1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;parameter1&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameter2</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;parameter2&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameter3</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;parameter3&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameter4</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;parameter4&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameter5</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;parameter5&#39;</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">initAlphaRho_Table</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Config.get_cameraName">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config.get_cameraName">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_cameraName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get camera name&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">camera</span></div>
+
+
+<div class="viewcode-block" id="Config.get_sensorWidth">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config.get_sensorWidth">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_sensorWidth</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get sensor width&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor_width</span></div>
+
+
+<div class="viewcode-block" id="Config.get_sensor_height">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config.get_sensor_height">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_sensor_height</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get sensor height&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensor_height</span></div>
+
+
+<div class="viewcode-block" id="Config.get_Icx">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config.get_Icx">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_Icx</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get center image in X axis&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Icx</span></div>
+
+
+<div class="viewcode-block" id="Config.get_Icy">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config.get_Icy">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_Icy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get center image in Y axis&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Icy</span></div>
+
+
+<div class="viewcode-block" id="Config.get_ratio">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config.get_ratio">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_ratio</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get ratio image&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ratio</span></div>
+
+
+<div class="viewcode-block" id="Config.get_imageWidth">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config.get_imageWidth">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_imageWidth</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get image width&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageWidth</span></div>
+
+
+<div class="viewcode-block" id="Config.get_imageHeight">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config.get_imageHeight">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_imageHeight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get image height&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">imageHeight</span></div>
+
+
+<div class="viewcode-block" id="Config.get_calibrationRatio">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config.get_calibrationRatio">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_calibrationRatio</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get calibration ratio&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">calibrationRatio</span></div>
+
+
+<div class="viewcode-block" id="Config.get_parameter0">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config.get_parameter0">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_parameter0</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get parameter 0&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter0</span></div>
+
+
+<div class="viewcode-block" id="Config.get_parameter1">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config.get_parameter1">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_parameter1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get parameter 1&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter1</span></div>
+
+
+<div class="viewcode-block" id="Config.get_parameter2">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config.get_parameter2">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_parameter2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get parameter 2&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter2</span></div>
+
+
+<div class="viewcode-block" id="Config.get_parameter3">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config.get_parameter3">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_parameter3</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get parameter 3&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter3</span></div>
+
+
+<div class="viewcode-block" id="Config.get_parameter4">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config.get_parameter4">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_parameter4</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get parameter 4&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter4</span></div>
+
+
+<div class="viewcode-block" id="Config.get_parameter5">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config.get_parameter5">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_parameter5</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;get parameter 5&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter5</span></div>
+
+
+<div class="viewcode-block" id="Config.initAlphaRho_Table">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config.initAlphaRho_Table">[docs]</a>
+    <span class="k">def</span> <span class="nf">initAlphaRho_Table</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;create list for initial alpha to rho(height image)&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1800</span><span class="p">):</span>
+            <span class="n">alpha</span> <span class="o">=</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">*</span> <span class="mf">3.1415926</span> <span class="o">/</span> <span class="mi">180</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">alphaToRho_Table</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">parameter0</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">alpha</span>
+                                          <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter1</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">alpha</span>
+                                          <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter2</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">alpha</span>
+                                          <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter3</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">alpha</span>
+                                          <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter4</span> <span class="o">*</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">alpha</span>
+                                          <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter5</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">calibrationRatio</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1800</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">alphaToRho_Table</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">rhoToAlpha_Table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">while</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">3600</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rhoToAlpha_Table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="Config.getAlphaFromRho">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config.getAlphaFromRho">[docs]</a>
+    <span class="k">def</span> <span class="nf">getAlphaFromRho</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rho</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;return the alpha from rho image&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">rho</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rhoToAlpha_Table</span><span class="p">[</span><span class="n">rho</span><span class="p">]</span> <span class="o">/</span> <span class="mi">10</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">rhoToAlpha_Table</span><span class="p">[</span><span class="o">-</span><span class="n">rho</span><span class="p">]</span> <span class="o">/</span> <span class="mi">10</span></div>
+
+
+<div class="viewcode-block" id="Config.getRhoFromAlpha">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config.getRhoFromAlpha">[docs]</a>
+    <span class="k">def</span> <span class="nf">getRhoFromAlpha</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;return rho image from alpha given&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">alphaToRho_Table</span><span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">alpha</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)]</span></div>
+
+
+<div class="viewcode-block" id="Config.get_alpha_beta">
+<a class="viewcode-back" href="../controller.html#InitMoildev.Config.get_alpha_beta">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_alpha_beta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">,</span> <span class="n">delta_x</span><span class="p">,</span> <span class="n">delta_y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;calculate the alpha beta from specific coordinate image.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            mode = the anypoint mode.</span>
+<span class="sd">            mode = integer.</span>
+<span class="sd">            delta_x = the coordinate point in quadrant 1 X axis.</span>
+<span class="sd">            delta_x = integer.</span>
+<span class="sd">            delta_y = the coordinate point in quadrant 1 Y axis.</span>
+<span class="sd">            delta_y = integer.</span>
+
+<span class="sd">        return:</span>
+<span class="sd">            alpha</span>
+<span class="sd">            beta.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">delta_x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">delta_y</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+            <span class="n">alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAlphaFromRho</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">delta_x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">angle</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">angle</span> <span class="o">=</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="n">delta_y</span><span class="p">,</span> <span class="n">delta_x</span><span class="p">)</span> <span class="o">*</span> <span class="mi">180</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">PI</span>
+
+            <span class="n">beta</span> <span class="o">=</span> <span class="mi">90</span> <span class="o">-</span> <span class="n">angle</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAlphaFromRho</span><span class="p">(</span><span class="n">delta_y</span><span class="p">)</span>
+            <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAlphaFromRho</span><span class="p">(</span><span class="n">delta_x</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span></div>
+</div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Perseverance Technology, Taiwan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

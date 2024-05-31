@@ -1,26 +1,58 @@
-Views Package
+Views
 =============
 
 Main Views
 --------------------------
 
-.. automodule:: views.main_moilapp
+.. automodule:: Ui_Controller
    :members:
    :undoc-members:
    :show-inheritance:
 
-Ui_splash_screen View
+Ui_Mainwindow
 -------------------------------
 
-.. automodule:: views.ui_splash_screen
+.. automodule:: Ui_Mainwindow
    :members:
    :undoc-members:
    :show-inheritance:
 
-Full_screen View
+Ui_Utils
 -------------------------------
 
-.. automodule:: views.ui_splash_screen
+.. automodule:: Ui_Utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+View_Anypoint
+-------------------------------
+
+.. automodule:: View_Anypoint
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+View_Panorama
+-------------------------------
+
+.. automodule:: View_Panorama
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+View_ShowResult
+-------------------------------
+
+.. automodule:: View_ShowResult
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+View_Window
+-------------------------------
+
+.. automodule:: View_Window
    :members:
    :undoc-members:
    :show-inheritance:

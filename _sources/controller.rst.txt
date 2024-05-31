@@ -1,186 +1,42 @@
-Controller Package
+Controller
 ===================
 
-Main Controller
+InitMoildev
 -----------------
 
-.. automodule:: controllers.control_main
+.. automodule:: InitMoildev
    :members:
    :undoc-members:
    :show-inheritance:
 
-GitHub Controller
-------------------
-
-.. automodule:: controllers.control_github
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Image Original Controller
+OpenCam
 -------------------------
 
-.. automodule:: controllers.control_image_original
+.. automodule:: OpenCam
    :members:
    :undoc-members:
    :show-inheritance:
 
-Image Result Controller
+OpenCamera
 ------------------------
 
-.. automodule:: controllers.control_image_result
+.. automodule:: OpenCamera
    :members:
    :undoc-members:
    :show-inheritance:
 
-Media Player Controller
+RatioImage
 ------------------------
 
-.. automodule:: controllers.control_media_player
+.. automodule:: RatioImage
    :members:
    :undoc-members:
    :show-inheritance:
 
-Message Box Controller
+Video Controller
 -----------------------
 
-.. automodule:: controllers.control_message_box
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Mouse Event Controller
------------------------
-
-.. automodule:: controllers.control_mouse_event
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Plugin Collection Controller
------------------------------
-
-.. automodule:: controllers.control_plugin_collection
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Plugin Manager Controller
---------------------------
-
-.. automodule:: controllers.control_plugin_manager
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Recent Project Controller
---------------------------
-
-.. automodule:: controllers.control_recent_project
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Saving Media Controller
-------------------------
-
-.. automodule:: controllers.control_saving_media
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Screen Record Controller
--------------------------
-
-.. automodule:: controllers.control_screen_record
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Setup Icon Controller
-----------------------
-
-.. automodule:: controllers.control_setup_icon
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Stylesheet Controller
-----------------------
-
-.. automodule:: controllers.control_stylesheet
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Theme Apps Controller
-----------------------
-
-.. automodule:: controllers.control_theme_apps
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-UI Animation Controller
-------------------------
-
-.. automodule:: controllers.control_ui_animation
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-View Anypoint Controller
--------------------------
-
-.. automodule:: controllers.control_view_anypoint
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-View Fisheye Controller
-------------------------
-
-.. automodule:: controllers.control_view_fisheye
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-View Fullscreen Controller
----------------------------
-
-.. automodule:: controllers.control_view_fullscreen
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-View Panorama Controller
--------------------------
-
-.. automodule:: controllers.control_view_panorama
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-View Recenter Controller
--------------------------
-
-.. automodule:: controllers.control_view_recenter
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-View Rotate Controller
------------------------
-
-.. automodule:: controllers.control_view_rotate
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-View Zoom Controller
----------------------
-
-.. automodule:: controllers.control_view_zoom
+.. automodule:: VideoControler
    :members:
    :undoc-members:
    :show-inheritance:
