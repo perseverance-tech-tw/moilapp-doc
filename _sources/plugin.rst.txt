@@ -1,10 +1,10 @@
-Views
+Plugin
 =============
 
-Main Views
+Main Plugin
 --------------------------
 
-.. automodule:: Ui_Moilapp
+.. automodule:: base_plugin
    :members:
    :undoc-members:
    :show-inheritance:
