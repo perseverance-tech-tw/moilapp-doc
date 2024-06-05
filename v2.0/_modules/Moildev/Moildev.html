@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moildev.Moildev &mdash; MoilApp w.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=14197c27"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">API References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MoilApp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Moildev.Moildev</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Moildev.Moildev</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides functionalities for working with fisheye images using the Moildev library.</span>
+
+<span class="sd">Functions:</span>
+<span class="sd">    - draw_polygon(image, mapX, mapY): Draw polygon from mapX and mapY given in the original image.</span>
+
+<span class="sd">Classes:</span>
+<span class="sd">    - Moildev: Class for initializing the Moildev library and performing various transformations on fisheye images.</span>
+
+<span class="sd">References:</span>
+<span class="sd">    For more detail, please refer to the official Moildev documentation at https://github.com/MoilOrg/moildev</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">ctypes</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">platform</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">dir_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+<span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_path</span><span class="p">,</span> <span class="s2">&quot;moildev.dll&quot;</span><span class="p">)</span>
+    <span class="n">shared_lib_path</span> <span class="o">=</span> <span class="n">path</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dir_path</span><span class="p">,</span> <span class="s2">&quot;moildev.so&quot;</span><span class="p">)</span>
+    <span class="n">shared_lib_path</span> <span class="o">=</span> <span class="n">path</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">lib</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">cdll</span><span class="o">.</span><span class="n">LoadLibrary</span><span class="p">(</span><span class="n">shared_lib_path</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="draw_polygon">
+<a class="viewcode-back" href="../../moilapp-Moilapp-V2.0.src.Moildev.html#Moildev.Moildev.draw_polygon">[docs]</a>
+<span class="k">def</span> <span class="nf">draw_polygon</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">mapX</span><span class="p">,</span> <span class="n">mapY</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Draw polygon from mapX and mapY given in the original image.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        image: Original image</span>
+<span class="sd">        mapX: map image X from anypoint process</span>
+<span class="sd">        mapY: map image Y from anypoint process</span>
+
+<span class="sd">    return:</span>
+<span class="sd">        image:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hi</span><span class="p">,</span> <span class="n">wi</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">X1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Y1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">X2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Y2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">X3</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Y3</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">X4</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Y4</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">wi</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">mapX</span><span class="p">[</span><span class="mi">0</span><span class="p">,]</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">mapY</span><span class="p">[</span><span class="mi">0</span><span class="p">,]</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">mapX</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,]</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">mapY</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,]</span>
+
+        <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.</span> <span class="ow">or</span> <span class="n">b</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">X1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+            <span class="n">Y1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.</span> <span class="ow">or</span> <span class="n">e</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Y3</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+            <span class="n">X3</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+        <span class="n">x</span> <span class="o">+=</span> <span class="mi">10</span>
+
+    <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">hi</span><span class="p">:</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">mapX</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">mapY</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">mapX</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">mapY</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># eliminate the value 0 for map X</span>
+        <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.</span> <span class="ow">or</span> <span class="n">c</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.</span><span class="p">:</span>  <span class="c1"># or d[y] and c[y] == 0.0:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Y2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">y</span><span class="p">])</span>
+            <span class="n">X2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">y</span><span class="p">])</span>
+
+        <span class="c1"># eliminate the value 0 for map Y</span>
+        <span class="k">if</span> <span class="n">h</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.</span> <span class="ow">or</span> <span class="n">g</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Y4</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">y</span><span class="p">])</span>
+            <span class="n">X4</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">g</span><span class="p">[</span><span class="n">y</span><span class="p">])</span>
+
+        <span class="c1"># render every 10 times, it will be like 1, 11, 21 and so on.</span>
+        <span class="n">y</span> <span class="o">+=</span> <span class="mi">10</span>
+
+    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X1</span><span class="p">,</span> <span class="n">Y1</span><span class="p">])</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X2</span><span class="p">,</span> <span class="n">Y2</span><span class="p">])</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X3</span><span class="p">,</span> <span class="n">Y3</span><span class="p">])</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X4</span><span class="p">,</span> <span class="n">Y4</span><span class="p">])</span>
+    <span class="n">points</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">points2</span> <span class="o">=</span> <span class="n">q</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">points3</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">points4</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+
+    <span class="c1"># Draw polyline on original image</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">polylines</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">([</span><span class="n">points</span><span class="p">]),</span> <span class="kc">False</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">polylines</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">([</span><span class="n">points2</span><span class="p">]),</span> <span class="kc">False</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">polylines</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">([</span><span class="n">points3</span><span class="p">]),</span> <span class="kc">False</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">cv2</span><span class="o">.</span><span class="n">polylines</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">([</span><span class="n">points4</span><span class="p">]),</span> <span class="kc">False</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">image</span></div>
+
+
+
+<div class="viewcode-block" id="Moildev">
+<a class="viewcode-back" href="../../moilapp-Moilapp-V2.0.src.Moildev.html#Moildev.Moildev.Moildev">[docs]</a>
+<span class="k">class</span> <span class="nc">Moildev</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter_path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This is the initial configuration that you need provide the parameter. The camera parameter is the result from</span>
+<span class="sd">        calibration camera by MOIL laboratory. before the successive functions can work correctly,configuration is</span>
+<span class="sd">        necessary in the beginning of program.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parameter_path ():</span>
+<span class="sd">            camera_type ():</span>
+
+<span class="sd">        for more detail, please reference https://github.com/MoilOrg/moildev</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This is the initial configuration that you need provide the parameter. The camera parameter is the result from</span>
+<span class="sd">        calibration camera by MOIL laboratory. before the successive functions can work correctly,configuration is</span>
+<span class="sd">        necessary in the beginning of program.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            . camera_name - A string to describe this camera</span>
+<span class="sd">            . sensor_width - Camera sensor width (cm)</span>
+<span class="sd">            . sensor_height - Camera Sensor Height (cm)</span>
+<span class="sd">            . Icx - image center X coordinate(pixel)</span>
+<span class="sd">            . Icy - image center Y coordinate(pixel)</span>
+<span class="sd">            . ratio : Sensor pixel aspect ratio.</span>
+<span class="sd">            . imageWidth : Input image width</span>
+<span class="sd">            . imageHeight : Input image height</span>
+<span class="sd">            . parameter0 .. parameter5 : calibration&#39;s parameters</span>
+<span class="sd">            . calibrationRatio : input image with/ calibrationRatio image width</span>
+
+<span class="sd">        for more detail, please reference https://github.com/MoilOrg/moildev</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Moildev</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__PI</span> <span class="o">=</span> <span class="mf">3.1415926</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__alphaToRho_Table</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__rhoToAlpha_Table</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__moildev</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">parameter_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">parameter_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__camera</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;cameraName&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__sensor_width</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;cameraSensorWidth&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__sensor_height</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;cameraSensorHeight&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__Icx</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;iCx&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__Icy</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;iCy&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__ratio</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;ratio&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__imageWidth</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;imageWidth&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__imageHeight</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;imageHeight&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__calibrationRatio</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;calibrationRatio&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__parameter0</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;parameter0&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__parameter1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;parameter1&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__parameter2</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;parameter2&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__parameter3</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;parameter3&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__parameter4</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;parameter4&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__parameter5</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;parameter5&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__import_moildev</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__initAlphaRho_Table</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__initAlphaRho_Table</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create and calculate a list for initial alpha proportionate with rho image (height image).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Initial alpha proportionate with rho image table.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1800</span><span class="p">):</span>
+            <span class="n">alpha</span> <span class="o">=</span> <span class="n">i</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">*</span> <span class="mf">3.1415926</span> <span class="o">/</span> <span class="mi">180</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__alphaToRho_Table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__parameter0</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">+</span>
+                 <span class="bp">self</span><span class="o">.</span><span class="n">__parameter1</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">+</span>
+                 <span class="bp">self</span><span class="o">.</span><span class="n">__parameter2</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">+</span>
+                 <span class="bp">self</span><span class="o">.</span><span class="n">__parameter3</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">+</span>
+                 <span class="bp">self</span><span class="o">.</span><span class="n">__parameter4</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">*</span>
+                 <span class="n">alpha</span> <span class="o">+</span>
+                 <span class="bp">self</span><span class="o">.</span><span class="n">__parameter5</span> <span class="o">*</span>
+                 <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__calibrationRatio</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">1800</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alphaToRho_Table</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__rhoToAlpha_Table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">while</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">3600</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__rhoToAlpha_Table</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">__import_moildev</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create Moildev instance from Moildev SDK share object library.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">moildev_new</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">]</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">moildev_new</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__moildev</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">moildev_new</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__camera</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__sensor_width</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__sensor_height</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__Icx</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__Icy</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__ratio</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__imageWidth</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__imageHeight</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__parameter0</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__parameter1</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__parameter2</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__parameter3</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__parameter4</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__parameter5</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__calibrationRatio</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__map_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__imageHeight</span><span class="p">,</span>
+             <span class="bp">self</span><span class="o">.</span><span class="n">__imageWidth</span><span class="p">),</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__map_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__imageHeight</span><span class="p">,</span>
+             <span class="bp">self</span><span class="o">.</span><span class="n">__imageWidth</span><span class="p">),</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__create_map_result_image</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__create_map_result_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create Maps image from zeroes matrix for result image</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Zeroes matrix.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__imageHeight</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__imageWidth</span><span class="p">,</span> <span class="mi">3</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Moildev.test">
+<a class="viewcode-back" href="../../moilapp-Moilapp-V2.0.src.Moildev.html#Moildev.Moildev.Moildev.test">[docs]</a>
+    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test to link with Moildev share library</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Hello from C++</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__moildev</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">]</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_char_p</span>
+                <span class="nb">print</span><span class="p">((</span><span class="n">lib</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__moildev</span><span class="p">))</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">]</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">test</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span>
+                <span class="k">return</span> <span class="n">lib</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__moildev</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Moildev.clean">
+<a class="viewcode-back" href="../../moilapp-Moilapp-V2.0.src.Moildev.html#Moildev.Moildev.Moildev.clean">[docs]</a>
+    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        clean the memory of pointer.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">cleanup_moildev</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">]</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">cleanup_moildev</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span>
+        <span class="k">return</span> <span class="n">lib</span><span class="o">.</span><span class="n">cleanup_moildev</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__moildev</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Moildev.get_Icx">
+<a class="viewcode-back" href="../../moilapp-Moilapp-V2.0.src.Moildev.html#Moildev.Moildev.Moildev.get_Icx">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_Icx</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get center image from width image (x axis).</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__Icx</span></div>
+
+
+<div class="viewcode-block" id="Moildev.get_Icy">
+<a class="viewcode-back" href="../../moilapp-Moilapp-V2.0.src.Moildev.html#Moildev.Moildev.Moildev.get_Icy">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_Icy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get center image from height image (y axis).</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__Icy</span></div>
+
+
+<div class="viewcode-block" id="Moildev.get_imageWidth">
+<a class="viewcode-back" href="../../moilapp-Moilapp-V2.0.src.Moildev.html#Moildev.Moildev.Moildev.get_imageWidth">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_imageWidth</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get image width.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__imageWidth</span></div>
+
+
+<div class="viewcode-block" id="Moildev.get_imageHeight">
+<a class="viewcode-back" href="../../moilapp-Moilapp-V2.0.src.Moildev.html#Moildev.Moildev.Moildev.get_imageHeight">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_imageHeight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get image height.</span>
+
+<span class="sd">        :return: image height</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__imageHeight</span></div>
+
+
+<div class="viewcode-block" id="Moildev.getAnypointMaps">
+<a class="viewcode-back" href="../../moilapp-Moilapp-V2.0.src.Moildev.html#Moildev.Moildev.Moildev.getAnypointMaps">[docs]</a>
+    <span class="k">def</span> <span class="nf">getAnypointMaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">zoom</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The purpose is to generate a pair of X-Y Maps for the specified alpha, beta and zoom parameters,</span>
+<span class="sd">        the result X-Y Maps can be used later to remap the original fisheye image to the target angle image.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            :param alpha: alpha</span>
+<span class="sd">            :type alpha: float</span>
+<span class="sd">            :param beta: beta</span>
+<span class="sd">            :type beta: float</span>
+<span class="sd">            :param zoom: decimal zoom factor, normally 1..12</span>
+<span class="sd">            :type zoom: int</span>
+<span class="sd">            :param mode: selection anypoint mode(1 or 2)</span>
+<span class="sd">            :type mode: int</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            :return: map_x, map_y</span>
+<span class="sd">            :rtype: float</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            please reference: https://github.com/MoilOrg/moildev</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__moildev</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">beta</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">beta</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">+</span> <span class="mi">360</span>
+                <span class="k">if</span> <span class="n">alpha</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">90</span> <span class="ow">or</span> <span class="n">alpha</span> <span class="o">&gt;</span> <span class="mi">90</span> <span class="ow">or</span> <span class="n">beta</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">beta</span> <span class="o">&gt;</span> <span class="mi">360</span><span class="p">:</span>
+                    <span class="n">alpha</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="n">beta</span> <span class="o">=</span> <span class="mi">0</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">alpha</span> <span class="o">=</span> <span class="o">-</span><span class="mi">90</span> <span class="k">if</span> <span class="n">alpha</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">90</span> <span class="k">else</span> <span class="n">alpha</span>
+                    <span class="n">alpha</span> <span class="o">=</span> <span class="mi">90</span> <span class="k">if</span> <span class="n">alpha</span> <span class="o">&gt;</span> <span class="mi">90</span> <span class="k">else</span> <span class="n">alpha</span>
+                    <span class="n">beta</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">beta</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">beta</span>
+                    <span class="n">beta</span> <span class="o">=</span> <span class="mi">360</span> <span class="k">if</span> <span class="n">beta</span> <span class="o">&gt;</span> <span class="mi">360</span> <span class="k">else</span> <span class="n">beta</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">moil_anypointM</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span>
+                        <span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">),</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span>
+                        <span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">),</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">]</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">moil_anypointM</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">mapX</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map_x</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">))</span>
+                <span class="n">mapY</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map_y</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">))</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">moil_anypointM</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__moildev</span><span class="p">,</span>
+                    <span class="n">mapX</span><span class="p">,</span>
+                    <span class="n">mapY</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__imageWidth</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__imageHeight</span><span class="p">,</span>
+                    <span class="n">alpha</span><span class="p">,</span>
+                    <span class="n">beta</span><span class="p">,</span>
+                    <span class="n">zoom</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__ratio</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">alpha</span> <span class="o">&lt;</span> <span class="o">-</span> <span class="mi">90</span> <span class="ow">or</span> <span class="n">alpha</span> <span class="o">&gt;</span> <span class="mi">90</span> <span class="ow">or</span> <span class="n">beta</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">90</span> <span class="ow">or</span> <span class="n">beta</span> <span class="o">&gt;</span> <span class="mi">90</span><span class="p">:</span>
+                    <span class="n">alpha</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="n">beta</span> <span class="o">=</span> <span class="mi">0</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">alpha</span> <span class="o">=</span> <span class="o">-</span><span class="mi">90</span> <span class="k">if</span> <span class="n">alpha</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">90</span> <span class="k">else</span> <span class="n">alpha</span>
+                    <span class="n">alpha</span> <span class="o">=</span> <span class="mi">90</span> <span class="k">if</span> <span class="n">alpha</span> <span class="o">&gt;</span> <span class="mi">90</span> <span class="k">else</span> <span class="n">alpha</span>
+                    <span class="n">beta</span> <span class="o">=</span> <span class="o">-</span><span class="mi">90</span> <span class="k">if</span> <span class="n">beta</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">90</span> <span class="k">else</span> <span class="n">beta</span>
+                    <span class="n">beta</span> <span class="o">=</span> <span class="mi">90</span> <span class="k">if</span> <span class="n">beta</span> <span class="o">&gt;</span> <span class="mi">90</span> <span class="k">else</span> <span class="n">beta</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">moil_anypointM2</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span>
+                        <span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">),</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span>
+                        <span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">),</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">]</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">moil_anypointM2</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="kc">None</span>
+
+                <span class="n">mapX</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map_x</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">))</span>
+                <span class="n">mapY</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map_y</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">))</span>
+                <span class="n">lib</span><span class="o">.</span><span class="n">moil_anypointM2</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__moildev</span><span class="p">,</span>
+                    <span class="n">mapX</span><span class="p">,</span>
+                    <span class="n">mapY</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__imageWidth</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__imageHeight</span><span class="p">,</span>
+                    <span class="n">alpha</span><span class="p">,</span>
+                    <span class="n">beta</span><span class="p">,</span>
+                    <span class="n">zoom</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__ratio</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map_y</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Moildev.getPanoramaMaps">
+<a class="viewcode-back" href="../../moilapp-Moilapp-V2.0.src.Moildev.html#Moildev.Moildev.Moildev.getPanoramaMaps">[docs]</a>
+    <span class="k">def</span> <span class="nf">getPanoramaMaps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha_min</span><span class="p">,</span> <span class="n">alpha_max</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; To generate a pair of X-Y Maps for alpha within 0..alpha_max degree, the result X-Y Maps can be used later</span>
+<span class="sd">        to generate a panorama image from the original fisheye image..</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            :param alpha_min: alpha min</span>
+<span class="sd">            :type alpha_min: float</span>
+<span class="sd">            :param alpha_max: alpha max</span>
+<span class="sd">            :type alpha_max: float</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            :return: pair maps x-y</span>
+<span class="sd">            :rtype: array</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            please reference: https://github.com/MoilOrg/moildev</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">moil_panoramaX</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span>
+                <span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">),</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span>
+                <span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">),</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">]</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">moil_panoramaX</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">mapX</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map_x</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">))</span>
+        <span class="n">mapY</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map_y</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">))</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">moil_panoramaX</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__moildev</span><span class="p">,</span>
+            <span class="n">mapX</span><span class="p">,</span>
+            <span class="n">mapY</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__imageWidth</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__imageHeight</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__ratio</span><span class="p">,</span>
+            <span class="n">alpha_max</span><span class="p">,</span>
+            <span class="n">alpha_min</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map_y</span></div>
+
+
+<div class="viewcode-block" id="Moildev.anypoint">
+<a class="viewcode-back" href="../../moilapp-Moilapp-V2.0.src.Moildev.html#Moildev.Moildev.Moildev.anypoint">[docs]</a>
+    <span class="k">def</span> <span class="nf">anypoint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">zoom</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate anypoint view.for mode 1, the result rotation is betaOffset degree rotation around the</span>
+<span class="sd">        Z-axis(roll) after alphaOffset degree rotation around the X-axis(pitch). for mode 2, The result rotation</span>
+<span class="sd">        is thetaY degree rotation around the Y-axis(yaw) after thetaX degree rotation around the X-axis(pitch).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            :param image: source image</span>
+<span class="sd">            :type image: array</span>
+<span class="sd">            :param alpha: alpha</span>
+<span class="sd">            :type alpha: float</span>
+<span class="sd">            :param beta: beta</span>
+<span class="sd">            :type beta: float</span>
+<span class="sd">            :param zoom: zoom</span>
+<span class="sd">            :type zoom: int</span>
+<span class="sd">            :param mode: mode anypoint view</span>
+<span class="sd">            :type mode: int</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            :return: anypoint view</span>
+<span class="sd">            :rtype: array</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            please reference: https://github.com/MoilOrg/moildev</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">map_x</span><span class="p">,</span> <span class="n">map_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAnypointMaps</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">zoom</span><span class="p">,</span> <span class="n">mode</span><span class="p">)</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">remap</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">map_x</span><span class="p">,</span> <span class="n">map_y</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">INTER_CUBIC</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">image</span></div>
+
+
+<div class="viewcode-block" id="Moildev.panorama">
+<a class="viewcode-back" href="../../moilapp-Moilapp-V2.0.src.Moildev.html#Moildev.Moildev.Moildev.panorama">[docs]</a>
+    <span class="k">def</span> <span class="nf">panorama</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">alpha_min</span><span class="p">,</span> <span class="n">alpha_max</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;The panorama image centered at the 3D direction with alpha = iC_alpha_degree and beta = iC_beta_degree</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            :param image: Original image</span>
+<span class="sd">            :type image: array</span>
+<span class="sd">            :param alpha_min: min of alpha. by default it 10 degree.</span>
+<span class="sd">            :type alpha_min: float</span>
+<span class="sd">            :param alpha_max: max of alpha. The recommended value is half of camera FOV. For example, use</span>
+<span class="sd">                        90 for a 180 degree fisheye images and use 110 for a 220 degree fisheye images.</span>
+<span class="sd">            :type alpha_max: float</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            :return: panorama image</span>
+<span class="sd">            :rtype: array</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            please reference: https://github.com/MoilOrg/moildev</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">alpha_min</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;Oops!  That was no valid number on alpha_min.  the value must equal or more than 10&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">map_x</span><span class="p">,</span> <span class="n">map_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getPanoramaMaps</span><span class="p">(</span><span class="n">alpha_min</span><span class="p">,</span> <span class="n">alpha_max</span><span class="p">)</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">remap</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">map_x</span><span class="p">,</span> <span class="n">map_y</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">INTER_CUBIC</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">image</span></div>
+
+
+    <span class="k">def</span> <span class="nf">__PanoramaM_Rt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha_max</span><span class="p">,</span> <span class="n">iC_alpha_degree</span><span class="p">,</span> <span class="n">iC_beta_degree</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        To generate a pair of X-Y Maps for alpha within 0..alpha_max degree, the result X-Y Maps can be used later</span>
+<span class="sd">        to generate a panorama image from the original fisheye image. The panorama image centered at the 3D</span>
+<span class="sd">        direction with alpha = iC_alpha_degree and beta = iC_beta_degree.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            . mapX : memory pointer of result X-Map</span>
+<span class="sd">            . mapY : memory pointer of result Y-Map</span>
+<span class="sd">            . w : width of the Map (both mapX and mapY)</span>
+<span class="sd">            . h : height of the Map (both mapX and mapY)</span>
+<span class="sd">            . magnification : input imageWidth / sensor_width, m_ratio is normally equal to 1.</span>
+<span class="sd">            . alpha_max : max of alpha. The recommended vaule is half of camera FOV. For example, use</span>
+<span class="sd">              90 for a 180 degree fisheye images and use 110 for a 220 degree fisheye images.</span>
+<span class="sd">            . iC_alpha_degree : alpha angle of panorana center.</span>
+<span class="sd">            . iC_beta_degree : beta angle of panorama center.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            New mapX and mapY.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            please reference: https://github.com/MoilOrg/moildev</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">moil_panoramaM_Rt</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span>
+                <span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">),</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span>
+                <span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">),</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+            <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">]</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">moil_panoramaM_Rt</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">mapX</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map_x</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">))</span>
+        <span class="n">mapY</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map_y</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_float</span><span class="p">))</span>
+        <span class="n">lib</span><span class="o">.</span><span class="n">moil_panoramaM_Rt</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__moildev</span><span class="p">,</span>
+            <span class="n">mapX</span><span class="p">,</span>
+            <span class="n">mapY</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__imageWidth</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__imageHeight</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__ratio</span><span class="p">,</span>
+            <span class="n">alpha_max</span><span class="p">,</span>
+            <span class="n">iC_alpha_degree</span><span class="p">,</span>
+            <span class="n">iC_beta_degree</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__map_y</span>
+
+<div class="viewcode-block" id="Moildev.reverse_image">
+<a class="viewcode-back" href="../../moilapp-Moilapp-V2.0.src.Moildev.html#Moildev.Moildev.Moildev.reverse_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">reverse_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">alpha_max</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;To generate the image reverse image from panorama that can change the focus direction from the original</span>
+<span class="sd">        images. The panorama reverse image centered at the 3D direction with alpha_max = max of alpha and beta =</span>
+<span class="sd">        iC_beta_degree.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            :param image: source image</span>
+<span class="sd">            :type image: array</span>
+<span class="sd">            :param alpha_max: alpha max</span>
+<span class="sd">            :type alpha_max: float</span>
+<span class="sd">            :param alpha: alpha</span>
+<span class="sd">            :type alpha: float</span>
+<span class="sd">            :param beta: beta</span>
+<span class="sd">            :type beta: float</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            :return: reverse view image</span>
+<span class="sd">            :rtype: array</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            please reference: https://github.com/MoilOrg/moildev</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">map_x</span><span class="p">,</span> <span class="n">map_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__PanoramaM_Rt</span><span class="p">(</span><span class="n">alpha_max</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+        <span class="n">pano_image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">remap</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">map_x</span><span class="p">,</span> <span class="n">map_y</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">INTER_CUBIC</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Windows&quot;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;revPanorama available at Moildev library version 1.3.0 </span><span class="se">\n</span><span class="s2">&quot;</span>
+                  <span class="s2">&quot;make sure you have install OpenCV and Visual Studio code&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">moil_revPanorama</span><span class="o">.</span><span class="n">argtypes</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">,</span>
+                <span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">),</span>
+                <span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span>
+                    <span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">),</span>
+                <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span>
+                <span class="n">ctypes</span><span class="o">.</span><span class="n">c_int</span><span class="p">,</span>
+                <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+                <span class="n">ctypes</span><span class="o">.</span><span class="n">c_double</span><span class="p">,</span>
+            <span class="p">]</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">moil_revPanorama</span><span class="o">.</span><span class="n">restype</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">panoImage</span> <span class="o">=</span> <span class="n">pano_image</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span>
+                <span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">))</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__res</span><span class="o">.</span><span class="n">ctypes</span><span class="o">.</span><span class="n">data_as</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">POINTER</span><span class="p">(</span><span class="n">ctypes</span><span class="o">.</span><span class="n">c_void_p</span><span class="p">))</span>
+            <span class="n">lib</span><span class="o">.</span><span class="n">moil_revPanorama</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__moildev</span><span class="p">,</span>
+                <span class="n">panoImage</span><span class="p">,</span>
+                <span class="n">res</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__imageWidth</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">__imageHeight</span><span class="p">,</span>
+                <span class="n">alpha_max</span><span class="p">,</span>
+                <span class="n">beta</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__res</span></div>
+
+
+<div class="viewcode-block" id="Moildev.getAlphaFromRho">
+<a class="viewcode-back" href="../../moilapp-Moilapp-V2.0.src.Moildev.html#Moildev.Moildev.Moildev.getAlphaFromRho">[docs]</a>
+    <span class="k">def</span> <span class="nf">getAlphaFromRho</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rho</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the alpha from rho image.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            :param rho: rho image</span>
+<span class="sd">            :type rho: int</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            :return: alpha</span>
+<span class="sd">            :rtype: float</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            please reference: https://github.com/MoilOrg/moildev</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">rho</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__rhoToAlpha_Table</span><span class="p">[</span><span class="n">rho</span><span class="p">]</span> <span class="o">/</span> <span class="mi">10</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">__rhoToAlpha_Table</span><span class="p">[</span><span class="o">-</span><span class="n">rho</span><span class="p">]</span> <span class="o">/</span> <span class="mi">10</span></div>
+
+
+<div class="viewcode-block" id="Moildev.getRhoFromAlpha">
+<a class="viewcode-back" href="../../moilapp-Moilapp-V2.0.src.Moildev.html#Moildev.Moildev.Moildev.getRhoFromAlpha">[docs]</a>
+    <span class="k">def</span> <span class="nf">getRhoFromAlpha</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get rho image from alpha given.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            :param alpha:alpha</span>
+<span class="sd">            :type alpha: float</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            :return: rho image</span>
+<span class="sd">            :rtype: int</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            please reference: https://github.com/MoilOrg/moildev</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__alphaToRho_Table</span><span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">alpha</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)]</span></div>
+
+
+<div class="viewcode-block" id="Moildev.get_alpha_beta">
+<a class="viewcode-back" href="../../moilapp-Moilapp-V2.0.src.Moildev.html#Moildev.Moildev.Moildev.get_alpha_beta">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_alpha_beta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coordinateX</span><span class="p">,</span> <span class="n">coordinateY</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the alpha beta from specific coordinate image.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            :param mode: the anypoint mode.</span>
+<span class="sd">            :type mode: int</span>
+<span class="sd">            :param coordinateX: the coordinate point X axis.</span>
+<span class="sd">            :type coordinateX: int</span>
+<span class="sd">            :param coordinateY: the coordinate point Y axis.</span>
+<span class="sd">            :type coordinateY: int</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            :return: alpha, beta</span>
+<span class="sd">            :rtype: float</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            please reference: https://github.com/MoilOrg/moildev</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__moildev</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">delta_x</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">coordinateX</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">__imageWidth</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">)</span>
+            <span class="n">delta_y</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span> <span class="p">(</span><span class="n">coordinateY</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">__imageHeight</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">delta_x</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">delta_y</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+                <span class="n">alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAlphaFromRho</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">delta_x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">angle</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">angle</span> <span class="o">=</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="n">delta_y</span><span class="p">,</span> <span class="n">delta_x</span><span class="p">)</span> <span class="o">*</span> <span class="mi">180</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">__PI</span>
+
+                <span class="n">beta</span> <span class="o">=</span> <span class="mi">90</span> <span class="o">-</span> <span class="n">angle</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAlphaFromRho</span><span class="p">(</span><span class="n">delta_y</span><span class="p">)</span>
+                <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getAlphaFromRho</span><span class="p">(</span><span class="n">delta_x</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Haryanto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

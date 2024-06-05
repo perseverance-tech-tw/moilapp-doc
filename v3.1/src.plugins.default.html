@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Default &mdash; MoilApp 3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=110ea713"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Controller" href="src.plugins.default.contoller.html" />
+    <link rel="prev" title="Widgets" href="src.plugins.Thread_inspection.widgets.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">API References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MoilApp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">API References</a></li>
+          <li class="breadcrumb-item"><a href="src.plugins.html">Plugins</a></li>
+      <li class="breadcrumb-item active">Default</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="default">
+<h1>Default<a class="headerlink" href="#default" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="src.plugins.default.contoller.html">Controller</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.plugins.default.contoller.html#module-plugins.default.contoller.addition">Addition</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.addition.select_file"><code class="docutils literal notranslate"><span class="pre">select_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.addition.draw_point"><code class="docutils literal notranslate"><span class="pre">draw_point()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.addition.save_image"><code class="docutils literal notranslate"><span class="pre">save_image()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.plugins.default.contoller.html#module-plugins.default.contoller.control_window">Window</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.control_window.ViewWindow"><code class="docutils literal notranslate"><span class="pre">ViewWindow</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.control_window.ViewWindow.connectToButton"><code class="docutils literal notranslate"><span class="pre">ViewWindow.connectToButton()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.control_window.ViewWindow.showMaximized"><code class="docutils literal notranslate"><span class="pre">ViewWindow.showMaximized()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.control_window.ViewWindow.show_Minimized"><code class="docutils literal notranslate"><span class="pre">ViewWindow.show_Minimized()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.control_window.ViewWindow.hideToolbar"><code class="docutils literal notranslate"><span class="pre">ViewWindow.hideToolbar()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.plugins.default.contoller.html#module-plugins.default.contoller.resize_image">Image</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.resize_image.ResizeImage"><code class="docutils literal notranslate"><span class="pre">ResizeImage</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.resize_image.ResizeImage.resize_original_image"><code class="docutils literal notranslate"><span class="pre">ResizeImage.resize_original_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.resize_image.ResizeImage.resize_result_image"><code class="docutils literal notranslate"><span class="pre">ResizeImage.resize_result_image()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.plugins.default.contoller.html#module-plugins.default.contoller.select_cam">Camera</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.select_cam.check_port_camera"><code class="docutils literal notranslate"><span class="pre">check_port_camera()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.select_cam.OpenCameras"><code class="docutils literal notranslate"><span class="pre">OpenCameras</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.select_cam.OpenCameras.connect_to_button"><code class="docutils literal notranslate"><span class="pre">OpenCameras.connect_to_button()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.select_cam.OpenCameras.handle_activated_combobox"><code class="docutils literal notranslate"><span class="pre">OpenCameras.handle_activated_combobox()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.select_cam.OpenCameras.video_source"><code class="docutils literal notranslate"><span class="pre">OpenCameras.video_source()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.select_cam.OpenCameras.push_button_ok"><code class="docutils literal notranslate"><span class="pre">OpenCameras.push_button_ok()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.select_cam.OpenCameras.exit"><code class="docutils literal notranslate"><span class="pre">OpenCameras.exit()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.plugins.default.contoller.html#module-plugins.default.contoller.showResult">Show Result</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.showResult.rotate"><code class="docutils literal notranslate"><span class="pre">rotate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.showResult.ShowImageResult"><code class="docutils literal notranslate"><span class="pre">ShowImageResult</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.showResult.ShowImageResult.showInRecenterLabel"><code class="docutils literal notranslate"><span class="pre">ShowImageResult.showInRecenterLabel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.showResult.ShowImageResult.showOriginalImage"><code class="docutils literal notranslate"><span class="pre">ShowImageResult.showOriginalImage()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.showResult.ShowImageResult.showPanoAnyImage"><code class="docutils literal notranslate"><span class="pre">ShowImageResult.showPanoAnyImage()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.showResult.ShowImageResult.view_result"><code class="docutils literal notranslate"><span class="pre">ShowImageResult.view_result()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.showResult.ShowImageResult.label_result"><code class="docutils literal notranslate"><span class="pre">ShowImageResult.label_result()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.plugins.default.contoller.html#module-plugins.default.contoller.videocontroller">Video controller</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.videocontroller.VideoController"><code class="docutils literal notranslate"><span class="pre">VideoController</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.videocontroller.VideoController.connectToButton"><code class="docutils literal notranslate"><span class="pre">VideoController.connectToButton()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.videocontroller.VideoController.videoButtonDisable"><code class="docutils literal notranslate"><span class="pre">VideoController.videoButtonDisable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.videocontroller.VideoController.videoButtonEnable"><code class="docutils literal notranslate"><span class="pre">VideoController.videoButtonEnable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.videocontroller.VideoController.videoButtonCamera"><code class="docutils literal notranslate"><span class="pre">VideoController.videoButtonCamera()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.videocontroller.VideoController.reset_time"><code class="docutils literal notranslate"><span class="pre">VideoController.reset_time()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.videocontroller.VideoController.videoPlayPouse"><code class="docutils literal notranslate"><span class="pre">VideoController.videoPlayPouse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.videocontroller.VideoController.play_video"><code class="docutils literal notranslate"><span class="pre">VideoController.play_video()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.videocontroller.VideoController.pause_video"><code class="docutils literal notranslate"><span class="pre">VideoController.pause_video()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.videocontroller.VideoController.stop_video"><code class="docutils literal notranslate"><span class="pre">VideoController.stop_video()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.videocontroller.VideoController.stop_camera"><code class="docutils literal notranslate"><span class="pre">VideoController.stop_camera()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.videocontroller.VideoController.prev_video"><code class="docutils literal notranslate"><span class="pre">VideoController.prev_video()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.videocontroller.VideoController.skip_video"><code class="docutils literal notranslate"><span class="pre">VideoController.skip_video()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.videocontroller.VideoController.changeValue"><code class="docutils literal notranslate"><span class="pre">VideoController.changeValue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.videocontroller.VideoController.controller"><code class="docutils literal notranslate"><span class="pre">VideoController.controller()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.videocontroller.VideoController.recordVideo"><code class="docutils literal notranslate"><span class="pre">VideoController.recordVideo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.contoller.html#plugins.default.contoller.videocontroller.VideoController.selectDir"><code class="docutils literal notranslate"><span class="pre">VideoController.selectDir()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src.plugins.default.ui_windows.html">Windows</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.plugins.default.ui_windows.html#module-plugins.default.ui_windows.OpenCam">Open Camera</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.plugins.default.ui_windows.html#plugins.default.ui_windows.OpenCam.Ui_Dialog"><code class="docutils literal notranslate"><span class="pre">Ui_Dialog</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.ui_windows.html#plugins.default.ui_windows.OpenCam.Ui_Dialog.setupUi"><code class="docutils literal notranslate"><span class="pre">Ui_Dialog.setupUi()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.ui_windows.html#plugins.default.ui_windows.OpenCam.Ui_Dialog.retranslateUi"><code class="docutils literal notranslate"><span class="pre">Ui_Dialog.retranslateUi()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.plugins.default.ui_windows.html#module-plugins.default.ui_windows.Ui_Mainwindow">Main Window</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.plugins.default.ui_windows.html#plugins.default.ui_windows.Ui_Mainwindow.Ui_MainWindow"><code class="docutils literal notranslate"><span class="pre">Ui_MainWindow</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.ui_windows.html#plugins.default.ui_windows.Ui_Mainwindow.Ui_MainWindow.setupUi"><code class="docutils literal notranslate"><span class="pre">Ui_MainWindow.setupUi()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.ui_windows.html#plugins.default.ui_windows.Ui_Mainwindow.Ui_MainWindow.retranslateUi"><code class="docutils literal notranslate"><span class="pre">Ui_MainWindow.retranslateUi()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src.plugins.default.view_image.html">Image</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="src.plugins.default.view_image.html#module-plugins.default.view_image.anypoint">Anypoint</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.anypoint.AnyPoint"><code class="docutils literal notranslate"><span class="pre">AnyPoint</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.anypoint.AnyPoint.connectToButton"><code class="docutils literal notranslate"><span class="pre">AnyPoint.connectToButton()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.anypoint.AnyPoint.control_button_on_anypoint"><code class="docutils literal notranslate"><span class="pre">AnyPoint.control_button_on_anypoint()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.anypoint.AnyPoint.control_button_off_anypoint"><code class="docutils literal notranslate"><span class="pre">AnyPoint.control_button_off_anypoint()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.anypoint.AnyPoint.zoomValue"><code class="docutils literal notranslate"><span class="pre">AnyPoint.zoomValue()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.anypoint.AnyPoint.resetAlphaBeta"><code class="docutils literal notranslate"><span class="pre">AnyPoint.resetAlphaBeta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.anypoint.AnyPoint.onclickAnypoint"><code class="docutils literal notranslate"><span class="pre">AnyPoint.onclickAnypoint()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.anypoint.AnyPoint.anypoint_view"><code class="docutils literal notranslate"><span class="pre">AnyPoint.anypoint_view()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.anypoint.AnyPoint.showPolygon"><code class="docutils literal notranslate"><span class="pre">AnyPoint.showPolygon()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.anypoint.AnyPoint.updateParamAnypoint"><code class="docutils literal notranslate"><span class="pre">AnyPoint.updateParamAnypoint()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.anypoint.AnyPoint.anypoint_mode_1"><code class="docutils literal notranslate"><span class="pre">AnyPoint.anypoint_mode_1()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.anypoint.AnyPoint.anypoint_mode_2"><code class="docutils literal notranslate"><span class="pre">AnyPoint.anypoint_mode_2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.anypoint.AnyPoint.set_anypoint"><code class="docutils literal notranslate"><span class="pre">AnyPoint.set_anypoint()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.anypoint.AnyPoint.up"><code class="docutils literal notranslate"><span class="pre">AnyPoint.up()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.anypoint.AnyPoint.left"><code class="docutils literal notranslate"><span class="pre">AnyPoint.left()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.anypoint.AnyPoint.center"><code class="docutils literal notranslate"><span class="pre">AnyPoint.center()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.anypoint.AnyPoint.right"><code class="docutils literal notranslate"><span class="pre">AnyPoint.right()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.anypoint.AnyPoint.down"><code class="docutils literal notranslate"><span class="pre">AnyPoint.down()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="src.plugins.default.view_image.html#module-plugins.default.view_image.panorama">Panorama</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.panorama.Panorama"><code class="docutils literal notranslate"><span class="pre">Panorama</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.panorama.Panorama.connectToButton"><code class="docutils literal notranslate"><span class="pre">Panorama.connectToButton()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.panorama.Panorama.control_button_on_panorama"><code class="docutils literal notranslate"><span class="pre">Panorama.control_button_on_panorama()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.panorama.Panorama.control_button_of_panorama"><code class="docutils literal notranslate"><span class="pre">Panorama.control_button_of_panorama()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.panorama.Panorama.set_panorama"><code class="docutils literal notranslate"><span class="pre">Panorama.set_panorama()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.panorama.Panorama.panorama_view"><code class="docutils literal notranslate"><span class="pre">Panorama.panorama_view()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.panorama.Panorama.recenterImage"><code class="docutils literal notranslate"><span class="pre">Panorama.recenterImage()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.panorama.Panorama.positionCoorX"><code class="docutils literal notranslate"><span class="pre">Panorama.positionCoorX()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.panorama.Panorama.positionCoorY"><code class="docutils literal notranslate"><span class="pre">Panorama.positionCoorY()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.panorama.Panorama.updatePossCenter"><code class="docutils literal notranslate"><span class="pre">Panorama.updatePossCenter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.panorama.Panorama.resetCenter"><code class="docutils literal notranslate"><span class="pre">Panorama.resetCenter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.panorama.Panorama.setCoorCenterObject"><code class="docutils literal notranslate"><span class="pre">Panorama.setCoorCenterObject()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="src.plugins.default.view_image.html#plugins.default.view_image.panorama.Panorama.showOriginalPanorama"><code class="docutils literal notranslate"><span class="pre">Panorama.showOriginalPanorama()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="module-plugins.default.main">
+<span id="main"></span><h2>Main<a class="headerlink" href="#module-plugins.default.main" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="plugins.default.main.DefaultApps">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">plugins.default.main.</span></span><span class="sig-name descname"><span class="pre">DefaultApps</span></span><a class="reference internal" href="_modules/plugins/default/main.html#DefaultApps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.main.DefaultApps" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="src.html#base_plugin.Plugin" title="base_plugin.Plugin"><code class="xref py py-class docutils literal notranslate"><span class="pre">Plugin</span></code></a></p>
+<p>The class that represent the plugins application, class name will be read as the name of application.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.main.DefaultApps.perform_operation">
+<span class="sig-name descname"><span class="pre">perform_operation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argument</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/main.html#DefaultApps.perform_operation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.main.DefaultApps.perform_operation" title="Link to this definition"></a></dt>
+<dd><p>The main application will execute this function when click button open.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>)</strong> (<em>argument</em>) – is the object widget from main application class.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Will show the window of application.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-plugins.default.ui_controller">
+<span id="controller"></span><h2>Controller<a class="headerlink" href="#module-plugins.default.ui_controller" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">plugins.default.ui_controller.</span></span><span class="sig-name descname"><span class="pre">Controller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">MainWindow</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
+<p>The controller class to control UI MainWindow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>)</strong> (<em>MainWindow</em>) – Its object window from parent application(argument from main apps)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.camera_parameter">
+<span class="sig-name descname"><span class="pre">camera_parameter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'camera_parameters/camera_parameters.json'</span></em><a class="headerlink" href="#plugins.default.ui_controller.Controller.camera_parameter" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.connect_button">
+<span class="sig-name descname"><span class="pre">connect_button</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.connect_button"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.connect_button" title="Link to this definition"></a></dt>
+<dd><p>Connect the button and event to the function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><p>–</p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.open_image">
+<span class="sig-name descname"><span class="pre">open_image</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.open_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.open_image" title="Link to this definition"></a></dt>
+<dd><p>Load image from directory using file open dialog.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Image.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.open_video_file">
+<span class="sig-name descname"><span class="pre">open_video_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.open_video_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.open_video_file" title="Link to this definition"></a></dt>
+<dd><p>Load video file from local directory using file open dialog.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Video.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.onclick_open_camera">
+<span class="sig-name descname"><span class="pre">onclick_open_camera</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.onclick_open_camera"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.onclick_open_camera" title="Link to this definition"></a></dt>
+<dd><p>Showing the window to select the source camera.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.cameraOpen">
+<span class="sig-name descname"><span class="pre">cameraOpen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.cameraOpen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.cameraOpen" title="Link to this definition"></a></dt>
+<dd><p>Open camera following the source given. the source has 2 choice which is usb camera and url camera
+raspberry pi. we have to running the server on raspberry to use the url camera.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Camera open.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.next_frame_slot">
+<span class="sig-name descname"><span class="pre">next_frame_slot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.next_frame_slot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.next_frame_slot" title="Link to this definition"></a></dt>
+<dd><p>Control video frame, Its will Lopping the frame following the timer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.init_ori_ratio">
+<span class="sig-name descname"><span class="pre">init_ori_ratio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.init_ori_ratio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.init_ori_ratio" title="Link to this definition"></a></dt>
+<dd><p>Calculate the initial ratio of the image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ratio width between image and ui window.
+ratio_y : ratio height between image and ui window.
+center : find the center image on window user interface.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ratio_x</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.getCenterWindowsOri">
+<span class="sig-name descname"><span class="pre">getCenterWindowsOri</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.getCenterWindowsOri"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.getCenterWindowsOri" title="Link to this definition"></a></dt>
+<dd><p>Get the center coordinate on label windows original.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>center coordinate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.mouse_event">
+<span class="sig-name descname"><span class="pre">mouse_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.mouse_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.mouse_event" title="Link to this definition"></a></dt>
+<dd><p>Specify coordinate from mouse left event to generate anypoint view and recenter image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>)</strong> (<em>e</em>) – Coordinate point return by pyqt core</p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.mouseDoubleclick_event">
+<span class="sig-name descname"><span class="pre">mouseDoubleclick_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.mouseDoubleclick_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.mouseDoubleclick_event" title="Link to this definition"></a></dt>
+<dd><p>Reset to default by mouse event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>)</strong> (<em>e</em>)</p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.mouse_wheelEvent">
+<span class="sig-name descname"><span class="pre">mouse_wheelEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.mouse_wheelEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.mouse_wheelEvent" title="Link to this definition"></a></dt>
+<dd><p>Resize image using mouse wheel event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>)</strong> (<em>e</em>)</p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.mouseMovedOriImage">
+<span class="sig-name descname"><span class="pre">mouseMovedOriImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.mouseMovedOriImage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.mouseMovedOriImage" title="Link to this definition"></a></dt>
+<dd><p>Mouse move event to look in surrounding view in result label image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>)</strong> (<em>e</em>)</p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.mouseMovedResultImage">
+<span class="sig-name descname"><span class="pre">mouseMovedResultImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.mouseMovedResultImage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.mouseMovedResultImage" title="Link to this definition"></a></dt>
+<dd><p>Mouse move event to look in surrounding view in original label image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>)</strong> (<em>e</em>)</p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.mouse_release_event">
+<span class="sig-name descname"><span class="pre">mouse_release_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.mouse_release_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.mouse_release_event" title="Link to this definition"></a></dt>
+<dd><p>Mouse release event right click to show menu. the menu can select is show maximum, show minimum,
+save image, and show info.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>)</strong> (<em>e</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.menuMouseEvent">
+<span class="sig-name descname"><span class="pre">menuMouseEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.menuMouseEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.menuMouseEvent" title="Link to this definition"></a></dt>
+<dd><p>showing the menu image when release right click.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>)</strong> (<em>e</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.saveImage">
+<span class="sig-name descname"><span class="pre">saveImage</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.saveImage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.saveImage" title="Link to this definition"></a></dt>
+<dd><p>Save image on local directory. the first time you save image, it will open dialog to select the directory,
+then the image saved will always stored on directory selected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.selectDir">
+<span class="sig-name descname"><span class="pre">selectDir</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.selectDir"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.selectDir" title="Link to this definition"></a></dt>
+<dd><p>Select directory to save image. This function create to make it not always ask the directory by open dialog,
+after directory save not None, it will pass open dialog prompt.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.aboutUs">
+<span class="sig-name descname"><span class="pre">aboutUs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.aboutUs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.aboutUs" title="Link to this definition"></a></dt>
+<dd><p>Showing prompt About us information (MOIL LAB).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.help">
+<span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.help"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.help" title="Link to this definition"></a></dt>
+<dd><p>showing the message box to show help information obout this application.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.back_to_home">
+<span class="sig-name descname"><span class="pre">back_to_home</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.back_to_home"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.back_to_home" title="Link to this definition"></a></dt>
+<dd><p>This function is for back to main windows, because we just hide the main window so it possible to show
+the main window following the event given.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.exit">
+<span class="sig-name descname"><span class="pre">exit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.exit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.exit" title="Link to this definition"></a></dt>
+<dd><p>Exit the apps with showing the QMessageBox.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.default.ui_controller.Controller.closeEvent">
+<span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/default/ui_controller.html#Controller.closeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.default.ui_controller.Controller.closeEvent" title="Link to this definition"></a></dt>
+<dd><p>Control exit application by ask yes or no question.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>)</strong> (<em>event</em>) – when you click the icon (x) or exit button</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>destroy the window.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="src.plugins.Thread_inspection.widgets.html" class="btn btn-neutral float-left" title="Widgets" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="src.plugins.default.contoller.html" class="btn btn-neutral float-right" title="Controller" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Haryanto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

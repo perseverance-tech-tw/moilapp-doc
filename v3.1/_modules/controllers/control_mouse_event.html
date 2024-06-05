@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>controllers.control_mouse_event &mdash; MoilApp Documentation 4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=3b2dd2c4"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">MoilApp of Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin_extention.html">Plugin Extention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting_issue.html">Troubleshooting Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup_issue.html">Reporting Bugs and Issues</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MoilApp Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">controllers.control_mouse_event</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for controllers.control_mouse_event</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span>
+<span class="kn">from</span> <span class="nn">PyQt6.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span>
+<span class="kn">from</span> <span class="nn">PyQt6.QtGui</span> <span class="kn">import</span> <span class="n">QCursor</span>
+
+
+<div class="viewcode-block" id="MouseEvent">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent">[docs]</a>
+<span class="k">class</span> <span class="nc">MouseEvent</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">controller</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span> <span class="o">=</span> <span class="n">controller</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">set_moildev</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ui_object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rubberband</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QRubberBand</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QRubberBand</span><span class="o">.</span><span class="n">Shape</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_result</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ratio_label_ori</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connect_signals</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_connect_signals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_logo</span><span class="o">.</span><span class="n">mousePressEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mouse_event_in_moil_logo</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_image_original</span><span class="o">.</span><span class="n">mouseReleaseEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_original_mouse_release_event</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_image_original</span><span class="o">.</span><span class="n">mouseMoveEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_original_mouse_move_event</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_image_original</span><span class="o">.</span><span class="n">mousePressEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_original_mouse_press_event</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_image_original</span><span class="o">.</span><span class="n">leaveEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_original_mouse_leave_event</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_image_original</span><span class="o">.</span><span class="n">mouseDoubleClickEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_original_mouse_double_click_event</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_result</span><span class="o">.</span><span class="n">mouseDoubleClickEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_result_mouse_double_click</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_result</span><span class="o">.</span><span class="n">mousePressEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_result_mouse_press_event</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_result</span><span class="o">.</span><span class="n">mouseMoveEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_result_mouse_move_event</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_result</span><span class="o">.</span><span class="n">mouseReleaseEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_result_mouse_release_event</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_image_recenter</span><span class="o">.</span><span class="n">mouseReleaseEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_recenter_mouse_release_event</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_image_recenter</span><span class="o">.</span><span class="n">mousePressEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_recenter_mouse_press_event</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_image_recenter</span><span class="o">.</span><span class="n">mouseMoveEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_recenter_mouse_move_event</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_image_recenter</span><span class="o">.</span><span class="n">leaveEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_recenter_mouse_leave_event</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_image_recenter</span><span class="o">.</span><span class="n">mouseDoubleClickEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">label_original_mouse_double_click_event</span>
+
+<div class="viewcode-block" id="MouseEvent.calculate_ratio_label_ori">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.calculate_ratio_label_ori">[docs]</a>
+    <span class="k">def</span> <span class="nf">calculate_ratio_label_ori</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates the ratio of label to original image dimensions.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ratio_label_ori</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ratio_label_ori</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">calculate_ratio_image2label</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_image_original</span><span class="p">,</span>
+                                                    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_ori_used</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.mouse_event_in_moil_logo">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.mouse_event_in_moil_logo">[docs]</a>
+    <span class="k">def</span> <span class="nf">mouse_event_in_moil_logo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles mouse events in the Moil logo.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event: The mouse event.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: mouse_event_in_moil_logo(), &quot;</span>
+                                             <span class="s2">&quot;Back to Home page&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">MouseButtonPress</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">MouseButton</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_panel_page</span><span class="o">.</span><span class="n">button_menu</span><span class="p">(</span><span class="mi">220</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">back_to_home</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.label_original_mouse_release_event">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_original_mouse_release_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">label_original_mouse_release_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles mouse release events on the original image label.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event: The mouse event.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: label_original_mouse_release_event(), &quot;</span>
+                                             <span class="s2">&quot;Mouse even release for label_original&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">MouseButton</span><span class="o">.</span><span class="n">RightButton</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">menu_mouse_event</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="s2">&quot;label_original&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.label_original_mouse_move_event">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_original_mouse_move_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">label_original_mouse_move_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles mouse move events on the original image label.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event: The mouse event.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: label_original_mouse_move_event(), &quot;</span>
+                                             <span class="s2">&quot;Mouse event move for label_original&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">saving_media</span><span class="o">.</span><span class="n">load_saved_image</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">calculate_ratio_label_ori</span><span class="p">()</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">position</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">())</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ratio_label_ori</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">position</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">())</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ratio_label_ori</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_value_coordinate_image_original</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">buttons</span><span class="p">()</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MouseButton</span><span class="o">.</span><span class="n">NoButton</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">source_usable</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_main</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_main</span><span class="o">.</span><span class="n">get_alpha_beta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Image_original&quot;</span><span class="p">][</span><span class="s2">&quot;pointer&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;AnypointView&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">label_image_original</span><span class="o">.</span><span class="n">setCursor</span><span class="p">(</span>
+                    <span class="n">QCursor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">CursorShape</span><span class="o">.</span><span class="n">PointingHandCursor</span><span class="p">))</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">source_usable</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_main</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">anypoint_mode</span> <span class="o">==</span> <span class="s2">&quot;mode_1&quot;</span><span class="p">:</span>
+                        <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_main</span><span class="o">.</span><span class="n">get_alpha_beta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_main</span><span class="o">.</span><span class="n">get_alpha_beta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_alpha_beta_label_original</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_img_ori</span><span class="o">.</span><span class="n">create_image_original</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">buttons</span><span class="p">()</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MouseButton</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;AnypointView&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">label_image_original</span><span class="o">.</span><span class="n">setCursor</span><span class="p">(</span><span class="n">QCursor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">CursorShape</span><span class="o">.</span><span class="n">ClosedHandCursor</span><span class="p">))</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">anypoint_mode</span> <span class="o">==</span> <span class="s2">&quot;mode_1&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+                    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_main</span><span class="o">.</span><span class="n">get_alpha_beta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">show_alpha_beta_label_original</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">create_maps_anypoint_mode_1</span><span class="p">()</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+                    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_main</span><span class="o">.</span><span class="n">get_alpha_beta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;pitch&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;yaw&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">show_alpha_beta_label_original</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">create_maps_anypoint_mode_2</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">save_main_config_update</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">show_alpha_beta_label_original</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">display_image_to_ui</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.label_original_mouse_press_event">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_original_mouse_press_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">label_original_mouse_press_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles mouse press events on the original image label.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event: The mouse event.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: label_original_mouse_press_event(), &quot;</span>
+                                             <span class="s2">&quot;Mouse press for label_original&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">buttons</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">MouseButton</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">calculate_ratio_label_ori</span><span class="p">()</span>
+                <span class="n">pos_x</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">position</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">())</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ratio_label_ori</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">pos_y</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">position</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">())</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ratio_label_ori</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">recenter_mode_view</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Image_recenter&quot;</span><span class="p">][</span><span class="s2">&quot;Recenter_coordinate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">pos_x</span><span class="p">,</span> <span class="n">pos_y</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_recenter</span><span class="o">.</span><span class="n">create_maps_recenter</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">view_recenter</span><span class="o">.</span><span class="n">create_image_recenter</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;AnypointView&quot;</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">change_mode_anypoint</span><span class="p">()</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;AnypointView&quot;</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">anypoint_mode</span> <span class="o">==</span> <span class="s2">&quot;mode_1&quot;</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">pos_x</span><span class="p">,</span> <span class="n">pos_y</span><span class="p">]</span>
+                            <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_main</span><span class="o">.</span><span class="n">get_alpha_beta</span><span class="p">(</span><span class="n">pos_x</span><span class="p">,</span><span class="n">pos_y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">create_maps_anypoint_mode_1</span><span class="p">()</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">showing_config_mode_1</span><span class="p">()</span>
+
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos_x</span><span class="p">,</span> <span class="n">pos_y</span>
+                            <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_main</span><span class="o">.</span><span class="n">get_alpha_beta</span><span class="p">(</span><span class="n">pos_x</span><span class="p">,</span> <span class="n">pos_y</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;pitch&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;yaw&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">create_maps_anypoint_mode_2</span><span class="p">()</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">showing_config_mode_2</span><span class="p">()</span>
+
+                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;PanoramaView&quot;</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">radioButton_car</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos_x</span><span class="p">,</span> <span class="n">pos_y</span>
+                            <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_main</span><span class="o">.</span><span class="n">get_alpha_beta</span><span class="p">(</span><span class="n">pos_x</span><span class="p">,</span> <span class="n">pos_y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_panorama</span><span class="o">.</span><span class="n">create_maps_panorama_car</span><span class="p">()</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">view_panorama</span><span class="o">.</span><span class="n">showing_config_panorama_car</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">save_main_config_update</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">display_image_to_ui</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.label_original_mouse_leave_event">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_original_mouse_leave_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">label_original_mouse_leave_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle the mouse leave event on the original image label.</span>
+
+<span class="sd">        This method is called when the mouse leaves the original image label in the</span>
+<span class="sd">        UI. It delegates the handling of the event to the model_apps instance of the</span>
+<span class="sd">        Model class.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: label_original_mouse_leave_event(), &quot;</span>
+                                             <span class="s2">&quot;Mouse leave even  for label_original&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># original is image resize</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">saving_media</span><span class="o">.</span><span class="n">load_saved_image</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">recenter_mode_view</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;FisheyeView&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_value_coordinate_image_original</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_original&quot;</span><span class="p">][</span><span class="s2">&quot;center_coord&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_original&quot;</span><span class="p">][</span><span class="s2">&quot;center_coord&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_value_coordinate_image_original</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_recenter&quot;</span><span class="p">][</span><span class="s2">&quot;Recenter_coordinate&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_recenter&quot;</span><span class="p">][</span><span class="s2">&quot;Recenter_coordinate&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="n">icx</span><span class="p">,</span> <span class="n">icy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_recenter&quot;</span><span class="p">][</span><span class="s2">&quot;Recenter_coordinate&quot;</span><span class="p">]</span>
+            <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_recenter</span><span class="o">.</span><span class="n">get_alpha_beta</span><span class="p">(</span><span class="n">icx</span><span class="p">,</span> <span class="n">icy</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_alpha_beta_label_original</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;AnypointView&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">radio_mode_1</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                    <span class="n">alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span>
+                    <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">set_value_coordinate_image_original</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                                                             <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;pitch&quot;</span><span class="p">]</span>
+                    <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;yaw&quot;</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">set_value_coordinate_image_original</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                                                             <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">show_alpha_beta_label_original</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;PanoramaView&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">radioButton_car</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                    <span class="n">alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span>
+                    <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">set_value_coordinate_image_original</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                                                             <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">show_alpha_beta_label_original</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_value_coordinate_image_original</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_original&quot;</span><span class="p">][</span><span class="s2">&quot;center_coord&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                                                         <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_original&quot;</span><span class="p">][</span><span class="s2">&quot;center_coord&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">show_alpha_beta_label_original</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Image_original&quot;</span><span class="p">][</span><span class="s2">&quot;pointer&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_img_ori</span><span class="o">.</span><span class="n">create_image_original</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.label_original_mouse_double_click_event">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_original_mouse_double_click_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">label_original_mouse_double_click_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the mouse double-click event for the `label_original` widget, which displays the original fisheye image.</span>
+
+<span class="sd">        If the current view mode is `AnypointView`, calls the corresponding `model_apps` method and displays the</span>
+<span class="sd">        corresponding `view_anypoint` UI widget.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: label_original_mouse_double_click_event(), &quot;</span>
+                                             <span class="s2">&quot;Mouse double click even  for label_original&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;AnypointView&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">radio_mode_1</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="c1"># self._main_config[&quot;Mode_1&quot;][&quot;zoom&quot;] = 4</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Image_original&quot;</span><span class="p">][</span><span class="s2">&quot;center_coord&quot;</span><span class="p">]</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">create_maps_anypoint_mode_1</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">showing_config_mode_1</span><span class="p">()</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;pitch&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;roll&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;yaw&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="c1"># self._main_config[&quot;Mode_2&quot;][&quot;zoom&quot;] = 4</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Image_original&quot;</span><span class="p">][</span><span class="s2">&quot;center_coord&quot;</span><span class="p">]</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">create_maps_anypoint_mode_2</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">showing_config_mode_2</span><span class="p">()</span>
+
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;PanoramaView&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">radioButton_car</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Image_original&quot;</span><span class="p">][</span><span class="s2">&quot;center_coord&quot;</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_panorama</span><span class="o">.</span><span class="n">create_maps_panorama_car</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">view_panorama</span><span class="o">.</span><span class="n">showing_config_panorama_car</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">save_main_config_update</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">display_image_to_ui</span><span class="p">()</span></div>
+
+
+    <span class="c1"># label result controller begin here ##############################</span>
+<div class="viewcode-block" id="MouseEvent.label_result_mouse_double_click">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_result_mouse_double_click">[docs]</a>
+    <span class="k">def</span> <span class="nf">label_result_mouse_double_click</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles mouse double-click events on the result label.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event: The mouse event.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: label_result_mouse_double_click(), &quot;</span>
+                                             <span class="s2">&quot;Mouse double click even for label_result&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_img_result</span><span class="o">.</span><span class="n">create_image_result</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">display_image_to_ui</span><span class="p">()</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># self._model.view_panorama.create_maps_fov()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">showing_new_window_full_screen</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.label_result_mouse_press_event">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_result_mouse_press_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">label_result_mouse_press_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the mouse press event on the result image label.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event: A `QMouseEvent` object representing the mouse press event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            This function is responsible for creating and showing a rubberband when the left mouse button is pressed on</span>
+<span class="sd">            the result image label. The rubberband is used to select a specific region of interest (ROI) in the image.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: label_result_mouse_press_event(), &quot;</span>
+                                             <span class="s2">&quot;Mouse press even for label_result&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">MouseButton</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_rubberband</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_rubberband</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QRect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">origin</span><span class="p">,</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">()))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_rubberband</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.label_result_mouse_move_event">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_result_mouse_move_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">label_result_mouse_move_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle mouse move events on the result label.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event: A `QMouseEvent` instance representing the mouse move event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: label_result_mouse_press_event(), &quot;</span>
+                                             <span class="s2">&quot;Mouse move even for label_result&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">buttons</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">MouseButton</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rubberband</span><span class="o">.</span><span class="n">isVisible</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_rubberband</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QRect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">origin</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">pos</span><span class="p">()))</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.label_result_mouse_release_event">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_result_mouse_release_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">label_result_mouse_release_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the mouse release event on the label_result widget.</span>
+
+<span class="sd">        Behavior:</span>
+<span class="sd">            If the left mouse button was released and an image is loaded, the size of the rubberband is checked.</span>
+<span class="sd">            If it has a width and height greater than 20 pixels and the state of the rubberband is False, the size of</span>
+<span class="sd">            the rubberband is stored in the model&#39;s size_rubberband attribute, the state of the rubberband is set to</span>
+<span class="sd">            True, and a new image result is created. The rubberband is then hidden. If the right mouse button is</span>
+<span class="sd">            released, the menu_mouse_event method is called with the event object and the string &quot;label_result&quot; as</span>
+<span class="sd">            arguments.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: label_result_mouse_release_event(), &quot;</span>
+                                             <span class="s2">&quot;Mouse release even for label_result&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">MouseButton</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">size_rubberband</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rubberband</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">size_rubberband</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">20</span> <span class="ow">and</span> <span class="n">size_rubberband</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">size_rubberband</span> <span class="o">=</span> <span class="n">size_rubberband</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">size_zoom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_properties</span><span class="o">.</span><span class="n">zooming_size</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">display_image_to_ui</span><span class="p">()</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_rubberband</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">MouseButton</span><span class="o">.</span><span class="n">RightButton</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">menu_mouse_event</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="s2">&quot;label_result&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.menu_mouse_event">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.menu_mouse_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">menu_mouse_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Show a context menu on the mouse event with options for the specified label.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event: A `QMouseEvent` object containing information about the mouse event.</span>
+<span class="sd">            label: A string indicating the label type, either &quot;label_result&quot; or &quot;label_original&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: menu_mouse_event(), &quot;</span>
+                                             <span class="s2">&quot;Mouse move even for label_result or label_original&quot;</span><span class="p">)</span>
+        <span class="n">menu</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMenu</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span><span class="p">:</span>
+            <span class="n">close</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Close Preview&quot;</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">close_preview</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">display_image_to_ui</span><span class="p">()</span>
+
+            <span class="n">close</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">close_preview</span><span class="p">)</span>
+
+        <span class="n">save</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Save Image&quot;</span><span class="p">)</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Show Info&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;label_result&quot;</span><span class="p">:</span>
+            <span class="n">save</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_save_media</span><span class="o">.</span><span class="n">save_image_ori_result</span><span class="p">(</span><span class="kc">True</span><span class="p">))</span>
+            <span class="n">info</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_message_box</span><span class="o">.</span><span class="n">show_information_of_image</span><span class="p">(</span><span class="n">label</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;label_recenter&quot;</span><span class="p">:</span>
+            <span class="n">save</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_save_media</span><span class="o">.</span><span class="n">save_image_ori_result</span><span class="p">(</span><span class="kc">False</span><span class="p">))</span>
+            <span class="n">info</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_message_box</span><span class="o">.</span><span class="n">show_information_of_image</span><span class="p">(</span><span class="n">label</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">save</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_save_media</span><span class="o">.</span><span class="n">save_image_ori_result</span><span class="p">(</span><span class="kc">False</span><span class="p">))</span>
+            <span class="n">info</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_message_box</span><span class="o">.</span><span class="n">show_information_of_image</span><span class="p">(</span><span class="n">label</span><span class="p">))</span>
+
+        <span class="n">menu</span><span class="o">.</span><span class="n">exec</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">globalPosition</span><span class="p">()</span><span class="o">.</span><span class="n">toPoint</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.label_recenter_mouse_press_event">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_recenter_mouse_press_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">label_recenter_mouse_press_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles mouse press events on the recenter label.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event: The mouse event.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: label_recenter_mouse_press_event(), &quot;</span>
+                                             <span class="s2">&quot;Mouse press even for recenter label&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">calculate_ratio_label_ori</span><span class="p">()</span>
+        <span class="n">pos_x</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">position</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">())</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ratio_label_ori</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">pos_y</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">position</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">())</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ratio_label_ori</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">buttons</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">MouseButton</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;under developing&quot;</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;AnypointView&quot;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">anypoint_mode</span> <span class="o">==</span> <span class="s2">&quot;mode_1&quot;</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos_x</span><span class="p">,</span> <span class="n">pos_y</span>
+                        <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_main</span><span class="o">.</span><span class="n">get_alpha_beta</span><span class="p">(</span><span class="n">pos_x</span><span class="p">,</span> <span class="n">pos_y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">create_maps_anypoint_mode_1</span><span class="p">()</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">showing_config_mode_1</span><span class="p">()</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos_x</span><span class="p">,</span> <span class="n">pos_y</span>
+                        <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_main</span><span class="o">.</span><span class="n">get_alpha_beta</span><span class="p">(</span><span class="n">pos_x</span><span class="p">,</span> <span class="n">pos_y</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;pitch&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;yaw&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">create_maps_anypoint_mode_2</span><span class="p">()</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">showing_config_mode_2</span><span class="p">()</span>
+
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;PanoramaView&quot;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">radioButton_car</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pos_x</span><span class="p">,</span> <span class="n">pos_y</span>
+                        <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_main</span><span class="o">.</span><span class="n">get_alpha_beta</span><span class="p">(</span><span class="n">pos_x</span><span class="p">,</span> <span class="n">pos_y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_panorama</span><span class="o">.</span><span class="n">create_maps_panorama_car</span><span class="p">()</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">view_panorama</span><span class="o">.</span><span class="n">showing_config_panorama_car</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">save_main_config_update</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">display_image_to_ui</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.label_recenter_mouse_move_event">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_recenter_mouse_move_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">label_recenter_mouse_move_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles mouse move events on the recenter label.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event: The mouse event.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: label_recenter_mouse_move_event(), &quot;</span>
+                                             <span class="s2">&quot;Mouse move even for recenter label&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">update_label_recenter_mouse_move_event</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">label_image_recenter</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.update_label_recenter_mouse_move_event">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.update_label_recenter_mouse_move_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_label_recenter_mouse_move_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the mouse move event for the recenter label.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            label: The label to update.</span>
+<span class="sd">            event: The mouse event.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: update_label_recenter_mouse_move_event(), &quot;</span>
+                                             <span class="s2">&quot;Update Mouse move even for label recenter&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># original is image resize</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">saving_media</span><span class="o">.</span><span class="n">load_saved_image</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">ratio_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">ratio_y</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">calculate_ratio_image2label</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_ori_used</span><span class="p">))</span>  <span class="c1"># original is image resize))</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">position</span><span class="p">()</span><span class="o">.</span><span class="n">x</span><span class="p">())</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">ratio_x</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">position</span><span class="p">()</span><span class="o">.</span><span class="n">y</span><span class="p">())</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">ratio_y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_value_coordinate_image_recenter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">buttons</span><span class="p">()</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MouseButton</span><span class="o">.</span><span class="n">NoButton</span><span class="p">:</span>
+            <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_main</span><span class="o">.</span><span class="n">get_alpha_beta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Image_recenter&quot;</span><span class="p">][</span><span class="s2">&quot;pointer&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;AnypointView&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">label_image_original</span><span class="o">.</span><span class="n">setCursor</span><span class="p">(</span>
+                    <span class="n">QCursor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">CursorShape</span><span class="o">.</span><span class="n">PointingHandCursor</span><span class="p">))</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">anypoint_mode</span> <span class="o">==</span> <span class="s2">&quot;mode_1&quot;</span><span class="p">:</span>
+                    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_main</span><span class="o">.</span><span class="n">get_alpha_beta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_main</span><span class="o">.</span><span class="n">get_alpha_beta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_alpha_beta_label_recenter</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_img_ori</span><span class="o">.</span><span class="n">create_image_original</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">buttons</span><span class="p">()</span> <span class="o">==</span> <span class="n">Qt</span><span class="o">.</span><span class="n">MouseButton</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;AnypointView&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">label_image_original</span><span class="o">.</span><span class="n">setCursor</span><span class="p">(</span><span class="n">QCursor</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">CursorShape</span><span class="o">.</span><span class="n">ClosedHandCursor</span><span class="p">))</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">anypoint_mode</span> <span class="o">==</span> <span class="s2">&quot;mode_1&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+                    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_main</span><span class="o">.</span><span class="n">get_alpha_beta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">show_alpha_beta_label_recenter</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">create_maps_anypoint_mode_1</span><span class="p">()</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+                    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_main</span><span class="o">.</span><span class="n">get_alpha_beta</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;pitch&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;yaw&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">show_alpha_beta_label_original</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">create_maps_anypoint_mode_2</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">save_main_config_update</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">show_alpha_beta_label_recenter</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">display_image_to_ui</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.label_recenter_mouse_leave_event">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_recenter_mouse_leave_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">label_recenter_mouse_leave_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the mouse leave event for the recenter label.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event: The mouse event.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: label_recenter_mouse_leave_event(), &quot;</span>
+                                             <span class="s2">&quot;Mouse leave even for label recenter&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># original is image resize</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">saving_media</span><span class="o">.</span><span class="n">load_saved_image</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">recenter_mode_view</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;FisheyeView&quot;</span><span class="p">:</span>
+                <span class="n">icx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_original&quot;</span><span class="p">][</span><span class="s2">&quot;center_coord&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">icy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_original&quot;</span><span class="p">][</span><span class="s2">&quot;center_coord&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">icx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_recenter&quot;</span><span class="p">][</span><span class="s2">&quot;Recenter_coordinate&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">icy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_recenter&quot;</span><span class="p">][</span><span class="s2">&quot;Recenter_coordinate&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_value_coordinate_image_recenter</span><span class="p">(</span><span class="n">icx</span><span class="p">,</span> <span class="n">icy</span><span class="p">)</span>
+            <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moildev</span><span class="o">.</span><span class="n">moildev_recenter</span><span class="o">.</span><span class="n">get_alpha_beta</span><span class="p">(</span><span class="n">icx</span><span class="p">,</span> <span class="n">icy</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_alpha_beta_label_recenter</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;AnypointView&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">radio_mode_1</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                    <span class="n">alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span>
+                    <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">set_value_coordinate_image_recenter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                                                             <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;pitch&quot;</span><span class="p">]</span>
+                    <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;yaw&quot;</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">set_value_coordinate_image_recenter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                                                             <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">show_alpha_beta_label_original</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;PanoramaView&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">radioButton_car</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                    <span class="n">alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span>
+                    <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">set_value_coordinate_image_recenter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                                                             <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">show_alpha_beta_label_recenter</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_value_coordinate_image_recenter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_original&quot;</span><span class="p">][</span><span class="s2">&quot;center_coord&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                                                         <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_original&quot;</span><span class="p">][</span><span class="s2">&quot;center_coord&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">show_alpha_beta_label_recenter</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Image_recenter&quot;</span><span class="p">][</span><span class="s2">&quot;pointer&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_img_ori</span><span class="o">.</span><span class="n">create_image_original</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.update_label_recenter_mouse_leave_event">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.update_label_recenter_mouse_leave_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_label_recenter_mouse_leave_event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the mouse leave event for the label recenter.</span>
+
+<span class="sd">        This method updates the mouse leave event for the label recenter based on the current mode view.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: update_label_recenter_mouse_leave_event(), &quot;</span>
+                                             <span class="s2">&quot;Update Mouse leave even for label recenter&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># original is image resize</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">saving_media</span><span class="o">.</span><span class="n">load_saved_image</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;AnypointView&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">anypoint_mode</span> <span class="o">==</span> <span class="s2">&quot;mode_1&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span>
+                    <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">set_value_coordinate_image_recenter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                                                             <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;pitch&quot;</span><span class="p">]</span>
+                    <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;yaw&quot;</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">set_value_coordinate_image_recenter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                                                             <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_alpha_beta_label_recenter</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;PanoramaView&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">change_panorama_mode</span> <span class="o">==</span> <span class="s2">&quot;car&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span>
+                    <span class="n">beta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">set_value_coordinate_image_recenter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                                                             <span class="bp">self</span><span class="o">.</span><span class="n">_main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;coord&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_alpha_beta_label_recenter</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.label_recenter_mouse_release_event">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_recenter_mouse_release_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">label_recenter_mouse_release_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the mouse release event for the label recenter.</span>
+
+<span class="sd">        This method handles the mouse release event for the label recenter and triggers a menu mouse event if</span>
+<span class="sd">        the right mouse button is clicked.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (QMouseEvent): The mouse event object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: label_original_mouse_release_event(), &quot;</span>
+                                             <span class="s2">&quot;Mouse even release for label_original&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">MouseButton</span><span class="o">.</span><span class="n">RightButton</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">menu_mouse_event</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="s2">&quot;label_recenter&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.set_value_coordinate_image_original">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.set_value_coordinate_image_original">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_value_coordinate_image_original</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cor_x</span><span class="p">,</span> <span class="n">cor_y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the coordinate values for the original image label in the user interface.</span>
+
+<span class="sd">        This method sets the coordinate values for the original image label in the user interface based on the</span>
+<span class="sd">        given x and y coordinates.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cor_x (int): The x-coordinate value.</span>
+<span class="sd">            cor_y (int): The y-coordinate value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: set_value_coordinate_image_original(), &quot;</span>
+                                             <span class="s2">&quot;Set value coordinate to user interface&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">spinBox_icx</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">spinBox_icy</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">spinBox_icx</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">cor_x</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">spinBox_icy</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="n">cor_y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">spinBox_icx</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">spinBox_icy</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.set_value_coordinate_image_recenter">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.set_value_coordinate_image_recenter">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_value_coordinate_image_recenter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cor_x</span><span class="p">,</span> <span class="n">cor_y</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the coordinate values for the recenter image label in the user interface.</span>
+
+<span class="sd">        This method sets the coordinate values for the recenter image label in the user interface based on the</span>
+<span class="sd">        given x and y coordinates.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            cor_x (int): The x-coordinate value.</span>
+<span class="sd">            cor_y (int): The y-coordinate value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Mouseevent(): set_value_coordinate_image_recenter(), &quot;</span>
+                                             <span class="s2">&quot;Show value coordinate recenter to user interface&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_pos_x</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">cor_x</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_pos_y</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">cor_y</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.show_alpha_beta_label_original">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.show_alpha_beta_label_original">[docs]</a>
+    <span class="k">def</span> <span class="nf">show_alpha_beta_label_original</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the alpha and beta values based on the given coordinate.</span>
+
+<span class="sd">        This method sets the alpha and beta values for the original image label in the user interface based on the given</span>
+<span class="sd">        coordinates. If either value is None, then both alpha and beta are set to 0.0. Otherwise, the alpha and beta</span>
+<span class="sd">        values are rounded to two decimal places before being set.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            alpha (float): The alpha value.</span>
+<span class="sd">            beta (float): The beta value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: set_alpha_beta_coordinate_to_ui(), &quot;</span>
+                                             <span class="s2">&quot;Set value alpha beta to user interface&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_alpha_rec</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_beta_rec</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">elem</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="p">[</span><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_alpha_rec</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_beta_rec</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_alpha_rec</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_beta_rec</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_alpha_rec</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_beta_rec</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MouseEvent.show_alpha_beta_label_recenter">
+<a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.show_alpha_beta_label_recenter">[docs]</a>
+    <span class="k">def</span> <span class="nf">show_alpha_beta_label_recenter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the alpha and beta values for recentered image label in the user interface.</span>
+
+<span class="sd">        This method sets the alpha and beta values for the recentered image label in the user interface based on</span>
+<span class="sd">        the given coordinates. If either value is None, then both alpha and beta are set to 0.0.</span>
+<span class="sd">        Otherwise, the alpha and beta values are rounded to two decimal places before being displayed.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            alpha (float): The alpha value.</span>
+<span class="sd">            beta (float): The beta value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;RecenterConfig: show_alpha_beta_label_recenter(), &quot;</span>
+                                             <span class="s2">&quot;Show alpha beta coordinate recenter to user interface&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">alpha</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">beta</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_alpha</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_beta</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_alpha</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">label_beta</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Perseverance Technology, Taiwan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

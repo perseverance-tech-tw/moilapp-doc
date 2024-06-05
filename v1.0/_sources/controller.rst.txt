@@ -1,0 +1,42 @@
+Controller
+===================
+
+InitMoildev
+-----------------
+
+.. automodule:: InitMoildev
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+OpenCam
+-------------------------
+
+.. automodule:: OpenCam
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+OpenCamera
+------------------------
+
+.. automodule:: OpenCamera
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+RatioImage
+------------------------
+
+.. automodule:: RatioImage
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Video Controller
+-----------------------
+
+.. automodule:: VideoControler
+   :members:
+   :undoc-members:
+   :show-inheritance:

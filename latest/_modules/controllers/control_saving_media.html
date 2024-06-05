@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>controllers.control_saving_media &mdash; MoilApp Documentation 4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=3b2dd2c4"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">MoilApp of Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin_extention.html">Plugin Extention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting_issue.html">Troubleshooting Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup_issue.html">Reporting Bugs and Issues</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MoilApp Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">controllers.control_saving_media</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for controllers.control_saving_media</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains the SaveMedia class, which provides methods for saving images to a selected folder,</span>
+<span class="sd">loading saved images into the GUI&#39;s list widget, recording videos, and other related functionalities.</span>
+
+<span class="sd">Classes:</span>
+<span class="sd">    SaveMedia: A class for handling image saving and video recording functionality.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+
+
+<div class="viewcode-block" id="SaveMedia">
+<a class="viewcode-back" href="../../controller.html#controllers.control_saving_media.SaveMedia">[docs]</a>
+<span class="k">class</span> <span class="nc">SaveMedia</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Class to handle saving images and recording videos in the application.</span>
+
+<span class="sd">      Attributes:</span>
+<span class="sd">          _controller: The main controller object.</span>
+<span class="sd">          _ui_object: The UI object.</span>
+<span class="sd">          _model: The model object.</span>
+<span class="sd">          __dir_save: The directory path for saving images.</span>
+<span class="sd">          __base_dir_save: The base directory path for saving images.</span>
+<span class="sd">          _record_option: The recording option.</span>
+<span class="sd">          _video_writer: The video writer object.</span>
+
+<span class="sd">      Methods:</span>
+<span class="sd">          __init__(self, main_control): Initializes the SaveMedia object.</span>
+<span class="sd">          _connect_event(self): Connects event signals to their respective slots.</span>
+<span class="sd">          save_image_ori_result(self, image_result=True): Saves an image to a selected folder.</span>
+<span class="sd">          load_saved_image_list(self, load=False): Loads saved images into the GUI&#39;s list widget.</span>
+<span class="sd">          add_widget_save_image(self, image, name_file, load=False): Adds a widget for a saved image to the list widget.</span>
+<span class="sd">          list_widget_saved_image_activated(self): Handles the activation of a saved image in the list widget.</span>
+<span class="sd">          onclick_clear_button_list_saved_image(self): Clears the saved image list.</span>
+<span class="sd">          onclick_record_video_button(self): Handles the click event on the Record Video button.</span>
+<span class="sd">          _enable_action_while_record(self, status=True): Enables or disables actions while recording video.</span>
+<span class="sd">          _check_status_record(self): Checks the status of Anypoint or Panorama recording.</span>
+<span class="sd">          set_position_frame_save_image(self, config, file_name, original=False): Sets the position of a saved frame in the configuration view.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SaveMedia.__init__">
+<a class="viewcode-back" href="../../controller.html#controllers.control_saving_media.SaveMedia.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main_control</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span> <span class="o">=</span> <span class="n">main_control</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ui_object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__dir_save</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__base_dir_save</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_record_option</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_video_writer</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_file_name_vid</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connect_event</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SaveMedia._connect_event">
+<a class="viewcode-back" href="../../controller.html#controllers.control_saving_media.SaveMedia._connect_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">_connect_event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">pushButton</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_clear_button_list_saved_image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">screenshoot_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_image_ori_result</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">record_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_record_video_button</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">record_button</span><span class="o">.</span><span class="n">setShortcut</span><span class="p">(</span><span class="s2">&quot;Ctrl+R&quot;</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">record_option</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the recording option.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">              str: The recording option.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_record_option</span>
+
+    <span class="nd">@record_option</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">record_option</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the recording option.</span>
+
+<span class="sd">        Arg:</span>
+<span class="sd">            value (str): The recording option to be set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_record_option</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">video_writer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the video writer.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            Any: The video writer object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_video_writer</span>
+
+    <span class="nd">@video_writer</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">video_writer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the video writer.</span>
+
+<span class="sd">        Arg:</span>
+<span class="sd">            value (Any): The video writer object to be set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_video_writer</span> <span class="o">=</span> <span class="n">value</span>
+
+<div class="viewcode-block" id="SaveMedia.save_image_ori_result">
+<a class="viewcode-back" href="../../controller.html#controllers.control_saving_media.SaveMedia.save_image_ori_result">[docs]</a>
+    <span class="k">def</span> <span class="nf">save_image_ori_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_result</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save the current or resulting image to a selected folder.</span>
+
+<span class="sd">        Arg:</span>
+<span class="sd">            image_result (bool, optional): Determines whether to save the resulting image</span>
+<span class="sd">                (`True`) or the original image (`False`). Defaults to `True`.</span>
+
+<span class="sd">        Raise:</span>
+<span class="sd">            FileNotFoundError: If the base directory for saving images is not found.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;SaveMedia: save_image_ori_result(), Process save image in directory&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">image_result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__base_dir_save</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">__base_dir_save</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">select_directory</span><span class="p">(</span><span class="n">parent_dir</span><span class="o">=</span><span class="s2">&quot;../saved_image&quot;</span><span class="p">,</span>
+                                                                            <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Select Folder&quot;</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to select directory: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Failed to select directory: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="k">return</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__base_dir_save</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;FisheyeView&quot;</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">__dir_save</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__base_dir_save</span> <span class="o">+</span> <span class="s2">&quot;/original/&quot;</span>
+                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;AnypointView&quot;</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">__dir_save</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__base_dir_save</span> <span class="o">+</span> <span class="s2">&quot;/anypoint/&quot;</span>
+                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;PanoramaView&quot;</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">__dir_save</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__base_dir_save</span> <span class="o">+</span> <span class="s2">&quot;/panorama/&quot;</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">__dir_save</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__base_dir_save</span> <span class="o">+</span> <span class="s2">&quot;/unknown/&quot;</span>
+
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__dir_save</span><span class="p">):</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__dir_save</span><span class="p">)</span>
+                        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to create directory: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Failed to create directory: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                            <span class="k">return</span>
+
+                    <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_result</span> <span class="k">if</span> <span class="n">image_result</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_original</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">saving_media</span><span class="o">.</span><span class="n">save_image_file</span><span class="p">(</span><span class="n">image</span><span class="p">,</span>
+                                                                 <span class="bp">self</span><span class="o">.</span><span class="n">__dir_save</span><span class="p">,</span>
+                                                                 <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Parameter_name&quot;</span><span class="p">])</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">save_main_config_update</span><span class="p">()</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">load_saved_image_list</span><span class="p">(</span><span class="n">load</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                        <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Information&quot;</span><span class="p">,</span>
+                                                          <span class="sa">f</span><span class="s2">&quot;Image saved !!</span><span class="se">\n\n</span><span class="s2">Loc @: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">__dir_save</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error while saving image: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Failed to save image: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Base directory for saving images is not defined.&quot;</span><span class="p">)</span>
+                    <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="s2">&quot;Base directory for saving images is not defined.&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No image to save. image_result is None.&quot;</span><span class="p">)</span>
+                <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="s2">&quot;No image to save. image_result is None.&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;save_image failed&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected error in save_image_ori_result: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Error&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Unexpected error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SaveMedia.load_saved_image_list">
+<a class="viewcode-back" href="../../controller.html#controllers.control_saving_media.SaveMedia.load_saved_image_list">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_saved_image_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">load</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Load saved images into the GUI&#39;s list widget.</span>
+
+<span class="sd">        Arg:</span>
+<span class="sd">            load (bool, optional): Whether to load the images into the list widget. Defaults to False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;SaveMedia: load_saved_image_list(), &quot;</span>
+                                             <span class="s2">&quot;Load saved image and show to user interface&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">listWidget_saved_image</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">saved_image_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_saved&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">path_file</span> <span class="ow">in</span> <span class="n">saved_image_list</span><span class="p">:</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">path_file</span><span class="p">)</span>
+            <span class="n">name_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path_file</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_widget_save_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">name_file</span><span class="p">,</span> <span class="n">load</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Loading saved images number </span><span class="si">{</span><span class="n">saved_image_list</span><span class="o">.</span><span class="n">index</span><span class="p">((</span><span class="n">name_file</span><span class="p">,</span><span class="w"> </span><span class="n">path_file</span><span class="p">))</span><span class="si">}</span><span class="s2"> &quot;</span>
+                    <span class="s2">&quot;and displaying them in the user interface widget.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SaveMedia.add_widget_save_image">
+<a class="viewcode-back" href="../../controller.html#controllers.control_saving_media.SaveMedia.add_widget_save_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_widget_save_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">name_file</span><span class="p">,</span> <span class="n">load</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds a new widget to the saved image list with the given image and file name.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            image (numpy.ndarray): The image to be displayed in the widget.</span>
+<span class="sd">            name_file (str): The name of the image file.</span>
+<span class="sd">            load (bool, optional): Whether the widget is being added during load or not. Defaults to False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;SaveMedia: add_widget_save_image(), &quot;</span>
+                                             <span class="s2">&quot;Show widget image to user interface&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">listWidget_saved_image</span><span class="o">.</span><span class="n">setIconSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">140</span><span class="p">,</span> <span class="mi">120</span><span class="p">))</span>
+        <span class="n">new_widget</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QListWidgetItem</span><span class="p">()</span>
+
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span>
+        <span class="k">if</span> <span class="n">h</span> <span class="o">==</span> <span class="n">w</span><span class="p">:</span>
+            <span class="n">image_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">resize_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="mi">108</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">image_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">resize_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="mi">140</span><span class="p">)</span>
+        <span class="n">image_pixmap</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QImage</span><span class="p">(</span>
+            <span class="n">image_</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">image_</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">image_</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">QtGui</span><span class="o">.</span><span class="n">QImage</span><span class="o">.</span><span class="n">Format</span><span class="o">.</span><span class="n">Format_RGB888</span><span class="p">)</span><span class="o">.</span><span class="n">rgbSwapped</span><span class="p">()</span>
+        <span class="n">icon</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">()</span>
+        <span class="n">icon</span><span class="o">.</span><span class="n">addPixmap</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="p">(</span><span class="n">image_pixmap</span><span class="p">))</span>
+        <span class="n">new_widget</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">load</span><span class="p">:</span>
+            <span class="n">new_widget</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">name_file</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_widget</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">name_file</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">listWidget_saved_image</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">new_widget</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">saving_media</span><span class="o">.</span><span class="n">add_position_video_on_saved_image</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SaveMedia.list_widget_saved_image_activated">
+<a class="viewcode-back" href="../../controller.html#controllers.control_saving_media.SaveMedia.list_widget_saved_image_activated">[docs]</a>
+    <span class="k">def</span> <span class="nf">list_widget_saved_image_activated</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle the activation of a saved image in the list widget.</span>
+
+<span class="sd">        The function sets the appropriate image view mode and opens the saved image.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;SaveMedia: list_widget_saved_image_activated(), &quot;</span>
+                                             <span class="s2">&quot;List widget saved image activated&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">model_save_image</span><span class="o">.</span><span class="n">load_saved_image</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_config</span><span class="o">.</span><span class="n">load_config</span><span class="p">()</span>
+        <span class="n">saved_image_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;Image_saved&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">file_name</span> <span class="o">=</span> <span class="n">saved_image_list</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">listWidget_saved_image</span><span class="o">.</span><span class="n">currentRow</span><span class="p">()]</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_config</span><span class="o">.</span><span class="n">load_config</span><span class="p">()</span>
+        <span class="n">view</span> <span class="o">=</span> <span class="n">file_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">view</span> <span class="o">==</span> <span class="s2">&quot;original&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">widget_mode_view</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">widget_mode_view</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">video</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">unlock_menu_state_view</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_position_frame_save_image</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">unlock_menu_state_view</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">model_save_image</span><span class="o">.</span><span class="n">reopen_saved_image</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;Parameter_name&quot;</span><span class="p">],</span>
+                                                                <span class="n">file_name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">btn_fisheye_view</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_stylesheet</span><span class="o">.</span><span class="n">set_style_selected_menu</span><span class="p">())</span>
+
+        <span class="k">elif</span> <span class="n">view</span> <span class="o">==</span> <span class="s2">&quot;anypoint&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">lock_menu_state_view</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">btn_anypoint_view</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_stylesheet</span><span class="o">.</span><span class="n">set_style_selected_menu</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">widget_mode_view</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">frame_22</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">widget_mode_view</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">widget_mode_view</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">model_save_image</span><span class="o">.</span><span class="n">reopen_saved_image</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;Parameter_name&quot;</span><span class="p">],</span> <span class="n">file_name</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">view</span> <span class="o">==</span> <span class="s2">&quot;panorama&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">lock_menu_state_view</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">frame_22</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">btn_panorama_view</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_stylesheet</span><span class="o">.</span><span class="n">set_style_selected_menu</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">widget_mode_view</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">widget_mode_view</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">widget_mode_view</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">model_save_image</span><span class="o">.</span><span class="n">reopen_saved_image</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;Parameter_name&quot;</span><span class="p">],</span> <span class="n">file_name</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="SaveMedia.onclick_clear_button_list_saved_image">
+<a class="viewcode-back" href="../../controller.html#controllers.control_saving_media.SaveMedia.onclick_clear_button_list_saved_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclick_clear_button_list_saved_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clear the saved image list and the UI list widget.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;SaveMedia: onclick_clear_button_list_saved_image(), &quot;</span>
+                                             <span class="s2">&quot;Click button clear list saved image&quot;</span><span class="p">)</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span>
+        <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Image_saved&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">save_main_config_update</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">listWidget_saved_image</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="SaveMedia.onclick_record_video_button">
+<a class="viewcode-back" href="../../controller.html#controllers.control_saving_media.SaveMedia.onclick_record_video_button">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclick_record_video_button</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle the click event on the Record Video button.</span>
+
+<span class="sd">        This function displays an information message indicating that video recording is currently under development,</span>
+<span class="sd">        and unchecks the Record Video button.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;SaveMedia: onclick_record_video_button(), Click button record video&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_writer</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">record_button</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_message_box</span><span class="o">.</span><span class="n">show_message_box_record</span><span class="p">()</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">record_option</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">video_writer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_file_name_vid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">video_config</span><span class="o">.</span><span class="n">record_video_pressed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">record_option</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">video_writer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_enable_action_while_record</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_message_box</span><span class="o">.</span><span class="n">display_message_box</span><span class="p">(</span><span class="s2">&quot;Recording started!!&quot;</span><span class="p">,</span> <span class="s2">&quot;Information&quot;</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">record_button</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="s2">&quot;icons:video_red.svg&quot;</span><span class="p">))</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_check_status_record</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_enable_action_while_record</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">record_button</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_enable_action_while_record</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">record_button</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_enable_action_while_record</span><span class="p">()</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Recording finish, file saved on: </span><span class="se">\n</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_file_name_vid</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_message_box</span><span class="o">.</span><span class="n">display_message_box</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s2">&quot;Information&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">record_button</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="s2">&quot;icons:video.svg&quot;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_writer</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="SaveMedia._enable_action_while_record">
+<a class="viewcode-back" href="../../controller.html#controllers.control_saving_media.SaveMedia._enable_action_while_record">[docs]</a>
+    <span class="k">def</span> <span class="nf">_enable_action_while_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Enables or disables certain actions while recording video.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            status (bool): If True, enables the actions. If False, disables them.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;SaveMedia: _enable_action_while_record(), &quot;</span>
+                                             <span class="s2">&quot;Check action while record video&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">record_option</span> <span class="o">==</span> <span class="s2">&quot;Processed&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_left</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_right</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_top</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_bottom</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="n">status</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SaveMedia._check_status_record">
+<a class="viewcode-back" href="../../controller.html#controllers.control_saving_media.SaveMedia._check_status_record">[docs]</a>
+    <span class="k">def</span> <span class="nf">_check_status_record</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks the status of Anypoint or Panorama recording.</span>
+
+<span class="sd">        If video_writer is not None, it sets the record button status to False and displays an informational message</span>
+<span class="sd">        prompting the user to select Anypoint or Panorama View to record Processed Video.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;SaveMedia: _check_status_record(), &quot;</span>
+                                             <span class="s2">&quot;Check status Anypoint or Panorama record&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">video_writer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">record_button</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_media_player</span><span class="o">.</span><span class="n">show_message</span><span class="p">(</span><span class="s2">&quot;Information&quot;</span><span class="p">,</span>
+                                                            <span class="s2">&quot;Select Anypoint or Panorama View to record Processed Video&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SaveMedia.set_position_frame_save_image">
+<a class="viewcode-back" href="../../controller.html#controllers.control_saving_media.SaveMedia.set_position_frame_save_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_position_frame_save_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">original</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function sets the position of a saved frame from the `Image_saved` list in the configuration view.</span>
+<span class="sd">        If the timer is active, it will be stopped and the status will be emitted. If the parent path of the saved image</span>
+<span class="sd">        is the same as the media source, the position of the frame will be set and the next frame signal</span>
+<span class="sd">        will be emitted. If the parent path is different, the saved image will be reopened.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            config</span>
+<span class="sd">            file_name (str): The name of the saved file.</span>
+<span class="sd">            original (bool, optional): Flag to indicate if the view is in original or not. Defaults to False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;SaveMedia: set_position_frame_save_image(), &quot;</span>
+                                             <span class="s2">&quot;Set position frame save on video&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">isActive</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">timer_status</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">isActive</span><span class="p">())</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Image_saved&quot;</span><span class="p">][</span><span class="n">file_name</span><span class="p">][</span><span class="s2">&quot;parent_path&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Media_path&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Image_saved&quot;</span><span class="p">][</span><span class="n">file_name</span><span class="p">][</span><span class="s2">&quot;is_video&quot;</span><span class="p">]:</span>
+                <span class="n">pos</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Image_saved&quot;</span><span class="p">][</span><span class="n">file_name</span><span class="p">][</span><span class="s2">&quot;pos_frame&quot;</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_POS_FRAMES</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">original</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">=</span> <span class="s2">&quot;FisheyeView&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">next_frame_signal</span><span class="p">()</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reopen_saved_image</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;Parameter_name&quot;</span><span class="p">],</span> <span class="n">file_name</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Perseverance Technology, Taiwan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+Controller
+=================================================
+
+Event
+----------------------------------------------------------------------
+
+.. automodule:: plugins.Thread_inspection.controller.mouse_control_event
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Camera
+-----------------------------------------------------------------------
+
+.. automodule:: plugins.Thread_inspection.controller.select_source_camera
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Serial Controller
+-------------------------------------------------------------------
+
+.. automodule:: plugins.Thread_inspection.controller.serial_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Video Controller
+------------------------------------------------------------------
+
+.. automodule:: src.plugins.Thread_inspection.controller.video_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

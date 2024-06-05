@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Controller &mdash; MoilApp 3.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=110ea713"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Help" href="src.plugins.Thread_inspection.help.html" />
+    <link rel="prev" title="Inspection" href="src.plugins.Thread_inspection.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">API References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MoilApp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">API References</a></li>
+          <li class="breadcrumb-item"><a href="src.plugins.html">Plugins</a></li>
+          <li class="breadcrumb-item"><a href="src.plugins.Thread_inspection.html">Inspection</a></li>
+      <li class="breadcrumb-item active">Controller</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="controller">
+<h1>Controller<a class="headerlink" href="#controller" title="Link to this heading"></a></h1>
+<section id="module-plugins.Thread_inspection.controller.mouse_control_event">
+<span id="event"></span><h2>Event<a class="headerlink" href="#module-plugins.Thread_inspection.controller.mouse_control_event" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.mouse_control_event.MouseController">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">plugins.Thread_inspection.controller.mouse_control_event.</span></span><span class="sig-name descname"><span class="pre">MouseController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/mouse_control_event.html#MouseController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.mouse_control_event.MouseController" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Mouse event controller.
+:param Parent (): The main class of this application</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.mouse_control_event.MouseController.mouse_event">
+<span class="sig-name descname"><span class="pre">mouse_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/mouse_control_event.html#MouseController.mouse_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.mouse_control_event.MouseController.mouse_event" title="Link to this definition"></a></dt>
+<dd><p>Specify coordinate from mouse left event to generate anypoint view and recenter image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>)</strong> (<em>e</em>) – Coordinate point return by pyqt core</p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.mouse_control_event.MouseController.mouseDoubleclick_event">
+<span class="sig-name descname"><span class="pre">mouseDoubleclick_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/mouse_control_event.html#MouseController.mouseDoubleclick_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.mouse_control_event.MouseController.mouseDoubleclick_event" title="Link to this definition"></a></dt>
+<dd><p>Reset to default by mouse event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>)</strong> (<em>e</em>)</p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.mouse_control_event.MouseController.mouse_wheelEvent">
+<span class="sig-name descname"><span class="pre">mouse_wheelEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/mouse_control_event.html#MouseController.mouse_wheelEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.mouse_control_event.MouseController.mouse_wheelEvent" title="Link to this definition"></a></dt>
+<dd><p>Resize image using mouse wheel event.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.mouse_control_event.MouseController.mouse_wheelEvent_ori_label">
+<span class="sig-name descname"><span class="pre">mouse_wheelEvent_ori_label</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/mouse_control_event.html#MouseController.mouse_wheelEvent_ori_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.mouse_control_event.MouseController.mouse_wheelEvent_ori_label" title="Link to this definition"></a></dt>
+<dd><p>Resize image using mouse wheel event.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.mouse_control_event.MouseController.mouse_release_event">
+<span class="sig-name descname"><span class="pre">mouse_release_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/mouse_control_event.html#MouseController.mouse_release_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.mouse_control_event.MouseController.mouse_release_event" title="Link to this definition"></a></dt>
+<dd><p>Mouse release event right click to show menu. the menu can select is show maximum, show minimum,
+save image, and show info.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>)</strong> (<em>e</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.mouse_control_event.MouseController.menuMouseEvent">
+<span class="sig-name descname"><span class="pre">menuMouseEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/mouse_control_event.html#MouseController.menuMouseEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.mouse_control_event.MouseController.menuMouseEvent" title="Link to this definition"></a></dt>
+<dd><p>showing the menu image when release right click.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>)</strong> (<em>e</em>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.mouse_control_event.MouseController.mouseMovedOriImage">
+<span class="sig-name descname"><span class="pre">mouseMovedOriImage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">e</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/mouse_control_event.html#MouseController.mouseMovedOriImage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.mouse_control_event.MouseController.mouseMovedOriImage" title="Link to this definition"></a></dt>
+<dd><p>Mouse move event to look in surrounding view in result label image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>)</strong> (<em>e</em>)</p>
+</dd>
+</dl>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.mouse_control_event.MouseController.init_ori_ratio">
+<span class="sig-name descname"><span class="pre">init_ori_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/mouse_control_event.html#MouseController.init_ori_ratio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.mouse_control_event.MouseController.init_ori_ratio" title="Link to this definition"></a></dt>
+<dd><p>Calculate the initial ratio of the image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ratio width between image and ui window.
+ratio_y : ratio height between image and ui window.
+center : find the center image on window user interface.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ratio_x</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.mouse_control_event.MouseController.init_result_ratio">
+<span class="sig-name descname"><span class="pre">init_result_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/mouse_control_event.html#MouseController.init_result_ratio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.mouse_control_event.MouseController.init_result_ratio" title="Link to this definition"></a></dt>
+<dd><p>Calculate the initial ratio of the image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ratio width between image and ui window.
+ratio_y : ratio height between image and ui window.
+center : find the center image on window user interface.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>ratio_x</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-plugins.Thread_inspection.controller.select_source_camera">
+<span id="camera"></span><h2>Camera<a class="headerlink" href="#module-plugins.Thread_inspection.controller.select_source_camera" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.select_source_camera.check_Port_USB_Camera">
+<span class="sig-prename descclassname"><span class="pre">plugins.Thread_inspection.controller.select_source_camera.</span></span><span class="sig-name descname"><span class="pre">check_Port_USB_Camera</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/select_source_camera.html#check_Port_USB_Camera"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.select_source_camera.check_Port_USB_Camera" title="Link to this definition"></a></dt>
+<dd><p>Detect the USB camera port available and show it on message box prompt.</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.select_source_camera.OpenCameraSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">plugins.Thread_inspection.controller.select_source_camera.</span></span><span class="sig-name descname"><span class="pre">OpenCameraSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RecentWindow</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/select_source_camera.html#OpenCameraSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.select_source_camera.OpenCameraSource" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="modules.html#plugins.Thread_inspection.widgets.Ui_Select_Camera.Ui_Dialog" title="plugins.Thread_inspection.widgets.Ui_Select_Camera.Ui_Dialog"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ui_Dialog</span></code></a></p>
+<p>Create class controller open camera with inheritance from Ui Dialog Class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>(</strong><strong>)</strong> (<em>RecentWindow</em>)</p></li>
+<li><p><strong>(</strong><strong>)</strong></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.select_source_camera.OpenCameraSource.handle_activated_comboBox">
+<span class="sig-name descname"><span class="pre">handle_activated_comboBox</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/select_source_camera.html#OpenCameraSource.handle_activated_comboBox"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.select_source_camera.OpenCameraSource.handle_activated_comboBox" title="Link to this definition"></a></dt>
+<dd><p>Handle the selection from comboBox of source camera.</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.select_source_camera.OpenCameraSource.camera_source_used">
+<span class="sig-name descname"><span class="pre">camera_source_used</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/select_source_camera.html#OpenCameraSource.camera_source_used"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.select_source_camera.OpenCameraSource.camera_source_used" title="Link to this definition"></a></dt>
+<dd><p>This function will return the source of camera used depend on what the camera use.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>camera source</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.select_source_camera.OpenCameraSource.onclick_comboBox_oke">
+<span class="sig-name descname"><span class="pre">onclick_comboBox_oke</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/select_source_camera.html#OpenCameraSource.onclick_comboBox_oke"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.select_source_camera.OpenCameraSource.onclick_comboBox_oke" title="Link to this definition"></a></dt>
+<dd><p>Open the camera following the parent function and close the dialog window.</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.select_source_camera.OpenCameraSource.onclick_comboBox_cancel">
+<span class="sig-name descname"><span class="pre">onclick_comboBox_cancel</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/select_source_camera.html#OpenCameraSource.onclick_comboBox_cancel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.select_source_camera.OpenCameraSource.onclick_comboBox_cancel" title="Link to this definition"></a></dt>
+<dd><p>close the window when you click the buttonBox cancel.</p>
+<p>Returns:</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-plugins.Thread_inspection.controller.serial_controller">
+<span id="serial-controller"></span><h2>Serial Controller<a class="headerlink" href="#module-plugins.Thread_inspection.controller.serial_controller" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.serial_controller.getPassword">
+<span class="sig-prename descclassname"><span class="pre">plugins.Thread_inspection.controller.serial_controller.</span></span><span class="sig-name descname"><span class="pre">getPassword</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/serial_controller.html#getPassword"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.serial_controller.getPassword" title="Link to this definition"></a></dt>
+<dd><p>Get password from input dialog.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.serial_controller.AxisController">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">plugins.Thread_inspection.controller.serial_controller.</span></span><span class="sig-name descname"><span class="pre">AxisController</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Parent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/serial_controller.html#AxisController"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.serial_controller.AxisController" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Axis controller class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>)</strong> (<em>Parent</em>) – The main class of this application</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.serial_controller.AxisController.open_axis_controller">
+<span class="sig-name descname"><span class="pre">open_axis_controller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/serial_controller.html#AxisController.open_axis_controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.serial_controller.AxisController.open_axis_controller" title="Link to this definition"></a></dt>
+<dd><p>Open the widget on user interface to control the axis.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.serial_controller.AxisController.set_speed_axis">
+<span class="sig-name descname"><span class="pre">set_speed_axis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/serial_controller.html#AxisController.set_speed_axis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.serial_controller.AxisController.set_speed_axis" title="Link to this definition"></a></dt>
+<dd><p>Set the speed axis from the value given by user.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.serial_controller.AxisController.go_connect_serial">
+<span class="sig-name descname"><span class="pre">go_connect_serial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/serial_controller.html#AxisController.go_connect_serial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.serial_controller.AxisController.go_connect_serial" title="Link to this definition"></a></dt>
+<dd><p>Connect the serial port into the system.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.serial_controller.AxisController.go_disconnect_serial">
+<span class="sig-name descname"><span class="pre">go_disconnect_serial</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/serial_controller.html#AxisController.go_disconnect_serial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.serial_controller.AxisController.go_disconnect_serial" title="Link to this definition"></a></dt>
+<dd><p>Disconnect the serial port with the system.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.serial_controller.AxisController.go_reset">
+<span class="sig-name descname"><span class="pre">go_reset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/serial_controller.html#AxisController.go_reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.serial_controller.AxisController.go_reset" title="Link to this definition"></a></dt>
+<dd><p>Reset the axis controller, speed and position.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.serial_controller.AxisController.go_absolute_moving">
+<span class="sig-name descname"><span class="pre">go_absolute_moving</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/serial_controller.html#AxisController.go_absolute_moving"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.serial_controller.AxisController.go_absolute_moving" title="Link to this definition"></a></dt>
+<dd><p>axis will move with absolute moving.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.serial_controller.AxisController.go_related_moving_forward">
+<span class="sig-name descname"><span class="pre">go_related_moving_forward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/serial_controller.html#AxisController.go_related_moving_forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.serial_controller.AxisController.go_related_moving_forward" title="Link to this definition"></a></dt>
+<dd><p>axis will move with related moving forward which the value is plus.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.serial_controller.AxisController.go_related_moving_backward">
+<span class="sig-name descname"><span class="pre">go_related_moving_backward</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/serial_controller.html#AxisController.go_related_moving_backward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.serial_controller.AxisController.go_related_moving_backward" title="Link to this definition"></a></dt>
+<dd><p>axis will move with related moving backward which the value is minus.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="plugins.Thread_inspection.controller.serial_controller.AxisController.help_axis_controller">
+<span class="sig-name descname"><span class="pre">help_axis_controller</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/plugins/Thread_inspection/controller/serial_controller.html#AxisController.help_axis_controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#plugins.Thread_inspection.controller.serial_controller.AxisController.help_axis_controller" title="Link to this definition"></a></dt>
+<dd><p>Open prompt for axis controller help.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="video-controller">
+<h2>Video Controller<a class="headerlink" href="#video-controller" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="src.plugins.Thread_inspection.html" class="btn btn-neutral float-left" title="Inspection" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="src.plugins.Thread_inspection.help.html" class="btn btn-neutral float-right" title="Help" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Haryanto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

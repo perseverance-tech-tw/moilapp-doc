@@ -1,0 +1,11 @@
+Help
+===========================================
+
+Main Help
+-----------------------------------------------
+
+.. automodule:: plugins.Thread_inspection.help.help
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

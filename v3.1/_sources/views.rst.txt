@@ -1,0 +1,11 @@
+Views
+=============
+
+Main Views
+--------------------------
+
+.. automodule:: Ui_Moilapp
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

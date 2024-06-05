@@ -1,0 +1,27 @@
+Inspection View
+===========================================
+
+Frame
+---------------------------------------------------------
+
+.. automodule:: plugins.Thread_inspection.view.control_frame
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+View
+-----------------------------------------------------------
+
+.. automodule:: plugins.Thread_inspection.view.manipulate_view
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Widgets
+------------------------------------------------------------
+
+.. automodule:: plugins.Thread_inspection.view.show_to_widgets
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>controllers.control_stylesheet &mdash; MoilApp Documentation 4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=3b2dd2c4"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">MoilApp of Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin_extention.html">Plugin Extention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting_issue.html">Troubleshooting Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup_issue.html">Reporting Bugs and Issues</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MoilApp Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">controllers.control_stylesheet</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for controllers.control_stylesheet</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module for controlling the style sheets of UI elements.</span>
+
+<span class="sd">This module contains the ControlStyleSheet class, which provides methods for changing style sheets</span>
+<span class="sd">of various UI elements based on user interactions and theme settings.</span>
+
+<span class="sd">Classes:</span>
+<span class="sd">    ControlStyleSheet: A class for controlling style sheets of UI elements.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtWidgets</span>
+
+
+<div class="viewcode-block" id="ControlStyleSheet">
+<a class="viewcode-back" href="../../controller.html#controllers.control_stylesheet.ControlStyleSheet">[docs]</a>
+<span class="k">class</span> <span class="nc">ControlStyleSheet</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       Class for controlling the style sheets of UI elements.</span>
+
+<span class="sd">       Attributes:</span>
+<span class="sd">           _controller: The controller object.</span>
+<span class="sd">           _model: The model object.</span>
+<span class="sd">           _ui_object: The UI object.</span>
+
+<span class="sd">       Methods:</span>
+<span class="sd">           __init__(self, controller): Initializes the ControlStyleSheet object.</span>
+<span class="sd">           change_stylesheet_selected_menu(self): Change the stylesheet of a selected menu button.</span>
+<span class="sd">           set_style_selected_menu(self): Returns the CSS stylesheet for the currently selected menu item.</span>
+<span class="sd">           set_style_deselect_menu(self, get_style): Replaces the selected menu style with an unselected style.</span>
+<span class="sd">           reset_style(self, widget): Resets the stylesheet of all push buttons in the frame_button_view.</span>
+<span class="sd">           stylesheet_selected_menu_dark_theme(cls): Return the CSS stylesheet for a selected menu button in dark theme.</span>
+<span class="sd">           stylesheet_selected_menu_light_theme(cls): Returns the light theme stylesheet for the selected menu.</span>
+<span class="sd">       &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="ControlStyleSheet.__init__">
+<a class="viewcode-back" href="../../controller.html#controllers.control_stylesheet.ControlStyleSheet.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">controller</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span> <span class="o">=</span> <span class="n">controller</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ui_object</span></div>
+
+
+<div class="viewcode-block" id="ControlStyleSheet.change_stylesheet_selected_menu">
+<a class="viewcode-back" href="../../controller.html#controllers.control_stylesheet.ControlStyleSheet.change_stylesheet_selected_menu">[docs]</a>
+    <span class="k">def</span> <span class="nf">change_stylesheet_selected_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Change the stylesheet of a selected menu button.</span>
+
+<span class="sd">        If an image is available, this function updates the style of a selected menu button by applying a new stylesheet that</span>
+<span class="sd">        highlights it. The old stylesheet is reset for all other buttons.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            self: An instance of the class that this method belongs to.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ControlStyleSheet: change_stylesheet_selected_menu(), &quot;</span>
+                                             <span class="s2">&quot;Change stylesheet selected menu&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">btn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">sender</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reset_style</span><span class="p">(</span><span class="n">btn</span><span class="o">.</span><span class="n">objectName</span><span class="p">())</span>
+                <span class="n">btn</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">set_style_selected_menu</span><span class="p">())</span>
+            <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error while resetting: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># selected menu button</span>
+<div class="viewcode-block" id="ControlStyleSheet.set_style_selected_menu">
+<a class="viewcode-back" href="../../controller.html#controllers.control_stylesheet.ControlStyleSheet.set_style_selected_menu">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_style_selected_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the CSS stylesheet for the currently selected menu item.</span>
+
+<span class="sd">        The returned stylesheet is based on the current theme set in the `model` attribute.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The CSS stylesheet for the selected menu item.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ControlStyleSheet: set_style_selected_menu(), &quot;</span>
+                                             <span class="s2">&quot;Set active stylesheet selected menu&quot;</span><span class="p">)</span>
+        <span class="n">select</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stylesheet_selected_menu_light_theme</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">theme_mode</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span><span class="p">:</span>
+            <span class="n">select</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stylesheet_selected_menu_dark_theme</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">select</span></div>
+
+
+    <span class="c1"># deselected menu button</span>
+<div class="viewcode-block" id="ControlStyleSheet.set_style_deselect_menu">
+<a class="viewcode-back" href="../../controller.html#controllers.control_stylesheet.ControlStyleSheet.set_style_deselect_menu">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_style_deselect_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_style</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Replaces the selected menu style with an unselected style in the current theme.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            get_style (str): The current style of the menu to be deselected.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The updated style of the menu with the selected style replaced with the unselected style.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ControlStyleSheet: set_style_deselect_menu(), &quot;</span>
+                                             <span class="s2">&quot;Set active stylesheet deselected menu&quot;</span><span class="p">)</span>
+        <span class="n">deselect</span> <span class="o">=</span> <span class="n">get_style</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stylesheet_selected_menu_light_theme</span><span class="p">(),</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">theme_mode</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span><span class="p">:</span>
+            <span class="n">deselect</span> <span class="o">=</span> <span class="n">get_style</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stylesheet_selected_menu_dark_theme</span><span class="p">(),</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">deselect</span></div>
+
+
+    <span class="c1"># reset selection button</span>
+<div class="viewcode-block" id="ControlStyleSheet.reset_style">
+<a class="viewcode-back" href="../../controller.html#controllers.control_stylesheet.ControlStyleSheet.reset_style">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset_style</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resets the stylesheet of all push buttons in the frame_button_view except for the one with the given</span>
+<span class="sd">        object name.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            widget (str): The object name of the push button to exclude.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ControlStyleSheet: reset_style(), &quot;</span>
+                                             <span class="s2">&quot;Reset active stylesheet menu&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">frame_button_view</span><span class="o">.</span><span class="n">findChildren</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span> <span class="o">!=</span> <span class="n">widget</span><span class="p">:</span>
+                <span class="n">w</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">set_style_deselect_menu</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">styleSheet</span><span class="p">()))</span></div>
+
+
+<div class="viewcode-block" id="ControlStyleSheet.stylesheet_selected_menu_dark_theme">
+<a class="viewcode-back" href="../../controller.html#controllers.control_stylesheet.ControlStyleSheet.stylesheet_selected_menu_dark_theme">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">stylesheet_selected_menu_dark_theme</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the CSS stylesheet for a selected menu button in dark theme.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The CSS stylesheet for a selected menu button in dark theme.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">stylesheet</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            border-left: 22px solid </span>
+<span class="s2">            qlineargradient(spread:pad, x1:0.034, y1:0, x2:0.216, y2:0, stop:0.499 rgba(255, 121, 198, 255), </span>
+<span class="s2">            stop:0.5 rgba(85, 170, 255, 0));</span>
+<span class="s2">            background-color: rgb(45, 49, 55);</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">stylesheet</span></div>
+
+
+<div class="viewcode-block" id="ControlStyleSheet.stylesheet_selected_menu_light_theme">
+<a class="viewcode-back" href="../../controller.html#controllers.control_stylesheet.ControlStyleSheet.stylesheet_selected_menu_light_theme">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">stylesheet_selected_menu_light_theme</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the light theme stylesheet for the selected menu.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The stylesheet for the selected menu in the light theme.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">stylesheet</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            border-left: 22px solid </span>
+<span class="s2">            qlineargradient(spread:pad, x1:0.034, y1:0, x2:0.216, y2:0, stop:0.499 rgba(47, 55, 58, 255), </span>
+<span class="s2">            stop:0.5 rgba(85, 170, 255, 0));</span>
+<span class="s2">            background-color: rgb(248, 248, 248);</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">stylesheet</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Perseverance Technology, Taiwan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

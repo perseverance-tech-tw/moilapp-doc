@@ -1,0 +1,11 @@
+Text Browser
+==============================================
+
+Help
+--------------------------------------------------
+
+.. automodule:: textBrowser.Help
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

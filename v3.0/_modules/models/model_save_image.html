@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>models.model_save_image &mdash; MoilApp Documentation 4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=3b2dd2c4"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">MoilApp of Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin_extention.html">Plugin Extention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting_issue.html">Troubleshooting Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup_issue.html">Reporting Bugs and Issues</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MoilApp Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">models.model_save_image</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for models.model_save_image</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This model_save_image module is responsible for managing the saving and handling of images in the MoilApp.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+
+
+<div class="viewcode-block" id="ModelSave">
+<a class="viewcode-back" href="../../models.html#models.model_save_image.ModelSave">[docs]</a>
+<span class="k">class</span> <span class="nc">ModelSave</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">       Class responsible for saving images and managing saved image data.</span>
+
+<span class="sd">       Attributes:</span>
+<span class="sd">           _model (object): The main model instance of the application.</span>
+<span class="sd">           _pos_video_image_saved (list): A list to store the positions of frames saved from videos.</span>
+<span class="sd">           _load_saved_image (bool): A flag indicating whether a saved image is being loaded.</span>
+
+<span class="sd">       Methods:</span>
+<span class="sd">           save_image_file(): Save an image file to the specified directory and add metadata to the configuration view.</span>
+<span class="sd">           add_position_video_on_saved_image(): Adds the current position of the video to the list of saved positions.</span>
+<span class="sd">           reopen_saved_image(): Reopens a saved image file in the main application.</span>
+<span class="sd">           clear_saved_image(): Clears the saved image data from the configuration view and updates the configuration file.</span>
+<span class="sd">       &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pos_video_image_saved</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_saved_image</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">pos_video_image_saved</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">          Gets the position of the saved video image.</span>
+
+<span class="sd">          Returns:</span>
+<span class="sd">              The position of the saved video image.</span>
+<span class="sd">          &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pos_video_image_saved</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelSave.pos_video_image_saved(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nd">@pos_video_image_saved</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">pos_video_image_saved</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Sets the position of the saved video image.</span>
+
+<span class="sd">           Args:</span>
+<span class="sd">               value: The new position to set for the saved video image.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pos_video_image_saved</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelSave.pos_video_image_saved(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">load_saved_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Gets the status of whether a saved image is loaded.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                The status indicating if a saved image is loaded.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_saved_image</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelSave.load_saved_image(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="nd">@load_saved_image</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">load_saved_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Sets the status of whether a saved image is loaded.</span>
+
+<span class="sd">           Args:</span>
+<span class="sd">               value: The new status to set for loading a saved image.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_load_saved_image</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelSave.load_saved_image(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ModelSave.save_image_file">
+<a class="viewcode-back" href="../../models.html#models.model_save_image.ModelSave.save_image_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">save_image_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">dst_directory</span><span class="p">,</span> <span class="n">type_camera</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save an image file to the specified directory and add metadata to the configuration view.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            image: A NumPy array containing the image data to be saved.</span>
+<span class="sd">            dst_directory: A string representing the destination directory to save the image file.</span>
+<span class="sd">            type_camera: An optional string representing the type of camera used to capture the image.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A string representing the timestamp in the format &quot;mmdd_HHMMSS&quot; used in the saved image file name.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelSave: save_image_file(), &quot;</span>
+                                                 <span class="s2">&quot;Save image file in directory&quot;</span><span class="p">)</span>
+            <span class="n">ss</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%m</span><span class="si">%d</span><span class="s2">_%H%M%S&quot;</span><span class="p">)</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">dst_directory</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ss</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">dst_directory</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">dst_directory</span><span class="p">))</span>
+            <span class="n">cv2</span><span class="o">.</span><span class="n">imwrite</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">image</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_saved&quot;</span><span class="p">][</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_saved&quot;</span><span class="p">][</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;parent_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Media_path&quot;</span><span class="p">]</span>
+            <span class="c1"># config[&quot;Image_saved&quot;][name][&quot;is_video&quot;] = self.model.video</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_saved&quot;</span><span class="p">][</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;state_view&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">video_config</span><span class="o">.</span><span class="n">fps_video</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_saved&quot;</span><span class="p">][</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;pos_frame&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">video_config</span><span class="o">.</span><span class="n">pos_frame_video</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">saved_image_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Image_saved&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="c1"># with open(self.model.config_file, &quot;w&quot;) as outfile:</span>
+            <span class="c1">#     yaml.dump(config, outfile, default_flow_style=False)</span>
+
+            <span class="k">if</span> <span class="n">type_camera</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">write_camera_type</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">type_camera</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelSave.load_saved_image(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModelSave.add_position_video_on_saved_image">
+<a class="viewcode-back" href="../../models.html#models.model_save_image.ModelSave.add_position_video_on_saved_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_position_video_on_saved_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds the current position of the video to the list of positions.</span>
+
+<span class="sd">        If there is an active video, this method appends the current position of</span>
+<span class="sd">        the video to the list of positions stored in the `pos_video_image_saved`</span>
+<span class="sd">        attribute. This list can be used later to create a map of where images were</span>
+<span class="sd">        saved in the video.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelSave: add_position_video_on_saved_image(), &quot;</span>
+                                                 <span class="s2">&quot;Add current position frame image on the video &quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">video_config</span><span class="o">.</span><span class="n">fps_video</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pos_video_image_saved</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">video_config</span><span class="o">.</span><span class="n">pos_frame_video</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelSave.add_position_video_on_saved_image(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ModelSave.reopen_saved_image">
+<a class="viewcode-back" href="../../models.html#models.model_save_image.ModelSave.reopen_saved_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">reopen_saved_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter_name</span><span class="p">,</span> <span class="n">file_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reopen saved image file</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parameter_name</span>
+<span class="sd">            file_name:</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelSave: reopen_saved_image(), &quot;</span>
+                                                 <span class="s2">&quot;Reopen saved image to main application&quot;</span><span class="p">)</span>
+            <span class="c1"># if self._model.timer.isActive():</span>
+            <span class="c1">#     self._model.timer.stop()</span>
+            <span class="c1">#     self._model.timer_status.emit(self._model.timer.isActive())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;reopen_saved_image&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">calculate_resolution_option</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">ratio_resize</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">resize_image_param</span><span class="p">(</span><span class="n">parameter_name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">load_saved_image</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">signal_image_original</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_resize</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_result</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_resize</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelSave.reopen_saved_image(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># def set_position_frame_save_image(self, config, file_name, original=False):</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     This function sets the position of a saved frame from the `Image_saved` list in the configuration view.</span>
+    <span class="c1">#     If the timer is active, it will be stopped and the status will be emitted. If the parent path of the saved image</span>
+    <span class="c1">#     is the same as the media source, the position of the frame will be set and the next frame signal</span>
+    <span class="c1">#     will be emitted. If the parent path is different, the saved image will be reopened.</span>
+    <span class="c1">#</span>
+    <span class="c1">#     Args:</span>
+    <span class="c1">#         config</span>
+    <span class="c1">#         file_name (str): The name of the saved file.</span>
+    <span class="c1">#         original (bool, optional): Flag to indicate if the view is in original or not. Defaults to False.</span>
+    <span class="c1">#</span>
+    <span class="c1">#</span>
+    <span class="c1">#     Returns:</span>
+    <span class="c1">#         None</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     if self.model.timer.isActive():</span>
+    <span class="c1">#         self.model.timer.stop()</span>
+    <span class="c1">#         self.model.timer_status.emit(self.model.timer.isActive())</span>
+    <span class="c1">#</span>
+    <span class="c1">#     if config[&quot;Image_saved&quot;][file_name][&quot;parent_path&quot;] == self.model.media_source:</span>
+    <span class="c1">#         if config[&quot;Image_saved&quot;][file_name][&quot;is_video&quot;]:</span>
+    <span class="c1">#             pos = config[&quot;Image_saved&quot;][file_name][&quot;pos_frame&quot;]</span>
+    <span class="c1">#             self.model.cap.set(cv2.CAP_PROP_POS_FRAMES, pos)</span>
+    <span class="c1">#             if original:</span>
+    <span class="c1">#                 self.model.state_recent_view = &quot;FisheyeView&quot;</span>
+    <span class="c1">#             self.model.next_frame_signal()</span>
+    <span class="c1">#</span>
+    <span class="c1">#     else:</span>
+    <span class="c1">#         self.reopen_saved_image(config[&quot;Parameter_name&quot;], file_name)</span>
+
+    <span class="c1"># def re_run_after_load_saved_image(self, config):</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     Performs necessary actions after loading a saved image, including updating the configuration file, resetting</span>
+    <span class="c1">#     certain attributes, and creating the original and result images.</span>
+    <span class="c1">#</span>
+    <span class="c1">#     Returns:</span>
+    <span class="c1">#         None.</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     self.model.load_saved_image = False</span>
+    <span class="c1">#     self.model.state_recent_view = &quot;FisheyeView&quot;</span>
+    <span class="c1">#     if isinstance(config[&quot;Media_path&quot;], int):</span>
+    <span class="c1">#         self.model.timer.start(round(1000 / self.model.fps))</span>
+    <span class="c1">#</span>
+    <span class="c1">#     else:</span>
+    <span class="c1">#         self.model.create_image_original(config)</span>
+    <span class="c1">#         self.model.create_image_result(config)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     self.model.timer_status.emit(self.model.timer.isActive())</span>
+
+<div class="viewcode-block" id="ModelSave.clear_saved_image">
+<a class="viewcode-back" href="../../models.html#models.model_save_image.ModelSave.clear_saved_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">clear_saved_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clear the saved image data from the configuration view and save the updated configuration to a file.</span>
+
+<span class="sd">        This method removes all saved image data from the configuration view and updates the configuration file with the</span>
+<span class="sd">        modified view.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            self: The object instance.</span>
+<span class="sd">            config</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            IOError: An error occurred while writing the updated configuration to the file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelSave: clear_saved_image(), &quot;</span>
+                                                 <span class="s2">&quot;Clear saved image on side windows and main config&quot;</span><span class="p">)</span>
+            <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Image_saved&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">config_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+                <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">outfile</span><span class="p">,</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ModelSave.clear_saved_image(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Perseverance Technology, Taiwan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

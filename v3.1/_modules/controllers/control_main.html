@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>controllers.control_main &mdash; MoilApp Documentation 4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=3b2dd2c4"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">MoilApp of Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin_extention.html">Plugin Extention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting_issue.html">Troubleshooting Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup_issue.html">Reporting Bugs and Issues</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MoilApp Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">controllers.control_main</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for controllers.control_main</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Controller Module</span>
+
+<span class="sd">This module contains the Controller class, which serves as the main controller for the Moilapps application.</span>
+<span class="sd">The Controller class initializes the user interface, connects signals to their corresponding slots,</span>
+<span class="sd">handles keyboard and mouse events, and manages the application&#39;s view modes and settings.</span>
+
+<span class="sd">The Controller class imports several other modules and classes to fulfill its functionality,</span>
+<span class="sd">including UI elements, control classes for various features, and models for data management.</span>
+
+<span class="sd">Author: [Author Name]</span>
+<span class="sd">Date: [Date]</span>
+<span class="sd">Version: 4.1.1</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># import necessary library you used here</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">webbrowser</span>
+<span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtWidgets</span>
+<span class="kn">from</span> <span class="nn">PyQt6.QtCore</span> <span class="kn">import</span> <span class="n">QTimer</span>
+
+<span class="kn">from</span> <span class="nn">src.models.model_apps</span> <span class="kn">import</span> <span class="n">ModelApps</span>
+<span class="kn">from</span> <span class="nn">.control_ui_animation</span> <span class="kn">import</span> <span class="n">ControlPanelPage</span>
+<span class="kn">from</span> <span class="nn">.control_setup_icon</span> <span class="kn">import</span> <span class="n">ConfigIconUI</span>
+<span class="kn">from</span> <span class="nn">.control_plugin_manager</span> <span class="kn">import</span> <span class="n">PluginManager</span>
+<span class="kn">from</span> <span class="nn">.control_github</span> <span class="kn">import</span> <span class="n">ControllerGitHub</span>
+<span class="kn">from</span> <span class="nn">.control_view_anypoint</span> <span class="kn">import</span> <span class="n">AnypointConfig</span>
+<span class="kn">from</span> <span class="nn">.control_view_panorama</span> <span class="kn">import</span> <span class="n">PanoramaConfig</span>
+<span class="kn">from</span> <span class="nn">.control_view_recenter</span> <span class="kn">import</span> <span class="n">RecenterConfig</span>
+
+<span class="kn">from</span> <span class="nn">.control_recent_project</span> <span class="kn">import</span> <span class="n">RecentOpen</span>
+<span class="kn">from</span> <span class="nn">.control_mouse_event</span> <span class="kn">import</span> <span class="n">MouseEvent</span>
+<span class="kn">from</span> <span class="nn">.control_theme_apps</span> <span class="kn">import</span> <span class="n">ControlThemeApps</span>
+<span class="kn">from</span> <span class="nn">.control_message_box</span> <span class="kn">import</span> <span class="n">ControlMessageBox</span>
+<span class="kn">from</span> <span class="nn">.control_config_main</span> <span class="kn">import</span> <span class="n">AppConfigManager</span>
+<span class="kn">from</span> <span class="nn">.control_view_zoom</span> <span class="kn">import</span> <span class="n">ControlViewZoom</span>
+<span class="kn">from</span> <span class="nn">.control_view_rotate</span> <span class="kn">import</span> <span class="n">ControlViewRotate</span>
+<span class="kn">from</span> <span class="nn">.control_media_player</span> <span class="kn">import</span> <span class="n">VideoController</span>
+<span class="kn">from</span> <span class="nn">.control_saving_media</span> <span class="kn">import</span> <span class="n">SaveMedia</span>
+<span class="kn">from</span> <span class="nn">.control_image_result</span> <span class="kn">import</span> <span class="n">ControlImageResult</span>
+<span class="kn">from</span> <span class="nn">.control_image_original</span> <span class="kn">import</span> <span class="n">ControlImageOriginal</span>
+<span class="kn">from</span> <span class="nn">.control_view_fisheye</span> <span class="kn">import</span> <span class="n">ControlImageFisheye</span>
+<span class="kn">from</span> <span class="nn">.control_stylesheet</span> <span class="kn">import</span> <span class="n">ControlStyleSheet</span>
+<span class="kn">from</span> <span class="nn">.control_view_fullscreen</span> <span class="kn">import</span> <span class="n">ControlViewFullscreen</span>
+<span class="kn">from</span> <span class="nn">.control_screen_record</span> <span class="kn">import</span> <span class="n">ScreenRecord</span>
+
+
+<div class="viewcode-block" id="Controller">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller">[docs]</a>
+<span class="k">class</span> <span class="nc">Controller</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Controller Class</span>
+
+<span class="sd">    The Controller class serves as the main controller for the Moilapps application.</span>
+<span class="sd">    It initializes the user interface, connects signals to their corresponding slots,</span>
+<span class="sd">    handles keyboard and mouse events, and manages the application&#39;s view modes and settings.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        ui_object (object): An instance of the user interface object.</span>
+<span class="sd">        model (object): An instance of the ModelApps class for data management.</span>
+<span class="sd">        _stylesheet (object): An instance of the ControlStyleSheet class for managing stylesheets.</span>
+<span class="sd">        cap (object): Video capture object for handling media files.</span>
+<span class="sd">        image_original (object): Original image object.</span>
+<span class="sd">        ctrl_panel_page (object): Instance of the ControlPanelPage class for managing panel pages.</span>
+<span class="sd">        ctrl_stylesheet (object): Instance of the ControlStyleSheet class for managing stylesheets.</span>
+<span class="sd">        ctrl_fullscreen (object): Instance of the ControlViewFullscreen class for managing fullscreen mode.</span>
+<span class="sd">        ctrl_screen_record (object): Instance of the ScreenRecord class for managing screen recording.</span>
+<span class="sd">        ctrl_icon (object): Instance of the ConfigIconUI class for configuring icons.</span>
+<span class="sd">        ctrl_theme (object): Instance of the ControlThemeApps class for managing application themes.</span>
+<span class="sd">        ctrl_message_box (object): Instance of the ControlMessageBox class for managing message boxes.</span>
+<span class="sd">        ctrl_main_config (object): Instance of the AppConfigManager class for managing application configurations.</span>
+<span class="sd">        ctrl_plugin (object): Instance of the PluginManager class for managing plugins.</span>
+<span class="sd">        ctrl_github (object): Instance of the ControllerGitHub class for managing GitHub integration.</span>
+<span class="sd">        ctrl_save_media (object): Instance of the SaveMedia class for managing saved media.</span>
+<span class="sd">        ctrl_mouse_event (object): Instance of the MouseEvent class for managing mouse events.</span>
+<span class="sd">        view_recenter (object): Instance of the RecenterConfig class for managing view recentering.</span>
+<span class="sd">        view_fisheye (object): Instance of the ControlImageFisheye class for managing fisheye view.</span>
+<span class="sd">        view_anypoint (object): Instance of the AnypointConfig class for managing anypoint view.</span>
+<span class="sd">        view_panorama (object): Instance of the PanoramaConfig class for managing panorama view.</span>
+<span class="sd">        view_zoom (object): Instance of the ControlViewZoom class for managing zoom view.</span>
+<span class="sd">        view_rotate (object): Instance of the ControlViewRotate class for managing rotate view.</span>
+<span class="sd">        ctrl_img_result (object): Instance of the ControlImageResult class for managing image results.</span>
+<span class="sd">        ctrl_img_ori (object): Instance of the ControlImageOriginal class for managing original images.</span>
+<span class="sd">        timer (object): QTimer object for managing timing events.</span>
+<span class="sd">        ctrl_media_player (object): Instance of the VideoController class for managing media playback.</span>
+<span class="sd">        ctrl_recent_project (object): Instance of the RecentOpen class for managing recent projects.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        __init__: Initializes the Controller object.</span>
+<span class="sd">        connect_signals: Connects signals to their corresponding slots in the user interface.</span>
+<span class="sd">        moveEvent: Moves the screen image worker to the position specified by the given event.</span>
+<span class="sd">        onclick_change_state_debug: Toggles the debug mode state when the debug button is clicked.</span>
+<span class="sd">        keyPressEvent: Handles key press events for keyboard shortcuts and special keys.</span>
+<span class="sd">        escape_event: Handles the escape button keyboard event, returning the application to its default state.</span>
+<span class="sd">        initial_setup_view: Sets up the initial view mode based on the moilapp&#39;s mode_view attribute.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Controller.__init__">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ui_main_window</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span> <span class="o">=</span> <span class="n">ui_main_window</span>  <span class="c1"># create instance for user interface object</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">frame_video_controller</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">ModelApps</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get_stylesheet</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cap</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">image_original</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="c1"># initial open application</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setMouseTracking</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">showMaximized</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Moilapps - V4.1.1&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_panel_page</span> <span class="o">=</span> <span class="n">ControlPanelPage</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_stylesheet</span> <span class="o">=</span> <span class="n">ControlStyleSheet</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_fullscreen</span> <span class="o">=</span> <span class="n">ControlViewFullscreen</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_screen_record</span> <span class="o">=</span> <span class="n">ScreenRecord</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_icon</span> <span class="o">=</span> <span class="n">ConfigIconUI</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_icon</span><span class="o">.</span><span class="n">setup_icon_theme</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">theme_mode</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_theme</span> <span class="o">=</span> <span class="n">ControlThemeApps</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_theme</span><span class="o">.</span><span class="n">onclick_change_theme_apps</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_message_box</span> <span class="o">=</span> <span class="n">ControlMessageBox</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_main_config</span> <span class="o">=</span> <span class="n">AppConfigManager</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_github</span> <span class="o">=</span> <span class="n">ControllerGitHub</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_save_media</span> <span class="o">=</span> <span class="n">SaveMedia</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_mouse_event</span> <span class="o">=</span> <span class="n">MouseEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="c1"># Initialize view zoom and rotate controllers</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">view_recenter</span> <span class="o">=</span> <span class="n">RecenterConfig</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">view_fisheye</span> <span class="o">=</span> <span class="n">ControlImageFisheye</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">view_anypoint</span> <span class="o">=</span> <span class="n">AnypointConfig</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">view_panorama</span> <span class="o">=</span> <span class="n">PanoramaConfig</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">view_zoom</span> <span class="o">=</span> <span class="n">ControlViewZoom</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">view_rotate</span> <span class="o">=</span> <span class="n">ControlViewRotate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_img_result</span> <span class="o">=</span> <span class="n">ControlImageResult</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_img_ori</span> <span class="o">=</span> <span class="n">ControlImageOriginal</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="c1"># controller view</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timer</span> <span class="o">=</span> <span class="n">QTimer</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">timeout</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">media_next_frame_signal</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_media_player</span> <span class="o">=</span> <span class="n">VideoController</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_recent_project</span> <span class="o">=</span> <span class="n">RecentOpen</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_plugin</span> <span class="o">=</span> <span class="n">PluginManager</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">processing_data_config</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Plugin_run&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_plugin</span><span class="o">.</span><span class="n">open_pinned_plugin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Plugin_run&quot;</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">add_plugins_button</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Github_config&quot;</span><span class="p">][</span><span class="s2">&quot;origin_url&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;test here&quot;</span><span class="p">)</span>
+                <span class="c1"># self.model.model_github.github_information()</span>
+                <span class="c1"># self.model_apps.github_information()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">model_config</span><span class="o">.</span><span class="n">read_recent_config_path</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_save_media</span><span class="o">.</span><span class="n">load_saved_image_list</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">onclick_change_state_debug</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_controller</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connect_signals</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Controller.__init__(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.connect_signals">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.connect_signals">[docs]</a>
+    <span class="k">def</span> <span class="nf">connect_signals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connects signals to their corresponding slots in the user interface.</span>
+
+<span class="sd">        Signals include button clicks, key shortcuts, checkbox state changes, and menu toggling.</span>
+<span class="sd">        Each signal is connected to a specific method or action to be performed in response.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_open_media</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_handle_open_media_button</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_open_media</span><span class="o">.</span><span class="n">setShortcut</span><span class="p">(</span><span class="s2">&quot;Ctrl+O&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_form_params</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">form_camera_parameter</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_form_params</span><span class="o">.</span><span class="n">setShortcut</span><span class="p">(</span><span class="s2">&quot;Ctrl+P&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_change_theme</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ctrl_theme</span><span class="o">.</span><span class="n">onclick_change_theme_apps</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_help</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_help_button</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_help</span><span class="o">.</span><span class="n">setShortcut</span><span class="p">(</span><span class="s2">&quot;Ctrl+I&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_read_the_docs</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">read_the_documentation</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_read_the_docs</span><span class="o">.</span><span class="n">setShortcut</span><span class="p">(</span><span class="s2">&quot;Ctrl+D&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">comboBox_resolution_sources</span><span class="o">.</span><span class="n">currentIndexChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">change_resolution_sources</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">reset_view_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_view_back_to_original</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_clear_ui</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_clear_user_interface</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">check_draw_poligon</span><span class="o">.</span><span class="n">stateChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ctrl_img_ori</span><span class="o">.</span><span class="n">create_image_original</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">check_draw_poligon_pano</span><span class="o">.</span><span class="n">stateChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ctrl_img_ori</span><span class="o">.</span><span class="n">create_image_original</span><span class="p">)</span>
+
+            <span class="c1"># control panel page</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_togle_menu</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_panel_page</span><span class="o">.</span><span class="n">button_menu</span><span class="p">(</span><span class="mi">220</span><span class="p">,</span> <span class="kc">True</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_setting</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">onclick_button_setting_menu</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_recent_media</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">onclick_button_setting_menu</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_about_us</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_open_about_us</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">extra_left_close_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ctrl_panel_page</span><span class="o">.</span><span class="n">close_setting_window</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_debug_mode</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_change_state_debug</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Controller.connect_signals(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.moveEvent">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.moveEvent">[docs]</a>
+    <span class="k">def</span> <span class="nf">moveEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Moves the screen image worker to the position specified by the given event.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event: A PyQt event containing information about the new position of the screen image worker.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The return value of the super() method for the same event.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            N/A</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: moveEvent(), &quot;</span>
+                                                <span class="s2">&quot;Get position of windows on monitor (specially more than 1 monitor)&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">update_scree_image</span><span class="o">.</span><span class="n">worker</span><span class="o">.</span><span class="n">get_event</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">pos</span><span class="p">())</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">moveEvent</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Controller.moveEvent(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.onclick_change_state_debug">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.onclick_change_state_debug">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclick_change_state_debug</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Toggles the debug mode state when the debug button is clicked.</span>
+
+<span class="sd">        If the debug mode is active, debug logging is enabled, and the button text is set to &quot;Debug ON&quot;.</span>
+<span class="sd">        If the debug mode is inactive, debug logging is disabled, and the button text is set to &quot;Debug OFF&quot;.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: onclick_change_state_debug(), &quot;</span>
+                                                <span class="s2">&quot;Click active Debug ON or Debug OFF&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_debug_mode</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_debug_mode</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Debug ON&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_debug_mode</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet</span><span class="o">.</span><span class="n">stylesheet_button_additional</span><span class="p">(</span><span class="s2">&quot;remove&quot;</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_debug_mode</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Debug OFF&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_debug_mode</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet</span><span class="o">.</span><span class="n">stylesheet_button_additional</span><span class="p">(</span><span class="s2">&quot;install&quot;</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Controller.onclick_change_state_debug(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.keyPressEvent">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.keyPressEvent">[docs]</a>
+    <span class="k">def</span> <span class="nf">keyPressEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles key press events for keyboard shortcuts and special keys.</span>
+
+<span class="sd">        Activates different actions based on the key pressed and any modifiers.</span>
+<span class="sd">        Supported shortcuts include toggling fullscreen with F11, handling escape events,</span>
+<span class="sd">        and displaying message boxes for saving images or accessibility information.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event: The key press event object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: keyPressEvent(), &quot;</span>
+                                            <span class="s2">&quot;Keyboard press event&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key</span><span class="o">.</span><span class="n">Key_F11</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">showMaximized</span><span class="p">()</span>
+
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key</span><span class="o">.</span><span class="n">Key_Escape</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">escape_event</span><span class="p">()</span>
+
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key</span><span class="o">.</span><span class="n">Key_S</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">KeyboardModifier</span><span class="o">.</span><span class="n">ControlModifier</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_message_box</span><span class="o">.</span><span class="n">show_message_box_save_image</span><span class="p">()</span>
+
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">key</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">Key</span><span class="o">.</span><span class="n">Key_A</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">modifiers</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">KeyboardModifier</span><span class="o">.</span><span class="n">ControlModifier</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_message_box</span><span class="o">.</span><span class="n">show_accessibility</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Controller.keyPressEvent(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.escape_event">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.escape_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">escape_event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the escape button keyboard event, returning the application to its default state.</span>
+
+<span class="sd">        When the escape button is pressed, this method closes any open menus, resets the panel page,</span>
+<span class="sd">        and exits the rubber band zoom mode if active.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: escape_event(), &quot;</span>
+                                                <span class="s2">&quot;Keyboard escape event&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_panel_page</span><span class="o">.</span><span class="n">button_menu</span><span class="p">(</span><span class="mi">70</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">frame_additional_right</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">width</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_panel_page</span><span class="o">.</span><span class="n">button_about_us</span><span class="p">()</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">frame_additional_left</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">width</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_panel_page</span><span class="o">.</span><span class="n">setting_menu</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">display_image_to_ui</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Controller.escape_event(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.initial_setup_view">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.initial_setup_view">[docs]</a>
+    <span class="k">def</span> <span class="nf">initial_setup_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">         Sets up the initial view mode based on the moilapp&#39;s mode_view attribute.</span>
+
+<span class="sd">         Depending on the mode_view attribute, this method styles the corresponding button in the user interface</span>
+<span class="sd">         to indicate the selected view mode. It then triggers the appropriate method to initialize the view settings</span>
+<span class="sd">         and display the image accordingly.</span>
+
+<span class="sd">         Returns:</span>
+<span class="sd">             None</span>
+<span class="sd">         &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: initial_setup_view(), &quot;</span>
+                                                <span class="s2">&quot;Initial setup view (FisheyeView, AnypointView, PanoramaView&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">set_moildev</span><span class="o">.</span><span class="n">moildev_main</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;FisheyeView&quot;</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_fisheye_view</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ctrl_stylesheet</span><span class="o">.</span><span class="n">set_style_selected_menu</span><span class="p">())</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;AnypointView&quot;</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">view_anypoint</span><span class="o">.</span><span class="n">onclick_btn_anypoint</span><span class="p">()</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_anypoint_view</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ctrl_stylesheet</span><span class="o">.</span><span class="n">set_style_selected_menu</span><span class="p">())</span>
+
+                    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;PanoramaView&quot;</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">view_panorama</span><span class="o">.</span><span class="n">onclick_btn_panorama</span><span class="p">()</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_panorama_view</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ctrl_stylesheet</span><span class="o">.</span><span class="n">set_style_selected_menu</span><span class="p">())</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">=</span> <span class="s2">&quot;FisheyeView&quot;</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;FisheyeView&quot;</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_fisheye_view</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ctrl_stylesheet</span><span class="o">.</span><span class="n">set_style_selected_menu</span><span class="p">())</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Controller.initial_setup_view(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.onclick_handle_open_media_button">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.onclick_handle_open_media_button">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclick_handle_open_media_button</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prompts the user to select a media source and loads it into the app. If a file is selected,</span>
+<span class="sd">        updates the model with the media source and parameter name, and updates the UI accordingly.</span>
+<span class="sd">        If there is an existing result image, prompts the user for confirmation before changing</span>
+<span class="sd">        the media source.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: onclick_handle_open_media_button(), &quot;</span>
+                                                <span class="s2">&quot;Click push button or keyboard open media&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load_media_source</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">prompt_change_media_source</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Controller.onclick_handle_open_media_button(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.prompt_change_media_source">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.prompt_change_media_source">[docs]</a>
+    <span class="k">def</span> <span class="nf">prompt_change_media_source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prompts the user to confirm changing the media source.</span>
+
+<span class="sd">        Displays a confirmation message to the user asking if they want to change the media source.</span>
+<span class="sd">        If the user confirms, the method proceeds to load the new media source.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: prompt_change_media_source(), &quot;</span>
+                                                <span class="s2">&quot;Show prompt change media source&quot;</span><span class="p">)</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Your workspace already contains media, </span><span class="se">\n</span><span class="s2">&quot;</span>
+                       <span class="s2">&quot;Are you sure want to change the media source?</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">reply</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_message_box</span><span class="o">.</span><span class="n">display_ask_confirmation</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">reply</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load_media_source</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Controller.prompt_change_media_source(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.load_media_source">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.load_media_source">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_media_source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prompts the user to confirm changing the media source.</span>
+
+<span class="sd">        Displays a confirmation message to the user asking if they want to change the media source.</span>
+<span class="sd">        If the user confirms, the method proceeds to load the new media source.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: load_media_source(), &quot;</span>
+                                                <span class="s2">&quot;Load media source&quot;</span><span class="p">)</span>
+            <span class="n">source_type</span><span class="p">,</span> <span class="n">cam_type</span><span class="p">,</span> <span class="n">source_media</span><span class="p">,</span> <span class="n">parameter_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">select_media_source</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">source_media</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;No media selected after clicking the &quot;OPEN&quot; button.&#39;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_message_box</span><span class="o">.</span><span class="n">display_message_box</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                        <span class="s1">&#39;No media selected after clicking the &quot;OPEN&quot; button.&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">update_model_and_create_original_image</span><span class="p">(</span><span class="n">source_type</span><span class="p">,</span> <span class="n">cam_type</span><span class="p">,</span> <span class="n">source_media</span><span class="p">,</span> <span class="n">parameter_name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Controller.load_media_source(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.update_model_and_create_original_image">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.update_model_and_create_original_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_model_and_create_original_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_type</span><span class="p">,</span> <span class="n">cam_type</span><span class="p">,</span> <span class="n">source_media</span><span class="p">,</span> <span class="n">parameter_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the model configuration and creates the original image.</span>
+
+<span class="sd">        Updates the main configuration attributes with the provided parameters, saves the updated configuration,</span>
+<span class="sd">        processes the data configuration, and retrieves the list of recent projects.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            source_type (str): The type of media source.</span>
+<span class="sd">            cam_type (str): The type of camera.</span>
+<span class="sd">            source_media (str): The path to the media source.</span>
+<span class="sd">            parameter_name (str): The name of the parameter.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: update_model_and_create_original_image(), &quot;</span>
+                                                <span class="s2">&quot;Update model config and create original image&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cap</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">recenter_mode_view</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Source_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">source_type</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Cam_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cam_type</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Media_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">source_media</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Parameter_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_name</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">save_main_config_update</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">save_main_config_update</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">processing_data_config</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_recent_project</span><span class="o">.</span><span class="n">get_list_recent_project</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Controller.update_model_and_create_original_image(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.processing_data_config">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.processing_data_config">[docs]</a>
+    <span class="k">def</span> <span class="nf">processing_data_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: processing_data_config(), &quot;</span>
+                                                <span class="s2">&quot;Processing data config&quot;</span><span class="p">)</span>
+            <span class="n">media_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Media_path&quot;</span><span class="p">]</span>
+            <span class="n">source_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s1">&#39;Source_type&#39;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">set_moildev</span><span class="o">.</span><span class="n">create_moildev</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">media_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">source_type</span> <span class="o">==</span> <span class="s2">&quot;Open Camera&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">cap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">open_streaming_camera</span><span class="p">(</span><span class="n">media_path</span><span class="p">)</span>
+                    <span class="n">success</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_original</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">check_if_the_source_is_usable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">source_type</span> <span class="o">==</span> <span class="s2">&quot;Load Media&quot;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">media_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">((</span><span class="s1">&#39;.mp4&#39;</span><span class="p">,</span> <span class="s1">&#39;.MOV&#39;</span><span class="p">,</span> <span class="s1">&#39;.avi&#39;</span><span class="p">)):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">cap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">load_video_source</span><span class="p">(</span><span class="n">media_path</span><span class="p">)</span>
+                        <span class="n">success</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_original</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">check_if_the_source_is_usable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">media_path</span><span class="o">.</span><span class="n">endswith</span><span class="p">((</span><span class="s1">&#39;.jpeg&#39;</span><span class="p">,</span> <span class="s1">&#39;.JPG&#39;</span><span class="p">,</span> <span class="s1">&#39;.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;.png&#39;</span><span class="p">,</span> <span class="s1">&#39;TIFF&#39;</span><span class="p">)):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">cap</span> <span class="o">=</span> <span class="kc">None</span>
+                        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">load_image_source</span><span class="p">(</span><span class="n">media_path</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">image_original</span> <span class="o">=</span> <span class="n">image</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">check_if_the_source_is_usable</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">image_original</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_original</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">set_moildev</span><span class="o">.</span><span class="n">calculate_resolution_option</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">adding_resolution_option</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">initial_setup_view</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_rotate_ori</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_main_config</span><span class="o">.</span><span class="n">show_config_view_in_information</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">view_fisheye</span><span class="o">.</span><span class="n">set_initial_value_to_ui</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">view_rotate</span><span class="o">.</span><span class="n">set_initial_value_to_ui_rotate</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">change_resolution_image</span><span class="p">()</span>
+
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cap</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">isOpened</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">frame_video_controller</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">media_next_frame_signal</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_media_player</span><span class="o">.</span><span class="n">check_active_play_pause_button</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">frame_video_controller</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">display_image_to_ui</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Controller.processing_data_config(): Error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.adding_resolution_option">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.adding_resolution_option">[docs]</a>
+    <span class="k">def</span> <span class="nf">adding_resolution_option</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds resolution options to the user interface.</span>
+
+<span class="sd">        Retrieves resolution options from the Moildev instance and populates the resolution combo box</span>
+<span class="sd">        in the user interface with the available options.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: adding_resolution_option(), &quot;</span>
+                                            <span class="s2">&quot;Adding resolution option to user interface&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">comboBox_resolution_sources</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">comboBox_resolution_sources</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">set_moildev</span><span class="o">.</span><span class="n">resolution_option</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">set_moildev</span><span class="o">.</span><span class="n">resolution_option</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">comboBox_resolution_sources</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2"> x </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">comboBox_resolution_sources</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.change_resolution_sources">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.change_resolution_sources">[docs]</a>
+    <span class="k">def</span> <span class="nf">change_resolution_sources</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">         Changes the resolution sources based on the selected option from the combo box.</span>
+
+<span class="sd">         Updates the current resolution index in the Moildev instance, changes the resolution of the original image,</span>
+<span class="sd">         recalculates label ratios, and updates the main configuration with the new resolution settings.</span>
+<span class="sd">         It then performs the initial setup of the view.</span>
+
+<span class="sd">         Returns:</span>
+<span class="sd">             None</span>
+<span class="sd">         &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: change_resolution_sources(), &quot;</span>
+                                            <span class="s2">&quot;Change resolution sources from selected combo box&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">set_moildev</span><span class="o">.</span><span class="n">current_resolution_index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">comboBox_resolution_sources</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">change_resolution_image</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_mouse_event</span><span class="o">.</span><span class="n">calculate_ratio_label_ori</span><span class="p">()</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;AnypointView&quot;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">radio_mode_1</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;zoom&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_zoom</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="mi">3</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;pitch&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;yaw&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;zoom&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_zoom</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="mi">3</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;PanoramaView&quot;</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">radioButton_car</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">save_main_config_update</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">initial_setup_view</span><span class="p">()</span>
+
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;The operation cant perform well, </span><span class="se">\n</span><span class="s1"> please try another resources!&#39;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_message_box</span><span class="o">.</span><span class="n">display_message_box</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s2">&quot;warning&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.media_next_frame_signal">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.media_next_frame_signal">[docs]</a>
+    <span class="k">def</span> <span class="nf">media_next_frame_signal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Processes the next frame for video processing.</span>
+
+<span class="sd">        Reads the next frame from the video capture device, calculates frame information, updates the video player,</span>
+<span class="sd">        creates the image result, and displays the image to the user interface. If recording is enabled, writes the</span>
+<span class="sd">        frame to the output video file.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: media_next_frame_signal(), &quot;</span>
+                                            <span class="s2">&quot;Process next frame for video processing&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cap</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">success</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_original</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">success</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">image_original</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_original</span>
+                <span class="c1"># print(self.model.set_image_resize)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">set_image_resize</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">resize_image_resolution</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">video_config</span><span class="o">.</span><span class="n">calculate_frame_video</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_media_player</span><span class="o">.</span><span class="n">set_slider_video_time_position</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_media_player</span><span class="o">.</span><span class="n">show_timer_video_info</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">display_image_to_ui</span><span class="p">()</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_save_media</span><span class="o">.</span><span class="n">video_writer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_save_media</span><span class="o">.</span><span class="n">record_option</span> <span class="o">==</span> <span class="s2">&quot;Original&quot;</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_save_media</span><span class="o">.</span><span class="n">video_writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image_original</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_save_media</span><span class="o">.</span><span class="n">video_writer</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">image_result</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.display_image_to_ui">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.display_image_to_ui">[docs]</a>
+    <span class="k">def</span> <span class="nf">display_image_to_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Displays the image to the user interface.</span>
+
+<span class="sd">        Creates and displays either the original image or the result image, depending on the current state</span>
+<span class="sd">        of the application.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: display_image_to_ui(), &quot;</span>
+                                            <span class="s2">&quot;Display image to user interface Original or Result&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_img_result</span><span class="o">.</span><span class="n">create_image_result</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_img_ori</span><span class="o">.</span><span class="n">create_image_original</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.showing_new_window_full_screen">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.showing_new_window_full_screen">[docs]</a>
+    <span class="k">def</span> <span class="nf">showing_new_window_full_screen</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Displays a new window in full-screen mode.</span>
+
+<span class="sd">        Hides the current window, shows a new window maximized to full screen, sets the full-screen mode flag,</span>
+<span class="sd">        and creates the image result.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: showing_new_window_full_screen(), &quot;</span>
+                                            <span class="s2">&quot;Display New window with full screen&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_fullscreen</span><span class="o">.</span><span class="n">new_window</span><span class="o">.</span><span class="n">showMaximized</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_fullscreen</span><span class="o">.</span><span class="n">new_window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_fullscreen</span><span class="o">.</span><span class="n">full_screen_mode</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_img_result</span><span class="o">.</span><span class="n">create_image_result</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.onclick_button_setting_menu">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.onclick_button_setting_menu">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclick_button_setting_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the click event of the setting menu button.</span>
+
+<span class="sd">        If the setting menu is inactive, it displays the setting menu and switches the current index of the stacked widget</span>
+<span class="sd">        to either the side view setting or recent project view. If the setting menu is active, it toggles between</span>
+<span class="sd">        the current index of the stacked widget.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index (int): The index of the stacked widget to switch to.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: onclick_button_setting_menu(), &quot;</span>
+                                            <span class="s2">&quot;Click push button for display side view setting or recent project&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_panel_page</span><span class="o">.</span><span class="n">active_left</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_panel_page</span><span class="o">.</span><span class="n">setting_menu</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">stackedWidget_additional_left</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_recent_project</span><span class="o">.</span><span class="n">get_list_recent_project</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">stackedWidget_additional_left</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span> <span class="o">!=</span> <span class="n">index</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">stackedWidget_additional_left</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_recent_project</span><span class="o">.</span><span class="n">get_list_recent_project</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_panel_page</span><span class="o">.</span><span class="n">setting_menu</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">label_title_additional_left</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Recent Open&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">label_title_additional_left</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Apps Settings&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.onclick_open_about_us">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.onclick_open_about_us">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclick_open_about_us</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the click event of the &#39;About Us&#39; button.</span>
+
+<span class="sd">        Displays the &#39;About Us&#39; page in the setting menu.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: onclick_open_about_us(), &quot;</span>
+                                            <span class="s2">&quot;Click push button about us (MoilApp)&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_panel_page</span><span class="o">.</span><span class="n">button_about_us</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.back_to_home">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.back_to_home">[docs]</a>
+    <span class="k">def</span> <span class="nf">back_to_home</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Switches the content view to home screen and hides plugin buttons and sets the plugin index to None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: back_to_home(), &quot;</span>
+                                            <span class="s2">&quot;Click push button back to home&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">stackedWidget_2</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">widget_container_content</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">frame_btn_moilapp</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">frame_button_view</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">add_plugins_button</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">delete_plugins_button</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">label_plugin_name</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">close_plugin_button</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">open_in_new_window_plugins</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Plugin_run&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_plugin</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cap</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">isActive</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">save_main_config_update</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.onclick_help_button">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.onclick_help_button">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclick_help_button</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the click event of the help button.</span>
+
+<span class="sd">        Displays an informational message box indicating that the help menu is still under development.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: onclick_help_button(), &quot;</span>
+                                            <span class="s2">&quot;Click push button for help&quot;</span><span class="p">)</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;This is a help menu application, The content still under developing!!&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_message_box</span><span class="o">.</span><span class="n">display_message_box</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s2">&quot;information&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.onclick_clear_user_interface">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.onclick_clear_user_interface">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclick_clear_user_interface</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resets the user interface to its default state.</span>
+
+<span class="sd">        This method stops the timer, resets various model and UI attributes to their default values, and hides certain UI elements.</span>
+<span class="sd">        It also clears the saved image list and resets the styles of specific UI buttons.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">model_config</span><span class="o">.</span><span class="n">reset_value_main_config</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cap</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">image_original</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">image_result</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">image_ori_used</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">image_recenter</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_theme</span><span class="o">.</span><span class="n">init_ui</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_stylesheet</span><span class="o">.</span><span class="n">reset_style</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_fisheye_view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_stylesheet</span><span class="o">.</span><span class="n">reset_style</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_anypoint_view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_stylesheet</span><span class="o">.</span><span class="n">reset_style</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_panorama_view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">listWidget_saved_image</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">widget_mode_view</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">frame_recenter_image</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_panel_page</span><span class="o">.</span><span class="n">active_left</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_panel_page</span><span class="o">.</span><span class="n">setting_menu</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">spinBox_icx</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">spinBox_icy</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">spinBox_icx</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">spinBox_icy</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">spinBox_icx</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">spinBox_icy</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">comboBox_resolution_sources</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">comboBox_resolution_sources</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">comboBox_resolution_sources</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_alpha_rec</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_beta_rec</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.reset_view_back_to_original">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.reset_view_back_to_original">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset_view_back_to_original</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resets the view back to the original state.</span>
+
+<span class="sd">        This method resets the view back to its original state, particularly when the user clicks on the &quot;Back to Original&quot;</span>
+<span class="sd">        button. It hides certain UI elements and resets various attributes related to the view.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">widget_mode_view</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">widget_mode_view</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_stylesheet</span><span class="o">.</span><span class="n">reset_style</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_fisheye_view</span><span class="o">.</span><span class="n">objectName</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">btn_fisheye_view</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ctrl_stylesheet</span><span class="o">.</span><span class="n">set_style_selected_menu</span><span class="p">())</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">=</span> <span class="s2">&quot;FisheyeView&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">view_properties</span><span class="o">.</span><span class="n">zooming_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">round_to_nearest_100</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">width</span><span class="p">()</span><span class="o">-</span><span class="mi">40</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">view_properties</span><span class="o">.</span><span class="n">rotate_degree</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">widget_mode_view</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">frame_recenter_image</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">spinBox_icx</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">spinBox_icy</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_alpha_rec</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_beta_rec</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">display_image_to_ui</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">save_main_config_update</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.read_the_documentation">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.read_the_documentation">[docs]</a>
+    <span class="k">def</span> <span class="nf">read_the_documentation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Opens the HTML documentation for this project in a new browser tab.</span>
+
+<span class="sd">        If the `../docs/build/html` directory doesn&#39;t exist, this method runs the command `make -C ../docs html`</span>
+<span class="sd">        to generate the documentation. Then, it opens the `index.html` file in the `../docs/build/html`</span>
+<span class="sd">        directory in a new browser tab.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: read_the_documentation(), &quot;</span>
+                                            <span class="s2">&quot;Click the &#39;Read the Doc&#39; Button&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span><span class="p">:</span>
+            <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;..\docs\build\html\index.html&#39;</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;posix&#39;</span><span class="p">:</span>
+            <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;../docs/build/html/index.html&#39;</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This os is not support yet!&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.closeEvent">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.closeEvent">[docs]</a>
+    <span class="k">def</span> <span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cap</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.resizeEvent">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.resizeEvent">[docs]</a>
+    <span class="k">def</span> <span class="nf">resizeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QResizeEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handles the resize event of the main window.</span>
+
+<span class="sd">        Adjusts the size of the image according to the window size.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: resizeEvent(), &quot;</span>
+                                            <span class="s2">&quot;Resize image depend with windows&quot;</span><span class="p">)</span>
+
+        <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">round_to_nearest_100</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">-</span> <span class="mi">40</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">view_properties</span><span class="o">.</span><span class="n">zooming_size</span> <span class="o">=</span> <span class="n">width</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_img_result</span><span class="o">.</span><span class="n">create_image_result</span><span class="p">()</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="Controller.round_to_nearest_100">
+<a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.round_to_nearest_100">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">round_to_nearest_100</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Rounds the given number to the nearest multiple of 20.</span>
+
+<span class="sd">           Args:</span>
+<span class="sd">               num (int or float): The number to be rounded.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               int: The rounded number.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">num</span> <span class="o">/</span> <span class="mi">20</span><span class="p">)</span> <span class="o">*</span> <span class="mi">20</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Perseverance Technology, Taiwan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

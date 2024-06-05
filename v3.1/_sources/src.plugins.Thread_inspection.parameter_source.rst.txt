@@ -1,0 +1,11 @@
+Source
+========================================================
+
+parameters
+--------------------------------------------------------------------------
+
+.. automodule:: plugins.Thread_inspection.parameter_source.camera_parameters
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

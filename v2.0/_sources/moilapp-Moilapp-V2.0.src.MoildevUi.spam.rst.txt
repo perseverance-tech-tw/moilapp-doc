@@ -1,0 +1,26 @@
+Moildev Ui Spam
+=================================================
+
+Ui Apps
+-------------------------------------------------------
+
+.. automodule:: MoildevUi.spam.UiApps
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Help Ui
+-------------------------------------------------------
+
+.. automodule:: MoildevUi.spam.helpUi
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Test
+------------------------------------------------------------
+
+.. automodule:: MoildevUi.spam.testetstets
+   :members:
+   :undoc-members:
+   :show-inheritance:

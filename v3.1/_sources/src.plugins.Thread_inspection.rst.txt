@@ -1,0 +1,21 @@
+Inspection
+======================================
+
+.. toctree::
+   :maxdepth: 4
+
+   src.plugins.Thread_inspection.controller
+   src.plugins.Thread_inspection.help
+   src.plugins.Thread_inspection.parameter_source
+   src.plugins.Thread_inspection.process_image
+   src.plugins.Thread_inspection.tools
+   src.plugins.Thread_inspection.view
+   src.plugins.Thread_inspection.widgets
+
+Main
+------------------------------------------
+
+.. automodule:: plugins.Thread_inspection.main
+   :members:
+   :undoc-members:
+   :show-inheritance:

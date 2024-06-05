@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>controllers.control_recent_project &mdash; MoilApp Documentation 4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=3b2dd2c4"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">MoilApp of Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin_extention.html">Plugin Extention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting_issue.html">Troubleshooting Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup_issue.html">Reporting Bugs and Issues</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MoilApp Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">controllers.control_recent_project</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for controllers.control_recent_project</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module defines the `RecentOpen` class, which represents a PyQt6-based GUI application for managing recent projects and directories.</span>
+
+<span class="sd">The `RecentOpen` class provides functionality for opening recent projects, displaying files in selected directories, and managing recent projects in the UI.</span>
+
+<span class="sd">It includes methods for handling click events, processing directories, managing recent projects in the UI, and opening recent project images.</span>
+
+<span class="sd">Classes:</span>
+<span class="sd">- RecentOpen: Represents the main application window for managing recent projects and directories.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span>
+<span class="kn">from</span> <span class="nn">PyQt6.QtWidgets</span> <span class="kn">import</span> <span class="n">QFrame</span>
+
+
+<div class="viewcode-block" id="RecentOpen">
+<a class="viewcode-back" href="../../controller.html#controllers.control_recent_project.RecentOpen">[docs]</a>
+<span class="k">class</span> <span class="nc">RecentOpen</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The `RecentOpen` class represents a PyQt6-based GUI application for managing recent projects and directories.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">    - controller: The controller object responsible for managing the application.</span>
+<span class="sd">    - _model: The model object containing the application&#39;s data and logic.</span>
+<span class="sd">    - _stylesheet: The stylesheet object for defining the visual appearance of the UI.</span>
+<span class="sd">    - directory_open_list: A list to store the paths of files in the selected directory.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">    - __init__: Initializes the RecentOpen instance.</span>
+<span class="sd">    - click_open_directory: Handles the click event of the open directory button.</span>
+<span class="sd">    - process_open_directory: Processes the selected directory and displays the files in the UI.</span>
+<span class="sd">    - combo_box_selected: Handles the selection of options from the combo box.</span>
+<span class="sd">    - detect_available_on_recent: Detects if a given path is available in the recent project list.</span>
+<span class="sd">    - click_push_button_open_file_directory: Handles the click event of the push button to open a project.</span>
+<span class="sd">    - clear_item_layout_directory_open: Clears the directory item projects in the user interface.</span>
+<span class="sd">    - get_list_recent_project: Retrieves the list of recent projects and displays them in the UI.</span>
+<span class="sd">    - add_list_recent_project_to_ui: Adds recent projects to the user interface.</span>
+<span class="sd">    - click_push_button_open: Handles the click event of the push button to open a recent project.</span>
+<span class="sd">    - click_push_button_delete: Handles the click event of the push button to delete a recent project.</span>
+<span class="sd">    - clear_item_layout: Clears the items from the layout.</span>
+<span class="sd">    - open_image_from_directory: Opens an image from the selected directory.</span>
+<span class="sd">    - open_recent_image: Opens a recent project image.</span>
+<span class="sd">    - remove_recent_image: Removes a recent project image.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">controller</span><span class="p">):</span>
+        <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span> <span class="o">=</span> <span class="n">controller</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get_stylesheet</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">ui_object</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">directory_open_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">pushButton_open_directory</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">click_open_directory</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">pushButton_open_directory</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">get_stylesheet</span><span class="o">.</span><span class="n">pushbutton_stylesheet</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">lineEdit_open_directory</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">get_stylesheet</span><span class="o">.</span><span class="n">line_edit_stylesheet</span><span class="p">())</span>
+
+<div class="viewcode-block" id="RecentOpen.click_open_directory">
+<a class="viewcode-back" href="../../controller.html#controllers.control_recent_project.RecentOpen.click_open_directory">[docs]</a>
+    <span class="k">def</span> <span class="nf">click_open_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle the click event of the open directory button.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dir_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">select_directory</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">dir_path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">dir_path</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">dir_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">open_directory_path</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">open_directory_path</span> <span class="o">=</span> <span class="n">dir_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">lineEdit_open_directory</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_open_directory</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="RecentOpen.process_open_directory">
+<a class="viewcode-back" href="../../controller.html#controllers.control_recent_project.RecentOpen.process_open_directory">[docs]</a>
+    <span class="k">def</span> <span class="nf">process_open_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Process the selected directory and display the files in the UI.</span>
+
+<span class="sd">        This method retrieves files with specific extensions from the selected directory,</span>
+<span class="sd">        creates UI elements for each file, and adds them to the layout.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dir_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">lineEdit_open_directory</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">dir_path</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">dir_path</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dir_path</span><span class="p">):</span>
+            <span class="n">dir_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">open_directory_path</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">lineEdit_open_directory</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">dir_path</span><span class="p">)</span>
+
+        <span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="s2">&quot;jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;jpeg&quot;</span><span class="p">,</span> <span class="s2">&quot;avi&quot;</span><span class="p">,</span> <span class="s1">&#39;mp4&#39;</span><span class="p">,</span> <span class="s1">&#39;MOV&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">directory_open_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_item_layout_directory_open</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">extensions</span><span class="p">:</span>
+            <span class="n">files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dir_path</span><span class="si">}</span><span class="s2">/*.</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">file</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">directory_open_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">directory_open_list</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory_open_list</span><span class="p">):</span>
+                <span class="n">frame</span> <span class="o">=</span> <span class="n">QFrame</span><span class="p">()</span>
+                <span class="n">frame</span><span class="o">.</span><span class="n">setFrameShape</span><span class="p">(</span><span class="n">QFrame</span><span class="o">.</span><span class="n">Shape</span><span class="o">.</span><span class="n">Box</span><span class="p">)</span>  <span class="c1"># Set the shape of the frame</span>
+                <span class="n">frame</span><span class="o">.</span><span class="n">setLineWidth</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>  <span class="c1"># Set the width of the frame line</span>
+                <span class="n">frame</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;QToolTip {</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                    <span class="s2">&quot;font: 9pt </span><span class="se">\&quot;</span><span class="s2">Segoe UI</span><span class="se">\&quot;</span><span class="s2">;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                    <span class="s2">&quot;color: rgb(0, 0, 0);</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                    <span class="s2">&quot;background-image: none;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                    <span class="s2">&quot;background-color: rgb(238, 238, 236);</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                    <span class="s2">&quot;background-repeat: no-repeat;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                    <span class="s2">&quot;border: none;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                    <span class="s2">&quot;border-left: 5px solid rgb(40, 44, 52);</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                    <span class="s2">&quot;text-align: left;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                    <span class="s2">&quot;padding-left: 8px;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                    <span class="s2">&quot;margin: 0px;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                    <span class="s2">&quot;}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">vertical_layout_1</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+                <span class="n">vertical_layout_1</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;vertical_layout_1&quot;</span><span class="p">)</span>
+                <span class="n">vertical_layout_1</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+                <span class="n">horizontal_layout</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+                <span class="n">horizontal_layout</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;horizontal_layout&quot;</span><span class="p">)</span>
+                <span class="n">horizontal_layout</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+                <span class="n">vertical_layout_2</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+                <span class="n">vertical_layout_2</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;vertical_layout_2&quot;</span><span class="p">)</span>
+                <span class="n">vertical_layout_2</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+                <span class="n">push_button_open</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">)))</span>
+                <span class="n">push_button_open</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+                <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">theme</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detect_available_on_recent</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+                <span class="n">push_button_open</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet</span><span class="o">.</span><span class="n">stylesheet_button_additional</span><span class="p">(</span><span class="n">theme</span><span class="p">))</span>
+                <span class="n">push_button_open</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">click_push_button_open_file_directory</span><span class="p">)</span>
+                <span class="n">push_button_open</span><span class="o">.</span><span class="n">setMaximumWidth</span><span class="p">(</span><span class="mi">210</span><span class="p">)</span>  <span class="c1"># 120 or 220</span>
+                <span class="n">push_button_open</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="mi">210</span><span class="p">)</span>  <span class="c1"># 120 or 220</span>
+                <span class="n">push_button_open</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+
+                <span class="n">_translate</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">push_button_open</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">_translate</span><span class="p">(</span><span class="s2">&quot;MainWindow&quot;</span><span class="p">,</span> <span class="s2">&quot;Path :&quot;</span> <span class="o">+</span> <span class="n">path</span><span class="p">))</span>
+                <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;File not found: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">PermissionError</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Permission denied: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+                <span class="n">vertical_layout_2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">push_button_open</span><span class="p">)</span>
+                <span class="n">horizontal_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">vertical_layout_2</span><span class="p">)</span>
+
+                <span class="n">combo_box</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QComboBox</span><span class="p">()</span>
+                <span class="n">combo_box</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+                <span class="n">combo_box</span><span class="o">.</span><span class="n">setMaximumWidth</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+                <span class="n">combo_box</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+                <span class="n">combo_box</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+                <span class="n">combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Save&quot;</span><span class="p">)</span>
+                <span class="n">combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Save As&quot;</span><span class="p">)</span>
+                <span class="n">combo_box</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;Rename&quot;</span><span class="p">)</span>
+                <span class="n">combo_box</span><span class="o">.</span><span class="n">activated</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span> <span class="n">ind</span><span class="o">=</span><span class="n">index</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">combo_box_selected</span><span class="p">())</span>
+                <span class="n">vertical_layout_1</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">horizontal_layout</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">verticalLayout_directory_file</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="RecentOpen.combo_box_selected">
+<a class="viewcode-back" href="../../controller.html#controllers.control_recent_project.RecentOpen.combo_box_selected">[docs]</a>
+    <span class="k">def</span> <span class="nf">combo_box_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle the selection of options from the combo box.</span>
+
+<span class="sd">        Retrieves the index of the selected combo box and performs further actions based on the selection.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+        <span class="c1"># sender = self.sender()</span>
+        <span class="c1"># combo_box = self._ui_object.scrollArea_8.findChild(QtWidgets.QComboBox, sender.objectName())</span>
+        <span class="c1"># index = combo_box.objectName()</span>
+
+<div class="viewcode-block" id="RecentOpen.detect_available_on_recent">
+<a class="viewcode-back" href="../../controller.html#controllers.control_recent_project.RecentOpen.detect_available_on_recent">[docs]</a>
+    <span class="k">def</span> <span class="nf">detect_available_on_recent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Detects if the given path is available in the recent project list.</span>
+
+<span class="sd">        Checks if the provided path matches any of the paths stored in the recent project list.</span>
+
+<span class="sd">        Arg:</span>
+<span class="sd">            path (str): The path to be checked.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            tuple: - status (bool): True if the path is found in the recent project list, False otherwise.</span>
+<span class="sd">                   - index_recent_list (int or None): The index of the matching path in the recent project list, or None if not found.</span>
+<span class="sd">                   - theme (str): The theme of the detected path (&#39;install&#39; if found, &#39;None&#39; otherwise).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">index_recent_list</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">recent_path</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">recent_project_list</span><span class="p">):</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">model_config</span><span class="o">.</span><span class="n">load_json_file_project</span><span class="p">(</span><span class="n">recent_path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">path</span> <span class="o">==</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Media_path&quot;</span><span class="p">]:</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">index_recent_list</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="k">break</span>  <span class="c1"># Exit the loop once a match is found</span>
+        <span class="k">if</span> <span class="n">status</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="n">index_recent_list</span><span class="p">,</span> <span class="s2">&quot;install&quot;</span>
+        <span class="k">return</span> <span class="n">status</span><span class="p">,</span> <span class="n">index_recent_list</span><span class="p">,</span> <span class="s2">&quot;None&quot;</span>  <span class="c1"># Moved outside the loop</span></div>
+
+
+<div class="viewcode-block" id="RecentOpen.click_push_button_open_file_directory">
+<a class="viewcode-back" href="../../controller.html#controllers.control_recent_project.RecentOpen.click_push_button_open_file_directory">[docs]</a>
+    <span class="k">def</span> <span class="nf">click_push_button_open_file_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle the click event of the push button to open a project.</span>
+
+<span class="sd">        Retrieve the index of the clicked push button and opens the corresponding project.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;RecentOpen: click_push_button_open(), &quot;</span>
+                                             <span class="s2">&quot;OnClick push button open project&quot;</span><span class="p">)</span>
+        <span class="n">sender</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sender</span><span class="p">()</span>
+        <span class="n">push_button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">scrollArea_8</span><span class="o">.</span><span class="n">findChild</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">,</span> <span class="n">sender</span><span class="o">.</span><span class="n">objectName</span><span class="p">())</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">push_button</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">push_button</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">open_image_from_directory</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">process_open_directory</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="RecentOpen.clear_item_layout_directory_open">
+<a class="viewcode-back" href="../../controller.html#controllers.control_recent_project.RecentOpen.clear_item_layout_directory_open">[docs]</a>
+    <span class="k">def</span> <span class="nf">clear_item_layout_directory_open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clear the directory item projects in the user interface.</span>
+
+<span class="sd">        Remove all widgets from the vertical layout containing directory item projects.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;RecentOpen: clear_item_layout_directory_open(), &quot;</span>
+                                             <span class="s2">&quot;OnClick clear directory item project in user interface&quot;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">verticalLayout_directory_file</span><span class="o">.</span><span class="n">count</span><span class="p">():</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">verticalLayout_directory_file</span><span class="o">.</span><span class="n">takeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">widget</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">widget</span><span class="p">()</span>
+            <span class="n">widget</span><span class="o">.</span><span class="n">deleteLater</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="RecentOpen.get_list_recent_project">
+<a class="viewcode-back" href="../../controller.html#controllers.control_recent_project.RecentOpen.get_list_recent_project">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_list_recent_project</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the list of recent projects and displays them in the UI.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;RecentOpen: get_list_recent_project(), &quot;</span>
+                                             <span class="s2">&quot;Get list of recent project and show it to user interface&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">model_config</span><span class="o">.</span><span class="n">read_recent_config_path</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_open_directory</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_list_recent_project_to_ui</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="RecentOpen.add_list_recent_project_to_ui">
+<a class="viewcode-back" href="../../controller.html#controllers.control_recent_project.RecentOpen.add_list_recent_project_to_ui">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_list_recent_project_to_ui</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add recent projects to the user interface.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;RecentOpen: add_list_recent_project_to_ui(), &quot;</span>
+                                             <span class="s2">&quot;Add list recent project to user interface&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_item_layout</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">recent_project_list</span><span class="p">):</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">model_config</span><span class="o">.</span><span class="n">load_json_file_project</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="n">frame</span> <span class="o">=</span> <span class="n">QFrame</span><span class="p">()</span>
+            <span class="n">frame</span><span class="o">.</span><span class="n">setFrameShape</span><span class="p">(</span><span class="n">QFrame</span><span class="o">.</span><span class="n">Shape</span><span class="o">.</span><span class="n">Box</span><span class="p">)</span>  <span class="c1"># Set the shape of the frame</span>
+            <span class="n">frame</span><span class="o">.</span><span class="n">setLineWidth</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>  <span class="c1"># Set the width of the frame line</span>
+            <span class="n">frame</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;QToolTip {</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;font: 9pt </span><span class="se">\&quot;</span><span class="s2">Segoe UI</span><span class="se">\&quot;</span><span class="s2">;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;color: rgb(0, 0, 0);</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;background-image: none;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;background-color: rgb(238, 238, 236);</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;background-repeat: no-repeat;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;border: none;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;border-left: 5px solid rgb(40, 44, 52);</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;text-align: left;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;padding-left: 8px;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;margin: 0px;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">vertical_layout_1</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+            <span class="n">vertical_layout_1</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;vertical_layout_1&quot;</span><span class="p">)</span>
+            <span class="n">vertical_layout_1</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">horizontal_layout</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QHBoxLayout</span><span class="p">()</span>
+            <span class="n">horizontal_layout</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;horizontal_layout&quot;</span><span class="p">)</span>
+            <span class="n">horizontal_layout</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">vertical_layout_2</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+            <span class="n">vertical_layout_2</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;vertical_layout_2&quot;</span><span class="p">)</span>
+            <span class="n">vertical_layout_2</span><span class="o">.</span><span class="n">setSpacing</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="n">push_button_open</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;Media_path&quot;</span><span class="p">])))</span>
+            <span class="n">push_button_open</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+            <span class="n">push_button_open</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet</span><span class="o">.</span><span class="n">stylesheet_button_additional</span><span class="p">(</span><span class="s2">&quot;install&quot;</span><span class="p">))</span>
+            <span class="n">push_button_open</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">click_push_button_open</span><span class="p">)</span>
+            <span class="n">push_button_open</span><span class="o">.</span><span class="n">setMaximumWidth</span><span class="p">(</span><span class="mi">180</span><span class="p">)</span>
+            <span class="n">push_button_open</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="mi">180</span><span class="p">)</span>
+            <span class="n">push_button_open</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+
+            <span class="n">_translate</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">push_button_open</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">_translate</span><span class="p">(</span><span class="s2">&quot;MainWindow&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Path : </span><span class="si">{</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;Media_path&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;KeyError occurred while setting tooltip: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="n">vertical_layout_2</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">push_button_open</span><span class="p">)</span>
+            <span class="n">horizontal_layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">vertical_layout_2</span><span class="p">)</span>
+            <span class="n">push_button_close</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+            <span class="n">push_button_close</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+            <span class="n">push_button_close</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stylesheet</span><span class="o">.</span><span class="n">stylesheet_button_additional</span><span class="p">(</span><span class="s2">&quot;remove&quot;</span><span class="p">))</span>
+            <span class="n">push_button_close</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">click_push_button_delete</span><span class="p">)</span>
+            <span class="n">push_button_close</span><span class="o">.</span><span class="n">setMaximumWidth</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+            <span class="n">push_button_close</span><span class="o">.</span><span class="n">setMinimumWidth</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+            <span class="n">push_button_close</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+            <span class="n">horizontal_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">push_button_close</span><span class="p">)</span>
+            <span class="n">vertical_layout_1</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">horizontal_layout</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">verticalLayout_recent_open</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="RecentOpen.click_push_button_open">
+<a class="viewcode-back" href="../../controller.html#controllers.control_recent_project.RecentOpen.click_push_button_open">[docs]</a>
+    <span class="k">def</span> <span class="nf">click_push_button_open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle the click event of the push button to open a recent project.</span>
+
+<span class="sd">        Retrieve the index of the clicked button and opens the corresponding recent project.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;RecentOpen: click_push_button_open(), &quot;</span>
+                                             <span class="s2">&quot;OnClick push button open project&quot;</span><span class="p">)</span>
+        <span class="n">sender</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sender</span><span class="p">()</span>
+        <span class="n">push_button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">scrollArea_7</span><span class="o">.</span><span class="n">findChild</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">,</span> <span class="n">sender</span><span class="o">.</span><span class="n">objectName</span><span class="p">())</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">push_button</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">push_button</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">open_recent_image</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">index</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="RecentOpen.click_push_button_delete">
+<a class="viewcode-back" href="../../controller.html#controllers.control_recent_project.RecentOpen.click_push_button_delete">[docs]</a>
+    <span class="k">def</span> <span class="nf">click_push_button_delete</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle the click event of the push button to delete a recent project.</span>
+
+<span class="sd">        Retrieve the index of the clicked button and removes the corresponding recent project.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;RecentOpen: click_push_button_delete(), &quot;</span>
+                                             <span class="s2">&quot;OnClick push button delete project&quot;</span><span class="p">)</span>
+        <span class="n">sender</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sender</span><span class="p">()</span>
+        <span class="n">push_button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">scrollArea_7</span><span class="o">.</span><span class="n">findChild</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">,</span> <span class="n">sender</span><span class="o">.</span><span class="n">objectName</span><span class="p">())</span>
+        <span class="n">index_button</span> <span class="o">=</span> <span class="n">push_button</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">push_button</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remove_recent_image</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">index_button</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">process_open_directory</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="RecentOpen.clear_item_layout">
+<a class="viewcode-back" href="../../controller.html#controllers.control_recent_project.RecentOpen.clear_item_layout">[docs]</a>
+    <span class="k">def</span> <span class="nf">clear_item_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clear the items from the layout.</span>
+
+<span class="sd">        Remove all items from the recent projects layout in the user interface.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;RecentOpen: clear_item_layout(), &quot;</span>
+                                             <span class="s2">&quot;OnClick clear item project in user interface&quot;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">verticalLayout_recent_open</span><span class="o">.</span><span class="n">count</span><span class="p">():</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">verticalLayout_recent_open</span><span class="o">.</span><span class="n">takeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">widget</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">widget</span><span class="p">()</span>
+            <span class="n">widget</span><span class="o">.</span><span class="n">deleteLater</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="RecentOpen.open_image_from_directory">
+<a class="viewcode-back" href="../../controller.html#controllers.control_recent_project.RecentOpen.open_image_from_directory">[docs]</a>
+    <span class="k">def</span> <span class="nf">open_image_from_directory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open an image from the selected directory.</span>
+
+<span class="sd">        If the image is already part of the recent projects, it opens that project. Otherwise, it sets the selected</span>
+<span class="sd">        image as the main project, updates the model configuration accordingly, and displays the image in the user</span>
+<span class="sd">        interface.</span>
+
+<span class="sd">        Arg:</span>
+<span class="sd">            index (int): The index of the selected image in the directory.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            bool: True if the operation is successful, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;RecentOpen: open_recent_image_directory(), &quot;</span>
+                                             <span class="s2">&quot;Process open project image from directory image&quot;</span><span class="p">)</span>
+
+        <span class="n">status</span><span class="p">,</span> <span class="n">index_recent</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detect_available_on_recent</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory_open_list</span><span class="p">[</span><span class="n">index</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="n">status</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">open_recent_image</span><span class="p">(</span><span class="n">index_recent</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">checkBox_reverse_view</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">directory_open_list</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">endswith</span><span class="p">((</span><span class="s1">&#39;.mp4&#39;</span><span class="p">,</span> <span class="s1">&#39;.MOV&#39;</span><span class="p">,</span> <span class="s1">&#39;.avi&#39;</span><span class="p">)):</span>
+            <span class="n">parameter_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">select_parameter_name</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">parameter_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">read_camera_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">directory_open_list</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">parameter_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">parameter_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">select_parameter_name</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">parameter_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Media_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">directory_open_list</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Cam_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;opencv_usb_cam&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Source_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Load Media&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Parameter_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parameter_name</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Media_path&quot;</span><span class="p">]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">update_model_and_create_original_image</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Source_type&quot;</span><span class="p">],</span>
+                                                                    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Cam_type&quot;</span><span class="p">],</span>
+                                                                    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Media_path&quot;</span><span class="p">],</span>
+                                                                    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Parameter_name&quot;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_message_box</span><span class="o">.</span><span class="n">display_message_box</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Image is not available, &quot;</span>
+                                                                          <span class="s2">&quot;please check again! </span><span class="se">\n</span><span class="s2">&quot;</span>
+                                                                          <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s1">&#39;Media_path&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                                                                  <span class="n">type_mode</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_list_recent_project_to_ui</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="RecentOpen.open_recent_image">
+<a class="viewcode-back" href="../../controller.html#controllers.control_recent_project.RecentOpen.open_recent_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">open_recent_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open a recent project image.</span>
+
+<span class="sd">        Arg:</span>
+<span class="sd">            index (int): The index of the recent project to open.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;RecentOpen: open_recent_image(), &quot;</span>
+                                             <span class="s2">&quot;Process open recent project image&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">checkBox_reverse_view</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">model_config</span><span class="o">.</span><span class="n">load_json_file_project</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">recent_project_list</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">model_config</span><span class="o">.</span><span class="n">update_main_config_from_recent</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="n">cam_type</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Cam_type&quot;</span><span class="p">]</span>
+        <span class="n">source_type</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Source_type&quot;</span><span class="p">]</span>
+        <span class="n">source_path</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Media_path&quot;</span><span class="p">]</span>
+        <span class="n">parameter_name</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Parameter_name&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">source_path</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_properties</span><span class="o">.</span><span class="n">rotate_degree</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Rotate_result&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">recenter_mode_view</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Recenter_view&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Recent_view&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">active_view_mode</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;Active_view&quot;</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">set_image_resize</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_stylesheet</span><span class="o">.</span><span class="n">reset_style</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">btn_fisheye_view</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_stylesheet</span><span class="o">.</span><span class="n">reset_style</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">btn_anypoint_view</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_stylesheet</span><span class="o">.</span><span class="n">reset_style</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">btn_panorama_view</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">update_model_and_create_original_image</span><span class="p">(</span><span class="n">source_type</span><span class="p">,</span> <span class="n">cam_type</span><span class="p">,</span> <span class="n">source_path</span><span class="p">,</span> <span class="n">parameter_name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_message_box</span><span class="o">.</span><span class="n">display_message_box</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Image is not available, &quot;</span>
+                                                                          <span class="s2">&quot;please check again! </span><span class="se">\n</span><span class="s2">&quot;</span>
+                                                                          <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">source_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                                                                  <span class="n">type_mode</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_list_recent_project_to_ui</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="RecentOpen.remove_recent_image">
+<a class="viewcode-back" href="../../controller.html#controllers.control_recent_project.RecentOpen.remove_recent_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">remove_recent_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove a recent project image.</span>
+
+<span class="sd">        Arg:</span>
+<span class="sd">            index (int): The index of the recent project to remove.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;RecentOpen: remove_recent_image(), &quot;</span>
+                                             <span class="s2">&quot;Process remove recent project image&quot;</span><span class="p">)</span>
+        <span class="n">config_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">recent_project_list</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">model_config</span><span class="o">.</span><span class="n">remove_json_file_project</span><span class="p">(</span><span class="n">config_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">model_config</span><span class="o">.</span><span class="n">read_recent_config_path</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_list_recent_project_to_ui</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">recent_project_list</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">open_recent_image</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">recent_project_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">onclick_clear_user_interface</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">onclick_button_setting_menu</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Perseverance Technology, Taiwan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
