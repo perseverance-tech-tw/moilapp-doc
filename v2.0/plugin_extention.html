@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plugin Extention &mdash; MoilApp Documentation 4.1 documentation</title>
+  <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+  <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+
+  <script src="_static/jquery.js?v=5d32c60e"></script>
+  <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+  <script src="_static/documentation_options.js?v=3b2dd2c4"></script>
+  <script src="_static/doctools.js?v=9a2dae69"></script>
+  <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+  <script src="_static/js/theme.js"></script>
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="Troubleshooting Problems" href="troubleshooting_issue.html" />
+  <link rel="prev" title="MoilApp of Usage" href="usage.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+
+          <a href="index.html">
+
+            <img src="_static/light-moilapp.png" class="logo" alt="Logo" />
+          </a>
+          <div role="search">
+            <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+              <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+          </div>
+        </div>
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+          <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+          <ul class="current">
+            <li class="toctree-l1"><a class="reference internal" href="release_note.html">Release Notes</a></li>
+            <li class="toctree-l1"><a class="reference internal" href="Overview.html">Definition and overview</a></li>
+            <li class="toctree-l1"><a class="reference internal" href="installation_guide.html">MOIL app Installation
+                Guide</a></li>
+            <li class="toctree-l1"><a class="reference internal" href="contribute.html">How to Contribute</a></li>
+            <li class="toctree-l1"><a class="reference internal" href="api_reference.html">API References</a></li>
+            <li class="toctree-l1"><a class="reference internal" href="usage.html">MoilApp of Usage</a></li>
+            <li class="toctree-l1 current"><a class="current reference internal" href="#">Plugin Extention</a>
+              <ul>
+                <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+                <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+                <li class="toctree-l2"><a class="reference internal" href="#action-plugin">Action Plugin</a></li>
+                <li class="toctree-l2"><a class="reference internal" href="#github-operation">GitHub Operation</a>
+                  <ul>
+                    <li class="toctree-l3"><a class="reference internal" href="#do-fork-repository">Do Fork
+                        Repository</a></li>
+                    <li class="toctree-l3"><a class="reference internal" href="#do-create-new-branch">Do Create New
+                        Branch</a></li>
+                  </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="#create-plugin-application">Create Plugin
+                    Application</a>
+                  <ul>
+                    <li class="toctree-l3"><a class="reference internal" href="#design-user-interface">Design User
+                        Interface</a></li>
+                    <li class="toctree-l3"><a class="reference internal" href="#plugin-interface-api">Plugin Interface
+                        (API)</a></li>
+                    <li class="toctree-l3"><a class="reference internal"
+                        href="#how-to-add-an-icon-on-moilapp-plugin">How to Add an Icon on MoilApp Plugin</a></li>
+                    <li class="toctree-l3"><a class="reference internal" href="#how-to-open-image-on-user-interface">How
+                        to Open Image on User Interface</a></li>
+                    <li class="toctree-l3"><a class="reference internal"
+                        href="#showing-on-user-interface-hello-world">Showing on User Interface (Hello World)</a></li>
+                  </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="#publish-your-project">Publish Your
+                    Project</a>
+                  <ul>
+                    <li class="toctree-l3"><a class="reference internal" href="#push-your-project-to-github">Push your
+                        Project to GitHub</a></li>
+                  </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="#tutorial-develop-apps-use-moilapp">Tutorial
+                    Develop Apps use MoilApp</a>
+                  <ul>
+                    <li class="toctree-l3"><a class="reference internal" href="#note-information">Note Information</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li class="toctree-l1"><a class="reference internal" href="troubleshooting_issue.html">Troubleshooting
+                Problems</a></li>
+            <li class="toctree-l1"><a class="reference internal" href="setup_issue.html">Reporting Bugs and Issues</a>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" aria-label="Mobile navigation menu">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">MoilApp Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+            <ul class="wy-breadcrumbs">
+              <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+              <li class="breadcrumb-item active">Plugin Extention</li>
+              <li class="wy-breadcrumbs-aside">
+              </li>
+            </ul>
+            <hr />
+          </div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div itemprop="articleBody">
+
+              <section id="plugin-extention">
+                <h1>Plugin Extention<a class="headerlink" href="#plugin-extention" title="Link to this heading"></a>
+                </h1>
+                <section id="introduction">
+                  <h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+                  <p style="text-align: justify;">
+
+                    MoilApp V4.0 is an application with an <b>MVC</b> (Model-View-Controller) architecture design.
+                    However, in the current MoilApp V4.1 version, MoilApp has implemented a slightly different MVC model
+                    using the Plugin model type. This new model can be used to control other application plugins. For
+                    instance, Plugin Model 1 can control Plugins 1, 2, and 3, whereas Plugin Model 2 can only control
+                    Plugins 2, 3, and N. Similarly, Plugin Model N can only control Plugins 3 and N. This implementation
+                    was done because the plugin concept is independent, and each plugin can have its own specific
+                    requirements or models. However, the MoilApp dashboard can still control multiple plugins based on
+                    the requirements or models used for a particular application plugin. In this way, MoilApp can
+                    provide better flexibility and control to the user while maintaining the overall architecture
+                    design. To summarize, MoilApp V4.1 now utilizes a Plugin model type, which allows for better control
+                    and flexibility over the various application plugins, while still preserving the overall MVC
+                    architecture design.</p>
+                  <figure class="align-center" id="id1">
+                    <a class="reference internal image-reference" href="_images/1.plugin-arc.png"><img
+                        alt="alternate text" src="_images/1.plugin-arc.png"
+                        style="width: 752.0px; height: 473.6px;" /></a>
+                    <figcaption>
+                      <p><span class="caption-text">Design the MoilApp plugin architecture</span><a class="headerlink"
+                          href="#id1" title="Link to this image"></a></p>
+                    </figcaption>
+                  </figure>
+                </section>
+                <section id="prerequisites">
+                  <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h2>
+                  <p>Before proceeding with this guide, make sure that:</p>
+                  <blockquote>
+                    <div>
+                      <ul class="simple">
+                        <li>
+                          <p><em>You have a basic understanding of Python and PyQt.</em></p>
+                        </li>
+                        <li>
+                          <p><em>You have installed the Qt Designer tool.</em></p>
+                        </li>
+                        <li>
+                          <p><em>You have installed the PyQt5 library.</em></p>
+                        </li>
+                        <li>
+                          <p><em>You have cloned the MoilApp repository from GitHub.</em></p>
+                        </li>
+                      </ul>
+                    </div>
+                  </blockquote>
+                </section>
+                <section id="action-plugin">
+                  <h2>Action Plugin<a class="headerlink" href="#action-plugin" title="Link to this heading"></a></h2>
+                  <p style="text-align: justify;">
+
+                    The MoilApp program includes a plugin notion that is integrated into its design, featuring a menu
+                    bar and a button.
+                    Containers that are dedicated to managing the plugin application. The interface is depicted in the
+                    following illustration:</p>
+                  <p style="text-align: justify;">
+
+                    - <i>Adding a plugin app</i><br>
+
+                    To include your own plugin application, access the app's folder from the controller in the plugin
+                    and add your app.
+                    If your app adheres to the specified format and is successfully added, it will be accessible through
+                    the plugin and can be executed.</p>
+                  <p style="text-align: justify;">
+
+                    - <i>Installing the app</i><br>
+
+                    You can use the plugin store icon to install the provided application.</ /p>
+                  <p style="text-align: justify;">
+
+                    - <i>Opening the plugin application</i><br>
+
+                    You can open the plugin you have installed by selecting it in the combo box and clicking the Open
+                    Plugins button.
+                  <p style="text-align: justify;">
+
+                    - <i>Deleting a plugin app</i><br>
+
+                    To remove a plugin application from the MoilApp program, you need to access the plugin controller
+                    container and
+                    Click on the <b><i>"Delete"</i></b> button. This action will prompt a confirmation dialog to ensure
+                    that you want to proceed with
+                    the deletion.  If you confirm the deletion, the plugin application will be removed from the list of
+                    available applications in the combo box.</p>
+                </section>
+                <section id="github-operation">
+                  <h2>GitHub Operation<a class="headerlink" href="#github-operation" title="Link to this heading"></a>
+                  </h2>
+                  <p style="text-align: justify;">
+
+                    To publish the new application from the local branch to the repository group, the user must first
+                    create a fork on their
+                    own <b><i>GitHub account</i></b>. After that, they can use the MoilApp plugin to create a new
+                    application.</p>
+                  <section id="do-fork-repository">
+                    <h3>Do Fork Repository<a class="headerlink" href="#do-fork-repository"
+                        title="Link to this heading"></a></h3>
+                    <p style="text-align: justify;">
+
+                      Making a note of the name of the repository you wish to share on your GitHub account is the first
+                      step.
+                      You can click the <b>"Fork"</b> button in the top right corner of the screen once you have arrived
+                      at the repository's
+                      GitHub page.  The repository will be duplicated in your personal GitHub account as a result.<br>
+
+                      To make sure that just the main branch of the repository is cloned, it is crucial to select
+                      <b>"Copy Main Only."</b>
+                      option when creating the fork. The confirmation window that opens when you click the <b>"Fork"</b>
+                      button typically has
+                      this option.  You may be sure that any alterations or updates you make to the repository will take
+                      effect by simply
+                      duplicating the <i>main branch.</i></p>
+                    <figure class="align-center" id="id2">
+                      <a class="reference internal image-reference" href="_images/7.fork.png"><img
+                          alt="Forking the Repository" src="_images/7.fork.png"
+                          style="width: 826.1999999999999px; height: 396.59999999999997px;" /></a>
+                      <figcaption>
+                        <p><span class="caption-text">Fork the repository</span><a class="headerlink" href="#id2"
+                            title="Link to this image"></a></p>
+                      </figcaption>
+                    </figure>
+                  </section>
+                  <section id="do-create-new-branch">
+                    <h3>Do Create New Branch<a class="headerlink" href="#do-create-new-branch"
+                        title="Link to this heading"></a></h3>
+                    <p style="text-align: justify;">
+
+                      To avoid conflicts between your changes and the updates made to the original MoilApp repository,
+                      it is recommended that
+                      You create a new branch under the <b>"develop"</b> branch after cloning the MoilApp repository.
+                      This way, you can work on your
+                      changes in isolation without affecting the original codebase or interfering with updates to the
+                      develop branch in the original repository.</p>
+                    <figure class="align-center" id="id3">
+                      <a class="reference internal image-reference" href="_images/8.new-branch.png"><img
+                          alt="Creating your own branch" src="_images/8.new-branch.png"
+                          style="width: 866.45px; height: 358.8px;" /></a>
+                      <figcaption>
+                        <p><span class="caption-text">Create new branch on your branch</span><a class="headerlink"
+                            href="#id3" title="Link to this image"></a></p>
+                      </figcaption>
+                    </figure>
+                  </section>
+                </section>
+                <section id="create-plugin-application">
+                  <h2>Create Plugin Application<a class="headerlink" href="#create-plugin-application"
+                      title="Link to this heading"></a></h2>
+                  <p style="text-align: justify;">
+
+                    To build an application with an <b>API</b>, you need to create a program that can interact with the
+                    API to exchange data and
+                    perform functions.  <b>APIs</b> provide protocols and tools that enable different software
+                    applications to communicate with each other.</p>
+                  <section id="design-user-interface">
+                    <h3>Design User Interface<a class="headerlink" href="#design-user-interface"
+                        title="Link to this heading"></a></h3>
+                    <p style="text-align: justify;">
+
+                      To develop an application, you start by designing the user interface using Qt Designer. If you
+                      don't have this tool,
+                      installed on your computer, install it first. Once you have designed the interface, you need to
+                      convert the <b>*.ui</b>
+                      file to a <b>*.py</b> file, which can be done as follows:</p>
+                    <figure class="align-center" id="id4">
+                      <a class="reference internal image-reference" href="_images/2.create-user-interface.png"><img
+                          alt="Creating a UI" src="_images/2.create-user-interface.png"
+                          style="width: 661.0px; height: 354.0px;" /></a>
+                      <figcaption>
+                        <p><span class="caption-text">Create User Interface</span><a class="headerlink" href="#id4"
+                            title="Link to this image"></a></p>
+                      </figcaption>
+                    </figure>
+                  </section>
+                  <section id="plugin-interface-api">
+                    <h3>Plugin Interface (API)<a class="headerlink" href="#plugin-interface-api"
+                        title="Link to this heading"></a></h3>
+                    <p style="text-align: justify;">
+
+                      A plugin interface is an <b>API</b> that connects the main application with the plugin widget. It
+                      allows you to create custom
+                      user interfaces and use models from the main application without starting from scratch.</p>
+                    <figure class="align-center" id="id5">
+                      <a class="reference internal image-reference" href="_images/3.api.png"><img alt="Plugin Interface"
+                          src="_images/3.api.png" style="width: 833.95px; height: 413.40000000000003px;" /></a>
+                      <figcaption>
+                        <p><span class="caption-text">Plugin Interface (API)</span><a class="headerlink" href="#id5"
+                            title="Link to this image"></a></p>
+                      </figcaption>
+                    </figure>
+                    <p style="text-align: justify;">
+
+                      The purpose of this class is to define an interface that can be implemented by plugins in various
+                      applications.
+                      By default, the <i>description</i> attribute of the object's init method is set to <i>UNKNOWN.</i>
+
+                      These are the methods that concrete subclasses of the <b>Plugin</b> class:</p>
+                    <ul class="simple">
+                      <li>
+                        <p><strong>Set_plugin_widget:</strong> This method should establish a plugin widget based on a
+                          <em>Model</em> object that is passed in as input.</p>
+                      </li>
+                      <li>
+                        <p><strong>Set_icon_apps:</strong> This method should determine the plugin application’s icon.
+                        </p>
+                      </li>
+                      <li>
+                        <p><strong>Change_stylesheet:</strong> This method should modify the plugin applications’s CSS.
+                        </p>
+                      </li>
+                    </ul>
+                    <p style="text-align: justify;">
+
+                      By default, the <b>always_pop_up</b> method of the <b>Plugin</b> class returns the boolean value
+                      <b>False</b>, meaning that the plugin does not always pop up.
+                  </section>
+                  <section id="how-to-add-an-icon-on-moilapp-plugin">
+                    <h3>How to Add an Icon on MoilApp Plugin<a class="headerlink"
+                        href="#how-to-add-an-icon-on-moilapp-plugin" title="Link to this heading"></a></h3>
+                    <p style="text-align: justify;">
+
+                      In the code, we import the PluginInterface and define a class MyPlugin that inherits from
+                      PluginInterface.
+                      We then define the <i>set_icon_apps</i> function, which simply returns the name of the icon file
+                      that we want to use.
+                      You can replace <b>"my_icon_file.png"</b> with the name of your own icon file.</p>
+                    <figure class="align-center" id="id6">
+                      <a class="reference internal image-reference" href="_images/4.add-icon.png"><img
+                          alt="Adding an icon to Moilapp" src="_images/4.add-icon.png"
+                          style="width: 805.1999999999999px; height: 391.8px;" /></a>
+                      <figcaption>
+                        <p><span class="caption-text">Add icon on MoilApp</span><a class="headerlink" href="#id6"
+                            title="Link to this image"></a></p>
+                      </figcaption>
+                    </figure>
+                  </section>
+                  <section id="how-to-open-image-on-user-interface">
+                    <h3>How to Open Image on User Interface<a class="headerlink"
+                        href="#how-to-open-image-on-user-interface" title="Link to this heading"></a></h3>
+                    <p style="text-align: justify;">
+
+                      <b>Import Ui_form</b> so that the Python file that you have converted from <b>*.ui</b> to
+                      <b>*.py</b> can be integrated into a Python
+                      function such as the class attribute integrated in the Python function below.
+                    </p>
+                    <figure class="align-center" id="id7">
+                      <a class="reference internal image-reference" href="_images/5.add-image-ui.png"><img
+                          alt="To load an Image using Push Botton" src="_images/5.add-image-ui.png"
+                          style="width: 868.4px; height: 419.25px;" /></a>
+                      <figcaption>
+                        <p><span class="caption-text">Add action push button to load image</span><a class="headerlink"
+                            href="#id7" title="Link to this image"></a></p>
+                      </figcaption>
+                    </figure>
+                  </section>
+                  <section id="showing-on-user-interface-hello-world">
+                    <h3>Showing on User Interface (Hello World)<a class="headerlink"
+                        href="#showing-on-user-interface-hello-world" title="Link to this heading"></a></h3>
+                    <p style="text-align: justify;">
+
+                      Once the program is running, you should be able to interact with the user interface as designed
+                      and test its
+                      functionality. If any issue or errors arise, you may need to review the code and make adjustments
+                      as necessary,
+                      as shown in the user interface below.</p>
+                    <figure class="align-center" id="id8">
+                      <a class="reference internal image-reference" href="_images/6.show-ui.png"><img
+                          alt="User Interface Image" src="_images/6.show-ui.png"
+                          style="width: 688.5px; height: 330.5px;" /></a>
+                      <figcaption>
+                        <p><span class="caption-text">Show in user interface</span><a class="headerlink" href="#id8"
+                            title="Link to this image"></a></p>
+                      </figcaption>
+                    </figure>
+                  </section>
+                </section>
+                <section id="publish-your-project">
+                  <h2>Publish Your Project<a class="headerlink" href="#publish-your-project"
+                      title="Link to this heading"></a></h2>
+                  <p style="text-align: justify;">
+
+                    Refer to the User Operation section to understand in detail about the repository project.</p>
+                  <section id="push-your-project-to-github">
+                    <h3>Push your Project to GitHub<a class="headerlink" href="#push-your-project-to-github"
+                        title="Link to this heading"></a></h3>
+                    <p style="text-align: justify;">
+
+                      To upload your project, you first need to convert it to <b>"*.zip"</b> format and ensure that it
+                      does not contain unwanted
+                      files like <i>PyCache, Ideas, etc</i>. The User also executes a few commands in the terminal to
+                      complete the uploading process.</p>
+                    <div class="highlight-bash notranslate">
+                      <div class="highlight">
+                        <pre><span></span>git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;commit your project&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span><span class="s2">&quot;your branch&quot;</span>
+</pre>
+                      </div>
+                    </div>
+                    <p style="text-align: justify;">
+
+                      After making the required changes, you can <i>submit a pull request</i> to merge your changes into
+                      the original repository.
+                      The project management team will review your changes and then decides whether to approve them for
+                      merging or request further revisions.</p>
+                    <figure class="align-center" id="id9">
+                      <a class="reference internal image-reference" href="_images/9.push.png"><img
+                          alt="Pushing the project to the repository" src="_images/9.push.png"
+                          style="width: 817.5px; height: 468.0px;" /></a>
+                      <figcaption>
+                        <p><span class="caption-text">Push your project on repository</span><a class="headerlink"
+                            href="#id9" title="Link to this image"></a></p>
+                      </figcaption>
+                    </figure>
+                  </section>
+                </section>
+                <section id="tutorial-develop-apps-use-moilapp">
+                  <h2>Tutorial Develop Apps use MoilApp<a class="headerlink" href="#tutorial-develop-apps-use-moilapp"
+                      title="Link to this heading"></a></h2>
+                  <p style="text-align: justify;">
+
+                    MoilApp is an open-source software which is designed in a way to develop applications using the <b>
+                      Python programming language</b>.
+                    It provides a set of tools and libraries that allow developers to create desktop applications with
+                    graphical user interface
+                    (GUIs) quickly and easily. Here's a <i>tutorial</i> on how to develop application using MoilApp.</p>
+                  <iframe width="680" height="315" src="https://www.youtube.com/embed/vTyTqT4yXLM"
+                    title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>
+                  <section id="note-information">
+                    <h3>Note Information<a class="headerlink" href="#note-information"
+                        title="Link to this heading"></a></h3>
+                    <ul class="simple">
+                      <li>
+                        <p>To create your own plugin application, follow the tutorial in <strong>section 6.2</strong>.
+                        </p>
+                      </li>
+                      <li>
+                        <p>A tutorial on how to use MoilApp: <a class="reference external"
+                            href="https://youtu.be/ExeY8Q6QNf8">https://youtu.be/ExeY8Q6QNf8</a></p>
+                      </li>
+                      <li>
+                        <p>If you come across any issues or want to contribute to this project, you can raise an issue
+                          in GitHub repository and can ask for pull request.</p>
+                      </li>
+                    </ul>
+                  </section>
+                </section>
+              </section>
+
+
+            </div>
+          </div>
+          <footer>
+            <div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+              <a href="usage.html" class="btn btn-neutral float-left" title="MoilApp of Usage" accesskey="p"
+                rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+              <a href="troubleshooting_issue.html" class="btn btn-neutral float-right" title="Troubleshooting Problems"
+                accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+            </div>
+
+            <hr />
+
+            <div role="contentinfo">
+              <p>&#169; Copyright 2024, Perseverance Technology, Taiwan.</p>
+            </div>
+
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+            <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+            provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+          </footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: 2.0
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions"><!-- Inserted RTD Footer -->
+      <div class="injected">
+        <dl>
+          <dt>Versions</dt>
+
+          <dd class="rtd-current-item">
+            <a href="../latest/index.html">latest</a>
+          </dd>
+          <dd class="rtd-current-item">
+            <a href="../v1.0/index.html">v1.0</a>
+          </dd>
+          <dd class="rtd-current-item">
+            <a href="../v2.0/index.html">v2.0</a>
+          </dd>
+          <dd class="rtd-current-item">
+            <a href="../v3.0/index.html">v3.0</a>
+          </dd>
+          <dd class="rtd-current-item">
+            <a href="../v3.1/index.html">v3.1</a>
+          </dd>
+        </dl>
+        <hr>
+        <small>
+          <span>Hosted by <a href="https://readthedocs.org">Read the Docs</a></span>
+          <span> · </span>
+          <a href="https://docs.readthedocs.io/page/privacy-policy.html">Privacy Policy</a>
+        </small>
+
+
+
+
+      </div>
+    </div>
+  </div>
+  <script>
+    jQuery(function () {
+      SphinxRtdTheme.Navigation.enable(true);
+    });
+  </script>
+
+</body>
+
+</html>

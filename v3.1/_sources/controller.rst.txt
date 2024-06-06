@@ -1,0 +1,26 @@
+Controller
+===================
+
+Main Controller
+-----------------
+
+.. automodule:: Moilapp_Controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Anypoint
+-------------------------
+
+.. automodule:: anypoint
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Panorama
+------------------------
+
+.. automodule:: panorama
+   :members:
+   :undoc-members:
+   :show-inheritance:

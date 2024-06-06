@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MOIL app Installation Guide &mdash; MoilApp 3.0 documentation</title>
+  <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+  <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+
+  <script src="_static/jquery.js?v=5d32c60e"></script>
+  <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+  <script src="_static/documentation_options.js?v=110ea713"></script>
+  <script src="_static/doctools.js?v=9a2dae69"></script>
+  <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+  <script src="_static/js/theme.js"></script>
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="How to Contribute" href="contribute.html" />
+  <link rel="prev" title="Definition and overview" href="Overview.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+
+          <a href="index.html">
+
+            <img src="_static/light-moilapp.png" class="logo" alt="Logo" />
+          </a>
+          <div role="search">
+            <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+              <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+          </div>
+        </div>
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+          <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+          <ul class="current">
+            <li class="toctree-l1"><a class="reference internal" href="release_note.html">Release Notes</a></li>
+            <li class="toctree-l1"><a class="reference internal" href="Overview.html">Definition and overview</a></li>
+            <li class="toctree-l1 current"><a class="current reference internal" href="#">MOIL app Installation
+                Guide</a>
+              <ul>
+                <li class="toctree-l2"><a class="reference internal" href="#clone-this-repository">Clone This
+                    Repository</a></li>
+                <li class="toctree-l2"><a class="reference internal" href="#change-the-working-directory">Change the
+                    Working Directory</a></li>
+                <li class="toctree-l2"><a class="reference internal" href="#set-up-virtual-environment">Set up Virtual
+                    Environment</a></li>
+                <li class="toctree-l2"><a class="reference internal" href="#run-the-application">Run the Application</a>
+                </li>
+              </ul>
+            </li>
+            <li class="toctree-l1"><a class="reference internal" href="contribute.html">How to Contribute</a></li>
+            <li class="toctree-l1"><a class="reference internal" href="modules.html">API References</a></li>
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" aria-label="Mobile navigation menu">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">MoilApp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+            <ul class="wy-breadcrumbs">
+              <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+              <li class="breadcrumb-item active">MOIL app Installation Guide</li>
+              <li class="wy-breadcrumbs-aside">
+              </li>
+            </ul>
+            <hr />
+          </div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div itemprop="articleBody">
+
+              <section id="moil-app-installation-guide">
+                <h1>MOIL app Installation Guide<a class="headerlink" href="#moil-app-installation-guide"
+                    title="Link to this heading"></a></h1>
+                <p style="text-align: justify;">
+
+                  <b><i>
+                      This guide provides step-by-step instructions to install and run the MoilApp on Ubuntu and Windows
+                      with Python <b>version</b> greater than 3.7.
+                    </i></b>
+                <section id="clone-this-repository">
+                  <h2>Clone This Repository<a class="headerlink" href="#clone-this-repository"
+                      title="Link to this heading"></a></h2>
+                  <p style="text-align: justify;">
+
+                    Use the <b><i>"git clone"</i></b> command to <b><i>download</i></b> the code from the repository to
+                    your local machine.
+                  </p>
+                  <div class="highlight-bash notranslate">
+                    <div class="highlight">
+                      <pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/perseverance-tech-tw/moilapp.git
+</pre>
+                    </div>
+                  </div>
+                </section>
+                <section id="change-the-working-directory">
+                  <h2>Change the Working Directory<a class="headerlink" href="#change-the-working-directory"
+                      title="Link to this heading"></a></h2>
+                  <p style="text-align: justify;">
+
+                    After <b>successfully</b> cloning the repository, change the working directory by using the command
+                    line below.</i></p>
+                  <div class="highlight-bash notranslate">
+                    <div class="highlight">
+                      <pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>moilapp
+</pre>
+                    </div>
+                  </div>
+                </section>
+                <section id="set-up-virtual-environment">
+                  <h2>Set up Virtual Environment<a class="headerlink" href="#set-up-virtual-environment"
+                      title="Link to this heading"></a></h2>
+                  <p style="text-align: justify;">
+
+                    There are two ways to build a <i>virtual environment</i>: installing it generally or specifically
+                    for Python. Using the provided command helps to avoid installation errors and ensures that the
+                    dependencies required for each project are installed without interfering with other projects or the
+                    system's Python installation. <i>A virtual environment</i> is beneficial to developers in that it
+                    helps maintain project stability and avoids compatibility issues between package versions.</p>
+                  <div class="highlight-bash notranslate">
+                    <div class="highlight">
+                      <pre><span></span>$<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+</pre>
+                    </div>
+                  </div>
+                  <p style="text-align: justify;">
+
+                    <i>Note: you can change the python version ex: <b>*python3.8, python3.9, python3.10</b></i>
+                  </p>
+                  <p style="text-align: justify;">
+
+                    To start using the virtual environment, you need to <i>activate</i> it. You can do this by running
+                    the activate script located in the `bin` directory of your virtual environment. On Linux, use the
+                    following command: </p>
+                  <div class="highlight-bash notranslate">
+                    <div class="highlight">
+                      <pre><span></span>$<span class="w"> </span><span class="nb">source</span><span class="w"> </span>venv/bin/activate
+</pre>
+                    </div>
+                  </div>
+                  <p style="text-align: justify;">
+
+                    Before installing the library requirements, you should <b>upgrade</b> an existing package <b>PIP</b>
+                    to the latest version. You can use the command.</p>
+                  <div class="highlight-bash notranslate">
+                    <div class="highlight">
+                      <pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
+</pre>
+                    </div>
+                  </div>
+                  <p style="text-align: justify;">
+
+                    Followed by the name of the package, this command will download and install the latest version,
+                    replacing the older version that was previously installed.
+
+                  <p>With the environment activated, you can install all the required packages. These will be installed
+                    in the virtual environment and will not affect the global Python installation.</p>
+                  <div class="highlight-bash notranslate">
+                    <div class="highlight">
+                      <pre><span></span>$<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre>
+                    </div>
+                  </div>
+                </section>
+                <section id="run-the-application">
+                  <h2>Run the Application<a class="headerlink" href="#run-the-application"
+                      title="Link to this heading"></a></h2>
+                  <p style="text-align: justify;">
+                  <p>Once all is ready, run the main program in the ‘src’ directory. On your terminal, you can type the
+                    following command to run the project.&lt;/p&gt;</p>
+                  <div class="highlight-bash notranslate">
+                    <div class="highlight">
+                      <pre><span></span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>src
+$<span class="w"> </span>python3<span class="w"> </span>main.py
+</pre>
+                    </div>
+                  </div>
+                </section>
+              </section>
+
+
+            </div>
+          </div>
+          <footer>
+            <div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+              <a href="Overview.html" class="btn btn-neutral float-left" title="Definition and overview" accesskey="p"
+                rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+              <a href="contribute.html" class="btn btn-neutral float-right" title="How to Contribute" accesskey="n"
+                rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+            </div>
+
+            <hr />
+
+            <div role="contentinfo">
+              <p>&#169; Copyright 2024, Haryanto.</p>
+            </div>
+
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+            <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+            provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+          </footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: 3.0
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions"><!-- Inserted RTD Footer -->
+      <div class="injected">
+        <dl>
+          <dt>Versions</dt>
+
+          <dd class="rtd-current-item">
+            <a href="../latest/index.html">latest</a>
+          </dd>
+          <dd class="rtd-current-item">
+            <a href="../v1.0/index.html">v1.0</a>
+          </dd>
+          <dd class="rtd-current-item">
+            <a href="../v2.0/index.html">v2.0</a>
+          </dd>
+          <dd class="rtd-current-item">
+            <a href="../v3.0/index.html">v3.0</a>
+          </dd>
+          <dd class="rtd-current-item">
+            <a href="../v3.1/index.html">v3.1</a>
+          </dd>
+        </dl>
+        <hr>
+        <small>
+          <span>Hosted by <a href="https://readthedocs.org">Read the Docs</a></span>
+          <span> · </span>
+          <a href="https://docs.readthedocs.io/page/privacy-policy.html">Privacy Policy</a>
+        </small>
+
+
+
+
+      </div>
+    </div>
+  </div>
+  <script>
+    jQuery(function () {
+      SphinxRtdTheme.Navigation.enable(true);
+    });
+  </script>
+
+</body>
+
+</html>

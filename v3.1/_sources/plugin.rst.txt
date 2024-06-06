@@ -1,0 +1,11 @@
+Plugin
+=============
+
+Main Plugin
+--------------------------
+
+.. automodule:: base_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RatioImage &mdash; MoilApp w.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=14197c27"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">API References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MoilApp</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">RatioImage</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for RatioImage</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains the Set_RatioImage class, which is responsible for setting image ratios.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+
+
+<div class="viewcode-block" id="Set_RatioImage">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#RatioImage.Set_RatioImage">[docs]</a>
+<span class="k">class</span> <span class="nc">Set_RatioImage</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class: Set_RatioImage</span>
+
+<span class="sd">    A class to handle image ratio calculations and resizing.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        MainWindow: The main window of the application.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        parent: Reference to the MainWindow object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MainWindow</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">MainWindow</span>
+
+<div class="viewcode-block" id="Set_RatioImage.init_ori_ratio">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#RatioImage.Set_RatioImage.init_ori_ratio">[docs]</a>
+    <span class="k">def</span> <span class="nf">init_ori_ratio</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the ratio of the original image.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Tuple: (ratio_x, ratio_y, center)</span>
+<span class="sd">                ratio_x: The ratio of width.</span>
+<span class="sd">                ratio_y: The ratio of height.</span>
+<span class="sd">                center: The center coordinates after resizing.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">windowOri</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">windowOri</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+        <span class="n">height</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">ratio_x</span> <span class="o">=</span> <span class="n">width</span> <span class="o">/</span> <span class="n">w</span>
+        <span class="n">ratio_y</span> <span class="o">=</span> <span class="n">height</span> <span class="o">/</span> <span class="n">h</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">w</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">ratio_x</span><span class="p">),</span> <span class="nb">round</span><span class="p">((</span><span class="n">h</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">ratio_y</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">ratio_x</span><span class="p">,</span> <span class="n">ratio_y</span><span class="p">,</span> <span class="n">center</span></div>
+
+
+<div class="viewcode-block" id="Set_RatioImage.ratioORi">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#RatioImage.Set_RatioImage.ratioORi">[docs]</a>
+    <span class="k">def</span> <span class="nf">ratioORi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imageOri</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resize the original image to fit the display window.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            imageOri: The original image.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The resized image.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">imageOri</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="mi">400</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="n">hi</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">h</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">windowOri</span><span class="o">.</span><span class="n">setMinimumSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="n">hi</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">labelImagerecenter</span><span class="o">.</span><span class="n">setMinimumSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="n">hi</span><span class="p">))</span>
+        <span class="n">img_ori</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">imageOri</span><span class="p">,</span> <span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="n">hi</span><span class="p">),</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">INTER_AREA</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">img_ori</span></div>
+
+
+    <span class="c1"># def ratio3D_Measurement(self, image_1, image_2, width=600):</span>
+    <span class="c1">#     h, w = image_1.shape[:2]</span>
+    <span class="c1">#     r = width / float(w)</span>
+    <span class="c1">#     hi = round(h * r)</span>
+    <span class="c1">#     self.parent.ui.label3Dimage1.setMaximumSize(QtCore.QSize(width, hi))</span>
+    <span class="c1">#     self.parent.ui.label3Dimage2.setMaximumSize(QtCore.QSize(width, hi))</span>
+    <span class="c1">#     img_result_1 = cv2.resize(image_1, (width, hi), interpolation=cv2.INTER_AREA)</span>
+    <span class="c1">#     img_result_2 = cv2.resize(image_2, (width, hi), interpolation=cv2.INTER_AREA)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     return img_result_1, img_result_2</span>
+
+<div class="viewcode-block" id="Set_RatioImage.ratioImage">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#RatioImage.Set_RatioImage.ratioImage">[docs]</a>
+    <span class="k">def</span> <span class="nf">ratioImage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imageOri</span><span class="p">,</span> <span class="n">widthSize</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resize an image to a specific width while maintaining the aspect ratio.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            imageOri: The original image.</span>
+<span class="sd">            widthSize: The desired width for the resized image.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The resized image.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">imageOri</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">widthSize</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="n">hi</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">h</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span>
+        <span class="n">img_ori</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">imageOri</span><span class="p">,</span> <span class="p">(</span><span class="n">widthSize</span><span class="p">,</span> <span class="n">hi</span><span class="p">),</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">INTER_AREA</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">img_ori</span></div>
+
+
+<div class="viewcode-block" id="Set_RatioImage.ratioResult">
+<a class="viewcode-back" href="../moilapp-Moilapp-V2.0.src.html#RatioImage.Set_RatioImage.ratioResult">[docs]</a>
+    <span class="k">def</span> <span class="nf">ratioResult</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imageResult</span><span class="p">,</span> <span class="n">widthSize</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Resize a result image to a specific width while maintaining the aspect ratio.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            imageResult: The result image.</span>
+<span class="sd">            widthSize: The desired width for the resized image.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The resized result image.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">imageResult</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">widthSize</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="n">hi2</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">h</span> <span class="o">*</span> <span class="n">r</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">windowResult</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QRect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">widthSize</span><span class="p">,</span> <span class="n">hi2</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">PlussIcon</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QRect</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">widthSize</span><span class="p">,</span> <span class="n">hi2</span><span class="p">))</span>
+        <span class="n">blue</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="p">(</span><span class="n">widthSize</span><span class="p">,</span> <span class="n">hi2</span><span class="p">)</span>
+        <span class="n">blue</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">transparent</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPainter</span><span class="p">(</span><span class="n">blue</span><span class="p">)</span>
+        <span class="n">pen</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPen</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QBrush</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QColor</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">setPen</span><span class="p">(</span><span class="n">pen</span><span class="p">)</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">drawLine</span><span class="p">(</span><span class="nb">round</span><span class="p">((</span><span class="n">widthSize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">10</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">hi2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">round</span><span class="p">((</span><span class="n">widthSize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">10</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">hi2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">drawLine</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">widthSize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">round</span><span class="p">((</span><span class="n">hi2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">10</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">widthSize</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">round</span><span class="p">((</span><span class="n">hi2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">10</span><span class="p">))</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">end</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">PlussIcon</span><span class="o">.</span><span class="n">setPixmap</span><span class="p">(</span><span class="n">blue</span><span class="p">)</span>
+        <span class="n">img_result</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">imageResult</span><span class="p">,</span> <span class="p">(</span><span class="n">widthSize</span><span class="p">,</span> <span class="n">hi2</span><span class="p">),</span> <span class="n">interpolation</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">INTER_AREA</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">img_result</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Haryanto.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

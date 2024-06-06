@@ -1,0 +1,34 @@
+moilutils Package
+=================
+
+Moilutils Models
+---------------------------------
+
+.. automodule:: models.moilutils.moilutils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Moildev Models
+----------------
+
+.. automodule:: models.moilutils.moildev.Moildev
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Moil_camera Models
+----------------
+
+.. automodule:: models.moilutils.moil_camera.moilcam
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Moil_fisheye_marker Models
+----------------
+
+.. automodule:: models.moilutils.moil_fisheye_marker.fisheye_marker
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moilapp_Controller &mdash; MoilApp Documentation 3.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=b576230a"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html">
+            
+              <img src="../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API References</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MoilApp Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">Moilapp_Controller</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for Moilapp_Controller</h1><div class="highlight"><pre>
+<span></span><span class="c1">#########################################################################</span>
+<span class="c1">#   MoilApp (Applications for sophisticated fisheye image processing)   #</span>
+<span class="c1">#   Written by Haryanto (haryanto@o3635.mcut.edu.tw)                    #</span>
+<span class="c1">#   Based on Moil-Lab (Ming Chi University of Technology)               #</span>
+<span class="c1">#########################################################################</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">webbrowser</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">help</span> <span class="kn">import</span> <span class="n">Help</span>
+<span class="kn">from</span> <span class="nn">moilutils</span> <span class="kn">import</span> <span class="n">ResourceIcon</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtCore</span>
+<span class="kn">from</span> <span class="nn">moilutils</span> <span class="kn">import</span> <span class="n">MoilUtils</span>
+<span class="kn">from</span> <span class="nn">plugin_controller</span> <span class="kn">import</span> <span class="n">PluginController</span>
+<span class="kn">from</span> <span class="nn">Ui_Moilapp</span> <span class="kn">import</span> <span class="n">Ui_MainWindow</span>
+<span class="kn">from</span> <span class="nn">panorama</span> <span class="kn">import</span> <span class="n">Panorama</span>
+<span class="kn">from</span> <span class="nn">anypoint</span> <span class="kn">import</span> <span class="n">Anypoint</span>
+<span class="kn">from</span> <span class="nn">reCenter</span> <span class="kn">import</span> <span class="n">RecenterImage</span>
+<span class="kn">from</span> <span class="nn">control_view</span> <span class="kn">import</span> <span class="n">ManipulateView</span>
+<span class="kn">from</span> <span class="nn">event_controller</span> <span class="kn">import</span> <span class="n">MouseEvent</span>
+<span class="kn">from</span> <span class="nn">moilutils</span> <span class="kn">import</span> <span class="n">VideoController</span>
+
+
+<div class="viewcode-block" id="Controller">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller">[docs]</a>
+<span class="k">class</span> <span class="nc">Controller</span><span class="p">(</span><span class="n">Ui_MainWindow</span><span class="p">):</span>
+    <span class="n">resized</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">pyqtSignal</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            parent ():</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboBox_cam_type</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rs</span> <span class="o">=</span> <span class="n">ResourceIcon</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_plugin</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cap</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cam</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">record</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_writer</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">videoDir</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">moildev</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recImage</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">normal_view</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">panorama_view</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">anypoint_view</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axis_controller</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dir_save</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">posVid</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapX</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapY</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapX_pano</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mapY_pano</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zoom_area</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pos_x</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">point</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result_image</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">easySpin</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width_original_image</span> <span class="o">=</span> <span class="mi">300</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width_result_image</span> <span class="o">=</span> <span class="mi">1080</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dialogHelp</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QDialog</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">winHelp</span> <span class="o">=</span> <span class="n">Help</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dialogHelp</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span> <span class="o">=</span> <span class="n">VideoController</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">panorama</span> <span class="o">=</span> <span class="n">Panorama</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">anypoint</span> <span class="o">=</span> <span class="n">Anypoint</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recenter</span> <span class="o">=</span> <span class="n">RecenterImage</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">control_mouse</span> <span class="o">=</span> <span class="n">MouseEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">manipulate</span> <span class="o">=</span> <span class="n">ManipulateView</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">frameVideoController</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_panorama</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_navigator</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonBack</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonRecenter</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelrecenterTitle</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frameRecenter</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">control_plugin</span> <span class="o">=</span> <span class="n">PluginController</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect_event</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Controller.connect_event">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.connect_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">connect_event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connect every event on user interface like button event, mouse event</span>
+<span class="sd">        and etc to the function processing.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">closeEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">closeEvent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">resizeEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resizeEvent</span>
+
+        <span class="c1"># action from menubar menu file</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionLoad_Image</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionLoad_Video</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_load_video</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionOpen_Cam</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_camera</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionCamera_Parameters</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">MoilUtils</span><span class="o">.</span><span class="n">parametersForm</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionRecord_video</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">actionRecordVideo</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionSave_Image</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionExit</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_exit</span><span class="p">)</span>
+
+        <span class="c1"># action from menubar menu view</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionRotateLeft</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manipulate</span><span class="o">.</span><span class="n">rotate_left</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionRotateRight</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manipulate</span><span class="o">.</span><span class="n">rotate_right</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionZoomIn</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manipulate</span><span class="o">.</span><span class="n">zoom_in</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionZoomOut</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manipulate</span><span class="o">.</span><span class="n">zoom_out</span><span class="p">)</span>
+
+        <span class="c1"># action from menubar menu Window</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionMaximize</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maximize_view</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionMinimize</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">minimize_view</span><span class="p">)</span>
+
+        <span class="c1"># action from menubar menu apps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionHelpPlugins</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">winHelp</span><span class="o">.</span><span class="n">help_plugin</span><span class="p">)</span>
+
+        <span class="c1"># action from menubar menu help</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionAbout_Apps</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_help_moil</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionAbout_Us</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">winHelp</span><span class="o">.</span><span class="n">about_us</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action_accessibility</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_accessibility</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionReleaseNote</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclickReleaseNote</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionCheckUpdate</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checkUpdate</span><span class="p">)</span>
+
+        <span class="c1"># ++++++ Normal view ++++++</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_normal</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_view_normal</span><span class="p">)</span>
+
+        <span class="c1"># +++++ anypoint View +++++</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_anypoint</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anypoint</span><span class="o">.</span><span class="n">process_to_anypoint</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_Up_View</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anypoint</span><span class="o">.</span><span class="n">up</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_Right_view</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anypoint</span><span class="o">.</span><span class="n">right</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_left_view</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anypoint</span><span class="o">.</span><span class="n">left</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_center_view</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anypoint</span><span class="o">.</span><span class="n">center</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_Down_view</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anypoint</span><span class="o">.</span><span class="n">down</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radio_btn_mode_1</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anypoint</span><span class="o">.</span><span class="n">anypoint_mode_1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radio_btn_mode_2</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anypoint</span><span class="o">.</span><span class="n">anypoint_mode_2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lineedit_alpha_2</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anypoint</span><span class="o">.</span><span class="n">set_param_any</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lineedit_beta_2</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anypoint</span><span class="o">.</span><span class="n">set_param_any</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">anypoint_zoom_2</span><span class="o">.</span><span class="n">editingFinished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">anypoint</span><span class="o">.</span><span class="n">set_param_any</span><span class="p">)</span>
+
+        <span class="c1"># +++++ panorama View +++++</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_panorama</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">panorama</span><span class="o">.</span><span class="n">process_to_panorama</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_pano</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">panorama</span><span class="o">.</span><span class="n">change_panorama_fov</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_pano</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">panorama</span><span class="o">.</span><span class="n">change_panorama_fov</span><span class="p">)</span>
+
+        <span class="c1"># +++ recenter view ++++</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonRecenter</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclickRecenter</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setIcx</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">recenter</span><span class="o">.</span><span class="n">positionCoorX</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setIcy</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">recenter</span><span class="o">.</span><span class="n">positionCoorY</span><span class="p">)</span>
+
+        <span class="c1"># connect button to function</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_Open_Image</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_Open_Video</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_load_video</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_Open_Cam</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_camera</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_Save_Image</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">save_image</span><span class="p">)</span>
+
+        <span class="c1"># media player controller</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_Record_video</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">buttonRecordVideo</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_play_pouse</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">playPauseVideo</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">btn_play_pouse</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_stop_video</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">stopVideo</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_prev_video</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">rewindVideo</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_skip_video</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">forwardVideo</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider_Video</span><span class="o">.</span><span class="n">valueChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">sliderController</span><span class="p">)</span>
+
+        <span class="c1"># control view</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_Rotate_Left</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manipulate</span><span class="o">.</span><span class="n">rotate_left</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_Rotate_Right</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manipulate</span><span class="o">.</span><span class="n">rotate_right</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_Zoom_in</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manipulate</span><span class="o">.</span><span class="n">zoom_in</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_Zoom_out</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">manipulate</span><span class="o">.</span><span class="n">zoom_out</span><span class="p">)</span>
+
+        <span class="c1"># mouse event controller</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_Original_Image</span><span class="o">.</span><span class="n">mouseDoubleClickEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">control_mouse</span><span class="o">.</span><span class="n">mouseDoubleclick_event</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_Result_Image</span><span class="o">.</span><span class="n">mouseDoubleClickEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">control_mouse</span><span class="o">.</span><span class="n">mouseDoubleclick_event</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_Original_Image</span><span class="o">.</span><span class="n">mousePressEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">control_mouse</span><span class="o">.</span><span class="n">mouse_event</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_Result_Image</span><span class="o">.</span><span class="n">mousePressEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">control_mouse</span><span class="o">.</span><span class="n">mouse_result_press</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_Original_Image</span><span class="o">.</span><span class="n">wheelEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">control_mouse</span><span class="o">.</span><span class="n">mouse_wheelEvent_ori_label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_Result_Image</span><span class="o">.</span><span class="n">wheelEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">control_mouse</span><span class="o">.</span><span class="n">mouse_wheelEvent</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_Result_Image</span><span class="o">.</span><span class="n">mouseReleaseEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">control_mouse</span><span class="o">.</span><span class="n">mouse_release_event</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_Original_Image</span><span class="o">.</span><span class="n">mouseMoveEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">control_mouse</span><span class="o">.</span><span class="n">mouseMovedOriImage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_Result_Image</span><span class="o">.</span><span class="n">mouseMoveEvent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">control_mouse</span><span class="o">.</span><span class="n">mouseMoveEvent</span>
+
+        <span class="c1"># others</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btnAboutUs</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">winHelp</span><span class="o">.</span><span class="n">about_us</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btnHelpMoil</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_help_moil</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_clear</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_clear</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listWidget</span><span class="o">.</span><span class="n">currentItemChanged</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">saved_image_activated</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboBox_zoom</span><span class="o">.</span><span class="n">activated</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">combo_percentage_zoom</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button_menu</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">control_frame_view_button</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonBack</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">showToWindow</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.onclick_clear">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.onclick_clear">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclick_clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">stopVideo</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frameVideoController</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_Result_Image</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_Result_Image</span><span class="o">.</span><span class="n">setMaximumSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">1080</span><span class="p">,</span> <span class="mi">810</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_Result_Image</span><span class="o">.</span><span class="n">setMinimumSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">1080</span><span class="p">,</span> <span class="mi">810</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_Original_Image</span><span class="o">.</span><span class="n">setMinimumSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">266</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_Original_Image</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset_mode_view</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboBox_zoom</span><span class="o">.</span><span class="n">removeItem</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboBox_zoom</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_Application</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;MoilApp&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;MoilApp&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonBack</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frameRecenter</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonRecenter</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">recImage</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Controller.open_image">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.open_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">open_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open Dialog to search the file image from directory. This function also will read the comment from</span>
+<span class="sd">        metadata image.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">selectFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="s2">&quot;Image Files&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;../SourceImage&quot;</span><span class="p">,</span> <span class="s2">&quot;(*.jpeg *.jpg *.png *.gif *.bmg)&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">filename</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset_mode_view</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">stopVideo</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">frameVideoController</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="n">typeCam</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">read_camera_type</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">typeCam</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">typeCam</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">selectCameraType</span><span class="p">()</span>
+                <span class="n">MoilUtils</span><span class="o">.</span><span class="n">write_camera_type</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span> <span class="o">=</span> <span class="n">typeCam</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">updateLabel</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">readImage</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">moildev</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">connectToMoildev</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">buttonRecenter</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">buttonRecenter</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span>
+                    <span class="s2">&quot;QPushButton{</span><span class="se">\n</span><span class="s2">&quot;</span>
+                    <span class="s2">&quot;  border-color: #71D1BA;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                    <span class="s2">&quot;  border-width: 2px;        </span><span class="se">\n</span><span class="s2">&quot;</span>
+                    <span class="s2">&quot;  border-style: solid;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                    <span class="s2">&quot;  border-radius: 5px;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                    <span class="s2">&quot;  background-color : rgb(238, 238, 236); }</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">showToWindow</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cam</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Controller.onclick_load_video">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.onclick_load_video">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclick_load_video</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open Dialog to search video file from Directory. after you select the video file, it will show the prompt</span>
+<span class="sd">        to select the type of camera.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">video_source</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">selectFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span>
+                                            <span class="s2">&quot;Select Video Files&quot;</span><span class="p">,</span>
+                                            <span class="s2">&quot;../&quot;</span><span class="p">,</span>
+                                            <span class="s2">&quot;Video Files (*.mp4 *.avi *.mpg *.gif *.mov)&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">video_source</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset_mode_view</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">selectCameraType</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">easySpin</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">updateLabel</span><span class="p">(</span><span class="n">video_source</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">running_video</span><span class="p">(</span><span class="n">video_source</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.open_camera">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.open_camera">[docs]</a>
+    <span class="k">def</span> <span class="nf">open_camera</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        open the camera from the available source in the system,</span>
+<span class="sd">        this function provide 2 source namely USB cam and Streaming cam from Raspberry pi.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset_mode_view</span><span class="p">()</span>
+        <span class="n">camera_source</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">selectCameraSource</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">camera_source</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">selectCameraType</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">updateLabel</span><span class="p">()</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span> <span class="o">==</span> <span class="s2">&quot;narl_fisheye&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">easySpin</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">running_video</span><span class="p">(</span><span class="n">camera_source</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">running_video</span><span class="p">(</span><span class="n">camera_source</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">easySpin</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Controller.running_video">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.running_video">[docs]</a>
+    <span class="k">def</span> <span class="nf">running_video</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">video_source</span><span class="p">,</span> <span class="n">easySpin</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open Video following the source given.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            video_source (): the source of media, can be camera and video file.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frameVideoController</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">easySpin</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="kn">import</span> <span class="nn">EasyPySpin</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cap</span> <span class="o">=</span> <span class="n">EasyPySpin</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">video_source</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_EXPOSURE</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># -1 sets exposure_time to auto</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_GAIN</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># -1 sets gain to auto</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Module was installed&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">There was no such module installed&#39;</span><span class="p">)</span>
+                <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Warning !!&quot;</span><span class="p">,</span> <span class="s2">&quot;The Module was not Installed. </span><span class="se">\n\n</span><span class="s2">&quot;</span>
+                                                                  <span class="s2">&quot;Please install the library following </span><span class="se">\n</span><span class="s2">&quot;</span>
+                                                                  <span class="s2">&quot;the document provided.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cap</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoCapture</span><span class="p">(</span><span class="n">video_source</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span> <span class="o">==</span> <span class="s2">&quot;leo_fisheye&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1920</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1080</span><span class="p">)</span>
+
+        <span class="n">success</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">success</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">moildev</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">connectToMoildev</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cam</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">buttonRecenter</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">buttonRecenter</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span>
+                <span class="s2">&quot;QPushButton{</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  border-color: #71D1BA;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  border-width: 2px;        </span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  border-style: solid;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  border-radius: 5px;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  background-color : rgb(238, 238, 236); }</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">nextFrame</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="s2">&quot;Information&quot;</span><span class="p">,</span> <span class="s2">&quot;No source camera founded !!!&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.onclick_view_normal">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.onclick_view_normal">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclick_view_normal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Showing the original image into Label frame in UI.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">buttonRecenter</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">buttonRecenter</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span>
+                <span class="s2">&quot;QPushButton{</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  border-color: #71D1BA;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  border-width: 2px;        </span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  border-style: solid;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  border-radius: 5px;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  background-color : rgb(238, 238, 236); }</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset_mode_view</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">normal_view</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">panorama_view</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">anypoint_view</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">showToWindow</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frame_navigator</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frame_panorama</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_percentage</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status_alpha</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Alpha: 0&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">status_beta</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Beta: 0&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.showToWindow">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.showToWindow">[docs]</a>
+    <span class="k">def</span> <span class="nf">showToWindow</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Showing the processing result image into the frame UI.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># _, img = self.cap.read()</span>
+        <span class="c1"># if not _:</span>
+        <span class="c1">#     QtWidgets.QMessageBox.information(None, &quot;Test&quot;, &quot;Finishhhh&quot;)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zoom_area</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttonBack</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="n">radius</span> <span class="o">=</span> <span class="mi">6</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">&lt;</span> <span class="mi">800</span> <span class="k">else</span> <span class="mi">10</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">normal_view</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frameRecenter</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">labelrecenterTitle</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">buttonRecenter</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttonRecenter</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">labelMin</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">labelMax</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">min_pano</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">max_pano</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">labelIcx</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">labelIcy</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setIcx</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setIcy</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">recImage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recenter</span><span class="o">.</span><span class="n">returnImage</span><span class="p">()</span>
+                <span class="n">resImage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recImage</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">frame_panorama</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QRect</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">resImage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">point</span> <span class="o">=</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">moildev</span><span class="o">.</span><span class="n">icx</span><span class="p">()),</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">moildev</span><span class="o">.</span><span class="n">icy</span><span class="p">()))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">frame_panorama</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">drawPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">point</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>
+            <span class="n">MoilUtils</span><span class="o">.</span><span class="n">showImageToLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label_Original_Image</span><span class="p">,</span>
+                                       <span class="n">image</span><span class="p">,</span>
+                                       <span class="bp">self</span><span class="o">.</span><span class="n">width_original_image</span><span class="p">)</span>
+            <span class="n">MoilUtils</span><span class="o">.</span><span class="n">showImageToLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label_Result_Image</span><span class="p">,</span>
+                                       <span class="n">resImage</span><span class="p">,</span>
+                                       <span class="bp">self</span><span class="o">.</span><span class="n">width_result_image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle</span><span class="p">,</span> <span class="n">plusIcon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">panorama_view</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">buttonRecenter</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="n">mapX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+                    <span class="s1">&#39;./maps_pano/mapX.npy&#39;</span><span class="p">)</span>
+            <span class="n">mapY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+                    <span class="s1">&#39;./maps_pano/mapY.npy&#39;</span><span class="p">)</span>
+            <span class="c1"># rho = self.panorama.rho</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttonRecenter</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">frameRecenter</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">labelrecenterTitle</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">labelIcx</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">labelIcy</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setIcx</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setIcy</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">labelMin</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">labelMax</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">min_pano</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">max_pano</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">frame_panorama</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QRect</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">145</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">recImage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recenter</span><span class="o">.</span><span class="n">returnImage</span><span class="p">()</span>
+                <span class="n">resImage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">recImage</span>
+                <span class="c1"># res = MoilUtils.drawPolygon(resImage.copy(), mapX, mapY)</span>
+                <span class="n">MoilUtils</span><span class="o">.</span><span class="n">showImageToLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labelRecenter</span><span class="p">,</span>
+                                           <span class="n">resImage</span><span class="p">,</span>
+                                           <span class="bp">self</span><span class="o">.</span><span class="n">width_original_image</span><span class="p">,</span> <span class="n">plusIcon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">image</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">drawPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">point</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>
+                <span class="n">MoilUtils</span><span class="o">.</span><span class="n">showImageToLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label_Original_Image</span><span class="p">,</span>
+                                           <span class="n">image</span><span class="p">,</span>
+                                           <span class="bp">self</span><span class="o">.</span><span class="n">width_original_image</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">frameRecenter</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">labelrecenterTitle</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">labelIcx</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">labelIcy</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setIcx</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">setIcy</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">labelMin</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">labelMax</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">min_pano</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">max_pano</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">frame_panorama</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QRect</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">80</span><span class="p">))</span>
+                <span class="n">resImage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">point</span> <span class="o">=</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">moildev</span><span class="o">.</span><span class="n">icx</span><span class="p">()),</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">moildev</span><span class="o">.</span><span class="n">icy</span><span class="p">()))</span>
+
+                <span class="c1"># self.result_image = self.result_image[round(rho):self.h, 0:self.w]</span>
+                <span class="c1"># print(self.result_image)</span>
+                <span class="c1"># image = MoilUtils.drawPolygon(self.image.copy(), mapX, mapY)</span>
+                <span class="n">image</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">drawPoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">point</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>
+                <span class="n">MoilUtils</span><span class="o">.</span><span class="n">showImageToLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label_Original_Image</span><span class="p">,</span>
+                                           <span class="n">image</span><span class="p">,</span>
+                                           <span class="bp">self</span><span class="o">.</span><span class="n">width_original_image</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">result_image</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">remap</span><span class="p">(</span><span class="n">resImage</span><span class="p">,</span> <span class="n">mapX</span><span class="p">,</span> <span class="n">mapY</span><span class="p">)</span>
+            <span class="n">MoilUtils</span><span class="o">.</span><span class="n">showImageToLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label_Result_Image</span><span class="p">,</span>
+                                       <span class="bp">self</span><span class="o">.</span><span class="n">result_image</span><span class="p">,</span>
+                                       <span class="bp">self</span><span class="o">.</span><span class="n">width_result_image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">buttonRecenter</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frameRecenter</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">labelrecenterTitle</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">drawPolygon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapX</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapY</span><span class="p">)</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">drawPoint</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">point</span><span class="p">,</span> <span class="n">radius</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">result_image</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">remap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapX</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapY</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">drawLine</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">result_image</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+            <span class="n">MoilUtils</span><span class="o">.</span><span class="n">showImageToLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label_Result_Image</span><span class="p">,</span>
+                                       <span class="n">result</span><span class="p">,</span>
+                                       <span class="bp">self</span><span class="o">.</span><span class="n">width_result_image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">angle</span><span class="p">,</span> <span class="n">plusIcon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">MoilUtils</span><span class="o">.</span><span class="n">showImageToLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">label_Original_Image</span><span class="p">,</span>
+                                       <span class="n">image</span><span class="p">,</span>
+                                       <span class="bp">self</span><span class="o">.</span><span class="n">width_original_image</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_percentage</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.save_image">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.save_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">save_image</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save image into local directory, it can save original image or</span>
+<span class="sd">        result image from panorama or anypoint processing.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">normal_view</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_image</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir_save</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir_save</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">pauseVideo</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dir_save</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">selectDirectory</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir_save</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">name_saved</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">saveImage</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir_save</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+                <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="s2">&quot;Information&quot;</span><span class="p">,</span> <span class="s2">&quot;Image saved !!</span><span class="se">\n\n</span><span class="s2">Loc @: &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir_save</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.addWidget">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.addWidget">[docs]</a>
+    <span class="k">def</span> <span class="nf">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add the image widget in the list widget_controller of saved image. it can be reopen when you select.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            image (): the image saved.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">calculateHeight</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="mi">140</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listWidget</span><span class="o">.</span><span class="n">setIconSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">140</span><span class="p">,</span> <span class="n">height</span><span class="p">))</span>
+        <span class="n">new_widget</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QListWidgetItem</span><span class="p">()</span>
+
+        <span class="n">image_</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">resizeImage</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="mi">140</span><span class="p">)</span>
+        <span class="n">imagePixmap</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QImage</span><span class="p">(</span>
+            <span class="n">image_</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">image_</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">image_</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">QtGui</span><span class="o">.</span><span class="n">QImage</span><span class="o">.</span><span class="n">Format_RGB888</span><span class="p">)</span><span class="o">.</span><span class="n">rgbSwapped</span><span class="p">()</span>
+        <span class="n">icon</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">()</span>
+        <span class="n">icon</span><span class="o">.</span><span class="n">addPixmap</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="p">(</span><span class="n">imagePixmap</span><span class="p">))</span>
+        <span class="n">new_widget</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">)</span>
+        <span class="n">new_widget</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name_saved</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listWidget</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">new_widget</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">posVid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">pos_frame</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.saved_image_activated">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.saved_image_activated">[docs]</a>
+    <span class="k">def</span> <span class="nf">saved_image_activated</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function that for connect with the event in list widget to reopen the image.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dir_save</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">listWidget</span><span class="o">.</span><span class="n">currentItem</span><span class="p">()</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="n">posFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">posVid</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">listWidget</span><span class="o">.</span><span class="n">currentRow</span><span class="p">()]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">read_camera_type</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">pauseVideo</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset_mode_view</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">readImage</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">CAP_PROP_POS_FRAMES</span><span class="p">,</span> <span class="n">posFrame</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">nextFrame</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">listWidget</span><span class="o">.</span><span class="n">count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">listWidget</span><span class="o">.</span><span class="n">selectionModel</span><span class="p">()</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.cropImage">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.cropImage">[docs]</a>
+    <span class="k">def</span> <span class="nf">cropImage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rect</span><span class="p">):</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">convertCv2ToQimage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_image</span> <span class="ow">is</span> <span class="kc">None</span> \
+            <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">convertCv2ToQimage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">result_image</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">calculateHeight</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width_result_image</span><span class="p">)</span>
+        <span class="n">ratio_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">width_result_image</span>
+        <span class="n">ratio_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">h</span> <span class="o">/</span> <span class="n">height</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">rect</span><span class="o">.</span><span class="n">x</span><span class="p">()</span> <span class="o">*</span> <span class="n">ratio_x</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">rect</span><span class="o">.</span><span class="n">y</span><span class="p">()</span> <span class="o">*</span> <span class="n">ratio_y</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="n">rect</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">*</span> <span class="n">ratio_x</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">rect</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">*</span> <span class="n">ratio_y</span>
+        <span class="n">rect</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QRect</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>
+        <span class="n">croppedImage</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+        <span class="n">point_1</span> <span class="o">=</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+        <span class="n">point_2</span> <span class="o">=</span> <span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">width</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">height</span><span class="p">))</span>
+        <span class="n">ori_image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">normal_view</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">result_image</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">drawRectangle</span><span class="p">(</span><span class="n">ori_image</span><span class="p">,</span> <span class="n">point_1</span><span class="p">,</span> <span class="n">point_2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">convertQImageToMat</span><span class="p">(</span><span class="n">croppedImage</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.convertCv2ToQimage">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.convertCv2ToQimage">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">convertCv2ToQimage</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">im</span><span class="p">):</span>
+        <span class="n">qim</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QImage</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">im</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">qim</span>
+        <span class="k">if</span> <span class="n">im</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">qim</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QImage</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">im</span><span class="o">.</span><span class="n">strides</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QImage</span><span class="o">.</span><span class="n">Format_Indexed8</span><span class="p">)</span>
+                <span class="n">qim</span><span class="o">.</span><span class="n">setColorTable</span><span class="p">([</span><span class="n">QtGui</span><span class="o">.</span><span class="n">qRgb</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">256</span><span class="p">)])</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                    <span class="n">qim</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QImage</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">im</span><span class="o">.</span><span class="n">strides</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QImage</span><span class="o">.</span><span class="n">Format_RGB888</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                    <span class="n">qim</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QImage</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">im</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">im</span><span class="o">.</span><span class="n">strides</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QImage</span><span class="o">.</span><span class="n">Format_ARGB32</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">qim</span></div>
+
+
+<div class="viewcode-block" id="Controller.convertQImageToMat">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.convertQImageToMat">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">convertQImageToMat</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">incomingImage</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;  Converts a QImage into an opencv MAT format  &quot;&quot;&quot;</span>
+        <span class="n">incomingImage</span> <span class="o">=</span> <span class="n">incomingImage</span><span class="o">.</span><span class="n">convertToFormat</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="n">incomingImage</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">incomingImage</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+        <span class="n">ptr</span> <span class="o">=</span> <span class="n">incomingImage</span><span class="o">.</span><span class="n">bits</span><span class="p">()</span>
+        <span class="n">ptr</span><span class="o">.</span><span class="n">setsize</span><span class="p">(</span><span class="n">incomingImage</span><span class="o">.</span><span class="n">byteCount</span><span class="p">())</span>
+        <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ptr</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>  <span class="c1"># Copies the data</span>
+        <span class="k">return</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2RGB</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.show_percentage">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.show_percentage">[docs]</a>
+    <span class="k">def</span> <span class="nf">show_percentage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comboBox_zoom</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">comboBox_zoom</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboBox_zoom</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="nb">round</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">width_result_image</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comboBox_zoom</span><span class="o">.</span><span class="n">setItemText</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">size</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;%&quot;</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Controller.combo_percentage_zoom">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.combo_percentage_zoom">[docs]</a>
+    <span class="k">def</span> <span class="nf">combo_percentage_zoom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">comboBox_zoom</span><span class="o">.</span><span class="n">removeItem</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+            <span class="n">percent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">comboBox_zoom</span><span class="o">.</span><span class="n">currentText</span><span class="p">()</span>
+            <span class="n">percent</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">percent</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">width_result_image</span> <span class="o">=</span> <span class="nb">round</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">*</span> <span class="n">percent</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">showToWindow</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.reset_mode_view">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.reset_mode_view">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset_mode_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Update the properties&#39; widget_controller when you reset.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">result_image</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width_result_image</span> <span class="o">=</span> <span class="mi">1080</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">normal_view</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">anypoint</span><span class="o">.</span><span class="n">resetAlphaBeta</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_Record_video</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_navigator</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_panorama</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.control_frame_view_button">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.control_frame_view_button">[docs]</a>
+    <span class="k">def</span> <span class="nf">control_frame_view_button</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        control the button in anypoint and panorama mode.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># print(self.button_menu.isChecked())</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">button_menu</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anypoint_view</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">frame_navigator</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+                <span class="c1"># self.label_34.hide()</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">panorama_view</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">frame_panorama</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+                <span class="c1"># self.label_34.hide()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;coming soon&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anypoint_view</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">frame_navigator</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="c1"># self.label_34.show()</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">panorama_view</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">frame_panorama</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;coming soon&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.maximize_view">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.maximize_view">[docs]</a>
+    <span class="k">def</span> <span class="nf">maximize_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Control the widget on user interface to make possible in maximum size.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_saved_image</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listWidget</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_original_image</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_help</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_feature</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_2</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_Open_Source</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_rotate</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_zoom</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_save</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_Application</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_13</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_16</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_17</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_18</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelOrginalTitle</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_time_recent</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider_Video</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_time_end</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_apps</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_clear</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelrecenterTitle</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frameRecenter</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">statusbar</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.minimize_view">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.minimize_view">[docs]</a>
+    <span class="k">def</span> <span class="nf">minimize_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Control the widget on user interface to make possible in minimum size.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelOrginalTitle</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_saved_image</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">listWidget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_original_image</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_help</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_feature</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_2</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_Open_Source</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_rotate</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_zoom</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_save</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_Application</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_13</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_16</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_17</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_18</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_time_recent</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slider_Video</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label_time_end</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_apps</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame_clear</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">statusbar</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labelOrginalTitle</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttonRecenter</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">panorama_view</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">labelrecenterTitle</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">frameRecenter</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.actionRecordVideo">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.actionRecordVideo">[docs]</a>
+    <span class="k">def</span> <span class="nf">actionRecordVideo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create video writer to save video.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">actionRecord_video</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">actionRecord_video</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">play</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">pauseVideo</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">videoDir</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">videoDir</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">videoDir</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">selectDirectory</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">videoDir</span><span class="p">:</span>
+                        <span class="n">ss</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%m</span><span class="si">%d</span><span class="s2">%H_%M%S&quot;</span><span class="p">)</span>
+                        <span class="n">frame_width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+                        <span class="n">frame_height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+                        <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;Recorded&quot;</span>  <span class="c1"># if self.parent.normal_view else &quot;result&quot;</span>
+
+                        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">videoDir</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">filename</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ss</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.avi&quot;</span>
+                        <span class="n">answer</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span>
+                            <span class="s2">&quot;Information&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot; Start Record Video !!&quot;</span><span class="p">,</span>
+                            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">,</span>
+                            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
+
+                        <span class="k">if</span> <span class="n">answer</span> <span class="o">==</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">playVideo</span><span class="p">()</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">video_writer</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoWriter</span><span class="p">(</span>
+                                <span class="n">name</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoWriter_fourcc</span><span class="p">(</span>
+                                    <span class="o">*</span><span class="s1">&#39;XVID&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">fps</span><span class="p">,</span> <span class="p">(</span><span class="n">frame_width</span><span class="p">,</span> <span class="n">frame_height</span><span class="p">))</span>
+                            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">btn_Record_video</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">btn_Record_video</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span>
+                                <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="o">.</span><span class="n">fromImage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rs</span><span class="o">.</span><span class="n">iconRecording</span><span class="p">())))</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">actionRecord_video</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span>
+                                <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="o">.</span><span class="n">fromImage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rs</span><span class="o">.</span><span class="n">iconRecording</span><span class="p">())))</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">record</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="k">if</span> <span class="n">answer</span> <span class="o">==</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">actionRecord_video</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">record</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">videoDir</span> <span class="o">=</span> <span class="kc">None</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">actionRecord_video</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">videoDir</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">btn_play_pouse</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span>
+                            <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="o">.</span><span class="n">fromImage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rs</span><span class="o">.</span><span class="n">iconPlay</span><span class="p">())))</span>
+                        <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span>
+                            <span class="s2">&quot;Information&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;Video saved !!</span><span class="se">\n\n</span><span class="s2">Loc: &quot;</span> <span class="o">+</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">videoDir</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">video_writer</span> <span class="o">=</span> <span class="kc">None</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">play</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">record</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">actionRecord_video</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">btn_Record_video</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">btn_Record_video</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span>
+                            <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="o">.</span><span class="n">fromImage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rs</span><span class="o">.</span><span class="n">iconRecord</span><span class="p">())))</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">actionRecord_video</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span>
+                            <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="o">.</span><span class="n">fromImage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rs</span><span class="o">.</span><span class="n">iconRecord</span><span class="p">())))</span></div>
+
+
+<div class="viewcode-block" id="Controller.buttonRecordVideo">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.buttonRecordVideo">[docs]</a>
+    <span class="k">def</span> <span class="nf">buttonRecordVideo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create video writer to save video.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">btn_Record_video</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">btn_Record_video</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">play</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">pauseVideo</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">videoDir</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">videoDir</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">videoDir</span> <span class="o">=</span> <span class="n">MoilUtils</span><span class="o">.</span><span class="n">selectDirectory</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">videoDir</span><span class="p">:</span>
+                        <span class="n">ss</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%m</span><span class="si">%d</span><span class="s2">%H_%M%S&quot;</span><span class="p">)</span>
+                        <span class="n">frame_width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+                        <span class="n">frame_height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+                        <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;Recorded&quot;</span>  <span class="c1"># if self.parent.normal_view else &quot;result&quot;</span>
+
+                        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">videoDir</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">filename</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ss</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.avi&quot;</span>
+                        <span class="n">answer</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span>
+                            <span class="s2">&quot;Information&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot; Start Record Video !!&quot;</span><span class="p">,</span>
+                            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">,</span>
+                            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
+
+                        <span class="k">if</span> <span class="n">answer</span> <span class="o">==</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">playVideo</span><span class="p">()</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">video_writer</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoWriter</span><span class="p">(</span>
+                                <span class="n">name</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">VideoWriter_fourcc</span><span class="p">(</span>
+                                    <span class="o">*</span><span class="s1">&#39;XVID&#39;</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">fps</span><span class="p">,</span> <span class="p">(</span><span class="n">frame_width</span><span class="p">,</span> <span class="n">frame_height</span><span class="p">))</span>
+                            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">actionRecord_video</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">btn_Record_video</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span>
+                                <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="o">.</span><span class="n">fromImage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rs</span><span class="o">.</span><span class="n">iconRecording</span><span class="p">())))</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">actionRecord_video</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span>
+                                <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="o">.</span><span class="n">fromImage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rs</span><span class="o">.</span><span class="n">iconRecording</span><span class="p">())))</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">record</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="k">if</span> <span class="n">answer</span> <span class="o">==</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">btn_Record_video</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">record</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">videoDir</span> <span class="o">=</span> <span class="kc">None</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">btn_Record_video</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">videoDir</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">timer</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">btn_play_pouse</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span>
+                            <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="o">.</span><span class="n">fromImage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rs</span><span class="o">.</span><span class="n">iconPlay</span><span class="p">())))</span>
+                        <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span>
+                            <span class="s2">&quot;Information&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;Video saved !!</span><span class="se">\n\n</span><span class="s2">Loc: &quot;</span> <span class="o">+</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">videoDir</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">video_writer</span> <span class="o">=</span> <span class="kc">None</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">play</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">record</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">actionRecord_video</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">btn_Record_video</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">btn_Record_video</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span>
+                            <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="o">.</span><span class="n">fromImage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rs</span><span class="o">.</span><span class="n">iconRecord</span><span class="p">())))</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">actionRecord_video</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span>
+                            <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="o">.</span><span class="n">fromImage</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rs</span><span class="o">.</span><span class="n">iconRecord</span><span class="p">())))</span></div>
+
+
+<div class="viewcode-block" id="Controller.onclickRecenter">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.onclickRecenter">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclickRecenter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">buttonRecenter</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">buttonRecenter</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span>
+                <span class="s2">&quot;QPushButton{</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  border-color: #71D1BA;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  border-width: 2px;        </span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  border-style: solid;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  border-radius: 5px;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  background-color : #81AED1; }</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">recenter</span><span class="o">.</span><span class="n">onclickRecenter</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frame_panorama</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="c1"># self.checkAuto.show()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">buttonRecenter</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span>
+                <span class="s2">&quot;QPushButton{</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  border-color: #71D1BA;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  border-width: 2px;        </span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  border-style: solid;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  border-radius: 5px;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;  background-color : rgb(238, 238, 236); }</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">showToWindow</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">recImage</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Controller.onclickReleaseNote">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.onclickReleaseNote">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclickReleaseNote</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Showing the message box to show help information obout this application.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">msgbox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+        <span class="n">msgbox</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Release Note&quot;</span><span class="p">)</span>
+        <span class="n">msgbox</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span>
+            <span class="s2">&quot;New features MoilApp Version 3.2*</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;There are many updates in this version, &quot;</span>
+            <span class="s2">&quot;which can improve the results of processing fisheye camera images, including: </span><span class="se">\n\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;1. Shortcuts for every process and button work well, show on accessibility in menu help</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;2. Added redo function during zoom area</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;3. Added Menubar View for manipulate view image</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;4. Fix bug in zoom area</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;5. Record video using action or button</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">More Documentation about MoilApp, visit: </span><span class="se">\n</span><span class="s2">https://oil-mcut.educationhost.cloud/moilapp/</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">msgbox</span><span class="o">.</span><span class="n">exec</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.checkUpdate">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.checkUpdate">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">checkUpdate</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;https://github.com/MoilOrg/MoilApp&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.onclick_accessibility">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.onclick_accessibility">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclick_accessibility</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Open prompt for accessibility MoilApp</span>
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="s2">&quot;Accessibility&quot;</span><span class="p">,</span> <span class="s2">&quot;MoilApp Accessibility</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;Information !!</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;Crtl + I</span><span class="se">\t</span><span class="s2">: Open Image</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;Ctrl + V</span><span class="se">\t</span><span class="s2">: Open Video</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;Ctrl + C</span><span class="se">\t</span><span class="s2">: Open cam</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;Ctrl + P</span><span class="se">\t</span><span class="s2">: Open Camera parameters form</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;Ctrl + R</span><span class="se">\t</span><span class="s2">: Record Video</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;Ctrl + S</span><span class="se">\t</span><span class="s2">: Save image</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;Ctrl + Q</span><span class="se">\t</span><span class="s2">: Exit apps</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;+ </span><span class="se">\t</span><span class="s2">: Zoom In</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;- </span><span class="se">\t</span><span class="s2">: Zoom Out</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;F11 </span><span class="se">\t</span><span class="s2">: Maximized window</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;Esc </span><span class="se">\t</span><span class="s2">: Minimized window</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;Ctrl + Left</span><span class="se">\t</span><span class="s2">: Backward video in 5 seconds</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;Space</span><span class="se">\t</span><span class="s2">: play/pause video</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;0 </span><span class="se">\t</span><span class="s2">: Stop video</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;Ctrl + Right</span><span class="se">\t</span><span class="s2">: Forward video in 5 seconds</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;Up</span><span class="se">\t</span><span class="s2">: Up View</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;Right</span><span class="se">\t</span><span class="s2">: Right view</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;Left</span><span class="se">\t</span><span class="s2">: Left view</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;Down</span><span class="se">\t</span><span class="s2">: Down View</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;Ctrl + Shift + /</span><span class="se">\t</span><span class="s2">:show help</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                          <span class="s2">&quot;Alt + Shift + A</span><span class="se">\t</span><span class="s2">:Show Accessibility</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.onclick_help">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.onclick_help">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclick_help</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Showing the message box to show help information obout this application.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">winHelp</span><span class="o">.</span><span class="n">help_moilApp</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.onclick_help_moil">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.onclick_help_moil">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclick_help_moil</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dialogHelp</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.updateLabel">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.updateLabel">[docs]</a>
+    <span class="k">def</span> <span class="nf">updateLabel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;MoilApp - &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;MoilApp - &quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label_Application</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Camera: &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">type_camera</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Controller.onclick_exit">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.onclick_exit">[docs]</a>
+    <span class="k">def</span> <span class="nf">onclick_exit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Controller.closeEvent">
+<a class="viewcode-back" href="../controller.html#Moilapp_Controller.Controller.closeEvent">[docs]</a>
+    <span class="k">def</span> <span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Control the close event by ask yes or no.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            event ():</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">video_controller</span><span class="o">.</span><span class="n">pauseVideo</span><span class="p">()</span>
+        <span class="n">reply</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">question</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span>
+            <span class="s1">&#39;Message&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;Are you sure to quit?&quot;</span><span class="p">,</span>
+            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span> <span class="o">|</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">,</span>
+            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">reply</span> <span class="o">==</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_plugin</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">control_plugin</span><span class="o">.</span><span class="n">plugins</span><span class="o">.</span><span class="n">name_application</span><span class="p">)):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">control_plugin</span><span class="o">.</span><span class="n">plugin_win</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cam</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">cap</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">ignore</span><span class="p">()</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Perseverance Technology, Taiwan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

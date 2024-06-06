@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Contribute &mdash; MoilApp Documentation 3.1 documentation</title>
+  <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+  <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+
+  <script src="_static/jquery.js?v=5d32c60e"></script>
+  <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+  <script src="_static/documentation_options.js?v=b576230a"></script>
+  <script src="_static/doctools.js?v=9a2dae69"></script>
+  <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+  <script src="_static/js/theme.js"></script>
+  <link rel="index" title="Index" href="genindex.html" />
+  <link rel="search" title="Search" href="search.html" />
+  <link rel="next" title="API References" href="api_reference.html" />
+  <link rel="prev" title="Definition and overview" href="Overview.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+
+
+          <a href="index.html">
+
+            <img src="_static/light-moilapp.png" class="logo" alt="Logo" />
+          </a>
+          <div role="search">
+            <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+              <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+          </div>
+        </div>
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+          <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+          <ul class="current">
+            <li class="toctree-l1"><a class="reference internal" href="release_note.html">Release Notes</a></li>
+            <li class="toctree-l1"><a class="reference internal" href="Overview.html">Definition and overview</a></li>
+            <li class="toctree-l1 current"><a class="current reference internal" href="#">How to Contribute</a>
+              <ul>
+                <li class="toctree-l2"><a class="reference internal" href="#getting-started-with-contributing">Getting
+                    Started with Contributing</a></li>
+                <li class="toctree-l2"><a class="reference internal" href="#contribution-workflow">Contribution
+                    Workflow</a></li>
+                <li class="toctree-l2"><a class="reference internal" href="#github-operations">GitHub Operations</a>
+                  <ul>
+                    <li class="toctree-l3"><a class="reference internal" href="#forking-a-repository">Forking a
+                        Repository</a></li>
+                    <li class="toctree-l3"><a class="reference internal" href="#cloning-a-repository">Cloning a
+                        Repository</a></li>
+                    <li class="toctree-l3"><a class="reference internal"
+                        href="#creating-the-virtual-environment">Creating the Virtual Environment</a></li>
+                  </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="#guidelines-for-pull-requests">Guidelines for
+                    Pull Requests</a>
+                  <ul>
+                    <li class="toctree-l3"><a class="reference internal" href="#do-pull-request-your-project">Do Pull
+                        Request your Project</a></li>
+                  </ul>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="#code-review-process">Code Review Process</a>
+                </li>
+              </ul>
+            </li>
+            <li class="toctree-l1"><a class="reference internal" href="api_reference.html">API References</a></li>
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" aria-label="Mobile navigation menu">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">MoilApp Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+            <ul class="wy-breadcrumbs">
+              <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+              <li class="breadcrumb-item active">How to Contribute</li>
+              <li class="wy-breadcrumbs-aside">
+              </li>
+            </ul>
+            <hr />
+          </div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div itemprop="articleBody">
+
+              <section id="how-to-contribute">
+                <h1>How to Contribute<a class="headerlink" href="#how-to-contribute" title="Link to this heading"></a>
+                </h1>
+                <p>These instructions serve as a guide for contributing to the MoilApp repository with a
+                  personal repository project. The process includes forking the MoilApp repository,
+                  modifying the project code, and submitting a pull request to merge the changes.
+                  It is essential to keep in mind that the guidelines and instructions may differ depending on MoilApp
+                  specific requirements and guidelines.</p>
+                <section id="getting-started-with-contributing">
+                  <h2>Getting Started with Contributing<a class="headerlink" href="#getting-started-with-contributing"
+                      title="Link to this heading"></a></h2>
+                  <ol class="arabic simple">
+                    <li>
+                      <p>Before diving into contributing, take some time to understand the project’s purpose, goals, and
+                        existing structure. Browse through the project’s README file, documentation, and codebase to get
+                        a sense of how everything works.</p>
+                    </li>
+                    <li>
+                      <p>Login to your GitHub account, Once you’re logged in, navigate to the project’s repository and
+                        click the “Fork” button in the upper right corner. This will create a copy of the repository in
+                        your GitHub account, allowing you to make changes without affecting the original project.</p>
+                    </li>
+                    <li>
+                      <p>After forking the repository, clone it to your local machine using Git. Open your terminal or
+                        command prompt and run the following command, replacing <em>&lt;your-username&gt;</em> with your
+                        GitHub username:</p>
+                    </li>
+                  </ol>
+                  <div class="highlight-bash notranslate">
+                    <div class="highlight">
+                      <pre><span></span>https://github.com/&lt;your-username&gt;/moilapp.git
+</pre>
+                    </div>
+                  </div>
+                  <ol class="arabic simple" start="4">
+                    <li>
+                      <p>Set Up Your Development Environment</p>
+                    </li>
+                    <li>
+                      <p>Browse through the project’s issue tracker or roadmap to find an issue or feature that you’d
+                        like to work on. Issues may be labeled with tags like “good first issue” or “help wanted” to
+                        indicate beginner-friendly tasks.</p>
+                    </li>
+                    <li>
+                      <p>Before making any changes, create a new branch in your local repository to work on your
+                        contribution. Use a descriptive name for your branch that reflects the issue or feature you’re
+                        addressing.</p>
+                    </li>
+                    <li>
+                      <p>Once you’ve selected an issue to work on, make the necessary changes to the codebase to address
+                        the issue or implement the feature. After making your changes, commit them to your local branch
+                        with descriptive commit messages.</p>
+                    </li>
+                    <li>
+                      <p>Push Changes to Your Fork: After committing your changes, push your local branch to your forked
+                        repository on GitHub using the following command:</p>
+                    </li>
+                  </ol>
+                  <div class="highlight-bash notranslate">
+                    <div class="highlight">
+                      <pre><span></span>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>&lt;your-branch-name&gt;
+</pre>
+                    </div>
+                  </div>
+                  <ol class="arabic simple" start="9">
+                    <li>
+                      <p>Finally, navigate to your forked repository on GitHub and click the “New pull request” button.
+                        Compare the changes between your branch and the original project’s branch, provide a brief
+                        description of your contribution, and submit the pull request for review.</p>
+                    </li>
+                  </ol>
+                </section>
+                <section id="contribution-workflow">
+                  <h2>Contribution Workflow<a class="headerlink" href="#contribution-workflow"
+                      title="Link to this heading"></a></h2>
+                  <p>The Contribution Workflow outlines the process by which contributions are submitted, reviewed, and
+                    integrated into the project. Below is a detailed guide to our contribution workflow:</p>
+                  <ol class="arabic simple">
+                    <li>
+                      <p><strong>Select a Contribution</strong>: The first step in the contribution workflow is to
+                        select a contribution you would like to make. This could be fixing a bug, implementing a new
+                        feature, improving documentation, or any other enhancement that aligns with the project’s goals.
+                      </p>
+                    </li>
+                    <li>
+                      <p><strong>Fork the Repository</strong>: Once you’ve identified the contribution you’d like to
+                        make, fork the project’s repository on GitHub. This creates a copy of the repository under your
+                        GitHub account where you can make changes without affecting the original project.</p>
+                    </li>
+                    <li>
+                      <p><strong>Create a Branch</strong>: Before making any changes, create a new branch in your forked
+                        repository to work on your contribution. Use a descriptive name for your branch that reflects
+                        the nature of your contribution.</p>
+                    </li>
+                    <li>
+                      <p><strong>Make Changes</strong>: With your branch created, make the necessary changes to the
+                        codebase to address the contribution you’ve selected. Ensure that your changes adhere to the
+                        project’s coding standards and guidelines.</p>
+                    </li>
+                    <li>
+                      <p><strong>Commit Changes</strong>: Once you’ve completed your changes, commit them to your branch
+                        with descriptive commit messages. Each commit should represent a single logical change and
+                        include a brief explanation of the changes made.</p>
+                    </li>
+                    <li>
+                      <p><strong>Push Changes</strong>: After committing your changes, push your branch to your forked
+                        repository on GitHub. This makes your changes available for review by the project maintainers.
+                      </p>
+                    </li>
+                    <li>
+                      <p><strong>Submit a Pull Request (PR)</strong>: Once your changes are pushed to your forked
+                        repository, submit a pull request (PR) to the original project’s repository. In your PR, provide
+                        a detailed description of the changes you’ve made, including any relevant context or reasoning.
+                      </p>
+                    </li>
+                    <li>
+                      <p><strong>Review Process</strong>: After submitting your PR, the project maintainers will review
+                        your changes. They may provide feedback, ask questions, or request additional changes. Be
+                        responsive to feedback and be prepared to make further revisions to your contribution if
+                        necessary.</p>
+                    </li>
+                    <li>
+                      <p><strong>Address Feedback</strong>: If feedback is provided on your PR, address it by making the
+                        requested changes to your branch and committing them. Once you’ve addressed all feedback, push
+                        your changes to your forked repository and update your PR.</p>
+                    </li>
+                    <li>
+                      <p><strong>Merge PR</strong>: Once your PR has been approved by the project maintainers and all
+                        feedback has been addressed, it will be merged into the original project’s repository.
+                        Congratulations, your contribution has been successfully integrated into the project!</p>
+                    </li>
+                  </ol>
+                </section>
+                <section id="github-operations">
+                  <h2>GitHub Operations<a class="headerlink" href="#github-operations"
+                      title="Link to this heading"></a></h2>
+                  <section id="forking-a-repository">
+                    <h3>Forking a Repository<a class="headerlink" href="#forking-a-repository"
+                        title="Link to this heading"></a></h3>
+                    <p>To share a GitHub repository, first note its name and go to its page on GitHub. Then, click the
+                      &lt;b&gt;Fork&lt;/b&gt; button in the upper
+                      right corner to make a copy on your own account. Be sure to select <strong>“Copy Main
+                        Only”</strong> in the confirmation windows to avoid
+                      affecting the original repository and its other branches with changes or updates.</p>
+                    <figure class="align-center" id="id1">
+                      <a class="reference internal image-reference" href="_images/1.contribute.png"><img
+                          alt="Forking the Repository" src="_images/1.contribute.png"
+                          style="width: 944.3px; height: 463.4px;" /></a>
+                      <figcaption>
+                        <p><span class="caption-text">Fork the Repository</span><a class="headerlink" href="#id1"
+                            title="Link to this image"></a></p>
+                      </figcaption>
+                    </figure>
+                  </section>
+                  <section id="cloning-a-repository">
+                    <h3>Cloning a Repository<a class="headerlink" href="#cloning-a-repository"
+                        title="Link to this heading"></a></h3>
+                    <p>It is recommended for the user to create a new branch under the <strong>Develop</strong> branch
+                      of the MoilApp repository after cloning, in order to prevent conflicts between their changes and
+                      updates made to the original repository. This is crucial, as it enables the user to work on their
+                      modifications separately, without impacting the primary codebase.</p>
+                    <figure class="align-center" id="id2">
+                      <a class="reference internal image-reference" href="_images/2.clone-config.png"><img
+                          alt="Cloning the Repository" src="_images/2.clone-config.png"
+                          style="width: 867.3px; height: 381.5px;" /></a>
+                      <figcaption>
+                        <p><span class="caption-text">Clone the Repository</span><a class="headerlink" href="#id2"
+                            title="Link to this image"></a></p>
+                      </figcaption>
+                    </figure>
+                  </section>
+                  <section id="creating-the-virtual-environment">
+                    <h3>Creating the Virtual Environment<a class="headerlink" href="#creating-the-virtual-environment"
+                        title="Link to this heading"></a></h3>
+                    <p>Once you have finished cloning the repository, you can open the project folder using PyCharm and
+                      create a virtual environment configuration by pressing <strong>Ctrl + Alt + S</strong>. This step
+                      is necessary before installing the required library. It is important to carefully follow each step
+                      in order to create a local environment for your project, ensuring that the application runs
+                      properly as required.</p>
+                    <figure class="align-center">
+                      <a class="reference internal image-reference" href="_images/3.venv-installation.png"><img
+                          alt="Creating the Virtual Environment" src="_images/3.venv-installation.png"
+                          style="width: 798.6999999999999px; height: 366.09999999999997px;" /></a>
+                    </figure>
+                    <p>Setting the virtual environment and installation requirements</p>
+                    <p>By adhering to these instructions, you can guarantee that the application operates as planned and
+                      that there are no inconsistencies between its requirements and other projects’ dependencies on
+                      your system. Establishing a virtual environment for each project is a recommended approach that
+                      can assist you in more efficiently managing dependencies and ensuring that your projects are kept
+                      separate from one another.</p>
+                  </section>
+                </section>
+                <section id="guidelines-for-pull-requests">
+                  <h2>Guidelines for Pull Requests<a class="headerlink" href="#guidelines-for-pull-requests"
+                      title="Link to this heading"></a></h2>
+                  <p>Guidelines for Pull Requests (PRs) help ensure that contributions to our project are effectively
+                    reviewed and integrated. Here’s a comprehensive guide on how to create PRs following our guidelines:
+                  </p>
+                  <ol class="arabic simple">
+                    <li>
+                      <p><strong>Understand the Contribution</strong>: Before creating a PR, ensure that you understand
+                        the contribution you’re making. Whether it’s fixing a bug, implementing a new feature, or
+                        updating documentation, familiarize yourself with the changes you intend to propose.</p>
+                    </li>
+                    <li>
+                      <p><strong>Create a Descriptive Title</strong>: When creating a PR, use a clear and descriptive
+                        title that summarizes the purpose of the contribution. A well-written title helps reviewers
+                        quickly understand the nature of the changes being proposed.</p>
+                    </li>
+                    <li>
+                      <p><strong>Provide Context</strong>: In the PR description, provide context about the problem
+                        being addressed or the feature being implemented. Explain the rationale behind the changes and
+                        any relevant background information that will help reviewers understand the purpose of the PR.
+                      </p>
+                    </li>
+                    <li>
+                      <p><strong>Link Related Issues</strong>: If the PR addresses a specific issue or is related to an
+                        existing discussion or feature request, be sure to link to the relevant issue(s) in the PR
+                        description. This helps provide additional context and ensures that the PR is associated with
+                        the appropriate discussion or tracking.</p>
+                    </li>
+                    <li>
+                      <p><strong>Follow Coding Standards</strong>: Ensure that your code adheres to the project’s coding
+                        standards and style guidelines. Consistent formatting and adherence to best practices make it
+                        easier for reviewers to understand and evaluate your changes.</p>
+                    </li>
+                    <li>
+                      <p><strong>Test Your Changes</strong>: Before creating a PR, thoroughly test your changes to
+                        ensure that they work as intended and don’t introduce any regressions or unintended side
+                        effects. Include any necessary test cases or documentation updates to accompany your changes.
+                      </p>
+                    </li>
+                    <li>
+                      <p><strong>Keep PRs Small and Focused</strong>: Whenever possible, keep PRs small and focused on
+                        addressing a single issue or implementing a specific feature. Smaller PRs are easier to review
+                        and less likely to introduce conflicts with other changes.</p>
+                    </li>
+                    <li>
+                      <p><strong>Be Responsive to Feedback</strong>: After creating a PR, be responsive to feedback from
+                        reviewers. Address any comments or suggestions promptly and be open to making further revisions
+                        as needed to ensure the quality and completeness of your contribution.</p>
+                    </li>
+                    <li>
+                      <p><strong>Update PR as Necessary</strong>: If additional changes or revisions are requested by
+                        reviewers, update the PR accordingly. Push new commits to your branch and ensure that your PR
+                        remains up-to-date with the latest changes in the project.</p>
+                    </li>
+                    <li>
+                      <p><strong>Celebrate Success</strong>: Once your PR has been reviewed and approved, celebrate your
+                        contribution to the project! Your efforts help improve the project for everyone, and your
+                        contributions are greatly appreciated.</p>
+                    </li>
+                  </ol>
+                  <section id="do-pull-request-your-project">
+                    <h3>Do Pull Request your Project<a class="headerlink" href="#do-pull-request-your-project"
+                        title="Link to this heading"></a></h3>
+                    <p>After pushing your modifications to the remote repository, you can initiate a pull request,
+                      asking the manager to examine
+                      and merge the changes into the main branch. To create a <strong>pull request</strong>, carry out
+                      the following steps:</p>
+                    <p>Navigate to the repository on GitHub where you pushed your branch.</p>
+                    <ul class="simple">
+                      <li>
+                        <p><em>Click on the “Pull Request” tab.</em></p>
+                      </li>
+                      <li>
+                        <p><em>Click on the “New pull request” button.</em></p>
+                      </li>
+                    </ul>
+                    <p>To merge your changes into the main branch, choose the branch you wish to merge, examine the
+                      modifications you have made,
+                      and provide a relevant feedback or explanations for your colleagues. Once its done, hit the
+                      <strong>“Create pull request”</strong> options.</p>
+                  </section>
+                </section>
+                <section id="code-review-process">
+                  <h2>Code Review Process<a class="headerlink" href="#code-review-process"
+                      title="Link to this heading"></a></h2>
+                  <p>Once you’ve submitted a pull request, it will undergo a code review process. The code review
+                    process plays a crucial role in maintaining the quality and consistency of our project’s codebase.
+                    It involves a comprehensive examination of proposed changes, where reviewers meticulously analyze
+                    aspects such as functionality, readability, performance, and adherence to coding standards. Feedback
+                    provided during the review is constructive and specific, aimed at helping contributors enhance their
+                    code. This iterative process of collaboration between reviewers and contributors ensures that code
+                    changes undergo multiple rounds of refinement until they meet the project’s standards and
+                    requirements.</p>
+                </section>
+              </section>
+
+
+            </div>
+          </div>
+          <footer>
+            <div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+              <a href="Overview.html" class="btn btn-neutral float-left" title="Definition and overview" accesskey="p"
+                rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+              <a href="api_reference.html" class="btn btn-neutral float-right" title="API References" accesskey="n"
+                rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+            </div>
+
+            <hr />
+
+            <div role="contentinfo">
+              <p>&#169; Copyright 2024, Perseverance Technology, Taiwan.</p>
+            </div>
+
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+            <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+            provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+          </footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: 3.1
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions"><!-- Inserted RTD Footer -->
+      <div class="injected">
+        <dl>
+          <dt>Versions</dt>
+
+          <dd class="rtd-current-item">
+            <a href="../latest/index.html">latest</a>
+          </dd>
+          <dd class="rtd-current-item">
+            <a href="../v1.0/index.html">v1.0</a>
+          </dd>
+          <dd class="rtd-current-item">
+            <a href="../v2.0/index.html">v2.0</a>
+          </dd>
+          <dd class="rtd-current-item">
+            <a href="../v3.0/index.html">v3.0</a>
+          </dd>
+          <dd class="rtd-current-item">
+            <a href="../v3.1/index.html">v3.1</a>
+          </dd>
+        </dl>
+        <hr>
+        <small>
+          <span>Hosted by <a href="https://readthedocs.org">Read the Docs</a></span>
+          <span> · </span>
+          <a href="https://docs.readthedocs.io/page/privacy-policy.html">Privacy Policy</a>
+        </small>
+
+
+
+
+      </div>
+    </div>
+  </div>
+  <script>
+    jQuery(function () {
+      SphinxRtdTheme.Navigation.enable(true);
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,8 @@
+API References
+#############
+
+.. include:: controller.rst
+
+.. include:: views.rst
+
+.. include:: plugin.rst

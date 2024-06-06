@@ -1,0 +1,26 @@
+Widgets
+==============================================
+
+Params
+----------------------------------------------------------------
+
+.. automodule:: plugins.Thread_inspection.widgets.Ui_Camera_params
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Main Window
+------------------------------------------------------------
+
+.. automodule:: plugins.Thread_inspection.widgets.Ui_MainWindow
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Camera
+----------------------------------------------------------------
+
+.. automodule:: plugins.Thread_inspection.widgets.Ui_Select_Camera
+   :members:
+   :undoc-members:
+   :show-inheritance:

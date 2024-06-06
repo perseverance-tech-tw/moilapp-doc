@@ -1,0 +1,19 @@
+.. include:: README.rst
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   release_note
+   Overview
+   installation_guide
+   contribute
+   modules
+   setup_issue
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

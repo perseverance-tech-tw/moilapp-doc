@@ -1,0 +1,51 @@
+Controller
+=====================================
+
+Addition
+---------------------------------------------
+
+.. automodule:: plugins.default.contoller.addition
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Window
+----------------------------------------------------
+
+.. automodule:: plugins.default.contoller.control_window
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Image
+--------------------------------------------------
+
+.. automodule:: plugins.default.contoller.resize_image
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Camera
+------------------------------------------------
+
+.. automodule:: plugins.default.contoller.select_cam
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Show Result
+-----------------------------------------------
+
+.. automodule:: plugins.default.contoller.showResult
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Video controller
+----------------------------------------------------
+
+.. automodule:: plugins.default.contoller.videocontroller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

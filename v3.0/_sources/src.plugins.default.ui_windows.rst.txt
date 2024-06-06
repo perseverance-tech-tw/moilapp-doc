@@ -1,0 +1,18 @@
+Windows
+=======================================
+
+Open Camera
+----------------------------------------------
+
+.. automodule:: plugins.default.ui_windows.OpenCam
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Main Window
+-----------------------------------------------------
+
+.. automodule:: plugins.default.ui_windows.Ui_Mainwindow
+   :members:
+   :undoc-members:
+   :show-inheritance:

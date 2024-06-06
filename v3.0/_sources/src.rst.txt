@@ -1,0 +1,73 @@
+Main Package
+===========
+
+.. toctree::
+   :maxdepth: 4
+
+   src.Moildev
+   src.plugins
+
+MoilApp
+----------------------
+
+.. automodule:: Ui_MoilApp
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+plugin module
+-----------------------
+
+.. automodule:: base_plugin
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Lib
+--------------------
+
+.. automodule:: exif_lib
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Main
+---------------
+
+.. automodule:: main
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Collection
+-----------------------------
+
+.. automodule:: plugin_collection
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+API Module
+----------------------------
+
+.. automodule:: serial_axis_api
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Lib
+--------------------------
+
+.. automodule:: test_exif_lib
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Moildev
+------------------------
+
+.. automodule:: test_moildev
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

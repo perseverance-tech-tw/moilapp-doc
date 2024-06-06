@@ -1,0 +1,32 @@
+Reporting Bugs and Issues
+##########################
+
+Reporting bugs and issues is crucial for maintaining the quality and reliability of our project. here's how to effectively report bugs and issues on our GitHub repository:
+
+1. **Check Existing Issues**: Before reporting a new bug or issue, check the project's issue tracker on GitHub to see if the problem has already been reported. If you find an existing issue that matches your problem, you can add additional information or provide feedback to help resolve it.
+2. **Create a New Issue**: If you're unable to find an existing issue that matches your problem, create a new issue by clicking on the "New issue" button in the project's issue tracker. Provide a descriptive title that summarizes the issue and a detailed description that includes the following information:
+
+    - Steps to reproduce the issue: Provide a clear and concise set of steps that demonstrate how to reproduce the problem.
+    - Expected behavior: Describe what you expected to happen when following the steps.
+    - Actual behavior: Describe what actually happened when following the steps, including any error messages or unexpected outcomes.
+    - Environment details: Include information about your operating system, browser, version of the project, and any other relevant details that may help diagnose the issue.
+
+.. figure:: assets/issue.png
+       :scale: 60 %
+       :alt: alternate text
+       :align: center
+
+       Adding issue in moilapp github repository
+
+3. **Attach Screenshots or Code Snippets**: If applicable, attach screenshots or code snippets that illustrate the issue you're experiencing. This can help provide additional context and make it easier for others to understand the problem.
+4. **Label the Issue**: Apply appropriate labels to the issue to categorize it and make it easier to track. Common labels include "bug", "enhancement", "help wanted", or "needs reproduction".
+5. **Be Responsive**: Once you've created the issue, be responsive to any questions or requests for additional information from project maintainers or other contributors. Providing timely responses can help expedite the resolution of the issue.
+6. **Follow Up**: After the issue has been resolved, follow up to confirm that the problem has been addressed satisfactorily. If the issue persists or if you encounter any further problems, don't hesitate to reopen the issue or create a new one.
+
+*Note:*
+
+- If photo and video is too big. You can upload photo and video in Onedrive in `this link <BL94_>`_.
+- Please create the folder under your name for every bug found.
+- If any issue, please contact the maintainer.
+
+.. _BL94: https://mcut-my.sharepoint.com/:f:/g/personal/oilmcut_o365_mcut_edu_tw/EtPsKQ8sOQ1OsfzzNIqaKM8B61p_yWgQ_xEt1PH51UDOjA?e=Oge2qw

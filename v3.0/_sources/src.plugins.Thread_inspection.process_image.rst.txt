@@ -1,0 +1,19 @@
+Image
+=====================================================
+
+image.anypoint
+-------------------------------------------------------------
+
+.. automodule:: plugins.Thread_inspection.process_image.anypoint
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Image.panorama
+-------------------------------------------------------------
+
+.. automodule:: plugins.Thread_inspection.process_image.panorama
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

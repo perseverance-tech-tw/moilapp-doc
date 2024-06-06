@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>models.model_icon_and_pixmap &mdash; MoilApp Documentation 4.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=3b2dd2c4"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">MoilApp of Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin_extention.html">Plugin Extention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting_issue.html">Troubleshooting Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../setup_issue.html">Reporting Bugs and Issues</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MoilApp Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">models.model_icon_and_pixmap</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for models.model_icon_and_pixmap</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The model_icon_and_pixmap module manages the retrieval of icons used in the application.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+
+
+<div class="viewcode-block" id="GetResourcesIcon">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon">[docs]</a>
+<span class="k">class</span> <span class="nc">GetResourcesIcon</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      The GetResourcesIcon class manages the retrieval of icons used in the application.</span>
+
+<span class="sd">      Methods:</span>
+<span class="sd">          - __init__: Initializes the GetResourcesIcon class.</span>
+<span class="sd">          - get_icon_moilapp: Retrieves the MoilApp icon.</span>
+<span class="sd">          - get_icon_user: Retrieves the user icon.</span>
+<span class="sd">          - get_icon_fisheye_24px: Retrieves the fisheye icon with a size of 24 pixels.</span>
+<span class="sd">          - get_icon_fisheye_200px: Retrieves the fisheye icon with a size of 200 pixels.</span>
+<span class="sd">          - etc</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))))</span>
+        <span class="n">QtCore</span><span class="o">.</span><span class="n">QDir</span><span class="o">.</span><span class="n">addSearchPath</span><span class="p">(</span><span class="s2">&quot;icons&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_moilapp">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_moilapp">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_moilapp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the Moil application icon.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">             QtGui.QIcon: Icon representing the Moil application.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/moil_icon.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_user">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_user">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a QIcon object representing the user icon.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">             QtGui.QIcon: Icon representing the user.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/user.svg&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># icon feature</span>
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_fisheye_24px">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_fisheye_24px">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_fisheye_24px</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the fisheye icon in 24px size.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">             QtGui.QIcon: Fisheye icon in 24px size.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/fisheye.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_fisheye_200px">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_fisheye_200px">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_fisheye_200px</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the fisheye icon in 200px size.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            QtGui.QIcon: Fisheye icon in 200px size.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/fisheye_ori.png&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_anypoint_24px">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_anypoint_24px">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_anypoint_24px</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the anypoint icon in 24px size.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">             QtGui.QIcon: AnyPoint icon in 24px size.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/any_point.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_anypoint_old_icon">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_anypoint_old_icon">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_anypoint_old_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing an older version of the anypoint icon.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">             QtGui.QIcon: Older version of the AnyPoint icon.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/anypoint.png&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_anypoint_128px">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_anypoint_128px">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_anypoint_128px</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the anypoint icon in 128px size.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            QtGui.QIcon: AnyPoint icon in 128px size.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/any_point_ori.png&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_panorama_24px">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_panorama_24px">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_panorama_24px</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the panorama icon in 24px size.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            QtGui.QIcon: Panorama icon in 24px size.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/panorama.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_panorama_old_icon">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_panorama_old_icon">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_panorama_old_icon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing an older version of the panorama icon.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            QtGui.QIcon: Older version of the panorama icon.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/panorama.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_panorama_128px">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_panorama_128px">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_panorama_128px</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the panorama icon in 128px size.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            QtGui.QIcon: Panorama icon in 128px size.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/panorama_or.svg&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># arrow</span>
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_arrow_down">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_arrow_down">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_arrow_down</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the arrow pointing downwards.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            QtGui.QIcon: Icon of an arrow pointing downwards.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/arrow_down.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_arrow_left">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_arrow_left">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_arrow_left</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the arrow pointing leftwards.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">             QtGui.QIcon: Icon of an arrow pointing leftwards.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/arrow_left.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_arrow_right">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_arrow_right">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_arrow_right</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the arrow pointing rightwards.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            QtGui.QIcon: Icon of an arrow pointing rightwards.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/arrow_right.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_arrow_up">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_arrow_up">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_arrow_up</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the arrow pointing upwards.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon of an arrow pointing upwards.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/arrow_up.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_up">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_up">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_up</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">          Returns a QIcon object representing an upward direction.</span>
+
+<span class="sd">          Returns:</span>
+<span class="sd">              QtGui.QIcon: Icon representing an upward direction.</span>
+<span class="sd">          &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/up.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_down">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_down">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_down</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing a downward direction.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing a downward direction.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/down.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_left">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_left">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_left</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing a leftward direction.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing a leftward direction.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/left.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_right">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_right">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_right</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing a rightward direction.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing a rightward direction.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/right.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_center">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_center">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_center</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Returns a QIcon object representing the center point.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                QtGui.QIcon: Icon representing the center point.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/center.svg&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># media player icon</span>
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_video">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_video">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_video</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing a video.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing a video.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/video.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_square">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_square">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_square</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing a square shape.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing a square shape.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/square.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_play_video">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_play_video">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_play_video</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the play button for a video.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing the play button for a video.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/play.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_pause_video">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_pause_video">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_pause_video</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Returns a QIcon object representing the pause button for a video.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                QtGui.QIcon: Icon representing the pause button for a video.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/pause.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_resume_video">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_resume_video">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_resume_video</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the resume button for a video.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing the resume button for a video.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/resume.png&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_rewind_video">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_rewind_video">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_rewind_video</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the rewind button for a video.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing the rewind button for a video.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/rewind.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_forward_video">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_forward_video">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_forward_video</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the forward button for a video.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing the forward button for a video.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/forward.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_skip_rewind_video">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_skip_rewind_video">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_skip_rewind_video</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Returns a QIcon object representing the skip backward button for a video.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                QtGui.QIcon: Icon representing the skip backward button for a video.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/skip-back.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_skip_forward_video">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_skip_forward_video">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_skip_forward_video</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Returns a QIcon object representing the skip forward button for a video.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                QtGui.QIcon: Icon representing the skip forward button for a video.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/skip-forward.svg&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># zoom in zoom out icon</span>
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_zoom_in">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_zoom_in">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_zoom_in</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Returns a QIcon object representing the zoom in button.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                QtGui.QIcon: Icon representing the zoom in button.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/zoom-in.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_zoom_out">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_zoom_out">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_zoom_out</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the zoom out button.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing the zoom out button.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/zoom-out.svg&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># rotate</span>
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_rotate_ccw">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_rotate_ccw">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_rotate_ccw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the rotate counterclockwise button.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing the rotate counterclockwise button.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/rotate-ccw.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_rotate_cw">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_rotate_cw">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_rotate_cw</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">          Returns a QIcon object representing the rotate clockwise button.</span>
+
+<span class="sd">          Returns:</span>
+<span class="sd">              QtGui.QIcon: Icon representing the rotate clockwise button.</span>
+<span class="sd">          &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/rotate-cw.svg&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># show hide</span>
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_show">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_show">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Returns a QIcon object representing the show button.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                QtGui.QIcon: Icon representing the show button.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/show_.png&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_mouse_pointer">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_mouse_pointer">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_mouse_pointer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Returns a QIcon object representing the mouse pointer icon.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                QtGui.QIcon: Icon representing the mouse pointer.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/mouse-pointer.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_hide">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_hide">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_hide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the hide button.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing the hide button.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/hide_.png&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># shape</span>
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_sun">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_sun">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_sun</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">          Returns a QIcon object representing the sun icon.</span>
+
+<span class="sd">          Returns:</span>
+<span class="sd">              QtGui.QIcon: Icon representing the sun.</span>
+<span class="sd">          &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/sun.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_moon">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_moon">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_moon</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the moon icon.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing the moon.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/moon.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_plus">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_plus">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_plus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the plus icon.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing the plus.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/plus.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_cross_x">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_cross_x">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_cross_x</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the cross or X icon.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing the cross or X.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/x.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_setting">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_setting">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_setting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the settings icon.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing the settings.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/settings.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_opened_folder">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_opened_folder">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_opened_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing an opened folder icon.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing an opened folder.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/opened-folder.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_trash">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_trash">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_trash</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Returns a QIcon object representing the trash icon.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                QtGui.QIcon: Icon representing the trash.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/trash.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_text">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_text">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the text icon.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing the text.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/text.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_help">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_help">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_help</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the help icon.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing the help.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/help-circle.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_info">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_info">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">          Returns a QIcon object representing the info icon.</span>
+
+<span class="sd">          Returns:</span>
+<span class="sd">              QtGui.QIcon: Icon representing the info.</span>
+<span class="sd">          &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/info.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_minus">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_minus">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_minus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">          Returns a QIcon object representing the minus icon.</span>
+
+<span class="sd">          Returns:</span>
+<span class="sd">              QtGui.QIcon: Icon representing the minus.</span>
+<span class="sd">          &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/minus-circle.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_link">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_link">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_link</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the link icon.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing the link.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/link.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_maximize_view">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_maximize_view">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_maximize_view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">          Returns a QIcon object representing the maximize view icon.</span>
+
+<span class="sd">          Returns:</span>
+<span class="sd">              QtGui.QIcon: Icon representing the maximize view.</span>
+<span class="sd">          &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/maximize.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_external_link">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_external_link">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_external_link</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the external link icon.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing the external link.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/external-link.svg&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># other</span>
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_default">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_default">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">          Returns a QIcon object representing the default icon.</span>
+
+<span class="sd">          Returns:</span>
+<span class="sd">              QtGui.QIcon: Icon representing the default.</span>
+<span class="sd">          &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/default.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_menu">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_menu">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the menu icon.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing the menu.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/menu.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_facebook">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_facebook">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_facebook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the Facebook icon.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Icon representing Facebook.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/facebook.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_github">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_github">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_github</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">          Returns a QIcon object representing the GitHub icon.</span>
+
+<span class="sd">          Returns:</span>
+<span class="sd">              QtGui.QIcon: Icon representing GitHub.</span>
+<span class="sd">          &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/facebook.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_vlc">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_vlc">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_vlc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">          Returns a QIcon object representing the VLC icon.</span>
+
+<span class="sd">          Returns:</span>
+<span class="sd">              QtGui.QIcon: Icon representing VLC.</span>
+<span class="sd">          &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/VLC_Icon.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_pixmap_vlc">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_pixmap_vlc">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_pixmap_vlc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">          Returns a QPixmap object representing the VLC icon.</span>
+
+<span class="sd">          Returns:</span>
+<span class="sd">              QtGui.QPixmap: Pixmap representing VLC.</span>
+<span class="sd">          &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/VLC_Icon.svg&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># chevron for combo_box</span>
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_chevron_down_24px">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_chevron_down_24px">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_chevron_down_24px</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the chevron down icon in 24px size.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Chevron down icon in 24px size.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/chevron-down.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_chevron_down_12px">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_chevron_down_12px">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_chevron_down_12px</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">          Returns a QIcon object representing the chevron down icon in 12px size.</span>
+
+<span class="sd">          Returns:</span>
+<span class="sd">              QtGui.QIcon: Chevron down icon in 12px size.</span>
+<span class="sd">          &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/chevron-down-12.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_chevron_up_24px">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_chevron_up_24px">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_chevron_up_24px</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the chevron up icon in 24px size.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: Chevron up icon in 24px size.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/chevron-up.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_chevron_up_12px">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_chevron_up_12px">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_chevron_up_12px</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Returns a QIcon object representing the chevron up icon in 12px size.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                QtGui.QIcon: Chevron up icon in 12px size.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/chevron-up-12.svg&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># white icon</span>
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_chevron_down_white_12px">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_chevron_down_white_12px">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_chevron_down_white_12px</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Returns a QIcon object representing the white chevron down icon in 12px size.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                QtGui.QIcon: White chevron down icon in 12px size.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/light/cil-arrow-bottom-12.png&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_chevron_down_white_16px">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_chevron_down_white_16px">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_chevron_down_white_16px</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the white chevron down icon in 16px size.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: White chevron down icon in 16px size.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/light/cil-arrow-bottom.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_chevron_up_white">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_chevron_up_white">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_chevron_up_white</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the white chevron up icon.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: White chevron up icon.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/light/cil-arrow-top-12.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_camera_roll_white">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_camera_roll_white">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_camera_roll_white</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">           Returns a QIcon object representing the white camera roll icon.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               QtGui.QIcon: White camera roll icon.</span>
+<span class="sd">           &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/light/cil-camera-roll.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_check_white">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_check_white">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_check_white</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the white check icon.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            QtGui.QIcon: White check icon.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/light/cil-check-alt.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_circle_white">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_circle_white">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_circle_white</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the white circle icon.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            QtGui.QIcon: White circle icon.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/light/cil-circle.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_opened_folder_white">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_opened_folder_white">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_opened_folder_white</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the white opened folder icon.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            QtGui.QIcon: White opened folder icon.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/light/cil-folder-open.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_loop_white">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_loop_white">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_loop_white</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the white loop icon.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            QtGui.QIcon: White loop icon.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/light/cil-loop.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_loop_circular_white">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_loop_circular_white">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_loop_circular_white</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the white loop circular icon.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            QtGui.QIcon: White loop circular icon.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/light/cil-loop-circular.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_pause_video_white">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_pause_video_white">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_pause_video_white</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the white pause video icon.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            QtGui.QIcon: White pause video icon.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/light/cil-media-pause.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_play_video_white">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_play_video_white">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_play_video_white</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the white play video icon.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            QtGui.QIcon: White play video icon.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/light/cil-media-play.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_rewind_video_white">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_rewind_video_white">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_rewind_video_white</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the white rewind video icon.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">             QtGui.QIcon: White rewind video icon.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/light/cil-media-skip-backward.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_forward_video_white">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_forward_video_white">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_forward_video_white</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the white forward video icon.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            QtGui.QIcon: White forward video icon.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/light/cil-media-skip-forward.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_menu_white">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_menu_white">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_menu_white</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the white menu icon.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">            QtGui.QIcon: White menu icon.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/light/cil-menu.svg&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GetResourcesIcon.get_icon_cross_x_white">
+<a class="viewcode-back" href="../../models.html#models.model_icon_and_pixmap.GetResourcesIcon.get_icon_cross_x_white">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_icon_cross_x_white</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a QIcon object representing the white cross or X icon.</span>
+
+<span class="sd">        Return:</span>
+<span class="sd">             QtGui.QIcon: White cross or X icon.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__realpath</span> <span class="o">+</span> <span class="s2">&quot;/assets/icons/light/cil-x.svg&quot;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Perseverance Technology, Taiwan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

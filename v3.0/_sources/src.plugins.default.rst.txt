@@ -1,0 +1,25 @@
+Default
+===========================
+
+.. toctree::
+   :maxdepth: 4
+
+   src.plugins.default.contoller
+   src.plugins.default.ui_windows
+   src.plugins.default.view_image
+
+Main
+-------------------------------
+
+.. automodule:: plugins.default.main
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Controller
+-----------------------------------------
+
+.. automodule:: plugins.default.ui_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
