@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>controllers.control_panorama &mdash; MoilApp Documentation 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation_guide.html">Moilapp Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">MoilApp of Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin_extention.html">Plugin Extention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting_issue.html">Troubleshooting an Issue</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MoilApp Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">controllers.control_panorama</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for controllers.control_panorama</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+
+
+<div class="viewcode-block" id="PanoramaConfig">
+<a class="viewcode-back" href="../../controller.html#controllers.control_panorama.PanoramaConfig">[docs]</a>
+<span class="k">class</span> <span class="nc">PanoramaConfig</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main_ui</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes a new instance of the PanoramaConfig class.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            main_ui (object): Main UI object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="n">main_ui</span>
+        <span class="n">path_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__cached_file</span> <span class="o">=</span> <span class="n">path_file</span> <span class="o">+</span> <span class="s2">&quot;/src/models/cached/cache_config.yaml&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__cached_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_block_signal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">controls</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Blocks the signals of the given controls.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            controls: A list of PyQt controls whose signals should be blocked.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="n">controls</span><span class="p">:</span>
+            <span class="n">control</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_unblock_signal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">controls</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Unblocks the signals of the given controls.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            controls: A list of PyQt controls whose signals should be unblocked.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">control</span> <span class="ow">in</span> <span class="n">controls</span><span class="p">:</span>
+            <span class="n">control</span><span class="o">.</span><span class="n">blockSignals</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PanoramaConfig.block_signal_pano_tube">
+<a class="viewcode-back" href="../../controller.html#controllers.control_panorama.PanoramaConfig.block_signal_pano_tube">[docs]</a>
+    <span class="k">def</span> <span class="nf">block_signal_pano_tube</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Block signals for panoptic tube spin boxes and double spin boxes.</span>
+<span class="sd">        This method blocks signals for the following spin boxes and double spin boxes:</span>
+<span class="sd">        - self.ui.spinBox_pano_tube_alpha_min</span>
+<span class="sd">        - self.ui.spinBox_pano_tube_alpha_max</span>
+<span class="sd">        - self.ui.doubleSpinBox_pano_tube_crop_top</span>
+<span class="sd">        - self.ui.doubleSpinBox_pano_tube_crop_buttom</span>
+
+<span class="sd">        This method is intended to be used to avoid emitting signals when changing the values of the panoptic tube spin boxes and double spin boxes programmatically.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            self: An instance of the class containing this method.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_block_signal</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinBox_pano_tube_alpha_min</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinBox_pano_tube_alpha_max</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_tube_crop_top</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_tube_crop_buttom</span>
+            <span class="p">]</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PanoramaConfig.unblock_signal_pano_tube">
+<a class="viewcode-back" href="../../controller.html#controllers.control_panorama.PanoramaConfig.unblock_signal_pano_tube">[docs]</a>
+    <span class="k">def</span> <span class="nf">unblock_signal_pano_tube</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Unblocks the signals for the pano tube settings widgets.</span>
+
+<span class="sd">        This function calls the _unblock_signal method to unblock the signals for the pano tube settings widgets.</span>
+
+<span class="sd">            Args:</span>
+<span class="sd">                None.</span>
+
+<span class="sd">            Returns:</span>
+<span class="sd">                None.</span>
+
+<span class="sd">            Raises:</span>
+<span class="sd">                None.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_unblock_signal</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinBox_pano_tube_alpha_min</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinBox_pano_tube_alpha_max</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_tube_crop_top</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_tube_crop_buttom</span>
+            <span class="p">]</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PanoramaConfig.block_signal_pano_car">
+<a class="viewcode-back" href="../../controller.html#controllers.control_panorama.PanoramaConfig.block_signal_pano_car">[docs]</a>
+    <span class="k">def</span> <span class="nf">block_signal_pano_car</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Blocks the signals of certain UI elements related to the panoramic car view.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_block_signal</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinBox_pano_car_alpha</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinBox_pano_car_beta</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_left</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_right</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_top</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_bottom</span>
+            <span class="p">]</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PanoramaConfig.unblock_signal_pano_car">
+<a class="viewcode-back" href="../../controller.html#controllers.control_panorama.PanoramaConfig.unblock_signal_pano_car">[docs]</a>
+    <span class="k">def</span> <span class="nf">unblock_signal_pano_car</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Unblocks signals for a set of widgets related to the panoramic car view.</span>
+
+<span class="sd">        This function unblocks signals for the following widgets: spinBox_pano_car_alpha,</span>
+<span class="sd">        spinBox_pano_car_beta, doubleSpinBox_pano_car_crop_left, doubleSpinBox_pano_car_crop_right,</span>
+<span class="sd">        doubleSpinBox_pano_car_crop_top, doubleSpinBox_pano_car_crop_bottom. This allows changes to</span>
+<span class="sd">        these widgets to trigger the corresponding slots.</span>
+
+<span class="sd">        This function is called by the GUI when the user leaves a specific tab or dialog box in the panoramic</span>
+<span class="sd">        car view.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            None.</span>
+
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_unblock_signal</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinBox_pano_car_alpha</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinBox_pano_car_beta</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_left</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_right</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_top</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_bottom</span>
+            <span class="p">]</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PanoramaConfig.showing_config_panorama_tube">
+<a class="viewcode-back" href="../../controller.html#controllers.control_panorama.PanoramaConfig.showing_config_panorama_tube">[docs]</a>
+    <span class="k">def</span> <span class="nf">showing_config_panorama_tube</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Reads the panorama configuration from a YAML file, and populates the relevant UI elements with the values.</span>
+
+<span class="sd">        Opens the cached configuration file using the private attribute `__cached_file` as the file path, and reads its</span>
+<span class="sd">        contents using PyYAML&#39;s `safe_load` method. The relevant UI elements are then set to the corresponding values</span>
+<span class="sd">        found in the configuration file.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            This function blocks signals from the UI elements while updating them with the configuration values.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            IOError: If the configuration file cannot be read.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__cached_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">block_signal_pano_tube</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinBox_pano_tube_alpha_min</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_tube&quot;</span><span class="p">][</span><span class="s2">&quot;alpha_min&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinBox_pano_tube_alpha_max</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_tube&quot;</span><span class="p">][</span><span class="s2">&quot;alpha_max&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_tube_crop_top</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_tube&quot;</span><span class="p">][</span><span class="s2">&quot;crop_top&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_tube_crop_buttom</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_tube&quot;</span><span class="p">][</span><span class="s2">&quot;crop_bottom&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unblock_signal_pano_tube</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="PanoramaConfig.showing_config_panorama_car">
+<a class="viewcode-back" href="../../controller.html#controllers.control_panorama.PanoramaConfig.showing_config_panorama_car">[docs]</a>
+    <span class="k">def</span> <span class="nf">showing_config_panorama_car</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Loads the panorama car configuration from a cached YAML file and updates the user interface with its values.</span>
+
+<span class="sd">        Reads the cached file at `self.__cached_file` using the PyYAML library to parse the YAML content. The parsed</span>
+<span class="sd">        configuration values are assigned to the instance variable `self.__panorama_config`. Blocks signals from all the</span>
+<span class="sd">        widgets associated with the car panorama in the user interface to prevent any unintended updates during the UI</span>
+<span class="sd">        update process. Then, sets the values of the panorama car configuration widgets in the UI with the parsed values</span>
+<span class="sd">        from the configuration file. Finally, unblocks signals from all the widgets that were previously blocked.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__cached_file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">block_signal_pano_car</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinBox_pano_car_alpha</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinBox_pano_car_beta</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;beta&quot;</span><span class="p">]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_left</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;crop_left&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_right</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;crop_right&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_top</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;crop_top&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_bottom</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;crop_bottom&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unblock_signal_pano_car</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="PanoramaConfig.change_properties_panorama_tube">
+<a class="viewcode-back" href="../../controller.html#controllers.control_panorama.PanoramaConfig.change_properties_panorama_tube">[docs]</a>
+    <span class="k">def</span> <span class="nf">change_properties_panorama_tube</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Change the properties of the panorama tube.</span>
+
+<span class="sd">        Reads the new values for alpha_min, alpha_max, crop_top, and crop_bottom from the</span>
+<span class="sd">        corresponding UI elements, and updates the __panorama_config dictionary with the new</span>
+<span class="sd">        values if they meet certain criteria. Then writes the updated dictionary to a YAML file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            self: An instance of the class.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">alpha_min</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinBox_pano_tube_alpha_min</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
+        <span class="n">alpha_max</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinBox_pano_tube_alpha_max</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
+        <span class="n">crop_top</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_tube_crop_top</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">crop_bottom</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_tube_crop_buttom</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="mi">3</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">alpha_min</span> <span class="o">&lt;</span> <span class="n">alpha_max</span> <span class="o">-</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_tube&quot;</span><span class="p">][</span><span class="s2">&quot;alpha_min&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha_min</span>
+        <span class="k">if</span> <span class="n">alpha_max</span> <span class="o">&gt;</span> <span class="n">alpha_min</span> <span class="o">+</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_tube&quot;</span><span class="p">][</span><span class="s2">&quot;alpha_max&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha_max</span>
+        <span class="k">if</span> <span class="n">crop_top</span> <span class="o">&lt;</span> <span class="n">crop_bottom</span> <span class="o">-</span> <span class="mf">0.2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_tube&quot;</span><span class="p">][</span><span class="s2">&quot;crop_top&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">crop_top</span>
+        <span class="k">if</span> <span class="n">crop_bottom</span> <span class="o">&gt;</span> <span class="n">crop_top</span> <span class="o">+</span> <span class="mf">0.2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_tube&quot;</span><span class="p">][</span><span class="s2">&quot;crop_bottom&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">crop_bottom</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__cached_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+            <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">,</span> <span class="n">outfile</span><span class="p">,</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PanoramaConfig.change_properties_panorama_car">
+<a class="viewcode-back" href="../../controller.html#controllers.control_panorama.PanoramaConfig.change_properties_panorama_car">[docs]</a>
+    <span class="k">def</span> <span class="nf">change_properties_panorama_car</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Updates the properties of the car panorama and saves them to a YAML file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            Updates the alpha and beta properties of the car panorama from the GUI spinboxes.</span>
+<span class="sd">            Updates the crop_left, crop_right, crop_top, and crop_bottom properties of the car panorama from the GUI double spinboxes.</span>
+<span class="sd">            Saves the updated panorama configuration to a YAML file specified in `self.__cached_file`.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinBox_pano_car_alpha</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;beta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">spinBox_pano_car_beta</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
+
+        <span class="n">crop_left</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_left</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">crop_right</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_right</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">crop_top</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_top</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">crop_bottom</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">doubleSpinBox_pano_car_crop_bottom</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="mi">3</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">crop_left</span> <span class="o">&lt;</span> <span class="n">crop_right</span> <span class="o">-</span> <span class="mf">0.25</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;crop_left&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">crop_left</span>
+
+        <span class="k">if</span> <span class="n">crop_right</span> <span class="o">&gt;</span> <span class="n">crop_left</span> <span class="o">+</span> <span class="mf">0.25</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;crop_right&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">crop_right</span>
+
+        <span class="k">if</span> <span class="n">crop_top</span> <span class="o">&lt;</span> <span class="n">crop_bottom</span> <span class="o">-</span> <span class="mf">0.25</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;crop_top&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">crop_top</span>
+
+        <span class="k">if</span> <span class="n">crop_bottom</span> <span class="o">&gt;</span> <span class="n">crop_top</span> <span class="o">+</span> <span class="mf">0.25</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">[</span><span class="s2">&quot;Pano_car&quot;</span><span class="p">][</span><span class="s2">&quot;crop_bottom&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">crop_bottom</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__cached_file</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+            <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__panorama_config</span><span class="p">,</span> <span class="n">outfile</span><span class="p">,</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Perseverance Technology, Taiwan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

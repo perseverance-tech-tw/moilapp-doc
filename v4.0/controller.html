@@ -1,0 +1,2479 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Controller Package &mdash; MoilApp Documentation 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html">
+            
+              <img src="_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation_guide.html">Moilapp Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">MoilApp of Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugin_extention.html">Plugin Extention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting_issue.html">Troubleshooting an Issue</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MoilApp Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Controller Package</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="controller-package">
+<h1>Controller Package<a class="headerlink" href="#controller-package" title="Link to this heading"></a></h1>
+<section id="module-controllers.control_main">
+<span id="main-controller"></span><h2>Main Controller<a class="headerlink" href="#module-controllers.control_main" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="controllers.control_main.Controller">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controllers.control_main.</span></span><span class="sig-name descname"><span class="pre">Controller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">QMainWindow</span></code></p>
+<p>Initialize the MoilApp GUI.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ui</strong> – The user interface for the MoilApp.</p></li>
+<li><p><strong>model</strong> – The model representing the MoilApp.</p></li>
+<li><p><strong>*args</strong> – Variable length argument list.</p></li>
+<li><p><strong>**kwargs</strong> – Arbitrary keyword arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.connect_event">
+<span class="sig-name descname"><span class="pre">connect_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.connect_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.connect_event" title="Link to this definition"></a></dt>
+<dd><p>Connects all the events and signals to their respective functions.</p>
+<p>Args:
+self: An instance of the class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.add_full_screen_window_show_result">
+<span class="sig-name descname"><span class="pre">add_full_screen_window_show_result</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.add_full_screen_window_show_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.add_full_screen_window_show_result" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.label_full_screen_double_click_event">
+<span class="sig-name descname"><span class="pre">label_full_screen_double_click_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.label_full_screen_double_click_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.label_full_screen_double_click_event" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.control_fov_full_screen">
+<span class="sig-name descname"><span class="pre">control_fov_full_screen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.control_fov_full_screen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.control_fov_full_screen" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.back_to_moil_apps">
+<span class="sig-name descname"><span class="pre">back_to_moil_apps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.back_to_moil_apps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.back_to_moil_apps" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.showing_new_window_full_screen">
+<span class="sig-name descname"><span class="pre">showing_new_window_full_screen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.showing_new_window_full_screen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.showing_new_window_full_screen" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.resize_event_new_window">
+<span class="sig-name descname"><span class="pre">resize_event_new_window</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PyQt6.QtGui.QResizeEvent</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.resize_event_new_window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.resize_event_new_window" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.show_general_information">
+<span class="sig-name descname"><span class="pre">show_general_information</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.show_general_information"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.show_general_information" title="Link to this definition"></a></dt>
+<dd><p>Show general information on the user interface</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_show_moilapp_plugin_store">
+<span class="sig-name descname"><span class="pre">onclick_show_moilapp_plugin_store</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_show_moilapp_plugin_store"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_show_moilapp_plugin_store" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.get_list_plugins">
+<span class="sig-name descname"><span class="pre">get_list_plugins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.get_list_plugins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.get_list_plugins" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.clear_item_layout">
+<span class="sig-name descname"><span class="pre">clear_item_layout</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.clear_item_layout"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.clear_item_layout" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.clicked_test">
+<span class="sig-name descname"><span class="pre">clicked_test</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.clicked_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.clicked_test" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.download_plugins_from_github">
+<span class="sig-name descname"><span class="pre">download_plugins_from_github</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.download_plugins_from_github"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.download_plugins_from_github" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_close_plugin_store">
+<span class="sig-name descname"><span class="pre">onclick_close_plugin_store</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_close_plugin_store"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_close_plugin_store" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.show_config_view_in_information">
+<span class="sig-name descname"><span class="pre">show_config_view_in_information</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#controllers.control_main.Controller.show_config_view_in_information" title="Link to this definition"></a></dt>
+<dd><p>Updates the information labels in the UI with the given configuration data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> (<em>dict</em>) – <p>A dictionary containing the configuration data to be displayed.
+It should have the following keys:</p>
+<ul class="simple">
+<li><p>”Media_path”: A string representing the path to the media being used.</p></li>
+<li><p>”Cam_type”: A string representing the type of camera being used.</p></li>
+<li><p>”Parameter_name”: A string representing the name of the parameter being used.</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Side effects:</dt><dd><ul class="simple">
+<li><p>Updates the “Media path” label in the UI with the value of “Media_path” in config.</p></li>
+<li><p>Updates the “Media type” label in the UI with the value of “Cam_type” in config.</p></li>
+<li><p>Updates the “Parameter used” label in the UI with the value of “Parameter_name” in config.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.reset_view_back_to_original">
+<span class="sig-name descname"><span class="pre">reset_view_back_to_original</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.reset_view_back_to_original"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.reset_view_back_to_original" title="Link to this definition"></a></dt>
+<dd><p>Resets the UI to its original state.</p>
+<p>Unlocks the menu state view, enables the mode view widget, and hides it. If
+the image result is not None, resets its width and angle to default values,
+sets the state of the rubberband tool to False, and re-runs the image
+processing pipeline after loading a saved image. Finally, updates the UI to
+display the new rotation value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.change_polygon_state">
+<span class="sig-name descname"><span class="pre">change_polygon_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.change_polygon_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.change_polygon_state" title="Link to this definition"></a></dt>
+<dd><p>Sets the drawing state of the polygon based on the checked state of the UI element.</p>
+<p>If the ‘check_draw_polygon’ UI element is checked, the drawing state of the polygon will be set to True.
+Otherwise, it will be set to False.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.label_recenter_mouse_leave_event">
+<span class="sig-name descname"><span class="pre">label_recenter_mouse_leave_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.label_recenter_mouse_leave_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.label_recenter_mouse_leave_event" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.label_original_mouse_leave_event">
+<span class="sig-name descname"><span class="pre">label_original_mouse_leave_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.label_original_mouse_leave_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.label_original_mouse_leave_event" title="Link to this definition"></a></dt>
+<dd><p>Handle the mouse leave event on the original image label.</p>
+<p>This method is called when the mouse leaves the original image label in the
+UI. It delegates the handling of the event to the model_apps instance of the
+Model class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>QEvent</em>) – The event object representing the mouse leave event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.label_original_mouse_double_click_event">
+<span class="sig-name descname"><span class="pre">label_original_mouse_double_click_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.label_original_mouse_double_click_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.label_original_mouse_double_click_event" title="Link to this definition"></a></dt>
+<dd><p>Handles the mouse double-click event for the <cite>label_original</cite> widget, which displays the original fisheye image.</p>
+<p>If the current view mode is <cite>AnypointView</cite>, calls the corresponding <cite>model_apps</cite> method and displays the
+corresponding <cite>anypoint_config</cite> UI widget.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> – A <cite>QMouseEvent</cite> object representing the mouse double-click event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.label_recenter_mouse_press_event">
+<span class="sig-name descname"><span class="pre">label_recenter_mouse_press_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.label_recenter_mouse_press_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.label_recenter_mouse_press_event" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.label_original_mouse_press_event">
+<span class="sig-name descname"><span class="pre">label_original_mouse_press_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.label_original_mouse_press_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.label_original_mouse_press_event" title="Link to this definition"></a></dt>
+<dd><p>Handles mouse press events on the original label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>QtGui.QMouseEvent</em>) – The mouse press event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.label_recenter_mouse_move_event">
+<span class="sig-name descname"><span class="pre">label_recenter_mouse_move_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.label_recenter_mouse_move_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.label_recenter_mouse_move_event" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.label_original_mouse_move_event">
+<span class="sig-name descname"><span class="pre">label_original_mouse_move_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.label_original_mouse_move_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.label_original_mouse_move_event" title="Link to this definition"></a></dt>
+<dd><p>Handles mouse move events on the original label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.label_result_mouse_double_click">
+<span class="sig-name descname"><span class="pre">label_result_mouse_double_click</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.label_result_mouse_double_click"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.label_result_mouse_double_click" title="Link to this definition"></a></dt>
+<dd><p>Handles mouse double-click events on the original label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>QtGui.QMouseEvent</em>) – The mouse press event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.label_result_mouse_press_event">
+<span class="sig-name descname"><span class="pre">label_result_mouse_press_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.label_result_mouse_press_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.label_result_mouse_press_event" title="Link to this definition"></a></dt>
+<dd><p>Handles the mouse press event on the result image label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> – A <cite>QMouseEvent</cite> object representing the mouse press event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is responsible for creating and showing a rubberband when the left mouse button is pressed on
+the result image label. The rubberband is used to select a specific region of interest (ROI) in the image.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.label_result_mouse_move_event">
+<span class="sig-name descname"><span class="pre">label_result_mouse_move_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.label_result_mouse_move_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.label_result_mouse_move_event" title="Link to this definition"></a></dt>
+<dd><p>Handle mouse move events on the result label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> – A <cite>QMouseEvent</cite> instance representing the mouse move event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.label_result_mouse_release_event">
+<span class="sig-name descname"><span class="pre">label_result_mouse_release_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.label_result_mouse_release_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.label_result_mouse_release_event" title="Link to this definition"></a></dt>
+<dd><p>Handles the mouse release event on the label_result widget.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> – A QMouseEvent object representing the mouse event.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Behavior:</dt><dd><p>If the left mouse button was released and an image is loaded, the size of the rubberband is checked.
+If it has a width and height greater than 20 pixels and the state of the rubberband is False, the size of
+the rubberband is stored in the model’s size_rubberband attribute, the state of the rubberband is set to
+True, and a new image result is created. The rubberband is then hidden. If the right mouse button is
+released, the menu_mouse_event method is called with the event object and the string “label_result” as
+arguments.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.label_original_mouse_release_event">
+<span class="sig-name descname"><span class="pre">label_original_mouse_release_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.label_original_mouse_release_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.label_original_mouse_release_event" title="Link to this definition"></a></dt>
+<dd><p>Handle the mouse release event on the original image label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>QMouseEvent</em>) – The mouse release event that triggered the function.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.menu_mouse_event">
+<span class="sig-name descname"><span class="pre">menu_mouse_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.menu_mouse_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.menu_mouse_event" title="Link to this definition"></a></dt>
+<dd><p>Show a context menu on the mouse event with options for the specified label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event</strong> – A <cite>QMouseEvent</cite> object containing information about the mouse event.</p></li>
+<li><p><strong>label</strong> – A string indicating the label type, either “label_result” or “label_original”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.show_information_of_image">
+<span class="sig-name descname"><span class="pre">show_information_of_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.show_information_of_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.show_information_of_image" title="Link to this definition"></a></dt>
+<dd><p>Displays information about the current image view.</p>
+<p>Displays a message box with information about the current image view, including whether it is a fisheye,
+anypoint, or panorama view. If the current view has a polygon drawn on it, the message box will indicate
+that the polygon is being shown and the user can change the ROI by clicking on the image.</p>
+<p>If the application is in zooming mode to view a specific ROI, a message box will be displayed indicating
+that the user should close the preview or press ‘Esc’ on the keyboard to return.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>label</strong> (<em>str</em>) – The label of the current image view.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.save_image">
+<span class="sig-name descname"><span class="pre">save_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.save_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.save_image" title="Link to this definition"></a></dt>
+<dd><p>Saves the current or resulting image to a selected folder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>image_result</strong> (<em>bool</em><em>, </em><em>optional</em>) – Determines whether to save the resulting image
+(<cite>True</cite>) or the original image (<cite>False</cite>). Defaults to <cite>True</cite>.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p>FileNotFoundError: If the base directory for saving images is not found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_record_video_button">
+<span class="sig-name descname"><span class="pre">onclick_record_video_button</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_record_video_button"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_record_video_button" title="Link to this definition"></a></dt>
+<dd><p>Handle the click event on the Record Video button.</p>
+<p>This function displays an information message indicating that video recording is currently under development,
+and unchecks the Record Video button.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None.</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.load_saved_image_list">
+<span class="sig-name descname"><span class="pre">load_saved_image_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.load_saved_image_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.load_saved_image_list" title="Link to this definition"></a></dt>
+<dd><p>Loads saved images into the GUI’s list widget.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to load the images into the list widget. Defaults to False.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.add_widget_save_image">
+<span class="sig-name descname"><span class="pre">add_widget_save_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.add_widget_save_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.add_widget_save_image" title="Link to this definition"></a></dt>
+<dd><p>Adds a new widget to the saved image list with the given image and file name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>numpy.ndarray</em>) – The image to be displayed in the widget.</p></li>
+<li><p><strong>name_file</strong> (<em>str</em>) – The name of the image file.</p></li>
+<li><p><strong>load</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether the widget is being added during load or not. Defaults to False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.list_widget_saved_image_activated">
+<span class="sig-name descname"><span class="pre">list_widget_saved_image_activated</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.list_widget_saved_image_activated"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.list_widget_saved_image_activated" title="Link to this definition"></a></dt>
+<dd><p>Handle the activation of a saved image in the list widget.</p>
+<p>The function sets the appropriate image view mode and opens the saved image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None.</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.lock_menu_state_view">
+<span class="sig-name descname"><span class="pre">lock_menu_state_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.lock_menu_state_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.lock_menu_state_view" title="Link to this definition"></a></dt>
+<dd><p>Locks the state of the view menu by disabling all view mode buttons and resetting their style to default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.unlock_menu_state_view">
+<span class="sig-name descname"><span class="pre">unlock_menu_state_view</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.unlock_menu_state_view"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.unlock_menu_state_view" title="Link to this definition"></a></dt>
+<dd><p>Unlocks the state of the menu for viewing modes, enabling the FishEye, AnyPoint, and Panorama buttons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.reset_style_button_menu">
+<span class="sig-name descname"><span class="pre">reset_style_button_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.reset_style_button_menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.reset_style_button_menu" title="Link to this definition"></a></dt>
+<dd><p>Resets the style of the fish-eye, anypoint, and panorama buttons to their default state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.change_properties_panorama">
+<span class="sig-name descname"><span class="pre">change_properties_panorama</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.change_properties_panorama"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.change_properties_panorama" title="Link to this definition"></a></dt>
+<dd><p>Change the properties of the panorama configuration according to the selected options.</p>
+<p>If there is a result image, this function updates the panorama configuration and maps based on the
+selected radio button, which can be “Car” or “Tube”. It then updates the file configuration. If
+there is no result image, this function does nothing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.change_properties_crop_panorama">
+<span class="sig-name descname"><span class="pre">change_properties_crop_panorama</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.change_properties_crop_panorama"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.change_properties_crop_panorama" title="Link to this definition"></a></dt>
+<dd><p>Changes the properties of the current panorama crop.</p>
+<p>If there is a panorama image loaded, this function updates the properties of the crop using the settings
+selected in the UI. If the “car” option is selected, the panorama is cropped to a horizontal field of view
+of 360 degrees and a vertical field of view of 90 degrees. If the “tube” option is selected, the panorama is
+cropped to a horizontal field of view of 180 degrees and a vertical field of view of 360 degrees.</p>
+<p>After updating the properties of the crop, this function updates the app’s configuration file and creates
+a new image result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.change_mode_panorama">
+<span class="sig-name descname"><span class="pre">change_mode_panorama</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.change_mode_panorama"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.change_mode_panorama" title="Link to this definition"></a></dt>
+<dd><p>Changes the panorama mode to either ‘car’ or ‘tube’.</p>
+<p>This method sets the panorama mode to either ‘car’ or ‘tube’ based on the selected radio button.
+If the ‘car’ radio button is selected, the car configuration frame is shown and the tube configuration frame
+is hidden. The opposite is true if the ‘tube’ radio button is selected. The panorama configuration object is
+then updated and the maps for the selected mode are created.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.activate_change_optical_point">
+<span class="sig-name descname"><span class="pre">activate_change_optical_point</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.activate_change_optical_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.activate_change_optical_point" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.set_value_coordinate">
+<span class="sig-name descname"><span class="pre">set_value_coordinate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coordinate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#controllers.control_main.Controller.set_value_coordinate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.change_coordinate_optical_point">
+<span class="sig-name descname"><span class="pre">change_coordinate_optical_point</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.change_coordinate_optical_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.change_coordinate_optical_point" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.show_recenter_image">
+<span class="sig-name descname"><span class="pre">show_recenter_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#controllers.control_main.Controller.show_recenter_image" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.change_mode_anypoint">
+<span class="sig-name descname"><span class="pre">change_mode_anypoint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.change_mode_anypoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.change_mode_anypoint" title="Link to this definition"></a></dt>
+<dd><p>Change the current anypoint mode.</p>
+<p>Changes the anypoint mode based on the selected radio button in the user interface.
+Shows or hides certain configuration options depending on the selected mode.
+Updates the anypoint maps and the anypoint mode in the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.change_properties_anypoint">
+<span class="sig-name descname"><span class="pre">change_properties_anypoint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.change_properties_anypoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.change_properties_anypoint" title="Link to this definition"></a></dt>
+<dd><p>Changes the properties of the AnyPoint view mode.</p>
+<p>If an image result is available, this method changes the properties of the AnyPoint view mode according to
+the values set in the GUI. The changes are applied to the configuration object, and new maps are created.
+The configuration file is updated accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None.</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_anypoint">
+<span class="sig-name descname"><span class="pre">onclick_anypoint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_anypoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_anypoint" title="Link to this definition"></a></dt>
+<dd><p>Handle anypoint buttons click event.</p>
+<p>If radio_mode_1 is checked, the method sets the alpha and beta values of the model_apps object based on which
+button was clicked and then calls the showing_config_mode_1 and create_maps_anypoint_mode_1 methods.
+If radio_mode_1 is not checked, the method sets the alpha and beta values of the model_apps object based on
+which button was clicked and then calls the showing_config_mode_2 and create_maps_anypoint_mode_2 methods.
+It also sets the state_rubberband attribute of the model_apps object to False and updates the file config.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.read_the_documentation">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">read_the_documentation</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.read_the_documentation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.read_the_documentation" title="Link to this definition"></a></dt>
+<dd><p>Opens the HTML documentation for this project in a new browser tab.</p>
+<p>If the <cite>../docs/build/html</cite> directory doesn’t exist, this method runs the command <cite>make -C ../docs html</cite>
+to generate the documentation. Then, it opens the <cite>index.html</cite> file in the <cite>../docs/build/html</cite>
+directory in a new browser tab.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cls</strong> – The class object itself.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.show_message">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">show_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.show_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.show_message" title="Link to this definition"></a></dt>
+<dd><p>Show an information message box with a title and a message for 5 seconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> – A string with the title of the message box.</p></li>
+<li><p><strong>message</strong> – A string with the message to be displayed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_btn_github">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">onclick_btn_github</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_btn_github"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_btn_github" title="Link to this definition"></a></dt>
+<dd><p>Open the link to the project’s GitHub page in a new browser window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_button_menu">
+<span class="sig-name descname"><span class="pre">onclick_button_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_button_menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_button_menu" title="Link to this definition"></a></dt>
+<dd><p>Handles the click event for the menu button.</p>
+<p>This method calls the button_menu method of the ctrl_apps object to show the menu with a width of 220 pixels
+and sets the flag to True to indicate that the menu is open.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – The instance of the current object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_button_about_us">
+<span class="sig-name descname"><span class="pre">onclick_button_about_us</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_button_about_us"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_button_about_us" title="Link to this definition"></a></dt>
+<dd><p>Handles the click event for the “About Us” button.</p>
+<p>This method calls the button_about_us method of the ctrl_apps object to show the “About Us” page and sets
+the flag to True to indicate that the page is open. The current theme of the app is also passed as a
+parameter to the button_about_us method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – The instance of the current object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_button_setting_menu">
+<span class="sig-name descname"><span class="pre">onclick_button_setting_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_button_setting_menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_button_setting_menu" title="Link to this definition"></a></dt>
+<dd><p>Handles the click event for the “Settings” button.</p>
+<p>This method calls the setting_menu method of the ctrl_apps object to show the “Settings” menu and sets the
+flag to True to indicate that the menu is open. The current theme of the app is also passed as a parameter
+to the setting_menu method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – The instance of the current object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_record_screen">
+<span class="sig-name descname"><span class="pre">onclick_record_screen</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_record_screen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_record_screen" title="Link to this definition"></a></dt>
+<dd><p>Handles the click event of the record screen button.</p>
+<p>If the button is checked, the screen recording is started and the button icon is changed to the “record” icon.
+If the button is unchecked, the screen recording is stopped and the button icon is changed to the “stop” icon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.resizeEvent">
+<span class="sig-name descname"><span class="pre">resizeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">PyQt6.QtGui.QResizeEvent</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.resizeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.resizeEvent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.round_to_nearest_100">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">round_to_nearest_100</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.round_to_nearest_100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.round_to_nearest_100" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.closeEvent">
+<span class="sig-name descname"><span class="pre">closeEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.closeEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.closeEvent" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.moveEvent">
+<span class="sig-name descname"><span class="pre">moveEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.moveEvent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.moveEvent" title="Link to this definition"></a></dt>
+<dd><p>Moves the screen image worker to the position specified by the given event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> – A PyQt event containing information about the new position of the screen image worker.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The return value of the super() method for the same event.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>N/A</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_btn_open_media">
+<span class="sig-name descname"><span class="pre">onclick_btn_open_media</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_btn_open_media"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_btn_open_media" title="Link to this definition"></a></dt>
+<dd><p>Handles the click event for the “Open Media” button.</p>
+<p>This method prompts the user to select a media source and loads the selected media into the app. If the
+user selects a file, it sets the media source and parameter name in the model_apps object and calls the
+load_saved_image_list and show_rotation_value methods to update the UI. It also updates the view mode and
+hides some UI elements. If there is a result image, it sets the recent view state in the model_apps object
+to “FisheyeView” and loads the saved image list.</p>
+<p>If the user does not select a file, this method displays an information message box.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – The instance of the current object.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.control_video_controller">
+<span class="sig-name descname"><span class="pre">control_video_controller</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_media_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#controllers.control_main.Controller.control_video_controller" title="Link to this definition"></a></dt>
+<dd><p>Controls the visibility of the video controller frame based on the type of media source.</p>
+<p>This method takes a string parameter, source_media_type, that specifies the type of media source. If the
+source is an image, the video controller frame is hidden. Otherwise, it is shown.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> – The instance of the current object.</p></li>
+<li><p><strong>source_media_type</strong> – A string that specifies the type of media source.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_play_pause_video">
+<span class="sig-name descname"><span class="pre">onclick_play_pause_video</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#controllers.control_main.Controller.onclick_play_pause_video" title="Link to this definition"></a></dt>
+<dd><p>Handles the play/pause button click event for the video player.</p>
+<p>This method takes a boolean parameter, status, that indicates whether the video should be played or paused. If the
+status is True, the play/pause button is updated to show the pause icon. Otherwise, it is updated to show the play
+icon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> – The instance of the current object.</p></li>
+<li><p><strong>status</strong> – A boolean that indicates whether the video should be played (True) or paused (False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.set_slider_position">
+<span class="sig-name descname"><span class="pre">set_slider_position</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#controllers.control_main.Controller.set_slider_position" title="Link to this definition"></a></dt>
+<dd><p>Sets the position of the video slider.</p>
+<p>This method takes a float parameter, value, that represents the position of the video slider. The slider is updated to
+the given value, and the blockSignals method is used to prevent signals from being emitted during the update.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> – The instance of the current object.</p></li>
+<li><p><strong>value</strong> – A float that represents the new position of the video slider.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.show_timer_video_info">
+<span class="sig-name descname"><span class="pre">show_timer_video_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_timer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#controllers.control_main.Controller.show_timer_video_info" title="Link to this definition"></a></dt>
+<dd><p>Updates the video timer labels with the given time values.</p>
+<p>This method takes a list parameter, list_timer, that contains four values representing the current and total times
+of the video in minutes and seconds. The current time is displayed in the label_current_time label, and the total time
+is displayed in the label_total_time label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> – The instance of the current object.</p></li>
+<li><p><strong>list_timer</strong> – A list of four integers representing the current and total times of the video in minutes and seconds.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.alpha_beta_from_coordinate">
+<span class="sig-name descname"><span class="pre">alpha_beta_from_coordinate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha_beta</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#controllers.control_main.Controller.alpha_beta_from_coordinate" title="Link to this definition"></a></dt>
+<dd><p>Sets the alpha and beta values based on the given coordinate.</p>
+<p>This method takes a list parameter, alpha_beta, that contains two values representing the alpha and beta angles of a
+spherical coordinate. If either value is None, then the alpha and beta labels are set to 0.0. Otherwise, the alpha and
+beta labels are set to the rounded values of alpha_beta[0] and alpha_beta[1], respectively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> – The instance of the current object.</p></li>
+<li><p><strong>alpha_beta</strong> – A list of two floating-point numbers representing the alpha and beta angles of a spherical coordinate.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.show_image_original">
+<span class="sig-name descname"><span class="pre">show_image_original</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#controllers.control_main.Controller.show_image_original" title="Link to this definition"></a></dt>
+<dd><p>Displays the original image in the designated label.</p>
+<p>This method takes an image object and displays it in the label_image_original widget. The image is scaled to fit within
+the dimensions of the label while maintaining its aspect ratio.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> – The instance of the current object.</p></li>
+<li><p><strong>image</strong> – An image object to display in the label.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.get_image_result">
+<span class="sig-name descname"><span class="pre">get_image_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#controllers.control_main.Controller.get_image_result" title="Link to this definition"></a></dt>
+<dd><p>Sets the image result and displays it.</p>
+<p>This method takes an image object and sets it as the current image result. It then calls the show_image_result method to
+display the image in the label. If no image is provided, the method does nothing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> – The instance of the current object.</p></li>
+<li><p><strong>image</strong> – An image object to set as the current image result.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.control_change_zooming">
+<span class="sig-name descname"><span class="pre">control_change_zooming</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.control_change_zooming"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.control_change_zooming" title="Link to this definition"></a></dt>
+<dd><p>Controls the change of zooming in the displayed image. Updates the displayed image’s width according to
+the zoom level set by the user through the spinBox_zooming input. The updated width is chosen from a
+predefined list of possible values to ensure the closest match to the desired width.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None.</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None.</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.zoom_image">
+<span class="sig-name descname"><span class="pre">zoom_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operation</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.zoom_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.zoom_image" title="Link to this definition"></a></dt>
+<dd><p>Zooms in or out on the result image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>operation</strong> (<em>str</em>) – The zoom operation to perform. Must be one of “zoom_in” or “zoom_out”.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.show_percentage_zoom">
+<span class="sig-name descname"><span class="pre">show_percentage_zoom</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.show_percentage_zoom"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.show_percentage_zoom" title="Link to this definition"></a></dt>
+<dd><p>Displays the percentage of the current zoom level in the zoom spin box.</p>
+<p>Calculates the percentage of the current width of the image result with respect to the original width of
+the input image, and sets the value of the zoom spin box to this percentage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.show_image_result">
+<span class="sig-name descname"><span class="pre">show_image_result</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.show_image_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.show_image_result" title="Link to this definition"></a></dt>
+<dd><p>Displays the image result with the specified width and angle to the result label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>image</strong> – The image result to be displayed on the label.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.rotate_image">
+<span class="sig-name descname"><span class="pre">rotate_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.rotate_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.rotate_image" title="Link to this definition"></a></dt>
+<dd><p>Rotates the result image in the specified direction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>direction</strong> (<em>str</em>) – The direction to rotate the image. Must be either “left” or “right”.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.show_rotation_value">
+<span class="sig-name descname"><span class="pre">show_rotation_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.show_rotation_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.show_rotation_value" title="Link to this definition"></a></dt>
+<dd><p>Sets the value of the rotation angle in the GUI.</p>
+<p>Disables the signals of the GUI double spin box widget, sets its value to
+the current rotation angle and enables the signals back again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.rotation_change_value">
+<span class="sig-name descname"><span class="pre">rotation_change_value</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.rotation_change_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.rotation_change_value" title="Link to this definition"></a></dt>
+<dd><p>Updates the rotation angle when the user changes its value.</p>
+<p>Sets the new value of the rotation angle to the private attribute and also
+to the model of the application. If the rubber band tool is active, it
+updates the result image and the percentage of zoom. Otherwise, it creates
+a new result image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_btn_fisheye">
+<span class="sig-name descname"><span class="pre">onclick_btn_fisheye</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_btn_fisheye"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_btn_fisheye" title="Link to this definition"></a></dt>
+<dd><p>Changes the current view mode to fisheye.</p>
+<p>The function changes the current view mode to “FisheyeView” and hides the anypoint pointer frame and
+mode view widget.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_btn_anypoint">
+<span class="sig-name descname"><span class="pre">onclick_btn_anypoint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_btn_anypoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_btn_anypoint" title="Link to this definition"></a></dt>
+<dd><p>Handles the button click event for the Anypoint mode.</p>
+<p>Changes the application state to the Anypoint mode, shows the Anypoint widget, and sets the
+current index of the widget to 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_btn_panorama">
+<span class="sig-name descname"><span class="pre">onclick_btn_panorama</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_btn_panorama"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_btn_panorama" title="Link to this definition"></a></dt>
+<dd><p>Handles click event for the ‘panorama’ button.</p>
+<p>Changes the app’s recent view state to ‘PanoramaView’, shows the widget mode view and frame pointer anypoint,
+sets the current index of the widget mode view to 1, and sets the state rubberband to False if an image has been loaded.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_clear_user_interface">
+<span class="sig-name descname"><span class="pre">onclick_clear_user_interface</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_clear_user_interface"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_clear_user_interface" title="Link to this definition"></a></dt>
+<dd><p>Clears the user interface and resets the app state to its default state.</p>
+<p>This function resets the app’s state to its default state, clears the displayed images, and resets the style
+of the mode buttons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None.</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_clear_button_list_saved_image">
+<span class="sig-name descname"><span class="pre">onclick_clear_button_list_saved_image</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_clear_button_list_saved_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_clear_button_list_saved_image" title="Link to this definition"></a></dt>
+<dd><p>Clear the saved image list and the UI list widget.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.close_setting_window">
+<span class="sig-name descname"><span class="pre">close_setting_window</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.close_setting_window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.close_setting_window" title="Link to this definition"></a></dt>
+<dd><p>Closes the settings window if it is open.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.escape_event">
+<span class="sig-name descname"><span class="pre">escape_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.escape_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.escape_event" title="Link to this definition"></a></dt>
+<dd><p>Escape button keyboard event. Will return to the default state of application.</p>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_play_pause_video_button">
+<span class="sig-name descname"><span class="pre">onclick_play_pause_video_button</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_play_pause_video_button"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_play_pause_video_button" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.mouse_event_in_moil_logo">
+<span class="sig-name descname"><span class="pre">mouse_event_in_moil_logo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.mouse_event_in_moil_logo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.mouse_event_in_moil_logo" title="Link to this definition"></a></dt>
+<dd><p>Handle mouse events in the MOIL logo.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> – The mouse event to handle.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_help_button">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">onclick_help_button</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_help_button"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_help_button" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.back_to_home">
+<span class="sig-name descname"><span class="pre">back_to_home</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.back_to_home"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.back_to_home" title="Link to this definition"></a></dt>
+<dd><p>Switches the content view to home screen and hides plugin buttons and sets the plugin index to None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.showing_git_repository_information">
+<span class="sig-name descname"><span class="pre">showing_git_repository_information</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#controllers.control_main.Controller.showing_git_repository_information" title="Link to this definition"></a></dt>
+<dd><p>Updates the UI with information about a Git repository.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – A dictionary containing information about the Git repository.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_refresh_github_repository">
+<span class="sig-name descname"><span class="pre">onclick_refresh_github_repository</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_refresh_github_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_refresh_github_repository" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Updates the Github repository information by refreshing the repository and showing the updated information if there</dt><dd><p>are any changes.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.check_for_update">
+<span class="sig-name descname"><span class="pre">check_for_update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.check_for_update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.check_for_update" title="Link to this definition"></a></dt>
+<dd><p>Checks for updates in the Git repository.</p>
+<p>If Git is not installed, does nothing. If a token is not set, asks the user to input one.
+Otherwise, calls <cite>show_info_of_github_repository</cite> and <cite>check_for_new_update</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.check_for_new_update">
+<span class="sig-name descname"><span class="pre">check_for_new_update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.check_for_new_update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.check_for_new_update" title="Link to this definition"></a></dt>
+<dd><p>Check if a new software update is available and install it if user approves.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.show_update_dialog">
+<span class="sig-name descname"><span class="pre">show_update_dialog</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.show_update_dialog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.show_update_dialog" title="Link to this definition"></a></dt>
+<dd><p>Displays a message box with options for the user to choose.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> – A string containing the message to be displayed in the message box.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An integer representing the user’s response to the message box. The value will be one of the
+following constants from the QMessageBox.StandardButton enum: QMessageBox.Yes, QMessageBox.No.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.show_update_successful_message">
+<span class="sig-name descname"><span class="pre">show_update_successful_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.show_update_successful_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.show_update_successful_message" title="Link to this definition"></a></dt>
+<dd><p>Shows a message box to indicate that the software has been updated successfully.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> – A string containing the release note for the software update.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.show_info_of_github_repository">
+<span class="sig-name descname"><span class="pre">show_info_of_github_repository</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.show_info_of_github_repository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.show_info_of_github_repository" title="Link to this definition"></a></dt>
+<dd><p>Fetches and displays information about the GitHub repository associated with the application’s model.
+Specifically, it retrieves a list of commits behind the currently active branch, and displays their
+commit message and hex SHA in the application’s text browser.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.open_dialog_for_input_token">
+<span class="sig-name descname"><span class="pre">open_dialog_for_input_token</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.open_dialog_for_input_token"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.open_dialog_for_input_token" title="Link to this definition"></a></dt>
+<dd><p>Displays a dialog box to prompt the user for a GitHub token, and then validates and stores the token in the
+application’s model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the token was successfully validated and stored in the model, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_btn_change_branch">
+<span class="sig-name descname"><span class="pre">onclick_btn_change_branch</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_btn_change_branch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_btn_change_branch" title="Link to this definition"></a></dt>
+<dd><p>Handles the click event of the “Change branch” button.</p>
+<p>If the button is checked, shows a frame containing a list of available branches
+for the user to choose from. If the button is unchecked, hides the frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – An instance of the class.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.combo_box_change_branch">
+<span class="sig-name descname"><span class="pre">combo_box_change_branch</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.combo_box_change_branch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.combo_box_change_branch" title="Link to this definition"></a></dt>
+<dd><p>Event handler for when the value of the combo box changes. It checks if the selected branch name is different
+from the currently active branch of the GitHub repository. If it is different and a valid GitHub token exists,
+it attempts to change the active branch to the selected branch, and then updates the configuration and GitHub
+information in the application’s model. It also checks if the ‘docs/build/html’ directory exists and removes it
+if it does. Finally, it displays an information message to the user, and then closes the application after a
+delay of 3 seconds.</p>
+<p>If the selected branch cannot be checked out, or if no valid GitHub token exists, it shows an error message to
+the user, and resets the combo box to the currently active branch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_commit_now">
+<span class="sig-name descname"><span class="pre">onclick_commit_now</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_commit_now"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_commit_now" title="Link to this definition"></a></dt>
+<dd><p>Commit changes to the Git repository.</p>
+<p>This method commits changes to the Git repository and displays a success or error message
+depending on the result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – An instance of the class that this method belongs to.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None.</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.onclick_change_theme_apps">
+<span class="sig-name descname"><span class="pre">onclick_change_theme_apps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.onclick_change_theme_apps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.onclick_change_theme_apps" title="Link to this definition"></a></dt>
+<dd><p>Change the theme between light and dark modes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.change_stylesheet_selected_menu">
+<span class="sig-name descname"><span class="pre">change_stylesheet_selected_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.change_stylesheet_selected_menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.change_stylesheet_selected_menu" title="Link to this definition"></a></dt>
+<dd><p>Change the stylesheet of a selected menu button.</p>
+<p>If an image is available, this function updates the style of a selected menu button by applying a new stylesheet that
+highlights it. The old stylesheet is reset for all other buttons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – An instance of the class that this method belongs to.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.set_style_selected_menu">
+<span class="sig-name descname"><span class="pre">set_style_selected_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.set_style_selected_menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.set_style_selected_menu" title="Link to this definition"></a></dt>
+<dd><p>Returns the CSS stylesheet for the currently selected menu item.</p>
+<p>The returned stylesheet is based on the current theme set in the <cite>model</cite> attribute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The CSS stylesheet for the selected menu item.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.set_style_deselect_menu">
+<span class="sig-name descname"><span class="pre">set_style_deselect_menu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">getStyle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.set_style_deselect_menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.set_style_deselect_menu" title="Link to this definition"></a></dt>
+<dd><p>Replaces the selected menu style with an unselected style in the current theme.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>getStyle</strong> (<em>str</em>) – The current style of the menu to be deselected.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated style of the menu with the selected style replaced with the unselected style.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.resetStyle">
+<span class="sig-name descname"><span class="pre">resetStyle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">widget</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.resetStyle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.resetStyle" title="Link to this definition"></a></dt>
+<dd><p>Resets the stylesheet of all push buttons in the frame_button_view except for the one with the given
+object name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>widget</strong> (<em>str</em>) – The object name of the push button to exclude.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.stylesheet_selected_menu_dark_theme">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stylesheet_selected_menu_dark_theme</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.stylesheet_selected_menu_dark_theme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.stylesheet_selected_menu_dark_theme" title="Link to this definition"></a></dt>
+<dd><p>Return the CSS stylesheet for a selected menu button in dark theme.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The CSS stylesheet for a selected menu button in dark theme.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main.Controller.stylesheet_selected_menu_light_theme">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stylesheet_selected_menu_light_theme</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main.html#Controller.stylesheet_selected_menu_light_theme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main.Controller.stylesheet_selected_menu_light_theme" title="Link to this definition"></a></dt>
+<dd><p>Returns the light theme stylesheet for the selected menu.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The stylesheet for the selected menu in the light theme.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-controllers.control_anypoint">
+<span id="anypoint-controller"></span><h2>Anypoint Controller<a class="headerlink" href="#module-controllers.control_anypoint" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="controllers.control_anypoint.AnypointConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controllers.control_anypoint.</span></span><span class="sig-name descname"><span class="pre">AnypointConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_ui</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_anypoint.html#AnypointConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_anypoint.AnypointConfig" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Loads an Anypoint configuration file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>main_ui</strong> – An instance of the main user interface.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controllers.control_anypoint.AnypointConfig.ui">
+<span class="sig-name descname"><span class="pre">ui</span></span><a class="headerlink" href="#controllers.control_anypoint.AnypointConfig.ui" title="Link to this definition"></a></dt>
+<dd><p>An instance of the main user interface.</p>
+</dd></dl>
+
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>FileNotFoundError</strong> – If the Anypoint configuration file cannot be found.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_anypoint.AnypointConfig.showing_config_mode_1">
+<span class="sig-name descname"><span class="pre">showing_config_mode_1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_anypoint.html#AnypointConfig.showing_config_mode_1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_anypoint.AnypointConfig.showing_config_mode_1" title="Link to this definition"></a></dt>
+<dd><p>Reads the cached file to load the configuration data for Mode 1.</p>
+<p>This function reads the YAML data from the cached file and loads it into the
+<cite>self.__anypoint_config</cite> attribute. It then sets the values of the zoom, alpha,
+and beta parameters for Mode 1 in the UI double spin boxes. The function blocks
+signals while updating the spin box values to prevent recursive updates. Once the
+values are set, the function unblocks signals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_anypoint.AnypointConfig.showing_config_mode_2">
+<span class="sig-name descname"><span class="pre">showing_config_mode_2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_anypoint.html#AnypointConfig.showing_config_mode_2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_anypoint.AnypointConfig.showing_config_mode_2" title="Link to this definition"></a></dt>
+<dd><p>Reads the cached file to load the configuration data for Mode 2.</p>
+<p>This function reads the YAML data from the cached file and loads it into the
+<cite>self.__anypoint_config</cite> attribute. It then sets the values of the pitch, yaw,
+roll, and zoom parameters for Mode 2 in the UI double spin boxes. The function
+blocks signals while updating the spin box values to prevent recursive updates.
+Once the values are set, the function unblocks signals.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_anypoint.AnypointConfig.change_properties_mode_1">
+<span class="sig-name descname"><span class="pre">change_properties_mode_1</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_anypoint.html#AnypointConfig.change_properties_mode_1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_anypoint.AnypointConfig.change_properties_mode_1" title="Link to this definition"></a></dt>
+<dd><p>Updates the configuration data for Mode 1 and writes it to the cached file.</p>
+<p>This function updates the alpha, beta, and zoom parameters for Mode 1 using the
+values in the UI double spin boxes. It rounds the zoom value to three decimal places
+before updating the configuration data. The updated configuration data is then
+written to the cached file using YAML format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_anypoint.AnypointConfig.change_properties_mode_2">
+<span class="sig-name descname"><span class="pre">change_properties_mode_2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_anypoint.html#AnypointConfig.change_properties_mode_2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_anypoint.AnypointConfig.change_properties_mode_2" title="Link to this definition"></a></dt>
+<dd><p>Updates the configuration data for Mode 2 and writes it to the cached file.</p>
+<p>This function updates the pitch, yaw, roll, and zoom parameters for Mode 2 using the
+values in the UI double spin boxes. It creates a list of tuples to store the control
+names and their corresponding values, and then iterates through the list to update
+the configuration data for each control. The zoom value is rounded to three decimal
+places before updating the configuration data. The updated configuration data is
+then written to the cached file using YAML format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-controllers.control_config_file">
+<span id="config-controller"></span><h2>Config Controller<a class="headerlink" href="#module-controllers.control_config_file" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="controllers.control_config_file.ConfigFileApps">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controllers.control_config_file.</span></span><span class="sig-name descname"><span class="pre">ConfigFileApps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_ui</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_config_file.html#ConfigFileApps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_config_file.ConfigFileApps" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Initializes a new instance of the class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>main_ui</strong> – The main user interface instance.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controllers.control_config_file.ConfigFileApps.ui">
+<span class="sig-name descname"><span class="pre">ui</span></span><a class="headerlink" href="#controllers.control_config_file.ConfigFileApps.ui" title="Link to this definition"></a></dt>
+<dd><p>The main user interface instance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controllers.control_config_file.ConfigFileApps.__cached_file">
+<span class="sig-name descname"><span class="pre">__cached_file</span></span><a class="headerlink" href="#controllers.control_config_file.ConfigFileApps.__cached_file" title="Link to this definition"></a></dt>
+<dd><p>The path to the configuration file.</p>
+</dd></dl>
+
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-controllers.control_panorama">
+<span id="panorama-controller"></span><h2>Panorama Controller<a class="headerlink" href="#module-controllers.control_panorama" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="controllers.control_panorama.PanoramaConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controllers.control_panorama.</span></span><span class="sig-name descname"><span class="pre">PanoramaConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_ui</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_panorama.html#PanoramaConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_panorama.PanoramaConfig" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Initializes a new instance of the PanoramaConfig class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>main_ui</strong> (<em>object</em>) – Main UI object.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_panorama.PanoramaConfig.block_signal_pano_tube">
+<span class="sig-name descname"><span class="pre">block_signal_pano_tube</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_panorama.html#PanoramaConfig.block_signal_pano_tube"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_panorama.PanoramaConfig.block_signal_pano_tube" title="Link to this definition"></a></dt>
+<dd><p>Block signals for panoptic tube spin boxes and double spin boxes.
+This method blocks signals for the following spin boxes and double spin boxes:
+- self.ui.spinBox_pano_tube_alpha_min
+- self.ui.spinBox_pano_tube_alpha_max
+- self.ui.doubleSpinBox_pano_tube_crop_top
+- self.ui.doubleSpinBox_pano_tube_crop_buttom</p>
+<p>This method is intended to be used to avoid emitting signals when changing the values of the panoptic tube spin boxes and double spin boxes programmatically.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – An instance of the class containing this method.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_panorama.PanoramaConfig.unblock_signal_pano_tube">
+<span class="sig-name descname"><span class="pre">unblock_signal_pano_tube</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_panorama.html#PanoramaConfig.unblock_signal_pano_tube"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_panorama.PanoramaConfig.unblock_signal_pano_tube" title="Link to this definition"></a></dt>
+<dd><p>Unblocks the signals for the pano tube settings widgets.</p>
+<p>This function calls the _unblock_signal method to unblock the signals for the pano tube settings widgets.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Args:</dt><dd><p>None.</p>
+</dd>
+<dt>Returns:</dt><dd><p>None.</p>
+</dd>
+<dt>Raises:</dt><dd><p>None.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_panorama.PanoramaConfig.block_signal_pano_car">
+<span class="sig-name descname"><span class="pre">block_signal_pano_car</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_panorama.html#PanoramaConfig.block_signal_pano_car"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_panorama.PanoramaConfig.block_signal_pano_car" title="Link to this definition"></a></dt>
+<dd><p>Blocks the signals of certain UI elements related to the panoramic car view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_panorama.PanoramaConfig.unblock_signal_pano_car">
+<span class="sig-name descname"><span class="pre">unblock_signal_pano_car</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_panorama.html#PanoramaConfig.unblock_signal_pano_car"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_panorama.PanoramaConfig.unblock_signal_pano_car" title="Link to this definition"></a></dt>
+<dd><p>Unblocks signals for a set of widgets related to the panoramic car view.</p>
+<p>This function unblocks signals for the following widgets: spinBox_pano_car_alpha,
+spinBox_pano_car_beta, doubleSpinBox_pano_car_crop_left, doubleSpinBox_pano_car_crop_right,
+doubleSpinBox_pano_car_crop_top, doubleSpinBox_pano_car_crop_bottom. This allows changes to
+these widgets to trigger the corresponding slots.</p>
+<p>This function is called by the GUI when the user leaves a specific tab or dialog box in the panoramic
+car view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None.</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None.</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_panorama.PanoramaConfig.showing_config_panorama_tube">
+<span class="sig-name descname"><span class="pre">showing_config_panorama_tube</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_panorama.html#PanoramaConfig.showing_config_panorama_tube"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_panorama.PanoramaConfig.showing_config_panorama_tube" title="Link to this definition"></a></dt>
+<dd><p>Reads the panorama configuration from a YAML file, and populates the relevant UI elements with the values.</p>
+<p>Opens the cached configuration file using the private attribute <cite>__cached_file</cite> as the file path, and reads its
+contents using PyYAML’s <cite>safe_load</cite> method. The relevant UI elements are then set to the corresponding values
+found in the configuration file.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function blocks signals from the UI elements while updating them with the configuration values.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>IOError</strong> – If the configuration file cannot be read.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_panorama.PanoramaConfig.showing_config_panorama_car">
+<span class="sig-name descname"><span class="pre">showing_config_panorama_car</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_panorama.html#PanoramaConfig.showing_config_panorama_car"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_panorama.PanoramaConfig.showing_config_panorama_car" title="Link to this definition"></a></dt>
+<dd><p>Loads the panorama car configuration from a cached YAML file and updates the user interface with its values.</p>
+<p>Reads the cached file at <cite>self.__cached_file</cite> using the PyYAML library to parse the YAML content. The parsed
+configuration values are assigned to the instance variable <cite>self.__panorama_config</cite>. Blocks signals from all the
+widgets associated with the car panorama in the user interface to prevent any unintended updates during the UI
+update process. Then, sets the values of the panorama car configuration widgets in the UI with the parsed values
+from the configuration file. Finally, unblocks signals from all the widgets that were previously blocked.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_panorama.PanoramaConfig.change_properties_panorama_tube">
+<span class="sig-name descname"><span class="pre">change_properties_panorama_tube</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_panorama.html#PanoramaConfig.change_properties_panorama_tube"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_panorama.PanoramaConfig.change_properties_panorama_tube" title="Link to this definition"></a></dt>
+<dd><p>Change the properties of the panorama tube.</p>
+<p>Reads the new values for alpha_min, alpha_max, crop_top, and crop_bottom from the
+corresponding UI elements, and updates the __panorama_config dictionary with the new
+values if they meet certain criteria. Then writes the updated dictionary to a YAML file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>self</strong> – An instance of the class.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_panorama.PanoramaConfig.change_properties_panorama_car">
+<span class="sig-name descname"><span class="pre">change_properties_panorama_car</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_panorama.html#PanoramaConfig.change_properties_panorama_car"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_panorama.PanoramaConfig.change_properties_panorama_car" title="Link to this definition"></a></dt>
+<dd><p>Updates the properties of the car panorama and saves them to a YAML file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Updates the alpha and beta properties of the car panorama from the GUI spinboxes.
+Updates the crop_left, crop_right, crop_top, and crop_bottom properties of the car panorama from the GUI double spinboxes.
+Saves the updated panorama configuration to a YAML file specified in <cite>self.__cached_file</cite>.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-controllers.control_plugin_collection">
+<span id="plugin-collection-controller"></span><h2>Plugin Collection Controller<a class="headerlink" href="#module-controllers.control_plugin_collection" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="controllers.control_plugin_collection.PluginCollection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controllers.control_plugin_collection.</span></span><span class="sig-name descname"><span class="pre">PluginCollection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">plugin_package</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_collection.html#PluginCollection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_collection.PluginCollection" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Initialize the plugin loader with the given plugin package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>plugin_package</strong> (<em>str</em>) – The name of the plugin package.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controllers.control_plugin_collection.PluginCollection.plugins">
+<span class="sig-name descname"><span class="pre">plugins</span></span><a class="headerlink" href="#controllers.control_plugin_collection.PluginCollection.plugins" title="Link to this definition"></a></dt>
+<dd><p>A dictionary of loaded plugins.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controllers.control_plugin_collection.PluginCollection.name_application">
+<span class="sig-name descname"><span class="pre">name_application</span></span><a class="headerlink" href="#controllers.control_plugin_collection.PluginCollection.name_application" title="Link to this definition"></a></dt>
+<dd><p>The name of the application.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controllers.control_plugin_collection.PluginCollection.seen_paths">
+<span class="sig-name descname"><span class="pre">seen_paths</span></span><a class="headerlink" href="#controllers.control_plugin_collection.PluginCollection.seen_paths" title="Link to this definition"></a></dt>
+<dd><p>A set of paths already seen by the loader.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>set</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controllers.control_plugin_collection.PluginCollection.path_folder">
+<span class="sig-name descname"><span class="pre">path_folder</span></span><a class="headerlink" href="#controllers.control_plugin_collection.PluginCollection.path_folder" title="Link to this definition"></a></dt>
+<dd><p>The path to the plugin folder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controllers.control_plugin_collection.PluginCollection.plugin_package">
+<span class="sig-name descname"><span class="pre">plugin_package</span></span><a class="headerlink" href="#controllers.control_plugin_collection.PluginCollection.plugin_package" title="Link to this definition"></a></dt>
+<dd><p>The name of the plugin package.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_collection.PluginCollection.reload_plugins">
+<span class="sig-name descname"><span class="pre">reload_plugins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_collection.html#PluginCollection.reload_plugins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_collection.PluginCollection.reload_plugins" title="Link to this definition"></a></dt>
+<dd><p>Reloads the plugins from the specified package.</p>
+<p>This function clears the existing plugin list, name list, and folder path list, then
+walks through the plugin package and appends any valid plugins to the plugin list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None.</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_collection.PluginCollection.get_widget">
+<span class="sig-name descname"><span class="pre">get_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_collection.html#PluginCollection.get_widget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_collection.PluginCollection.get_widget" title="Link to this definition"></a></dt>
+<dd><p>Returns the widget associated with a plugin at the specified index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>index</strong> – The index of the plugin to get the widget for.</p></li>
+<li><p><strong>model</strong> – The model to use when initializing the plugin’s widget.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The widget associated with the plugin at the specified index, or None if there was an error.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_collection.PluginCollection.set_always_pop_up">
+<span class="sig-name descname"><span class="pre">set_always_pop_up</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_collection.html#PluginCollection.set_always_pop_up"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_collection.PluginCollection.set_always_pop_up" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_collection.PluginCollection.get_icon_">
+<span class="sig-name descname"><span class="pre">get_icon_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_collection.html#PluginCollection.get_icon_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_collection.PluginCollection.get_icon_" title="Link to this definition"></a></dt>
+<dd><p>Returns the path of the icon for a given plugin index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>) – The index of the plugin.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The path to the icon file, or None if the plugin has no icon.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_collection.PluginCollection.change_theme">
+<span class="sig-name descname"><span class="pre">change_theme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_collection.html#PluginCollection.change_theme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_collection.PluginCollection.change_theme" title="Link to this definition"></a></dt>
+<dd><p>Change the stylesheet of the plugin at the given index to the current theme.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>) – The index of the plugin to update.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_collection.PluginCollection.get_description">
+<span class="sig-name descname"><span class="pre">get_description</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_collection.html#PluginCollection.get_description"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_collection.PluginCollection.get_description" title="Link to this definition"></a></dt>
+<dd><p>Returns the description of the plugin located at the specified index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>) – The index of the plugin whose description is to be retrieved.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The description of the plugin.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>IndexError</strong> – If the specified index is out of range.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_collection.PluginCollection.walk_package">
+<span class="sig-name descname"><span class="pre">walk_package</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">package</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_collection.html#PluginCollection.walk_package"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_collection.PluginCollection.walk_package" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>Walk through the specified package and its sub-packages to find all classes</dt><dd><p>that are a subclass of PluginInterface and add them to the list of plugins.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>package</strong> (<em>str</em>) – The name of the package to search for plugins in.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None.</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-controllers.control_plugin_manager">
+<span id="plugin-manager-controller"></span><h2>Plugin Manager Controller<a class="headerlink" href="#module-controllers.control_plugin_manager" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controllers.control_plugin_manager.</span></span><span class="sig-name descname"><span class="pre">PluginManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_control</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_manager.html#PluginManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Initializes the PluginManager object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>main_control</strong> – A reference to the main control object.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager.main_control">
+<span class="sig-name descname"><span class="pre">main_control</span></span><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager.main_control" title="Link to this definition"></a></dt>
+<dd><p>A reference to the main control object.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager.plugin">
+<span class="sig-name descname"><span class="pre">plugin</span></span><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager.plugin" title="Link to this definition"></a></dt>
+<dd><p>A PluginCollection object that manages the plugins.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager.apps_activated">
+<span class="sig-name descname"><span class="pre">apps_activated</span></span><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager.apps_activated" title="Link to this definition"></a></dt>
+<dd><p>A list of booleans indicating whether each plugin is activated.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager.index">
+<span class="sig-name descname"><span class="pre">index</span></span><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager.index" title="Link to this definition"></a></dt>
+<dd><p>An integer representing the index of the currently selected plugin.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager.connect_to_event">
+<span class="sig-name descname"><span class="pre">connect_to_event</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_manager.html#PluginManager.connect_to_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager.connect_to_event" title="Link to this definition"></a></dt>
+<dd><p>Connects the main window buttons to their corresponding actions.</p>
+<p>This method is responsible for setting up event connections between the buttons in the main window and their corresponding actions. Specifically, the following connections are established:</p>
+<ul class="simple">
+<li><p>When the “Add Plugins” button is clicked, the <cite>install_new_plugin</cite> method is called.</p></li>
+<li><p>When the “Delete Plugins” button is clicked, the <cite>action_delete_apps</cite> method is called.</p></li>
+<li><p>When the “Close” button is clicked, the <cite>main_control.back_to_home</cite> method is called.</p></li>
+<li><p>When the “Help” button is clicked, the <cite>help_menu_plugin</cite> method is called.</p></li>
+</ul>
+<p>Note: You should replace the description of the actions to match their actual functionality.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager.init_cached_file">
+<span class="sig-name descname"><span class="pre">init_cached_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_manager.html#PluginManager.init_cached_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager.init_cached_file" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager.init_available_plugin">
+<span class="sig-name descname"><span class="pre">init_available_plugin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_manager.html#PluginManager.init_available_plugin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager.init_available_plugin" title="Link to this definition"></a></dt>
+<dd><p>Initializes the available plugins by adding buttons for each one to the UI.</p>
+<p>Clears any existing buttons from the UI layout, then iterates over the list of available plugins
+and adds a button for each one. The icon for each plugin is retrieved using the <cite>get_icon_</cite> method
+of the <cite>PluginCollection</cite> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager.install_new_plugin">
+<span class="sig-name descname"><span class="pre">install_new_plugin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_manager.html#PluginManager.install_new_plugin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager.install_new_plugin" title="Link to this definition"></a></dt>
+<dd><p>Opens a file dialog for selecting a new plugin folder and installs it into the plugin store.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager.add_plugin_by_github">
+<span class="sig-name descname"><span class="pre">add_plugin_by_github</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_manager.html#PluginManager.add_plugin_by_github"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager.add_plugin_by_github" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager.refresh_the_plugin_available">
+<span class="sig-name descname"><span class="pre">refresh_the_plugin_available</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_manager.html#PluginManager.refresh_the_plugin_available"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager.refresh_the_plugin_available" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager.refresh_theme_widget">
+<span class="sig-name descname"><span class="pre">refresh_theme_widget</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_manager.html#PluginManager.refresh_theme_widget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager.refresh_theme_widget" title="Link to this definition"></a></dt>
+<dd><p>Refreshes the theme of the currently selected plugin widget, if any.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager.open_pinned_plugin">
+<span class="sig-name descname"><span class="pre">open_pinned_plugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_manager.html#PluginManager.open_pinned_plugin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager.open_pinned_plugin" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager.open_plugin_apps">
+<span class="sig-name descname"><span class="pre">open_plugin_apps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_manager.html#PluginManager.open_plugin_apps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager.open_plugin_apps" title="Link to this definition"></a></dt>
+<dd><p>Opens the selected plugin application and displays its widget in the plugin layout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>IndexError</strong> – If the selected plugin index is not found in <cite>self.plugin.name_application</cite>.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Side Effects:</dt><dd><ul class="simple">
+<li><p>Sets <cite>self.index</cite> to the index of the selected plugin.</p></li>
+<li><p>Shows the “Delete Plugins” and “Close Plugin” buttons in the main control UI.</p></li>
+<li><p>Closes all widgets in the plugin layout before adding the selected plugin’s widget.</p></li>
+<li><p>Changes the current widget container to the plugin layout.</p></li>
+<li><p>Hides the “MOIL App” and “View” buttons in the main control UI.</p></li>
+<li><p>Sets <cite>self.apps_activated</cite> to the selected plugin’s name.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager.open_plugins_in_new_window">
+<span class="sig-name descname"><span class="pre">open_plugins_in_new_window</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_manager.html#PluginManager.open_plugins_in_new_window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager.open_plugins_in_new_window" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager.add_btn_apps_plugin">
+<span class="sig-name descname"><span class="pre">add_btn_apps_plugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icon_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_manager.html#PluginManager.add_btn_apps_plugin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager.add_btn_apps_plugin" title="Link to this definition"></a></dt>
+<dd><p>Create and return a QPushButton widget with an icon and a name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>icon</strong> – A string specifying the path of the icon file.</p></li>
+<li><p><strong>name</strong> – A string specifying the name of the plugin.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A QPushButton widget with the specified icon and name.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager.action_delete_apps">
+<span class="sig-name descname"><span class="pre">action_delete_apps</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_manager.html#PluginManager.action_delete_apps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager.action_delete_apps" title="Link to this definition"></a></dt>
+<dd><p>Deletes the currently activated plugin application.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager.delete_apps">
+<span class="sig-name descname"><span class="pre">delete_apps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_manager.html#PluginManager.delete_apps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager.delete_apps" title="Link to this definition"></a></dt>
+<dd><p>Delete a plugin application from the system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>int</em>) – The index of the application to be deleted in the list of available plugins.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+</dl>
+<p>The function prompts the user with a confirmation message, and if the user confirms, deletes the plugin
+application from the system. The function then reloads the list of available plugins, initializes the available
+plugin UI, and displays a success message.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager.help_menu_plugin">
+<span class="sig-name descname"><span class="pre">help_menu_plugin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_manager.html#PluginManager.help_menu_plugin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager.help_menu_plugin" title="Link to this definition"></a></dt>
+<dd><p>Displays a help message for the currently selected plugin in a pop-up box.</p>
+<p>If the currently selected widget is the home screen, displays a generic message.
+Otherwise, displays a message that includes the plugin’s description.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_plugin_manager.PluginManager.pop_up_message_box">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pop_up_message_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_plugin_manager.html#PluginManager.pop_up_message_box"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_plugin_manager.PluginManager.pop_up_message_box" title="Link to this definition"></a></dt>
+<dd><p>Displays a message box with the given message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> – The message to display in the message box.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-controllers.control_result_image">
+<span id="result-image-controller"></span><h2>Result Image Controller<a class="headerlink" href="#module-controllers.control_result_image" title="Link to this heading"></a></h2>
+<p>Class to control manipulate image</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="controllers.control_result_image.ControlResultImage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controllers.control_result_image.</span></span><span class="sig-name descname"><span class="pre">ControlResultImage</span></span><a class="reference internal" href="_modules/controllers/control_result_image.html#ControlResultImage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_result_image.ControlResultImage" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_result_image.ControlResultImage.zoom_in">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">zoom_in</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_result_image.html#ControlResultImage.zoom_in"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_result_image.ControlResultImage.zoom_in" title="Link to this definition"></a></dt>
+<dd><p>Increases the current size by 100 and returns the new size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>current_size</strong> (<em>int</em>) – The current size.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The new size after increasing by 100.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_result_image.ControlResultImage.zoom_out">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">zoom_out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_result_image.html#ControlResultImage.zoom_out"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_result_image.ControlResultImage.zoom_out" title="Link to this definition"></a></dt>
+<dd><p>Decreases the <cite>current_size</cite> by 100, unless it’s already below 640.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>current_size</strong> (<em>int</em>) – The current size to decrease by 100.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The new size after decreasing by 100, or the original <cite>current_size</cite> if it’s already below 640.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_result_image.ControlResultImage.rotate_left">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rotate_left</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_angle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_result_image.html#ControlResultImage.rotate_left"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_result_image.ControlResultImage.rotate_left" title="Link to this definition"></a></dt>
+<dd><p>Rotates the image to the left by 5 degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>current_angle</strong> (<em>int</em>) – The current angle of rotation in degrees.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The new angle of rotation after rotating left by 5 degrees.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_result_image.ControlResultImage.rotate_right">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rotate_right</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_angle</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_result_image.html#ControlResultImage.rotate_right"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_result_image.ControlResultImage.rotate_right" title="Link to this definition"></a></dt>
+<dd><p>Rotates the given angle to the right by 5 degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>current_angle</strong> (<em>int</em>) – The current angle in degrees to be rotated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The new angle after rotation to the right.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-controllers.control_main_ui_apps">
+<span id="main-ui-apps-controller"></span><h2>Main Ui Apps Controller<a class="headerlink" href="#module-controllers.control_main_ui_apps" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="controllers.control_main_ui_apps.ControlApps">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controllers.control_main_ui_apps.</span></span><span class="sig-name descname"><span class="pre">ControlApps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_ui</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main_ui_apps.html#ControlApps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main_ui_apps.ControlApps" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main_ui_apps.ControlApps.button_menu">
+<span class="sig-name descname"><span class="pre">button_menu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maxWidth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enable</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main_ui_apps.html#ControlApps.button_menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main_ui_apps.ControlApps.button_menu" title="Link to this definition"></a></dt>
+<dd><p>Animates the left-side menu of the application.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>maxWidth</strong> (<em>int</em>) – The maximum width the menu should extend to.</p></li>
+<li><p><strong>enable</strong> (<em>bool</em>) – Whether to enable or disable the animation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main_ui_apps.ControlApps.button_about_us">
+<span class="sig-name descname"><span class="pre">button_about_us</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theme</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main_ui_apps.html#ControlApps.button_about_us"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main_ui_apps.ControlApps.button_about_us" title="Link to this definition"></a></dt>
+<dd><p>Animate the “About Us” button and expand the right-hand additional frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>enable</strong> (<em>bool</em>) – True to enable the animation and expand the frame, False to disable.</p></li>
+<li><p><strong>theme</strong> (<em>str</em>) – The current theme (“light” or “dark”).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main_ui_apps.ControlApps.setting_menu">
+<span class="sig-name descname"><span class="pre">setting_menu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theme</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main_ui_apps.html#ControlApps.setting_menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main_ui_apps.ControlApps.setting_menu" title="Link to this definition"></a></dt>
+<dd><p>Toggle the visibility of the additional left frame and update the theme of the settings button.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>enable</strong> – A boolean indicating whether the additional left frame should be shown or not.</p></li>
+<li><p><strong>theme</strong> – A string specifying the theme of the application. It can be “light” or “dark”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_main_ui_apps.ControlApps.start_box_animation">
+<span class="sig-name descname"><span class="pre">start_box_animation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left_box_width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right_box_width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_main_ui_apps.html#ControlApps.start_box_animation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_main_ui_apps.ControlApps.start_box_animation" title="Link to this definition"></a></dt>
+<dd><p>Animate the left and right boxes to slide in or out.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>left_box_width</strong> (<em>int</em>) – The current width of the left box.</p></li>
+<li><p><strong>right_box_width</strong> (<em>int</em>) – The current width of the right box.</p></li>
+<li><p><strong>direction</strong> (<em>str</em>) – The direction in which to animate the boxes, either “left” or “right”.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-controllers.control_setup_icon">
+<span id="setup-icon-controller"></span><h2>Setup Icon Controller<a class="headerlink" href="#module-controllers.control_setup_icon" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="controllers.control_setup_icon.SetIconsUI">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">controllers.control_setup_icon.</span></span><span class="sig-name descname"><span class="pre">SetIconsUI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">main_ui</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_setup_icon.html#SetIconsUI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_setup_icon.SetIconsUI" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Initialize the MoilApp object with the given main_ui object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>main_ui</strong> – A reference to the main user interface object of the application.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_setup_icon.SetIconsUI.get_theme_main_apps">
+<span class="sig-name descname"><span class="pre">get_theme_main_apps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theme</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_setup_icon.html#SetIconsUI.get_theme_main_apps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_setup_icon.SetIconsUI.get_theme_main_apps" title="Link to this definition"></a></dt>
+<dd><p>Sets the color theme for the main window of the application.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>theme</strong> (<em>str</em>) – The color theme to apply. Should be either “dark” or “light”.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_setup_icon.SetIconsUI.dark_mode_there">
+<span class="sig-name descname"><span class="pre">dark_mode_there</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_setup_icon.html#SetIconsUI.dark_mode_there"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_setup_icon.SetIconsUI.dark_mode_there" title="Link to this definition"></a></dt>
+<dd><p>Set the UI to dark mode by changing the icons and logo to dark mode.</p>
+<p>This function sets the icons of the UI buttons to the dark mode icons and
+the logo to the dark mode logo. It is called when the user switches the
+UI to the dark mode.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="controllers.control_setup_icon.SetIconsUI.light_mode_theme">
+<span class="sig-name descname"><span class="pre">light_mode_theme</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/controllers/control_setup_icon.html#SetIconsUI.light_mode_theme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#controllers.control_setup_icon.SetIconsUI.light_mode_theme" title="Link to this definition"></a></dt>
+<dd><p>Changes the application’s icons to a light theme.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Perseverance Technology, Taiwan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: 4.0
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions"><!-- Inserted RTD Footer -->
+      <div class="injected">
+        <dl>
+          <dt>Versions</dt>
+
+          <dd class="rtd-current-item">
+            <a href="../latest/index.html">latest</a>
+          </dd>
+          <dd class="rtd-current-item">
+            <a href="../v1.0/index.html">v1.0</a>
+          </dd>
+          <dd class="rtd-current-item">
+            <a href="../v2.0/index.html">v2.0</a>
+          </dd>
+          <dd class="rtd-current-item">
+            <a href="../v3.0/index.html">v3.0</a>
+          </dd>
+          <dd class="rtd-current-item">
+            <a href="../v3.1/index.html">v3.1</a>
+          </dd>
+           <dd class="rtd-current-item">
+            <a href="../v4.0/index.html">v4.0</a>
+          </dd>
+        </dl>
+        <hr>
+        <small>
+          <span>Hosted by <a href="https://readthedocs.org">Read the Docs</a></span>
+          <span> · </span>
+          <a href="https://docs.readthedocs.io/page/privacy-policy.html">Privacy Policy</a>
+        </small>
+
+
+
+
+      </div>
+    </div>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

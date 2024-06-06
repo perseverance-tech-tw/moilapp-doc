@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>controllers.control_plugin_manager &mdash; MoilApp Documentation 1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html">
+            
+              <img src="../../_static/light-moilapp.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../installation_guide.html">Moilapp Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usage.html">MoilApp of Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../plugin_extention.html">Plugin Extention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting_issue.html">Troubleshooting an Issue</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MoilApp Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">controllers.control_plugin_manager</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for controllers.control_plugin_manager</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtCore</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">.control_plugin_collection</span> <span class="kn">import</span> <span class="n">PluginCollection</span>
+
+
+<div class="viewcode-block" id="PluginManager">
+<a class="viewcode-back" href="../../controller.html#controllers.control_plugin_manager.PluginManager">[docs]</a>
+<span class="k">class</span> <span class="nc">PluginManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">main_control</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the PluginManager object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            main_control: A reference to the main control object.</span>
+
+<span class="sd">        Attributes:</span>
+<span class="sd">            main_control: A reference to the main control object.</span>
+<span class="sd">            plugin: A PluginCollection object that manages the plugins.</span>
+<span class="sd">            apps_activated: A list of booleans indicating whether each plugin is activated.</span>
+<span class="sd">            index: An integer representing the index of the currently selected plugin.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span> <span class="o">=</span> <span class="n">main_control</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span> <span class="o">=</span> <span class="n">PluginCollection</span><span class="p">(</span><span class="s2">&quot;plugins&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apps_activated</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">widget</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text_title</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_available_plugin</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_cached_file</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connect_to_event</span><span class="p">()</span>
+
+<div class="viewcode-block" id="PluginManager.connect_to_event">
+<a class="viewcode-back" href="../../controller.html#controllers.control_plugin_manager.PluginManager.connect_to_event">[docs]</a>
+    <span class="k">def</span> <span class="nf">connect_to_event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connects the main window buttons to their corresponding actions.</span>
+
+<span class="sd">        This method is responsible for setting up event connections between the buttons in the main window and their corresponding actions. Specifically, the following connections are established:</span>
+
+<span class="sd">        - When the &quot;Add Plugins&quot; button is clicked, the `install_new_plugin` method is called.</span>
+<span class="sd">        - When the &quot;Delete Plugins&quot; button is clicked, the `action_delete_apps` method is called.</span>
+<span class="sd">        - When the &quot;Close&quot; button is clicked, the `main_control.back_to_home` method is called.</span>
+<span class="sd">        - When the &quot;Help&quot; button is clicked, the `help_menu_plugin` method is called.</span>
+<span class="sd">        Note: You should replace the description of the actions to match their actual functionality.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># self.main_control.ui.add_plugins_button.clicked.connect(self.install_new_plugin)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">delete_plugins_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action_delete_apps</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">close_plugin_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">back_to_home</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">help_plugins_button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">help_menu_plugin</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">open_in_new_window_plugins</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_plugins_in_new_window</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PluginManager.init_cached_file">
+<a class="viewcode-back" href="../../controller.html#controllers.control_plugin_manager.PluginManager.init_cached_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">init_cached_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;models&quot;</span><span class="p">,</span> <span class="s2">&quot;cached&quot;</span><span class="p">,</span> <span class="s2">&quot;plugin_cached.yaml&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;plugin_run&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+                <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PluginManager.init_available_plugin">
+<a class="viewcode-back" href="../../controller.html#controllers.control_plugin_manager.PluginManager.init_available_plugin">[docs]</a>
+    <span class="k">def</span> <span class="nf">init_available_plugin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the available plugins by adding buttons for each one to the UI.</span>
+
+<span class="sd">        Clears any existing buttons from the UI layout, then iterates over the list of available plugins</span>
+<span class="sd">        and adds a button for each one. The icon for each plugin is retrieved using the `get_icon_` method</span>
+<span class="sd">        of the `PluginCollection` object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">add_plugins_button</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">layout_application</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">layout_application</span><span class="o">.</span><span class="n">itemAt</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">widget</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">name_application</span><span class="p">)):</span>
+            <span class="n">icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">get_icon_</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_btn_apps_plugin</span><span class="p">(</span><span class="n">icon</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">name_application</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_plugin_apps</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">layout_application</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PluginManager.install_new_plugin">
+<a class="viewcode-back" href="../../controller.html#controllers.control_plugin_manager.PluginManager.install_new_plugin">[docs]</a>
+    <span class="k">def</span> <span class="nf">install_new_plugin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Opens a file dialog for selecting a new plugin folder and installs it into the plugin store.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">Option</span><span class="o">.</span><span class="n">DontUseNativeDialog</span>
+        <span class="n">dir_plugin</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span>
+                                                                <span class="s1">&#39;Select Application Folder&#39;</span><span class="p">,</span> <span class="s2">&quot;../plugin_store&quot;</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">dir_plugin</span><span class="p">:</span>
+            <span class="n">original</span> <span class="o">=</span> <span class="n">dir_plugin</span>
+            <span class="n">name_plug</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">original</span><span class="p">))</span>
+            <span class="n">path_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="n">path_file</span> <span class="o">+</span> <span class="s1">&#39;/plugins/&#39;</span>
+            <span class="n">name_exist</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="n">name_plug</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">name_exist</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Warning !!&quot;</span><span class="p">,</span> <span class="s2">&quot;Plugins already exist!!&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">listApp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">name_application</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">copy_directory</span><span class="p">(</span><span class="n">original</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">reload_plugins</span><span class="p">()</span>
+                <span class="n">newList</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">name_application</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">newList</span> <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">listApp</span><span class="p">]</span>
+
+                <span class="k">def</span> <span class="nf">listToString</span><span class="p">(</span><span class="n">listIn</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">listIn</span><span class="p">)</span>
+
+                <span class="n">index</span> <span class="o">=</span> <span class="n">newList</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">listToString</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+                <span class="n">icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">get_icon_</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+                <span class="n">button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_btn_apps_plugin</span><span class="p">(</span><span class="n">icon</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">name_application</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+                <span class="n">button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_plugin_apps</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">layout_application</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pop_up_message_box</span><span class="p">(</span><span class="s2">&quot;Plugins was successfully added!!&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PluginManager.add_plugin_by_github">
+<a class="viewcode-back" href="../../controller.html#controllers.control_plugin_manager.PluginManager.add_plugin_by_github">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_plugin_by_github</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="n">path_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">path_file</span> <span class="o">+</span> <span class="s1">&#39;/plugins/&#39;</span>
+        <span class="n">name_exist</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name_exist</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Warning !!&quot;</span><span class="p">,</span> <span class="s2">&quot;Plugins already exist!!&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="PluginManager.refresh_the_plugin_available">
+<a class="viewcode-back" href="../../controller.html#controllers.control_plugin_manager.PluginManager.refresh_the_plugin_available">[docs]</a>
+    <span class="k">def</span> <span class="nf">refresh_the_plugin_available</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">listApp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">name_application</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">reload_plugins</span><span class="p">()</span>
+        <span class="n">newList</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">name_application</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">newList</span> <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">listApp</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">listToString</span><span class="p">(</span><span class="n">listIn</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">listIn</span><span class="p">)</span>
+
+        <span class="n">index</span> <span class="o">=</span> <span class="n">newList</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">listToString</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+        <span class="n">icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">get_icon_</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_btn_apps_plugin</span><span class="p">(</span><span class="n">icon</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">name_application</span><span class="p">[</span><span class="n">index</span><span class="p">])</span>
+        <span class="n">button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">open_plugin_apps</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">layout_application</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pop_up_message_box</span><span class="p">(</span><span class="s2">&quot;Plugins was successfully added!!&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PluginManager.refresh_theme_widget">
+<a class="viewcode-back" href="../../controller.html#controllers.control_plugin_manager.PluginManager.refresh_theme_widget">[docs]</a>
+    <span class="k">def</span> <span class="nf">refresh_theme_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Refreshes the theme of the currently selected plugin widget, if any.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">change_theme</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PluginManager.open_pinned_plugin">
+<a class="viewcode-back" href="../../controller.html#controllers.control_plugin_manager.PluginManager.open_pinned_plugin">[docs]</a>
+    <span class="k">def</span> <span class="nf">open_pinned_plugin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">index</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">delete_plugins_button</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">close_plugin_button</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">layout_plugin</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">layout_plugin</span><span class="o">.</span><span class="n">itemAt</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">widget</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">get_widget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">layout_plugin</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">widget_container_content</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">frame_btn_moilapp</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">frame_button_view</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_plugin_name</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">open_in_new_window_plugins</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">text_title</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sent</span><span class="p">)</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.[^A-Z]*&#39;</span><span class="p">,</span>
+                                                                            <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">name_application</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_title</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_plugin_name</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_title</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">apps_activated</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">name_application</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;models&quot;</span><span class="p">,</span> <span class="s2">&quot;cached&quot;</span><span class="p">,</span> <span class="s2">&quot;plugin_cached.yaml&quot;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+            <span class="n">config</span><span class="p">[</span><span class="s2">&quot;plugin_run&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+                <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">outfile</span><span class="p">,</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">delete_plugins_button</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_plugin_name</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">close_plugin_button</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">open_in_new_window_plugins</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="PluginManager.open_plugin_apps">
+<a class="viewcode-back" href="../../controller.html#controllers.control_plugin_manager.PluginManager.open_plugin_apps">[docs]</a>
+    <span class="k">def</span> <span class="nf">open_plugin_apps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Opens the selected plugin application and displays its widget in the plugin layout.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            IndexError: If the selected plugin index is not found in `self.plugin.name_application`.</span>
+
+<span class="sd">        Side Effects:</span>
+<span class="sd">            - Sets `self.index` to the index of the selected plugin.</span>
+<span class="sd">            - Shows the &quot;Delete Plugins&quot; and &quot;Close Plugin&quot; buttons in the main control UI.</span>
+<span class="sd">            - Closes all widgets in the plugin layout before adding the selected plugin&#39;s widget.</span>
+<span class="sd">            - Changes the current widget container to the plugin layout.</span>
+<span class="sd">            - Hides the &quot;MOIL App&quot; and &quot;View&quot; buttons in the main control UI.</span>
+<span class="sd">            - Sets `self.apps_activated` to the selected plugin&#39;s name.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">sender</span><span class="p">()</span>
+        <span class="c1"># button.setStyleSheet(&quot;background-color: rgb(25,25,25)&quot;)</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">name_application</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">button</span><span class="o">.</span><span class="n">objectName</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">name_application</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">button</span><span class="o">.</span><span class="n">objectName</span><span class="p">())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">delete_plugins_button</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">close_plugin_button</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">add_plugins_button</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">layout_plugin</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">layout_plugin</span><span class="o">.</span><span class="n">itemAt</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">widget</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">set_always_pop_up</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">open_plugins_in_new_window</span><span class="p">()</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">get_widget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">layout_plugin</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">widget_container_content</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">frame_btn_moilapp</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">frame_button_view</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_plugin_name</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">open_in_new_window_plugins</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">text_title</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sent</span><span class="p">)</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.[^A-Z]*&#39;</span><span class="p">,</span> <span class="n">button</span><span class="o">.</span><span class="n">objectName</span><span class="p">()))</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">text_title</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_plugin_name</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_title</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">apps_activated</span> <span class="o">=</span> <span class="n">button</span><span class="o">.</span><span class="n">objectName</span><span class="p">()</span>
+                <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;models&quot;</span><span class="p">,</span> <span class="s2">&quot;cached&quot;</span><span class="p">,</span> <span class="s2">&quot;plugin_cached.yaml&quot;</span><span class="p">)</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                    <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+                <span class="n">config</span><span class="p">[</span><span class="s2">&quot;plugin_run&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+                    <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">outfile</span><span class="p">,</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">raise_</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">isMinimized</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">showMaximized</span><span class="p">()</span>
+
+            <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">information</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Information&quot;</span><span class="p">,</span> <span class="s2">&quot;Plugins already opened!!&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PluginManager.open_plugins_in_new_window">
+<a class="viewcode-back" href="../../controller.html#controllers.control_plugin_manager.PluginManager.open_plugins_in_new_window">[docs]</a>
+    <span class="k">def</span> <span class="nf">open_plugins_in_new_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">add_plugins_button</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">stackedWidget_2</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">layout_plugin</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">layout_plugin</span><span class="o">.</span><span class="n">itemAt</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">widget</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">get_widget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">close_event</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+            <span class="n">msgBox</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+            <span class="n">reply</span> <span class="o">=</span> <span class="n">msgBox</span><span class="o">.</span><span class="n">question</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;Quit&#39;</span><span class="p">,</span> <span class="s1">&#39;Are you sure you want to quit?&#39;</span><span class="p">,</span>
+                                    <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Yes</span> <span class="o">|</span>
+                                    <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">No</span><span class="p">,</span>
+                                    <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">reply</span> <span class="o">==</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
+                <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">event</span><span class="o">.</span><span class="n">ignore</span><span class="p">()</span>
+
+        <span class="c1"># def destroy_window():</span>
+        <span class="c1">#     reply = QtWidgets.QMessageBox.question(self.widget, &#39;Quit&#39;, &#39;Are you sure you want to quit?&#39;,</span>
+        <span class="c1">#                                            QtWidgets.QMessageBox.StandardButton.Yes |</span>
+        <span class="c1">#                                            QtWidgets.QMessageBox.StandardButton.No,</span>
+        <span class="c1">#                                            QtWidgets.QMessageBox.StandardButton.No)</span>
+        <span class="c1">#     if reply == QtWidgets.QMessageBox.StandardButton.Yes:</span>
+        <span class="c1">#         self.widget.close()</span>
+        <span class="c1">#         self.index = None</span>
+
+        <span class="c1"># shortcut = QtGui.QShortcut(QtCore.Qt.Key.Key_Escape, self.widget)</span>
+        <span class="c1"># shortcut.activated.connect(close_event)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">closeEvent</span> <span class="o">=</span> <span class="n">close_event</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text_title</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">widget_container_content</span><span class="o">.</span><span class="n">setCurrentIndex</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">frame_btn_moilapp</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">frame_button_view</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">delete_plugins_button</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">label_plugin_name</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">close_plugin_button</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">open_in_new_window_plugins</span><span class="o">.</span><span class="n">hide</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="PluginManager.add_btn_apps_plugin">
+<a class="viewcode-back" href="../../controller.html#controllers.control_plugin_manager.PluginManager.add_btn_apps_plugin">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_btn_apps_plugin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">icon_</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create and return a QPushButton widget with an icon and a name.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            icon_: A string specifying the path of the icon file.</span>
+<span class="sd">            name: A string specifying the name of the plugin.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A QPushButton widget with the specified icon and name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">button</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">()</span>
+        <span class="n">button</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">sizePolicy</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QSizePolicy</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Policy</span><span class="o">.</span><span class="n">Minimum</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Policy</span><span class="o">.</span><span class="n">Expanding</span><span class="p">)</span>
+        <span class="n">sizePolicy</span><span class="o">.</span><span class="n">setHorizontalStretch</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">sizePolicy</span><span class="o">.</span><span class="n">setVerticalStretch</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">sizePolicy</span><span class="o">.</span><span class="n">setHeightForWidth</span><span class="p">(</span><span class="n">button</span><span class="o">.</span><span class="n">sizePolicy</span><span class="p">()</span><span class="o">.</span><span class="n">hasHeightForWidth</span><span class="p">())</span>
+        <span class="n">button</span><span class="o">.</span><span class="n">setSizePolicy</span><span class="p">(</span><span class="n">sizePolicy</span><span class="p">)</span>
+        <span class="n">button</span><span class="o">.</span><span class="n">setMinimumSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">))</span>
+        <span class="n">button</span><span class="o">.</span><span class="n">setMaximumSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mi">16777215</span><span class="p">))</span>
+        <span class="n">text_title</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sent</span><span class="p">)</span> <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.[^A-Z]*&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+        <span class="n">button</span><span class="o">.</span><span class="n">setToolTip</span><span class="p">(</span><span class="n">text_title</span><span class="p">)</span>
+        <span class="n">button</span><span class="o">.</span><span class="n">setStatusTip</span><span class="p">(</span><span class="n">text_title</span><span class="p">)</span>
+        <span class="n">button</span><span class="o">.</span><span class="n">setIconSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">icon_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span><span class="p">:</span>
+                <span class="n">icon</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="n">icon_</span><span class="p">)</span>
+                <span class="n">button</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># auto generate invert color image under developing</span>
+                <span class="n">icon</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">(</span><span class="n">icon_</span><span class="p">)</span>
+                <span class="n">button</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">button</span></div>
+
+
+<div class="viewcode-block" id="PluginManager.action_delete_apps">
+<a class="viewcode-back" href="../../controller.html#controllers.control_plugin_manager.PluginManager.action_delete_apps">[docs]</a>
+    <span class="k">def</span> <span class="nf">action_delete_apps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deletes the currently activated plugin application.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">name_application</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">apps_activated</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delete_apps</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PluginManager.delete_apps">
+<a class="viewcode-back" href="../../controller.html#controllers.control_plugin_manager.PluginManager.delete_apps">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_apps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete a plugin application from the system.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            index (int): The index of the application to be deleted in the list of available plugins.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        The function prompts the user with a confirmation message, and if the user confirms, deletes the plugin</span>
+<span class="sd">        application from the system. The function then reloads the list of available plugins, initializes the available</span>
+<span class="sd">        plugin UI, and displays a success message.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">name_application</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">path_folder</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">path_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">path_file</span> <span class="o">+</span> <span class="s1">&#39;/plugins/&#39;</span> <span class="o">+</span> <span class="n">path</span>
+
+        <span class="n">reply</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">question</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;Message&#39;</span><span class="p">,</span>
+                                               <span class="s2">&quot;Are you sure want to delete </span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span>
+                                               <span class="n">name</span> <span class="o">+</span> <span class="s2">&quot; application ?</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+                                               <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Yes</span> <span class="o">|</span>
+                                               <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">No</span><span class="p">,</span>
+                                               <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">No</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">reply</span> <span class="o">==</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">ignore_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">reload_plugins</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">init_available_plugin</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pop_up_message_box</span><span class="p">(</span><span class="s2">&quot;Plugins was successfully deleted !!&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">back_to_home</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="PluginManager.help_menu_plugin">
+<a class="viewcode-back" href="../../controller.html#controllers.control_plugin_manager.PluginManager.help_menu_plugin">[docs]</a>
+    <span class="k">def</span> <span class="nf">help_menu_plugin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Displays a help message for the currently selected plugin in a pop-up box.</span>
+
+<span class="sd">        If the currently selected widget is the home screen, displays a generic message.</span>
+<span class="sd">        Otherwise, displays a message that includes the plugin&#39;s description.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">main_control</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">widget_container_content</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Help menu plugin under development </span><span class="se">\n</span><span class="s2">&quot;</span> \
+                      <span class="s2">&quot;we Will inform you after finish!!</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">get_description</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Help menu plugin under development </span><span class="se">\n</span><span class="s2">&quot;</span> \
+                      <span class="s2">&quot;we Will inform you after finish!!</span><span class="se">\n\n</span><span class="s2">&quot;</span> \
+                      <span class="s2">&quot;Note App: &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">get_description</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pop_up_message_box</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PluginManager.pop_up_message_box">
+<a class="viewcode-back" href="../../controller.html#controllers.control_plugin_manager.PluginManager.pop_up_message_box">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">pop_up_message_box</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Displays a message box with the given message.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            message: The message to display in the message box.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Icon</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;font-family: Segoe UI; font-size:14px;&quot;</span><span class="p">)</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Information&quot;</span><span class="p">)</span>
+        <span class="c1"># setting message for Message Box</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Information !! </span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">message</span><span class="p">)</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">StandardButton</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">close_msg</span><span class="p">():</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">done</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">QtCore</span><span class="o">.</span><span class="n">QTimer</span><span class="o">.</span><span class="n">singleShot</span><span class="p">(</span><span class="mi">6000</span><span class="p">,</span> <span class="n">close_msg</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Perseverance Technology, Taiwan.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

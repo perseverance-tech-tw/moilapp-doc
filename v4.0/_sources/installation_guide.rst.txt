@@ -1,0 +1,170 @@
+Moilapp Installation Guide
+##########################
+
+.. raw:: html
+
+   <p style="text-align: justify;">
+
+    This guide provides step-by-step instructions to install and run the MoilApp repository on <b>Ubuntu 20.04 with Python version > 3.7.</b>
+
+Clone this Repository
+------------------------
+.. raw:: html
+
+   <p style="text-align: justify;">
+
+   1. Use the <b>"git clone"</b> command to download the code from the repository to your local machine.</p>
+
+
+.. code-block:: bash
+
+    $ git clone https://github.com/McutOIL/moilapp.git --branch=Moilapp-V4.0
+
+
+Change Working Directory
+---------------------------
+
+.. raw:: html
+
+   <p style="text-align: justify;">
+   2. After successfully cloning the repository, change working directory by using the command line below and the try to
+   install <b>. build.sh</b> file top install all dependencies library.</p>
+
+.. code-block:: bash
+
+    $ cd moilapp
+
+    $ . build.sh
+
+.. raw:: html
+
+    <p style="text-align: justify;">
+
+    In case the command <b>. build.sh </b> above is installed <b>Successfully</b> , you can proceed to part 7. Nevertheless, if the
+    installation fails,  you can install manually by referring to section 3 below.</p>
+
+Check the display server protocol ubuntu version using this command
+-------------------------------------------------------------------
+.. raw:: html
+
+    <p style="text-align: justify;">
+
+    Check your protocol system in ubuntu version.</p>
+
+.. code-block:: bash
+
+   $ echo $XDG_SESSION_TYPE
+
+.. raw:: html
+
+    <p style="text-align: justify;">
+
+    If your computer is of the <b>wayland</b> type, you have to change to <b>x11</b> to replace it. You can use the command below to
+    disable it <b>WaylandEnable=false</b>. However, if your computer is already <b>x11</b> type you can skip this section.</p>
+
+.. code-block:: bash
+
+   $ sudo nano /etc/gdm3/custom.config
+
+and then, restart your computer.
+
+.. code-block:: bash
+
+   $ sudo systemctl restart gdm3
+
+we also recommend installing libxcb when your computer is type x11.
+
+.. code-block:: bash
+
+   $ sudo apt install libxcb-cursor0
+
+Set up Virtual Environment
+-----------------------------
+
+.. raw:: html
+
+   <p style="text-align: justify;">
+
+   3. Two ways to build a <b>virtual environment</b> are: installing it in general or specifically for Python. Use the provided
+   command to prevent installation errors and ensure that dependencies required for each project are installed without
+   interfering with other projects or the system's Python installation. A <b>virtual environment</b> helps developers maintain
+   project stability and avoid compatibility issues between package versions.</p>
+
+.. code-block:: bash
+
+    $ sudo apt install virtualenv
+
+    $ virtualenv venv
+
+or
+
+.. code-block:: bash
+
+    $ python3.8 -m venv venv
+
+.. raw:: html
+
+   <p style="text-align: justify;">
+
+    <i>note: you can change the python version ex: <b>*python3.8, python3.9, python3.10</b></i></p>
+
+.. raw:: html
+
+   <p style="text-align: justify;">
+
+    4. To start using the virtual environment, you need to <b>activate</b> it. You can do this by running the activate script located in the `bin` directory of your virtual environment. On Linux or macOS, use the following command: </p>
+
+.. code-block:: bash
+
+    $ source venv/bin/activate
+
+.. raw:: html
+
+   <p style="text-align: justify;">
+
+    5. Before installation the library requirements you should be to upgrade an existing package PIP to the latest version,
+     you can use the command.</p>
+
+.. code-block:: bash
+
+    $ pip install --upgrade pip
+
+.. raw:: html
+
+   <p style="text-align: justify;">
+
+   Followed by the name of the package. This command will download and install the latest version of the package,
+   replacing the older version that was previously installed.</p>
+
+.. raw:: html
+
+   <p style="text-align: justify;">
+
+   <p>6. With the environment activated, you can install all required packages. The packages will be installed in the
+   virtual environment and will not affect the global Python installation.</p>
+
+.. code-block:: bash
+
+    $ pip install -r requirements.txt
+
+Run the Application
+-------------------
+
+.. raw:: html
+
+   <p style="text-align: justify;">
+
+   7. After all ready, run the main program in `src` directory, on your terminal you can type this command to run the project
+
+.. code-block:: bash
+
+    $ cd src
+
+    $ python3 main.py
+
+.. raw:: html
+
+   <p style="text-align: justify;">
+
+   <i>That's it! You should now have the Moilapp repository installed and ready to use on your Ubuntu 20.04 machine.</i></p>
+

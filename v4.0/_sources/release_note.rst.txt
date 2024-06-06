@@ -1,0 +1,35 @@
+Release Notes
+##############
+
+.. raw:: html
+
+   <marquee><B>MoilApps Desktop Application v4.0 - 27/04/2023</B></marquee>
+
+.. raw:: html
+
+   <p style="text-align: justify;">
+
+    <i>We are thrilled to announce the release of our latest version of the desktop app - version 4.0! This release comes packed with exciting features that will enhance your experience while using our app.</i></p>
+
+New Features
+************
+
+    - **User-friendly interface:** Our desktop app now has a sleek, user-friendly interface with intuitive navigation. You will find it easy to use and navigate through the app.
+
+    - **Integrated Dark Theme:** You can now enable the integrated dark theme when adding new apps. It provides a visually pleasing interface that is easy on the eyes.
+
+    - **Applications Plugin:** This release includes an Applications plugin that can be run independently. You can easily install plugin applications from the plugin store in GitHub private repository.
+
+    - **Branch Switching:** The app now supports the ability to switch branches through the interface.
+
+    - **Image Processing Information:** Our app now supports various information in image processing, such as username, processing time, camera parameters, and media path loaded.
+
+    - **Automatic Saving of Changes:** You can now easily save changes made to exportable HTML and PDF documents, as they are automatically saved.
+
+    - **Revision of Commits:** The app now includes functionality for easy revision of commits on the branch.
+
+    - **Folder Separation:** You can now save images into different folders according to view mode, such as Anypoint image or Panorama image.
+
+    - **Screen Recording:** Our app now includes screen recording functionality that can help users.
+
+    - **Full Screen:** Double click the left mouse button on the image to make the image appear full screen and vice versa.
