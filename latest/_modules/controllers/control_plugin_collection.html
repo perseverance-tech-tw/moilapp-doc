@@ -117,7 +117,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_plugin_collection.PluginCollection.reload_plugins">[docs]</a>
     <span class="k">def</span> <span class="nf">reload_plugins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Reloads the plugins from the specified package.</span>
+<span class="sd">        Reload the plugins from the specified package.</span>
 
 <span class="sd">        This function clears the existing plugin list, name list, and folder path list, then</span>
 <span class="sd">        walks through the plugin package and appends any valid plugins to the plugin list.</span>
@@ -135,7 +135,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the widget associated with a plugin at the specified index.</span>
 
-<span class="sd">        Arg:</span>
+<span class="sd">        Args:</span>
 <span class="sd">            index: The index of the plugin to get the widget for.</span>
 <span class="sd">            model: The model to use when initializing the plugin&#39;s widget.</span>
 
@@ -211,10 +211,10 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the description of the plugin at the specified index.</span>
 
-<span class="sd">        Args:</span>
+<span class="sd">        Arg:</span>
 <span class="sd">            index (int): The index of the plugin.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            str: The description of the plugin.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_plugins</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">.</span><span class="n">description</span></div>

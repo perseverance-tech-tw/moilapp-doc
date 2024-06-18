@@ -199,20 +199,21 @@
 <a class="viewcode-back" href="../../models.html#models.model_moildev.ModelMoildev.create_moildev">[docs]</a>
     <span class="k">def</span> <span class="nf">create_moildev</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resize_image_resolution</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Creates a connection to Moildev based on the configuration view.</span>
+<span class="sd">           Creates a connection to Moildev based on the main configuration.</span>
 
-<span class="sd">        If the `configuration_view` attribute is not `None`, the function checks if the `Parameter_name` value is not</span>
-<span class="sd">        `None`. If this is the case, the function sets the `parameter_name` attribute to the value of</span>
-<span class="sd">        `self.configuration_view[&quot;Parameter_name&quot;]`, and creates a connection to Moildev using the</span>
-<span class="sd">        `self.shared_model.connect_to_moildev()` method and the `parameter_name` attribute. The function also sets the</span>
-<span class="sd">        `pos_x` and `pos_y` attributes to the values of `self.moildev.icx` and `self.moildev.icy`, respectively.</span>
+<span class="sd">           This function checks if there is a `Parameter_name` in `self._main_config`. If it exists, this function</span>
+<span class="sd">           initializes the moildev objects using the method `self._model.connect_to_moildev` with the appropriate parameters.</span>
+<span class="sd">           If `resize_image_resolution` is set to `True`, the image resolution will be adjusted using `virtual_param_ratio`.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            resize_image_resolution (bool): Flag to determine whether to resize the image resolution.</span>
+<span class="sd">           The function also sets several main configuration attributes such as `center_coord`, `Recenter_coordinate`,</span>
+<span class="sd">           `pointer`, `width`, and `height` based on the values obtained from the moildev object.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            None</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">           Args:</span>
+<span class="sd">               resize_image_resolution (bool): Flag to determine whether to resize the image resolution.</span>
+
+<span class="sd">           Returns:</span>
+<span class="sd">               None</span>
+<span class="sd">           &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;ModelMoildev: create_moildev(), &quot;</span>

@@ -83,9 +83,6 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This module contains the SaveMedia class, which provides methods for saving images to a selected folder,</span>
 <span class="sd">loading saved images into the GUI&#39;s list widget, recording videos, and other related functionalities.</span>
-
-<span class="sd">Classes:</span>
-<span class="sd">    SaveMedia: A class for handling image saving and video recording functionality.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">cv2</span>
@@ -282,7 +279,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_saving_media.SaveMedia.add_widget_save_image">[docs]</a>
     <span class="k">def</span> <span class="nf">add_widget_save_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">name_file</span><span class="p">,</span> <span class="n">load</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Adds a new widget to the saved image list with the given image and file name.</span>
+<span class="sd">        Add a new widget to the saved image list with the given image and file name.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            image (numpy.ndarray): The image to be displayed in the widget.</span>
@@ -319,7 +316,8 @@
 <div class="viewcode-block" id="SaveMedia.list_widget_saved_image_activated">
 <a class="viewcode-back" href="../../controller.html#controllers.control_saving_media.SaveMedia.list_widget_saved_image_activated">[docs]</a>
     <span class="k">def</span> <span class="nf">list_widget_saved_image_activated</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle the activation of a saved image in the list widget.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle the activation of a saved image in the list widget.</span>
 
 <span class="sd">        The function sets the appropriate image view mode and opens the saved image.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -423,12 +421,12 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_saving_media.SaveMedia._enable_action_while_record">[docs]</a>
     <span class="k">def</span> <span class="nf">_enable_action_while_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Enables or disables certain actions while recording video.</span>
+<span class="sd">        Enable or disable certain actions while recording video.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            status (bool): If True, enables the actions. If False, disables them.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
@@ -445,12 +443,12 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_saving_media.SaveMedia._check_status_record">[docs]</a>
     <span class="k">def</span> <span class="nf">_check_status_record</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks the status of Anypoint or Panorama recording.</span>
+<span class="sd">        Check the status of Anypoint or Panorama recording.</span>
 
 <span class="sd">        If video_writer is not None, it sets the record button status to False and displays an informational message</span>
 <span class="sd">        prompting the user to select Anypoint or Panorama View to record Processed Video.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>

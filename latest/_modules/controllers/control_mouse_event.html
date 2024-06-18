@@ -80,9 +80,11 @@
            <div itemprop="articleBody">
              
   <h1>Source code for controllers.control_mouse_event</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span>
+<span></span><span class="kn">import</span> <span class="nn">webbrowser</span>
+
+<span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtWidgets</span>
 <span class="kn">from</span> <span class="nn">PyQt6.QtCore</span> <span class="kn">import</span> <span class="n">Qt</span>
-<span class="kn">from</span> <span class="nn">PyQt6.QtGui</span> <span class="kn">import</span> <span class="n">QCursor</span>
+<span class="kn">from</span> <span class="nn">PyQt6.QtGui</span> <span class="kn">import</span> <span class="n">QCursor</span><span class="p">,</span> <span class="n">QIcon</span>
 
 
 <div class="viewcode-block" id="MouseEvent">
@@ -134,16 +136,29 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Handle mouse events in the Moil logo.</span>
 
-<span class="sd">        Arg:</span>
+<span class="sd">        Args:</span>
 <span class="sd">            event: The mouse event.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: mouse_event_in_moil_logo(), &quot;</span>
                                              <span class="s2">&quot;Back to Home page&quot;</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QEvent</span><span class="o">.</span><span class="n">Type</span><span class="o">.</span><span class="n">MouseButtonPress</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">MouseButton</span><span class="o">.</span><span class="n">LeftButton</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_panel_page</span><span class="o">.</span><span class="n">button_menu</span><span class="p">(</span><span class="mi">220</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">back_to_home</span><span class="p">()</span></div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">back_to_home</span><span class="p">()</span>
+
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">button</span><span class="p">()</span> <span class="o">==</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">MouseButton</span><span class="o">.</span><span class="n">RightButton</span><span class="p">:</span>
+                <span class="c1"># Create a QMenu for right-click context menu</span>
+                <span class="n">menu</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMenu</span><span class="p">()</span>
+                <span class="n">doc_action</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Read the documentation&quot;</span><span class="p">)</span>
+
+                <span class="c1"># Connect triggered action of &quot;Read the doc&quot; menu item</span>
+                <span class="n">doc_action</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
+                    <span class="sa">r</span><span class="s1">&#39;https://perseverance-tech-tw.github.io/moilapp-doc/latest/index.html&#39;</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+
+                <span class="c1"># Show the context menu at the global position of the event</span>
+                <span class="n">menu</span><span class="o">.</span><span class="n">exec</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">globalPosition</span><span class="p">()</span><span class="o">.</span><span class="n">toPoint</span><span class="p">())</span></div>
 
 
 <div class="viewcode-block" id="MouseEvent.label_original_mouse_release_event">
@@ -235,9 +250,9 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_original_mouse_press_event">[docs]</a>
     <span class="k">def</span> <span class="nf">label_original_mouse_press_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handles mouse press events on the original image label.</span>
+<span class="sd">        Handle mouse press events on the original image label.</span>
 
-<span class="sd">        Args:</span>
+<span class="sd">        Arg:</span>
 <span class="sd">            event: The mouse event.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
@@ -366,7 +381,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_original_mouse_double_click_event">[docs]</a>
     <span class="k">def</span> <span class="nf">label_original_mouse_double_click_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handles the mouse double-click event for the `label_original` widget, which displays the original fisheye image.</span>
+<span class="sd">        Handle the mouse double-click event for the `label_original` widget, which displays the original fisheye image.</span>
 
 <span class="sd">        If the current view mode is `AnypointView`, calls the corresponding `model_apps` method and displays the</span>
 <span class="sd">        corresponding `view_anypoint` UI widget.</span>
@@ -413,9 +428,9 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_result_mouse_double_click">[docs]</a>
     <span class="k">def</span> <span class="nf">label_result_mouse_double_click</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handles mouse double-click events on the result label.</span>
+<span class="sd">        Handle mouse double-click events on the result label.</span>
 
-<span class="sd">        Args:</span>
+<span class="sd">        Arg:</span>
 <span class="sd">            event: The mouse event.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
@@ -436,12 +451,12 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_result_mouse_press_event">[docs]</a>
     <span class="k">def</span> <span class="nf">label_result_mouse_press_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handles the mouse press event on the result image label.</span>
+<span class="sd">        Handle the mouse press event on the result image label.</span>
 
-<span class="sd">        Args:</span>
+<span class="sd">        Arg:</span>
 <span class="sd">            event: A `QMouseEvent` object representing the mouse press event.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            None.</span>
 
 <span class="sd">        Note:</span>
@@ -465,10 +480,10 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Handle mouse move events on the result label.</span>
 
-<span class="sd">        Args:</span>
+<span class="sd">        Arg:</span>
 <span class="sd">            event: A `QMouseEvent` instance representing the mouse move event.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            None.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
@@ -484,15 +499,14 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_result_mouse_release_event">[docs]</a>
     <span class="k">def</span> <span class="nf">label_result_mouse_release_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handles the mouse release event on the label_result widget.</span>
+<span class="sd">        Handle the mouse release event on the label_result widget.</span>
 
-<span class="sd">        Behavior:</span>
-<span class="sd">            If the left mouse button was released and an image is loaded, the size of the rubberband is checked.</span>
-<span class="sd">            If it has a width and height greater than 20 pixels and the state of the rubberband is False, the size of</span>
-<span class="sd">            the rubberband is stored in the model&#39;s size_rubberband attribute, the state of the rubberband is set to</span>
-<span class="sd">            True, and a new image result is created. The rubberband is then hidden. If the right mouse button is</span>
-<span class="sd">            released, the menu_mouse_event method is called with the event object and the string &quot;label_result&quot; as</span>
-<span class="sd">            arguments.</span>
+<span class="sd">        If the left mouse button was released and an image is loaded, the size of the rubberband is checked.</span>
+<span class="sd">        If it has a width and height greater than 20 pixels and the state of the rubberband is False, the size of</span>
+<span class="sd">        the rubberband is stored in the model&#39;s size_rubberband attribute, the state of the rubberband is set to</span>
+<span class="sd">        True, and a new image result is created. The rubberband is then hidden. If the right mouse button is</span>
+<span class="sd">        released, the menu_mouse_event method is called with the event object and the string &quot;label_result&quot; as</span>
+<span class="sd">        arguments.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;MouseEvent: label_result_mouse_release_event(), &quot;</span>
@@ -537,7 +551,9 @@
             <span class="n">close</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">close_preview</span><span class="p">)</span>
 
         <span class="n">save</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Save Image&quot;</span><span class="p">)</span>
+        <span class="n">save</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QIcon</span><span class="p">(</span><span class="s1">&#39;icons:light/maximize.svg&#39;</span><span class="p">))</span>
         <span class="n">info</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Show Info&quot;</span><span class="p">)</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">menu</span><span class="o">.</span><span class="n">addAction</span><span class="p">(</span><span class="s2">&quot;Read the doc&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">label</span> <span class="o">==</span> <span class="s2">&quot;label_result&quot;</span><span class="p">:</span>
             <span class="n">save</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_save_media</span><span class="o">.</span><span class="n">save_image_ori_result</span><span class="p">(</span><span class="kc">True</span><span class="p">))</span>
@@ -549,6 +565,8 @@
             <span class="n">save</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_save_media</span><span class="o">.</span><span class="n">save_image_ori_result</span><span class="p">(</span><span class="kc">False</span><span class="p">))</span>
             <span class="n">info</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ctrl_message_box</span><span class="o">.</span><span class="n">show_information_of_image</span><span class="p">(</span><span class="n">label</span><span class="p">))</span>
 
+        <span class="n">doc</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
+            <span class="sa">r</span><span class="s1">&#39;https://perseverance-tech-tw.github.io/moilapp-doc/latest/usage.html#mouse-event&#39;</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
         <span class="n">menu</span><span class="o">.</span><span class="n">exec</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">globalPosition</span><span class="p">()</span><span class="o">.</span><span class="n">toPoint</span><span class="p">())</span></div>
 
 
@@ -556,9 +574,9 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_recenter_mouse_press_event">[docs]</a>
     <span class="k">def</span> <span class="nf">label_recenter_mouse_press_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handles mouse press events on the recenter label.</span>
+<span class="sd">        Handle mouse press events on the recenter label.</span>
 
-<span class="sd">        Args:</span>
+<span class="sd">        Arg:</span>
 <span class="sd">            event: The mouse event.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
@@ -611,9 +629,9 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_recenter_mouse_move_event">[docs]</a>
     <span class="k">def</span> <span class="nf">label_recenter_mouse_move_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handles mouse move events on the recenter label.</span>
+<span class="sd">        Handle mouse move events on the recenter label.</span>
 
-<span class="sd">        Args:</span>
+<span class="sd">        Arg:</span>
 <span class="sd">            event: The mouse event.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
@@ -627,7 +645,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.update_label_recenter_mouse_move_event">[docs]</a>
     <span class="k">def</span> <span class="nf">update_label_recenter_mouse_move_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates the mouse move event for the recenter label.</span>
+<span class="sd">        Update the mouse move event for the recenter label.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            label: The label to update.</span>
@@ -696,9 +714,9 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_recenter_mouse_leave_event">[docs]</a>
     <span class="k">def</span> <span class="nf">label_recenter_mouse_leave_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handles the mouse leave event for the recenter label.</span>
+<span class="sd">        Handle the mouse leave event for the recenter label.</span>
 
-<span class="sd">        Args:</span>
+<span class="sd">        Arg:</span>
 <span class="sd">            event: The mouse event.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
@@ -766,7 +784,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.update_label_recenter_mouse_leave_event">[docs]</a>
     <span class="k">def</span> <span class="nf">update_label_recenter_mouse_leave_event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates the mouse leave event for the label recenter.</span>
+<span class="sd">        Update the mouse leave event for the label recenter.</span>
 
 <span class="sd">        This method updates the mouse leave event for the label recenter based on the current mode view.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -821,12 +839,12 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.label_recenter_mouse_release_event">[docs]</a>
     <span class="k">def</span> <span class="nf">label_recenter_mouse_release_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handles the mouse release event for the label recenter.</span>
+<span class="sd">        Handle the mouse release event for the label recenter.</span>
 
 <span class="sd">        This method handles the mouse release event for the label recenter and triggers a menu mouse event if</span>
 <span class="sd">        the right mouse button is clicked.</span>
 
-<span class="sd">        Args:</span>
+<span class="sd">        Arg:</span>
 <span class="sd">            event (QMouseEvent): The mouse event object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
@@ -841,7 +859,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.set_value_coordinate_image_original">[docs]</a>
     <span class="k">def</span> <span class="nf">set_value_coordinate_image_original</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cor_x</span><span class="p">,</span> <span class="n">cor_y</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets the coordinate values for the original image label in the user interface.</span>
+<span class="sd">        Set the coordinate values for the original image label in the user interface.</span>
 
 <span class="sd">        This method sets the coordinate values for the original image label in the user interface based on the</span>
 <span class="sd">        given x and y coordinates.</span>
@@ -865,7 +883,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.set_value_coordinate_image_recenter">[docs]</a>
     <span class="k">def</span> <span class="nf">set_value_coordinate_image_recenter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cor_x</span><span class="p">,</span> <span class="n">cor_y</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets the coordinate values for the recenter image label in the user interface.</span>
+<span class="sd">        Set the coordinate values for the recenter image label in the user interface.</span>
 
 <span class="sd">        This method sets the coordinate values for the recenter image label in the user interface based on the</span>
 <span class="sd">        given x and y coordinates.</span>
@@ -885,7 +903,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.show_alpha_beta_label_original">[docs]</a>
     <span class="k">def</span> <span class="nf">show_alpha_beta_label_original</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets the alpha and beta values based on the given coordinate.</span>
+<span class="sd">        Set the alpha and beta values based on the given coordinate.</span>
 
 <span class="sd">        This method sets the alpha and beta values for the original image label in the user interface based on the given</span>
 <span class="sd">        coordinates. If either value is None, then both alpha and beta are set to 0.0. Otherwise, the alpha and beta</span>
@@ -914,7 +932,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_mouse_event.MouseEvent.show_alpha_beta_label_recenter">[docs]</a>
     <span class="k">def</span> <span class="nf">show_alpha_beta_label_recenter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets the alpha and beta values for recentered image label in the user interface.</span>
+<span class="sd">        Set the alpha and beta values for recentered image label in the user interface.</span>
 
 <span class="sd">        This method sets the alpha and beta values for the recentered image label in the user interface based on</span>
 <span class="sd">        the given coordinates. If either value is None, then both alpha and beta are set to 0.0.</span>

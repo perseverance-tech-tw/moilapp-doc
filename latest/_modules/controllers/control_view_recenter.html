@@ -96,9 +96,9 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_recenter.RecenterConfig">[docs]</a>
 <span class="k">class</span> <span class="nc">RecenterConfig</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The `RecenterConfig` class manages the configuration related to recentering images in the application.</span>
-
-<span class="sd">    This class provides methods to handle user interactions for changing the optical point coordinates, activating the change optical point feature, and creating recentered images based on the original image and recentering maps.</span>
+<span class="sd">    This class provides methods to handle user interactions for changing the optical point coordinates,</span>
+<span class="sd">    activating the change optical point feature, and creating recentered images based on the original image</span>
+<span class="sd">    and recentering maps.</span>
 
 <span class="sd">    Methods:</span>
 <span class="sd">        __init__: Initializes a new instance of the RecenterConfig class.</span>
@@ -230,7 +230,8 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;RecenterConfig: create_image_recenter(), &quot;</span>
                                              <span class="s2">&quot;Create image recenter&quot;</span><span class="p">)</span>
-        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_ori_used</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="c1"># image = self._model.image_ori_used.copy()</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">process_image_ori</span><span class="p">()</span>
         <span class="n">maps_x_rt</span><span class="p">,</span> <span class="n">maps_y_rt</span><span class="p">,</span> <span class="n">maps_x_rec</span><span class="p">,</span> <span class="n">maps_y_rec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">view_recenter</span><span class="o">.</span><span class="n">maps_recenter</span>
         <span class="n">image_pano</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">remap_image</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">maps_x_rt</span><span class="p">,</span> <span class="n">maps_y_rt</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_recenter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">remap_image</span><span class="p">(</span><span class="n">image_pano</span><span class="p">,</span> <span class="n">maps_x_rec</span><span class="p">,</span> <span class="n">maps_y_rec</span><span class="p">)</span></div>

@@ -111,9 +111,10 @@
 <div class="viewcode-block" id="ConfigIconUI.__init__">
 <a class="viewcode-back" href="../../controller.html#controllers.control_setup_icon.ConfigIconUI.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ui_main_window</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the MoilApp object with the given main_ui object.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the MoilApp object with the given main_ui object.</span>
 
-<span class="sd">        Args:</span>
+<span class="sd">        Arg:</span>
 <span class="sd">            main_ui: A reference to the main user interface object of the application.</span>
 
 <span class="sd">        Return:</span>
@@ -137,9 +138,10 @@
 <div class="viewcode-block" id="ConfigIconUI.setup_icon_theme">
 <a class="viewcode-back" href="../../controller.html#controllers.control_setup_icon.ConfigIconUI.setup_icon_theme">[docs]</a>
     <span class="k">def</span> <span class="nf">setup_icon_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">theme</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the color theme for the main window of the application.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the color theme for the main window of the application.</span>
 
-<span class="sd">        Args:</span>
+<span class="sd">        Arg:</span>
 <span class="sd">            theme (str): The color theme to apply. Should be either &quot;dark&quot; or &quot;light&quot;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">theme</span> <span class="o">==</span> <span class="s2">&quot;light&quot;</span><span class="p">:</span>
@@ -152,7 +154,8 @@
 <div class="viewcode-block" id="ConfigIconUI._set_icon_for_dark_mode_theme">
 <a class="viewcode-back" href="../../controller.html#controllers.control_setup_icon.ConfigIconUI._set_icon_for_dark_mode_theme">[docs]</a>
     <span class="k">def</span> <span class="nf">_set_icon_for_dark_mode_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the UI to dark mode by changing the icons and logo to dark mode.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the UI to dark mode by changing the icons and logo to dark mode.</span>
 
 <span class="sd">        This function sets the icons of the UI buttons to the dark mode icons and</span>
 <span class="sd">        the logo to the dark mode logo. It is called when the user switches the</span>
@@ -199,7 +202,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_setup_icon.ConfigIconUI._set_icon_for_light_mode_theme">[docs]</a>
     <span class="k">def</span> <span class="nf">_set_icon_for_light_mode_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Changes the application&#39;s icons to a light theme.</span>
+<span class="sd">        Change the application&#39;s icons to a light theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">icon</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">()</span>
         <span class="n">icon</span><span class="o">.</span><span class="n">addPixmap</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="p">(</span><span class="s2">&quot;icons:github.svg&quot;</span><span class="p">),</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="o">.</span><span class="n">Mode</span><span class="o">.</span><span class="n">Normal</span><span class="p">,</span>

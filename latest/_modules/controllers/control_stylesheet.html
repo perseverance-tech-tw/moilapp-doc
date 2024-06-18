@@ -81,13 +81,8 @@
              
   <h1>Source code for controllers.control_stylesheet</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">Module for controlling the style sheets of UI elements.</span>
-
 <span class="sd">This module contains the ControlStyleSheet class, which provides methods for changing style sheets</span>
 <span class="sd">of various UI elements based on user interactions and theme settings.</span>
-
-<span class="sd">Classes:</span>
-<span class="sd">    ControlStyleSheet: A class for controlling style sheets of UI elements.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">PyQt6</span> <span class="kn">import</span> <span class="n">QtWidgets</span>
@@ -112,7 +107,7 @@
 <span class="sd">           reset_style(self, widget): Resets the stylesheet of all push buttons in the frame_button_view.</span>
 <span class="sd">           stylesheet_selected_menu_dark_theme(cls): Return the CSS stylesheet for a selected menu button in dark theme.</span>
 <span class="sd">           stylesheet_selected_menu_light_theme(cls): Returns the light theme stylesheet for the selected menu.</span>
-<span class="sd">       &quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="ControlStyleSheet.__init__">
 <a class="viewcode-back" href="../../controller.html#controllers.control_stylesheet.ControlStyleSheet.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">controller</span><span class="p">):</span>
@@ -131,10 +126,10 @@
 <span class="sd">        If an image is available, this function updates the style of a selected menu button by applying a new stylesheet that</span>
 <span class="sd">        highlights it. The old stylesheet is reset for all other buttons.</span>
 
-<span class="sd">        Args:</span>
+<span class="sd">        Arg:</span>
 <span class="sd">            self: An instance of the class that this method belongs to.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
@@ -154,11 +149,11 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_stylesheet.ControlStyleSheet.set_style_selected_menu">[docs]</a>
     <span class="k">def</span> <span class="nf">set_style_selected_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the CSS stylesheet for the currently selected menu item.</span>
+<span class="sd">        Return the CSS stylesheet for the currently selected menu item.</span>
 
 <span class="sd">        The returned stylesheet is based on the current theme set in the `model` attribute.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            str: The CSS stylesheet for the selected menu item.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
@@ -175,12 +170,12 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_stylesheet.ControlStyleSheet.set_style_deselect_menu">[docs]</a>
     <span class="k">def</span> <span class="nf">set_style_deselect_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">get_style</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Replaces the selected menu style with an unselected style in the current theme.</span>
+<span class="sd">        Replace the selected menu style with an unselected style in the current theme.</span>
 
-<span class="sd">        Args:</span>
+<span class="sd">        Arg:</span>
 <span class="sd">            get_style (str): The current style of the menu to be deselected.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            str: The updated style of the menu with the selected style replaced with the unselected style.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
@@ -197,13 +192,13 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_stylesheet.ControlStyleSheet.reset_style">[docs]</a>
     <span class="k">def</span> <span class="nf">reset_style</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Resets the stylesheet of all push buttons in the frame_button_view except for the one with the given</span>
+<span class="sd">        Reset the stylesheet of all push buttons in the frame_button_view except for the one with the given</span>
 <span class="sd">        object name.</span>
 
-<span class="sd">        Args:</span>
+<span class="sd">        Arg:</span>
 <span class="sd">            widget (str): The object name of the push button to exclude.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
@@ -221,9 +216,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the CSS stylesheet for a selected menu button in dark theme.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            str: The CSS stylesheet for a selected menu button in dark theme.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">stylesheet</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">            border-left: 22px solid </span>
@@ -239,9 +233,9 @@
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">stylesheet_selected_menu_light_theme</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the light theme stylesheet for the selected menu.</span>
+<span class="sd">        Return the light theme stylesheet for the selected menu.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            str: The stylesheet for the selected menu in the light theme.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">stylesheet</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>

@@ -23,7 +23,7 @@ Overview of Apps
 
    "MoilApp software application" when it is running for the first time, specifically, the application will display a <b><i>splash</i></b> screen to the user, which is a graphical image or animation that indicates that the application is loading and that will be available soon. This splash screen is a new feature that has been added to the latest version of MoilApp (version 4.1). </p>
 
-.. figure:: assets/21.splash-screen.png
+.. figure:: assets/splash-screen.png
    :scale: 75 %
    :alt: Splash Screen Application
    :align: center
@@ -62,7 +62,7 @@ Overview of Apps
    Open Media Source
 
 .. figure:: assets/usage/2.Select-Media-Source.png
-   :scale: 50 %
+   :scale: 40 %
    :alt: Select Media Source
    :align: center
 
@@ -197,7 +197,7 @@ Overview of Apps
     provided that the user creates the application using MoilDev or MoilUtils-Templates.</p>
 
 .. figure:: assets/usage/7.Plugin-app.png
-   :scale: 50%
+   :scale: 40%
    :alt: Add Application
    :align: center
 
@@ -332,7 +332,7 @@ as it provides insights into the application's inner workings and helps identify
    </p>
 
 .. figure:: assets/usage/15.fisheye-zoom.jpg
-   :scale: 40 %
+   :scale: 30%
    :alt: Zoom image area
    :align: center
 
@@ -574,7 +574,12 @@ Mouse click-move event
 Double click event
 ------------------
 
-The Double click mouse event has function to reset Anypoint view to default in Anypoint mode.
+    - Double Click Event in Original Window:
+        When in Anypoint state, a double-click mouse event on the original window will reset the Anypoint view to its default settings. In this mode, both alpha and beta values are set to 0 (zero).
+
+    - Double Click Event in Result Window:
+
+        In the result window, a double-click mouse event will switch to full-screen mode. To exit full-screen mode and return to the default view, double-click again.
 
 Right click event
 -----------------

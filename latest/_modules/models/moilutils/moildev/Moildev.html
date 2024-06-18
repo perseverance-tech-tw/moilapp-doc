@@ -96,30 +96,31 @@
 <span class="k">class</span> <span class="nc">Moildev</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_camera_parameter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">camera_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resolution_ratio</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwarg</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Before the ensuing functions can function properly,</span>
-<span class="sd">        the camera parameter must be configured at the start of the program.</span>
-<span class="sd">        The camera parameter is the outcome of the MOIL laboratory&#39;s calibration camera.</span>
+<span class="sd">           Initializes the Moildev object and sets up the camera parameters.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            file_camera_parameter: *.json file</span>
-<span class="sd">            camera_type : the name of the camera type used (use if yore pass the parameter using *.json file)</span>
-<span class="sd">            ratio_resolution : resolution of the image after resize</span>
-<span class="sd">            cameraName : the name of the camera used</span>
-<span class="sd">            cameraFov : camera field of view (FOV)</span>
-<span class="sd">            sensor_width : size of sensor width</span>
-<span class="sd">            sensor_height : size of sensor height</span>
-<span class="sd">            Icx : center image in x-axis</span>
-<span class="sd">            Icy : center image in y-axis</span>
-<span class="sd">            ratio : the value of the ratio image</span>
-<span class="sd">            imageWidth : the size of width image</span>
-<span class="sd">            imageHeight : the size of height image</span>
-<span class="sd">            calibrationRatio : the value of calibration ratio</span>
-<span class="sd">            parameter0 .. parameter5 : intrinsic fisheye camera parameter get from calibration</span>
+<span class="sd">           The camera parameters must be configured at the start of the program.</span>
+<span class="sd">           These parameters are the result of the MOIL laboratory&#39;s camera calibration.</span>
 
-<span class="sd">        .. code-block :: markdown</span>
+<span class="sd">           Args:</span>
+<span class="sd">               file_camera_parameter (str, optional): Path to the *.json file containing the camera parameters.</span>
+<span class="sd">               camera_type (str, optional): The name of the camera type used (use if passing parameters via a *.json file).</span>
+<span class="sd">               resolution_ratio (float, optional): The ratio for resizing the image resolution. Defaults to 1.</span>
+<span class="sd">               camera_name (str, optional): The name of the camera used.</span>
+<span class="sd">               camera_fov (float, optional): Camera field of view (FOV).</span>
+<span class="sd">               sensor_width (float, optional): Size of the sensor width.</span>
+<span class="sd">               sensor_height (float, optional): Size of the sensor height.</span>
+<span class="sd">               icx (float, optional): Center image in the x-axis.</span>
+<span class="sd">               icy (float, optional): Center image in the y-axis.</span>
+<span class="sd">               ratio (float, optional): The value of the ratio image.</span>
+<span class="sd">               image_width (int, optional): The width of the image.</span>
+<span class="sd">               image_height (int, optional): The height of the image.</span>
+<span class="sd">               calibration_ratio (float, optional): The value of the calibration ratio.</span>
+<span class="sd">               parameter_0 .. parameter_5 (float, optional): Intrinsic fisheye camera parameters obtained from calibration.</span>
 
-<span class="sd">            for more detail, please reference https://github.com/perseverance-tech-tw/moildev</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">           .. code-block:: markdown</span>
+
+<span class="sd">               For more details, please refer to https://github.com/perseverance-tech-tw/moildev</span>
+<span class="sd">           &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Moildev</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__alpha_to_rho_table</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__rho_to_alpha_table</span> <span class="o">=</span> <span class="p">[]</span>
@@ -328,10 +329,17 @@
 
     <span class="k">def</span> <span class="nf">__create_maps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create Maps image from zeroes matrix.</span>
+<span class="sd">            Initialize mapping and result matrices with zeros.</span>
+
+<span class="sd">        This function creates and initializes the following:</span>
+<span class="sd">        - `self.__map_x`: A zero matrix of shape (image_height, image_width) with dtype float32.</span>
+<span class="sd">        - `self.__map_y`: A zero matrix of shape (image_height, image_width) with dtype float32.</span>
+<span class="sd">        - `self.__res`: A zero matrix of shape (image_height, image_width, 3) with dtype uint8.</span>
+
+<span class="sd">        These matrices are used for image processing operations within the class.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            Zeroes matrix same size with original image.</span>
+<span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__map_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__image_height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__image_width</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__map_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">__image_height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__image_width</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>

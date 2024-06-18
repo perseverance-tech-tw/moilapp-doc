@@ -98,6 +98,7 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">stat</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">webbrowser</span>
 
 <span class="kn">import</span> <span class="nn">git</span>
 <span class="kn">import</span> <span class="nn">requests</span>
@@ -505,7 +506,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_plugin_manager.PluginManager.show_plugins_after_installation">[docs]</a>
     <span class="k">def</span> <span class="nf">show_plugins_after_installation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">widget</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Shows the installed plugin in the UI after installation.</span>
+<span class="sd">        Show the installed plugin in the UI after installation.</span>
 
 <span class="sd">        Arg:</span>
 <span class="sd">            widget: The widget representing the installed plugin.</span>
@@ -629,11 +630,11 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Create and return a QPushButton widget with an icon and a name.</span>
 
-<span class="sd">        Arg:</span>
+<span class="sd">        Args:</span>
 <span class="sd">            icon_: A string specifying the path of the icon file.</span>
 <span class="sd">            name: A string specifying the name of the plugin.</span>
 
-<span class="sd">        Returns=:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            A QPushButton widget with the specified icon and name.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
@@ -671,7 +672,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Clear the items from the layout.</span>
 
-<span class="sd">        Removes all items from the vertical layout &#39;verticalLayout_plugin_store&#39; in the UI.</span>
+<span class="sd">        Remove all items from the vertical layout &#39;verticalLayout_plugin_store&#39; in the UI.</span>
 
 <span class="sd">        Return:</span>
 <span class="sd">            None</span>
@@ -762,7 +763,7 @@
 <span class="sd">             path (str): The path to the read-only file or directory.</span>
 <span class="sd">             _ (object): Ignored parameter required by the shutil.rmtree function.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">             None</span>
 <span class="sd">         &quot;&quot;&quot;</span>
         <span class="c1"># Clear the read-only attribute and attempt to delete the file again</span>
@@ -786,14 +787,15 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;PluginManager: help_menu_plugin(), &quot;</span>
                                              <span class="s2">&quot;Help menu Plugin&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">widget_container_content</span><span class="o">.</span><span class="n">currentIndex</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Help menu plugin under development </span><span class="se">\n</span><span class="s2">&quot;</span> \
-                      <span class="s2">&quot;we Will inform you after finish!!</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span>
+                <span class="sa">r</span><span class="s1">&#39;https://perseverance-tech-tw.github.io/moilapp-doc/latest/plugin_extention.html#plugin-extention&#39;</span><span class="p">,</span>
+                <span class="n">new</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Help menu plugin under development </span><span class="se">\n</span><span class="s2">&quot;</span> \
                       <span class="s2">&quot;we Will inform you after finish!!</span><span class="se">\n\n</span><span class="s2">&quot;</span> \
                       <span class="s2">&quot;Note App: &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">get_description</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_message_box</span><span class="o">.</span><span class="n">display_message_box</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s2">&quot;information&quot;</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_message_box</span><span class="o">.</span><span class="n">display_message_box</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s2">&quot;information&quot;</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

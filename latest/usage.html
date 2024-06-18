@@ -1,1056 +1,658 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
-
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MoilApp of Usage &mdash; MoilApp Documentation 4.1 documentation</title>
-  <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
-  <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
-
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
-
-  <script src="_static/jquery.js?v=5d32c60e"></script>
-  <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-  <script src="_static/documentation_options.js?v=3b2dd2c4"></script>
-  <script src="_static/doctools.js?v=9a2dae69"></script>
-  <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-  <script src="_static/js/theme.js"></script>
-  <link rel="index" title="Index" href="genindex.html" />
-  <link rel="search" title="Search" href="search.html" />
-  <link rel="next" title="Plugin Extention" href="plugin_extention.html" />
-  <link rel="prev" title="API References" href="api_reference.html" />
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=3b2dd2c4"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Plugin Extention" href="plugin_extention.html" />
+    <link rel="prev" title="API References" href="api_reference.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
 
-
-
+          
+          
           <a href="index.html">
-
-            <img src="_static/light-moilapp.png" class="logo" alt="Logo" />
+            
+              <img src="_static/light-moilapp.png" class="logo" alt="Logo"/>
           </a>
-          <div role="search">
-            <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-              <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-              <input type="hidden" name="check_keywords" value="yes" />
-              <input type="hidden" name="area" value="default" />
-            </form>
-          </div>
-        </div>
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-          <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
-          <ul class="current">
-            <li class="toctree-l1"><a class="reference internal" href="release_note.html">Release Notes</a></li>
-            <li class="toctree-l1"><a class="reference internal" href="Overview.html">Definition and overview</a></li>
-            <li class="toctree-l1"><a class="reference internal" href="installation_guide.html">MOIL app Installation
-                Guide</a></li>
-            <li class="toctree-l1"><a class="reference internal" href="contribute.html">How to Contribute</a></li>
-            <li class="toctree-l1"><a class="reference internal" href="api_reference.html">API References</a></li>
-            <li class="toctree-l1 current"><a class="current reference internal" href="#">MoilApp of Usage</a>
-              <ul>
-                <li class="toctree-l2"><a class="reference internal" href="#overview-of-apps">Overview of Apps</a>
-                  <ul>
-                    <li class="toctree-l3"><a class="reference internal" href="#open-media-source">1. Open media
-                        source</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#recent-open">2. Recent Open</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#rotate-image">3. Rotate Image</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#zoom-image">4. Zoom Image</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#default-application">5. Default
-                        Application</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#add-plugin-applications">6. Add Plugin
-                        Applications</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#information-applications">7. Information
-                        Applications</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#debug-applications">8. Debug
-                        Applications</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#screen-record">9. Screen Record</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#about-us">10. About US</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#theme-application">11. Theme
-                        Application</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#show-hide-information-button">12.
-                        Show/Hide Information Button</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#fisheye-view">13. Fisheye View</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#anypoint-view">14. Anypoint View</a>
-                    </li>
-                    <li class="toctree-l3"><a class="reference internal" href="#panorama-view">15. Panorama view</a>
-                    </li>
-                    <li class="toctree-l3"><a class="reference internal" href="#camera-parameters">16. Camera
-                        parameters</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#clear-user-interface-ui">17. Clear User
-                        Interface (UI)</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#check-for-updates">18. Check for
-                        Updates</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#read-the-docs-application">17. Read the
-                        Docs Application</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#help-information">19. Help
-                        Information</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#application-settings">20. Application
-                        Settings</a></li>
-                  </ul>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="#mouse-event">Mouse Event</a>
-                  <ul>
-                    <li class="toctree-l3"><a class="reference internal" href="#mouse-click-event">Mouse click event</a>
-                    </li>
-                    <li class="toctree-l3"><a class="reference internal" href="#mouse-click-move-event">Mouse click-move
-                        event</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#double-click-event">Double click
-                        event</a></li>
-                    <li class="toctree-l3"><a class="reference internal" href="#right-click-event">Right click event</a>
-                    </li>
-                    <li class="toctree-l3"><a class="reference internal" href="#mouse-wheel">Mouse wheel</a></li>
-                  </ul>
-                </li>
-                <li class="toctree-l2"><a class="reference internal" href="#keyboard-shortcut">Keyboard Shortcut</a>
-                </li>
-              </ul>
-            </li>
-            <li class="toctree-l1"><a class="reference internal" href="plugin_extention.html">Plugin Extention</a></li>
-            <li class="toctree-l1"><a class="reference internal" href="troubleshooting_issue.html">Troubleshooting
-                Problems</a></li>
-            <li class="toctree-l1"><a class="reference internal" href="setup_issue.html">Reporting Bugs and Issues</a>
-            </li>
-          </ul>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Table of Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="release_note.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Overview.html">Definition and overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation_guide.html">MOIL app Installation Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">How to Contribute</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API References</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">MoilApp of Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview-of-apps">Overview of Apps</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#open-media-source">1. Open media source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#recent-open">2. Recent Open</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rotate-image">3. Rotate Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#zoom-image">4. Zoom Image</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#default-application">5. Default Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-plugin-applications">6. Add Plugin Applications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#information-applications">7. Information Applications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#debug-applications">8. Debug Applications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#screen-record">9. Screen Record</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#about-us">10. About US</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#theme-application">11. Theme Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#show-hide-information-button">12. Show/Hide Information Button</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fisheye-view">13. Fisheye View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#anypoint-view">14. Anypoint View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#panorama-view">15. Panorama view</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#camera-parameters">16. Camera parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#clear-user-interface-ui">17. Clear User Interface (UI)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#check-for-updates">18. Check for Updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#read-the-docs-application">17. Read the Docs Application</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#help-information">19. Help Information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#application-settings">20. Application Settings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#mouse-event">Mouse Event</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mouse-click-event">Mouse click event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mouse-click-move-event">Mouse click-move event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#double-click-event">Double click event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#right-click-event">Right click event</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mouse-wheel">Mouse wheel</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#keyboard-shortcut">Keyboard Shortcut</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="plugin_extention.html">Plugin Extention</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting_issue.html">Troubleshooting Problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup_issue.html">Reporting Bugs and Issues</a></li>
+</ul>
 
         </div>
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" aria-label="Mobile navigation menu">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">MoilApp Documentation</a>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MoilApp Documentation</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
-            <ul class="wy-breadcrumbs">
-              <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-              <li class="breadcrumb-item active">MoilApp of Usage</li>
-              <li class="wy-breadcrumbs-aside">
-              </li>
-            </ul>
-            <hr />
-          </div>
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">MoilApp of Usage</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-            <div itemprop="articleBody">
+           <div itemprop="articleBody">
+             
+  <section id="moilapp-of-usage">
+<h1>MoilApp of Usage<a class="headerlink" href="#moilapp-of-usage" title="Link to this heading"></a></h1>
+<p style="text-align: justify;">
 
-              <section id="moilapp-of-usage">
-                <h1>MoilApp of Usage<a class="headerlink" href="#moilapp-of-usage" title="Link to this heading"></a>
-                </h1>
-                <p style="text-align: justify;">
+ In this section, we will explain the components of the MoilApp application and provide tutorials on how to use the application. <b><u>MoilApp</u></b> is a software application that users can utilize, and the referred session might be some kind of training session where the instructor will provide an overview of the various parts of the application and teach users how to use them effectively.</p><figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="_images/user-operation.jpg"><img alt="Operations of the MoilApp" src="_images/user-operation.jpg" style="width: 810.0px; height: 489.59999999999997px;" /></a>
+<figcaption>
+<p><span class="caption-text">Operations of the MoilApp</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<section id="overview-of-apps">
+<h2>Overview of Apps<a class="headerlink" href="#overview-of-apps" title="Link to this heading"></a></h2>
+<p style="text-align: justify;">
 
-                  In this section, we will explain the components of the MoilApp application and provide tutorials on
-                  how to use the application. <b><u>MoilApp</u></b> is a software application that users can utilize,
-                  and the referred session might be some kind of training session where the instructor will provide an
-                  overview of the various parts of the application and teach users how to use them effectively.</p>
-                <figure class="align-center" id="id1">
-                  <a class="reference internal image-reference" href="_images/user-operation.jpg"><img
-                      alt="Operations of the MoilApp" src="_images/user-operation.jpg"
-                      style="width: 810.0px; height: 489.59999999999997px;" /></a>
-                  <figcaption>
-                    <p><span class="caption-text">Operations of the MoilApp</span><a class="headerlink" href="#id1"
-                        title="Link to this image"></a></p>
-                  </figcaption>
-                </figure>
-                <section id="overview-of-apps">
-                  <h2>Overview of Apps<a class="headerlink" href="#overview-of-apps" title="Link to this heading"></a>
-                  </h2>
-                  <p style="text-align: justify;">
+"MoilApp software application" when it is running for the first time, specifically, the application will display a <b><i>splash</i></b> screen to the user, which is a graphical image or animation that indicates that the application is loading and that will be available soon. This splash screen is a new feature that has been added to the latest version of MoilApp (version 4.1). </p><figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="_images/splash-screen.png"><img alt="Splash Screen Application" src="_images/splash-screen.png" style="width: 378.75px; height: 213.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Loading Splash screen Application</span><a class="headerlink" href="#id2" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p style="text-align: justify;">
 
-                    "MoilApp software application" when it is running for the first time, specifically, the application
-                    will display a <b><i>splash</i></b> screen to the user, which is a graphical image or animation that
-                    indicates that the application is loading and that will be available soon. This splash screen is a
-                    new feature that has been added to the latest version of MoilApp (version 4.1). </p>
-                  <figure class="align-center" id="id2">
-                    <a class="reference internal image-reference" href="_images/21.splash-screen.png"><img
-                        alt="Splash Screen Application" src="_images/21.splash-screen.png"
-                        style="width: 391.5px; height: 168.75px;" /></a>
-                    <figcaption>
-                      <p><span class="caption-text">Loading Splash screen Application</span><a class="headerlink"
-                          href="#id2" title="Link to this image"></a></p>
-                    </figcaption>
-                  </figure>
-                  <p style="text-align: justify;">
+ When you open a project in PyCharm, the user interface will show the default main window, ready to run, looks as follows:</p><figure class="align-center" id="id3">
+<a class="reference internal image-reference" href="_images/1.Main-window.png"><img alt="alternate text" src="_images/1.Main-window.png" style="width: 768.0px; height: 432.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Main window MoilApp</span><a class="headerlink" href="#id3" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<section id="open-media-source">
+<h3>1. Open media source<a class="headerlink" href="#open-media-source" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                    When you open a project in PyCharm, the user interface will show the default main window, ready to
-                    run, looks as follows:</p>
-                  <figure class="align-center" id="id3">
-                    <a class="reference internal image-reference" href="_images/1.Main-window.png"><img
-                        alt="alternate text" src="_images/1.Main-window.png"
-                        style="width: 768.0px; height: 432.0px;" /></a>
-                    <figcaption>
-                      <p><span class="caption-text">Main window MoilApp</span><a class="headerlink" href="#id3"
-                          title="Link to this image"></a></p>
-                    </figcaption>
-                  </figure>
-                  <section id="open-media-source">
-                    <h3>1. Open media source<a class="headerlink" href="#open-media-source"
-                        title="Link to this heading"></a></h3>
-                    <p style="text-align: justify;">
+ The inputs offered by MoilApp include picture files, video files, and cameras—USB cameras, web cameras,
+ and streaming cameras from Raspberry Pi—all of which can be used for processing. Simply tap the appropriate button
+ for the media source you want to process, and the software will open a file explorer popup, similar to the one below.</p><figure class="align-center" id="id4">
+<a class="reference internal image-reference" href="_images/2.Open-Media-Source.png"><img alt="open media source" src="_images/2.Open-Media-Source.png" style="width: 768.0px; height: 432.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Open Media Source</span><a class="headerlink" href="#id4" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="_images/2.Select-Media-Source.png"><img alt="Select Media Source" src="_images/2.Select-Media-Source.png" style="width: 712.4000000000001px; height: 432.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Select Media Source</span><a class="headerlink" href="#id5" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p style="text-align: justify;">
 
-                      The inputs offered by MoilApp include picture files, video files, and cameras—USB cameras, web
-                      cameras,
-                      and streaming cameras from Raspberry Pi—all of which can be used for processing. Simply tap the
-                      appropriate button
-                      for the media source you want to process, and the software will open a file explorer popup,
-                      similar to the one below.</p>
-                    <figure class="align-center" id="id4">
-                      <a class="reference internal image-reference" href="_images/2.Open-Media-Source.png"><img
-                          alt="open media source" src="_images/2.Open-Media-Source.png"
-                          style="width: 768.0px; height: 432.0px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Open Media Source</span><a class="headerlink" href="#id4"
-                            title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                    <figure class="align-center" id="id5">
-                      <a class="reference internal image-reference" href="_images/2.Select-Media-Source.png"><img
-                          alt="Select Media Source" src="_images/2.Select-Media-Source.png"
-                          style="width: 960.0px; height: 540.0px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Select Media Source</span><a class="headerlink" href="#id5"
-                            title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                    <p style="text-align: justify;">
+ - After selecting the file to open, a combo box prompt will appear asking you to select the type of camera that
+ was used. The camera parameters can be loaded from the database using this.</p><p style="text-align: justify;">
 
-                      - After selecting the file to open, a combo box prompt will appear asking you to select the type
-                      of camera that
-                      was used. The camera parameters can be loaded from the database using this.</p>
-                    <p style="text-align: justify;">
+ - There are two ways to open the camera: through USB or via streaming. You can use the combo box to pick the USB port
+ that is being used for a camera, click <b>OK</b>. And then, you will be prompted to select the type of camera that is being used.
+ As depicted in the picture below.</p><p style="text-align: justify;">
 
-                      - There are two ways to open the camera: through USB or via streaming. You can use the combo box
-                      to pick the USB port
-                      that is being used for a camera, click <b>OK</b>. And then, you will be prompted to select the
-                      type of camera that is being used.
-                      As depicted in the picture below.</p>
-                    <p style="text-align: justify;">
+ - The streaming camera option allows you to access the camera_url using the stream server URL. You merely need
+ to enter the camera's URL and click <b><i>"OK"</i></b> button, as seen below. In the combo box prompt,
+ you will be prompted to select the type of camera being utilized.</p></section>
+<section id="recent-open">
+<h3>2. Recent Open<a class="headerlink" href="#recent-open" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                      - The streaming camera option allows you to access the camera_url using the stream server URL. You
-                      merely need
-                      to enter the camera's URL and click <b><i>"OK"</i></b> button, as seen below. In the combo box
-                      prompt,
-                      you will be prompted to select the type of camera being utilized.</p>
-                  </section>
-                  <section id="recent-open">
-                    <h3>2. Recent Open<a class="headerlink" href="#recent-open" title="Link to this heading"></a></h3>
-                    <p style="text-align: justify;">
+ The Recent Open feature enhances user experience by providing quick and convenient access to previously used files.
+ This feature maintains a list of recently opened images or projects, allowing users to reopen their recent work
+ without navigating through the entire file system.</p><figure class="align-center">
+<a class="reference internal image-reference" href="_images/3.Recent-Open.png"><img alt="Recent open media" src="_images/3.Recent-Open.png" style="width: 768.0px; height: 432.0px;" /></a>
+</figure>
+<figure class="align-center" id="id6">
+<a class="reference internal image-reference" href="_images/3.Recent-Open-Feature.png"><img alt="Recent open feature" src="_images/3.Recent-Open-Feature.png" style="width: 768.0px; height: 432.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Recent open media</span><a class="headerlink" href="#id6" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p style="text-align: justify;">
 
-                      The Recent Open feature enhances user experience by providing quick and convenient access to
-                      previously used files.
-                      This feature maintains a list of recently opened images or projects, allowing users to reopen
-                      their recent work
-                      without navigating through the entire file system.</p>
-                    <figure class="align-center">
-                      <a class="reference internal image-reference" href="_images/3.Recent-Open.png"><img
-                          alt="Recent open media" src="_images/3.Recent-Open.png"
-                          style="width: 768.0px; height: 432.0px;" /></a>
-                    </figure>
-                    <figure class="align-center" id="id6">
-                      <a class="reference internal image-reference" href="_images/3.Recent-Open-Feature.png"><img
-                          alt="Recent open feature" src="_images/3.Recent-Open-Feature.png"
-                          style="width: 768.0px; height: 432.0px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Recent open media</span><a class="headerlink" href="#id6"
-                            title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                    <p style="text-align: justify;">
+ After selecting a file from the recent list, you can choose from two options:</p><p style="text-align: justify;">
 
-                      After selecting a file from the recent list, you can choose from two options:</p>
-                    <p style="text-align: justify;">
+ - Saved Configuration: This feature allows you to access the history of media files you have recently opened.</p><p style="text-align: justify;">
 
-                      - Saved Configuration: This feature allows you to access the history of media files you have
-                      recently opened.</p>
-                    <p style="text-align: justify;">
+ - Directory: This feature lets you access the directory to load media files directly.</p></section>
+<section id="rotate-image">
+<h3>3. Rotate Image<a class="headerlink" href="#rotate-image" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                      - Directory: This feature lets you access the directory to load media files directly.</p>
-                  </section>
-                  <section id="rotate-image">
-                    <h3>3. Rotate Image<a class="headerlink" href="#rotate-image" title="Link to this heading"></a>
-                    </h3>
-                    <p style="text-align: justify;">
+ MoilApp has two rotate functions: rotate the left image and rotate the right image. Rotation can be operated
+ by entering a value on the rotate scale, this helps the user to rotate with a lesser scale.</p><figure class="align-center" id="id7">
+<a class="reference internal image-reference" href="_images/4.Rotate-Image.png"><img alt="Processing to Rotate Right and Left Image" src="_images/4.Rotate-Image.png" style="width: 768.0px; height: 432.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Processing Rotate left &amp; Rotate right Image</span><a class="headerlink" href="#id7" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="zoom-image">
+<h3>4. Zoom Image<a class="headerlink" href="#zoom-image" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                      MoilApp has two rotate functions: rotate the left image and rotate the right image. Rotation can
-                      be operated
-                      by entering a value on the rotate scale, this helps the user to rotate with a lesser scale.</p>
-                    <figure class="align-center" id="id7">
-                      <a class="reference internal image-reference" href="_images/4.Rotate-Image.png"><img
-                          alt="Processing to Rotate Right and Left Image" src="_images/4.Rotate-Image.png"
-                          style="width: 768.0px; height: 432.0px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Processing Rotate left &amp; Rotate right Image</span><a
-                            class="headerlink" href="#id7" title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                  </section>
-                  <section id="zoom-image">
-                    <h3>4. Zoom Image<a class="headerlink" href="#zoom-image" title="Link to this heading"></a></h3>
-                    <p style="text-align: justify;">
+ The user can zoom in and out using the <i>plus</i> and <i>minus</i> buttons, respectively, in this program. In addition,
+ the user can select the zoom scale to be smaller by a minimum of <i>25 degrees</i> and above to make the final image.</p><figure class="align-center" id="id8">
+<a class="reference internal image-reference" href="_images/5.Zoom-Image.png"><img alt="Zoom in and out of the images" src="_images/5.Zoom-Image.png" style="width: 768.0px; height: 432.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Processing Zoom in &amp; Zoom out Image</span><a class="headerlink" href="#id8" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="default-application">
+<h3>5. Default Application<a class="headerlink" href="#default-application" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                      The user can zoom in and out using the <i>plus</i> and <i>minus</i> buttons, respectively, in this
-                      program. In addition,
-                      the user can select the zoom scale to be smaller by a minimum of <i>25 degrees</i> and above to
-                      make the final image.</p>
-                    <figure class="align-center" id="id8">
-                      <a class="reference internal image-reference" href="_images/5.Zoom-Image.png"><img
-                          alt="Zoom in and out of the images" src="_images/5.Zoom-Image.png"
-                          style="width: 768.0px; height: 432.0px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Processing Zoom in &amp; Zoom out Image</span><a
-                            class="headerlink" href="#id8" title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                  </section>
-                  <section id="default-application">
-                    <h3>5. Default Application<a class="headerlink" href="#default-application"
-                        title="Link to this heading"></a></h3>
-                    <p style="text-align: justify;">
+ The application will automatically return to the original image when the default button is clicked.
+ When the user is processing an image, for instance, when the user is processing an image to any point and then
+ decides they want to go back to the original image, this position is the position when the user loaded the image
+ when opening the application.</p><figure class="align-center" id="id9">
+<a class="reference internal image-reference" href="_images/6.Default.png"><img alt="Default Image" src="_images/6.Default.png" style="width: 768.0px; height: 432.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Processing default image to original</span><a class="headerlink" href="#id9" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="add-plugin-applications">
+<h3>6. Add Plugin Applications<a class="headerlink" href="#add-plugin-applications" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                      The application will automatically return to the original image when the default button is
-                      clicked.
-                      When the user is processing an image, for instance, when the user is processing an image to any
-                      point and then
-                      decides they want to go back to the original image, this position is the position when the user
-                      loaded the image
-                      when opening the application.</p>
-                    <figure class="align-center" id="id9">
-                      <a class="reference internal image-reference" href="_images/6.Default.png"><img
-                          alt="Default Image" src="_images/6.Default.png"
-                          style="width: 768.0px; height: 432.0px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Processing default image to original</span><a class="headerlink"
-                            href="#id9" title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                  </section>
-                  <section id="add-plugin-applications">
-                    <h3>6. Add Plugin Applications<a class="headerlink" href="#add-plugin-applications"
-                        title="Link to this heading"></a></h3>
-                    <p style="text-align: justify;">
+ When the user wants to create an application integrated with MoilApp or the user wants to open the application,
+ the user can add the application to MoilApps by clicking the Add button at the top of the application,
+ provided that the user creates the application using MoilDev or MoilUtils-Templates.</p><figure class="align-center" id="id10">
+<a class="reference internal image-reference" href="_images/7.Plugin-app.png"><img alt="Add Application" src="_images/7.Plugin-app.png" style="width: 768.0px; height: 432.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Add application</span><a class="headerlink" href="#id10" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="information-applications">
+<h3>7. Information Applications<a class="headerlink" href="#information-applications" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                      When the user wants to create an application integrated with MoilApp or the user wants to open the
-                      application,
-                      the user can add the application to MoilApps by clicking the Add button at the top of the
-                      application,
-                      provided that the user creates the application using MoilDev or MoilUtils-Templates.</p>
-                    <figure class="align-center" id="id10">
-                      <a class="reference internal image-reference" href="_images/7.Plugin-app.png"><img
-                          alt="Add Application" src="_images/7.Plugin-app.png"
-                          style="width: 960.0px; height: 540.0px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Add application</span><a class="headerlink" href="#id10"
-                            title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                  </section>
-                  <section id="information-applications">
-                    <h3>7. Information Applications<a class="headerlink" href="#information-applications"
-                        title="Link to this heading"></a></h3>
-                    <p style="text-align: justify;">
+ The users can view related information on MoilApp by accessing further information.</p><figure class="align-center" id="id11">
+<a class="reference internal image-reference" href="_images/8.Information.png"><img alt="Notice Info" src="_images/8.Information.png" style="width: 768.0px; height: 432.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Notice Application</span><a class="headerlink" href="#id11" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="debug-applications">
+<h3>8. Debug Applications<a class="headerlink" href="#debug-applications" title="Link to this heading"></a></h3>
+<p style="text-align: justify;"><p>The Debug feature, when enabled, logs the processes and functions executed for each feature.
+This detailed logging is useful for developers to troubleshoot and optimize the application,
+as it provides insights into the application’s inner workings and helps identify any issues or inefficiencies.&lt;/p&gt;</p>
+<figure class="align-center" id="id12">
+<a class="reference internal image-reference" href="_images/9.Debug.png"><img alt="Debugging Apps" src="_images/9.Debug.png" style="width: 768.0px; height: 432.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Debug Application</span><a class="headerlink" href="#id12" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="screen-record">
+<h3>9. Screen Record<a class="headerlink" href="#screen-record" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                      The users can view related information on MoilApp by accessing further information.</p>
-                    <figure class="align-center" id="id11">
-                      <a class="reference internal image-reference" href="_images/8.Information.png"><img
-                          alt="Notice Info" src="_images/8.Information.png"
-                          style="width: 768.0px; height: 432.0px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Notice Application</span><a class="headerlink" href="#id11"
-                            title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                  </section>
-                  <section id="debug-applications">
-                    <h3>8. Debug Applications<a class="headerlink" href="#debug-applications"
-                        title="Link to this heading"></a></h3>
-                    <p style="text-align: justify;">
-                    <p>The Debug feature, when enabled, logs the processes and functions executed for each feature.
-                      This detailed logging is useful for developers to troubleshoot and optimize the application,
-                      as it provides insights into the application’s inner workings and helps identify any issues or
-                      inefficiencies.&lt;/p&gt;</p>
-                    <figure class="align-center" id="id12">
-                      <a class="reference internal image-reference" href="_images/9.Debug.png"><img alt="Debugging Apps"
-                          src="_images/9.Debug.png" style="width: 768.0px; height: 432.0px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Debug Application</span><a class="headerlink" href="#id12"
-                            title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                  </section>
-                  <section id="screen-record">
-                    <h3>9. Screen Record<a class="headerlink" href="#screen-record" title="Link to this heading"></a>
-                    </h3>
-                    <p style="text-align: justify;">
+ A new feature offered by MoilApp is screen recording, which makes it simpler for users to do so.
+ This tool is also a helpful way to record and share videos of what is happening on your desktop.</p><figure class="align-center">
+<a class="reference internal image-reference" href="_images/10.Record-Screen.png"><img alt="Screen Recording" src="_images/10.Record-Screen.png" style="width: 768.0px; height: 432.0px;" /></a>
+</figure>
+<p style="text-align: justify;">
 
-                      A new feature offered by MoilApp is screen recording, which makes it simpler for users to do so.
-                      This tool is also a helpful way to record and share videos of what is happening on your desktop.
-                    </p>
-                    <figure class="align-center">
-                      <a class="reference internal image-reference" href="_images/10.Record-Screen.png"><img
-                          alt="Screen Recording" src="_images/10.Record-Screen.png"
-                          style="width: 768.0px; height: 432.0px;" /></a>
-                    </figure>
-                    <p style="text-align: justify;">
+ When using a desktop application to record your screen, you'll typically have a few options to choose from.
+ First, you'll need to select the area of your screen that you want to record. Some applications allow you to record
+ your desktop, while others let you record region of your screen.</p></section>
+<section id="about-us">
+<h3>10. About US<a class="headerlink" href="#about-us" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                      When using a desktop application to record your screen, you'll typically have a few options to
-                      choose from.
-                      First, you'll need to select the area of your screen that you want to record. Some applications
-                      allow you to record
-                      your desktop, while others let you record region of your screen.</p>
-                  </section>
-                  <section id="about-us">
-                    <h3>10. About US<a class="headerlink" href="#about-us" title="Link to this heading"></a></h3>
-                    <p style="text-align: justify;">
+ The application "About Us" section contains details about our work in the field of fisheye image processing.</p><figure class="align-center" id="id13">
+<a class="reference internal image-reference" href="_images/11.About-Us.png"><img alt="Info About US" src="_images/11.About-Us.png" style="width: 768.0px; height: 432.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Information About US</span><a class="headerlink" href="#id13" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="theme-application">
+<h3>11. Theme Application<a class="headerlink" href="#theme-application" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                      The application "About Us" section contains details about our work in the field of fisheye image
-                      processing.</p>
-                    <figure class="align-center" id="id13">
-                      <a class="reference internal image-reference" href="_images/11.About-Us.png"><img
-                          alt="Info About US" src="_images/11.About-Us.png"
-                          style="width: 768.0px; height: 432.0px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Information About US</span><a class="headerlink" href="#id13"
-                            title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                  </section>
-                  <section id="theme-application">
-                    <h3>11. Theme Application<a class="headerlink" href="#theme-application"
-                        title="Link to this heading"></a></h3>
-                    <p style="text-align: justify;">
+ In order to assist users adjust to their eyes and avoid seeming monotonous while using this software,
+ MoilApp offers two themes for use: one in bright mode and the other in dark mode.</p><figure class="align-center" id="id14">
+<a class="reference internal image-reference" href="_images/12.Theme.png"><img alt="alternate text" src="_images/12.Theme.png" style="width: 768.0px; height: 432.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Light theme &amp; Dark Theme application</span><a class="headerlink" href="#id14" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="show-hide-information-button">
+<h3>12. Show/Hide Information Button<a class="headerlink" href="#show-hide-information-button" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
+ Users can click on marked buttons to show/hide button information.
+ By using the <b>ESC</b> hotkey on the keyboard, users can also hide button information.</p><figure class="align-center" id="id15">
+<a class="reference internal image-reference" href="_images/13.hide-apps.jpg"><img alt="Show or Hide Button Information" src="_images/13.hide-apps.jpg" style="width: 826.75px; height: 353.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Show/Hide Button Information</span><a class="headerlink" href="#id15" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="fisheye-view">
+<h3>13. Fisheye View<a class="headerlink" href="#fisheye-view" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
+ The User Interface will display the <b>original fisheye image</b> as below. Users can use the rotate, zoom, change resolution features and turn on the Change OP option.
+</p><figure class="align-center" id="id16">
+<a class="reference internal image-reference" href="_images/14.fisheye.jpg"><img alt="Shows fisheye image from the Computer" src="_images/14.fisheye.jpg" style="width: 1000.8000000000001px; height: 272.6px;" /></a>
+<figcaption>
+<p><span class="caption-text">Show Fisheye Image from Computer</span><a class="headerlink" href="#id16" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p style="text-align: justify;">
+ Users can drag the mouse to zoom certain areas in the image as below. The area of interest will be visible on the minimap at the bottom left of the application.
+</p><figure class="align-center" id="id17">
+<a class="reference internal image-reference" href="_images/15.fisheye-zoom.jpg"><img alt="Zoom image area" src="_images/15.fisheye-zoom.jpg" style="width: 732.9px; height: 409.2px;" /></a>
+<figcaption>
+<p><span class="caption-text">Zoom Image Area</span><a class="headerlink" href="#id17" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="anypoint-view">
+<h3>14. Anypoint View<a class="headerlink" href="#anypoint-view" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                      In order to assist users adjust to their eyes and avoid seeming monotonous while using this
-                      software,
-                      MoilApp offers two themes for use: one in bright mode and the other in dark mode.</p>
-                    <figure class="align-center" id="id14">
-                      <a class="reference internal image-reference" href="_images/12.Theme.png"><img
-                          alt="alternate text" src="_images/12.Theme.png"
-                          style="width: 768.0px; height: 432.0px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Light theme &amp; Dark Theme application</span><a
-                            class="headerlink" href="#id14" title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                  </section>
-                  <section id="show-hide-information-button">
-                    <h3>12. Show/Hide Information Button<a class="headerlink" href="#show-hide-information-button"
-                        title="Link to this heading"></a></h3>
-                    <p style="text-align: justify;">
-                      Users can click on marked buttons to show/hide button information.
-                      By using the <b>ESC</b> hotkey on the keyboard, users can also hide button information.</p>
-                    <figure class="align-center" id="id15">
-                      <a class="reference internal image-reference" href="_images/13.hide-apps.jpg"><img
-                          alt="Show or Hide Button Information" src="_images/13.hide-apps.jpg"
-                          style="width: 826.75px; height: 353.0px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Show/Hide Button Information</span><a class="headerlink"
-                            href="#id15" title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                  </section>
-                  <section id="fisheye-view">
-                    <h3>13. Fisheye View<a class="headerlink" href="#fisheye-view" title="Link to this heading"></a>
-                    </h3>
-                    <p style="text-align: justify;">
-                      The User Interface will display the <b>original fisheye image</b> as below. Users can use the
-                      rotate, zoom, change resolution features and turn on the Change OP option.
-                    </p>
-                    <figure class="align-center" id="id16">
-                      <a class="reference internal image-reference" href="_images/14.fisheye.jpg"><img
-                          alt="Shows fisheye image from the Computer" src="_images/14.fisheye.jpg"
-                          style="width: 1000.8000000000001px; height: 272.6px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Show Fisheye Image from Computer</span><a class="headerlink"
-                            href="#id16" title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                    <p style="text-align: justify;">
-                      Users can drag the mouse to zoom certain areas in the image as below. The area of interest will be
-                      visible on the minimap at the bottom left of the application.
-                    </p>
-                    <figure class="align-center" id="id17">
-                      <a class="reference internal image-reference" href="_images/15.fisheye-zoom.jpg"><img
-                          alt="Zoom image area" src="_images/15.fisheye-zoom.jpg"
-                          style="width: 977.2px; height: 545.6px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Zoom Image Area</span><a class="headerlink" href="#id17"
-                            title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                  </section>
-                  <section id="anypoint-view">
-                    <h3>14. Anypoint View<a class="headerlink" href="#anypoint-view" title="Link to this heading"></a>
-                    </h3>
-                    <p style="text-align: justify;">
+ Sometimes we only want to look at places where there is a lot of information in order to improve the outcomes of observations.
+ As a result, we can apply the approach of  undistortion rectilinear selected image. This approach shifts the
+ optical axis to the specified <b>zenithal (alpha)</b> and <b>azimuthal (beta)</b> angles, then converts the image plane coordinate
+ to hemispherical coordinates.
 
-                      Sometimes we only want to look at places where there is a lot of information in order to improve
-                      the outcomes of observations.
-                      As a result, we can apply the approach of undistortion rectilinear selected image. This approach
-                      shifts the
-                      optical axis to the specified <b>zenithal (alpha)</b> and <b>azimuthal (beta)</b> angles, then
-                      converts the image plane coordinate
-                      to hemispherical coordinates.
+ Anypoint view has two modes, with mode 1 being the result of alphaOffset degree rotation followed by betaOffset degree
+ rotation around the Z-axis (roll) (pitch). In contrast, mode-2 produces a thetaY degree rotation around the Y axis (yaw)
+ following a thetaX degree rotation around the X axis (pitch).</p><figure class="align-center" id="id18">
+<a class="reference internal image-reference" href="_images/14.anypoint-image.jpg"><img alt="Anypoint Image" src="_images/14.anypoint-image.jpg" style="width: 700.6px; height: 282.6px;" /></a>
+<figcaption>
+<p><span class="caption-text">Processing Anypoint Image</span><a class="headerlink" href="#id18" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p style="text-align: justify;">
 
-                      Anypoint view has two modes, with mode 1 being the result of alphaOffset degree rotation followed
-                      by betaOffset degree
-                      rotation around the Z-axis (roll) (pitch). In contrast, mode-2 produces a thetaY degree rotation
-                      around the Y axis (yaw)
-                      following a thetaX degree rotation around the X axis (pitch).</p>
-                    <figure class="align-center" id="id18">
-                      <a class="reference internal image-reference" href="_images/14.anypoint-image.jpg"><img
-                          alt="Anypoint Image" src="_images/14.anypoint-image.jpg"
-                          style="width: 700.6px; height: 282.6px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Processing Anypoint Image</span><a class="headerlink" href="#id18"
-                            title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                    <p style="text-align: justify;">
+ You can switch from <b>mode 1 to mode 2</b> or vice versa by pressing the help button when in Anypoint view mode.
+ The help button can also be used to view Anypoint results coming from a certain angle. An overview of the additional
+ button in Anypoint view mode may be found below.</p></section>
+<section id="panorama-view">
+<h3>15. Panorama view<a class="headerlink" href="#panorama-view" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                      You can switch from <b>mode 1 to mode 2</b> or vice versa by pressing the help button when in
-                      Anypoint view mode.
-                      The help button can also be used to view Anypoint results coming from a certain angle. An overview
-                      of the additional
-                      button in Anypoint view mode may be found below.</p>
-                  </section>
-                  <section id="panorama-view">
-                    <h3>15. Panorama view<a class="headerlink" href="#panorama-view" title="Link to this heading"></a>
-                    </h3>
-                    <p style="text-align: justify;">
+ As explained earlier, the panorama view may present a horizontal view in a specific immersed environment to meet
+  human visual perception. The figure below shows a diagram of transforming a fisheye image into a panoramic view.</p><figure class="align-center" id="id19">
+<a class="reference internal image-reference" href="_images/diagram.jpg"><img alt="transformation image of panoroma view" src="_images/diagram.jpg" style="width: 440.0px; height: 160.0px;" /></a>
+<figcaption>
+<p><span class="caption-text">Diagram processing Original View to Panorama View</span><a class="headerlink" href="#id19" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p>The image below is the result of image processing panorama view.</p>
+<figure class="align-center" id="id20">
+<a class="reference internal image-reference" href="_images/16.panorama-image.jpg"><img alt="Processing Panorama View" src="_images/16.panorama-image.jpg" style="width: 700.6px; height: 282.6px;" /></a>
+<figcaption>
+<p><span class="caption-text">Processing Panorama View</span><a class="headerlink" href="#id20" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p style="text-align: justify;">
 
-                      As explained earlier, the panorama view may present a horizontal view in a specific immersed
-                      environment to meet
-                      human visual perception. The figure below shows a diagram of transforming a fisheye image into a
-                      panoramic view.</p>
-                    <figure class="align-center" id="id19">
-                      <a class="reference internal image-reference" href="_images/diagram.jpg"><img
-                          alt="transformation image of panoroma view" src="_images/diagram.jpg"
-                          style="width: 440.0px; height: 160.0px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Diagram processing Original View to Panorama View</span><a
-                            class="headerlink" href="#id19" title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                    <p>The image below is the result of image processing panorama view.</p>
-                    <figure class="align-center" id="id20">
-                      <a class="reference internal image-reference" href="_images/16.panorama-image.jpg"><img
-                          alt="Processing Panorama View" src="_images/16.panorama-image.jpg"
-                          style="width: 700.6px; height: 282.6px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Processing Panorama View</span><a class="headerlink" href="#id20"
-                            title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                    <p style="text-align: justify;">
+ - The maximum and minimum FoV values can also be changed using the lineedit feature, which is only available in this mode.</p><p style="text-align: justify;">
 
-                      - The maximum and minimum FoV values can also be changed using the lineedit feature, which is only
-                      available in this mode.</p>
-                    <p style="text-align: justify;">
+ - By clicking the save image button or selecting save image from the context menu when you right-click on the
+   result image, you can save the original image or the result image. When you save an image for the first time,
+   the application will open a dialog box asking you to select the directory you want to utilize as storage.</p><p style="text-align: justify;">
 
-                      - By clicking the save image button or selecting save image from the context menu when you
-                      right-click on the
-                      result image, you can save the original image or the result image. When you save an image for the
-                      first time,
-                      the application will open a dialog box asking you to select the directory you want to utilize as
-                      storage.</p>
-                    <p style="text-align: justify;">
+ - Use the record button to start recording a video, it works almost just like storing an image.You will be asked
+   to select a directory before you can begin recording, and the video files will be saved there.</p></section>
+<section id="camera-parameters">
+<h3>16. Camera parameters<a class="headerlink" href="#camera-parameters" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                      - Use the record button to start recording a video, it works almost just like storing an image.You
-                      will be asked
-                      to select a directory before you can begin recording, and the video files will be saved there.</p>
-                  </section>
-                  <section id="camera-parameters">
-                    <h3>16. Camera parameters<a class="headerlink" href="#camera-parameters"
-                        title="Link to this heading"></a></h3>
-                    <p style="text-align: justify;">
+ The camera parameter is a very important component in fisheye image processing. Each fisheye camera can be calibrated.
+ and derive a set of parameters by the <b>MOIL laboratory</b> before the successive functions can work correctly,
+ configuration is necessary at the beginning of the program. MoilApp provides a form dialog that can add, modify,
+ and delete parameters that will be stored in the database. To be able to use this feature,
+ please click on File–>Camera Parameters.  The overview of this form is shown in the picture below: </p><figure class="align-center" id="id21">
+<a class="reference internal image-reference" href="_images/17.cam-params.jpg"><img alt="Camera Parameters" src="_images/17.cam-params.jpg" style="width: 819.8000000000001px; height: 282.40000000000003px;" /></a>
+<figcaption>
+<p><span class="caption-text">Camera Parameters</span><a class="headerlink" href="#id21" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+<p style="text-align: justify;">
 
-                      The camera parameter is a very important component in fisheye image processing. Each fisheye
-                      camera can be calibrated.
-                      and derive a set of parameters by the <b>MOIL laboratory</b> before the successive functions can
-                      work correctly,
-                      configuration is necessary at the beginning of the program. MoilApp provides a form dialog that
-                      can add, modify,
-                      and delete parameters that will be stored in the database. To be able to use this feature,
-                      please click on File–>Camera Parameters.  The overview of this form is shown in the picture below:
-                    </p>
-                    <figure class="align-center" id="id21">
-                      <a class="reference internal image-reference" href="_images/17.cam-params.jpg"><img
-                          alt="Camera Parameters" src="_images/17.cam-params.jpg"
-                          style="width: 819.8000000000001px; height: 282.40000000000003px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Camera Parameters</span><a class="headerlink" href="#id21"
-                            title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                    <p style="text-align: justify;">
+ - If you want to see the parameter, you can list the camera type from comboBox list parameter
+     If you are using a camera whose parameters are not yet available in the database, you can add them. You just need to
+     write all the parameters on the form, then click the<b> new </b>button. After that the data will be saved and you can use
+     the camera parameters.</p><p style="text-align: justify;">
 
-                      - If you want to see the parameter, you can list the camera type from comboBox list parameter
-                      If you are using a camera whose parameters are not yet available in the database, you can add
-                      them. You just need to
-                      write all the parameters on the form, then click the<b> new </b>button. After that the data will
-                      be saved and you can use
-                      the camera parameters.</p>
-                    <p style="text-align: justify;">
+ - Modify camera parameters
 
-                      - Modify camera parameters
+     If you want to change the value of the parameter, you can modify it. select the camera type in the list parameter
+     combobox, then you enter the new parameter value. click the update button and the modified parameters will be saved
+     in the database.</p><p style="text-align: justify;">
 
-                      If you want to change the value of the parameter, you can modify it. select the camera type in the
-                      list parameter
-                      combobox, then you enter the new parameter value. click the update button and the modified
-                      parameters will be saved
-                      in the database.</p>
-                    <p style="text-align: justify;">
+ - You can also delete parameters by clicking the delete button on the selected parameter list.</p></section>
+<section id="clear-user-interface-ui">
+<h3>17. Clear User Interface (UI)<a class="headerlink" href="#clear-user-interface-ui" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                      - You can also delete parameters by clicking the delete button on the selected parameter list.</p>
-                  </section>
-                  <section id="clear-user-interface-ui">
-                    <h3>17. Clear User Interface (UI)<a class="headerlink" href="#clear-user-interface-ui"
-                        title="Link to this heading"></a></h3>
-                    <p style="text-align: justify;">
+ Clear UI is the latest feature in MoilApp. This feature is used to clean images on the user interface,
+ Usually, if you don't use Clear UI, when the user opens the application again, the user is faced with the previous
+ task when processing images, therefore, this feature is used to clear data on the user interface.</p><figure class="align-center" id="id22">
+<a class="reference internal image-reference" href="_images/18.clear-apps.jpg"><img alt="Clear Data in the Application" src="_images/18.clear-apps.jpg" style="width: 1059.4px; height: 288.40000000000003px;" /></a>
+<figcaption>
+<p><span class="caption-text">Clear data in the application</span><a class="headerlink" href="#id22" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="check-for-updates">
+<h3>18. Check for Updates<a class="headerlink" href="#check-for-updates" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                      Clear UI is the latest feature in MoilApp. This feature is used to clean images on the user
-                      interface,
-                      Usually, if you don't use Clear UI, when the user opens the application again, the user is faced
-                      with the previous
-                      task when processing images, therefore, this feature is used to clear data on the user interface.
-                    </p>
-                    <figure class="align-center" id="id22">
-                      <a class="reference internal image-reference" href="_images/18.clear-apps.jpg"><img
-                          alt="Clear Data in the Application" src="_images/18.clear-apps.jpg"
-                          style="width: 1059.4px; height: 288.40000000000003px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Clear data in the application</span><a class="headerlink"
-                            href="#id22" title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                  </section>
-                  <section id="check-for-updates">
-                    <h3>18. Check for Updates<a class="headerlink" href="#check-for-updates"
-                        title="Link to this heading"></a></h3>
-                    <p style="text-align: justify;">
+ Checking for updates is an additional feature of the MoilApp update, this feature is used if the user wants to
+ update the application from the developer server. The use of this feature greatly facilitates the user without
+ having to open a terminal to do the installation or update manually.</p><figure class="align-center" id="id23">
+<a class="reference internal image-reference" href="_images/19.check-update.jpg"><img alt="Check for updates" src="_images/19.check-update.jpg" style="width: 752.0px; height: 282.40000000000003px;" /></a>
+<figcaption>
+<p><span class="caption-text">Check updating application from main server</span><a class="headerlink" href="#id23" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="read-the-docs-application">
+<h3>17. Read the Docs Application<a class="headerlink" href="#read-the-docs-application" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                      Checking for updates is an additional feature of the MoilApp update, this feature is used if the
-                      user wants to
-                      update the application from the developer server. The use of this feature greatly facilitates the
-                      user without
-                      having to open a terminal to do the installation or update manually.</p>
-                    <figure class="align-center" id="id23">
-                      <a class="reference internal image-reference" href="_images/19.check-update.jpg"><img
-                          alt="Check for updates" src="_images/19.check-update.jpg"
-                          style="width: 752.0px; height: 282.40000000000003px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Check updating application from main server</span><a
-                            class="headerlink" href="#id23" title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                  </section>
-                  <section id="read-the-docs-application">
-                    <h3>17. Read the Docs Application<a class="headerlink" href="#read-the-docs-application"
-                        title="Link to this heading"></a></h3>
-                    <p style="text-align: justify;">
+The <b>Read the Docs</b> feature makes it simple for users to open documents without having to launch a terminal and create HTML files from RST files. By simply clicking on this feature, the application will automatically create a document and display it in the user's browser. <b>Read the Docs</b> is the application documentation that aids users in understanding every feature of MoilApp..</p><figure class="align-center" id="id24">
+<a class="reference internal image-reference" href="_images/20.docs-spinx.jpg"><img alt="Generate documents to html" src="_images/20.docs-spinx.jpg" style="width: 752.0px; height: 282.40000000000003px;" /></a>
+<figcaption>
+<p><span class="caption-text">Generate documents to html</span><a class="headerlink" href="#id24" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+<section id="help-information">
+<h3>19. Help Information<a class="headerlink" href="#help-information" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                      The <b>Read the Docs</b> feature makes it simple for users to open documents without having to
-                      launch a terminal and create HTML files from RST files. By simply clicking on this feature, the
-                      application will automatically create a document and display it in the user's browser. <b>Read the
-                        Docs</b> is the application documentation that aids users in understanding every feature of
-                      MoilApp..</p>
-                    <figure class="align-center" id="id24">
-                      <a class="reference internal image-reference" href="_images/20.docs-spinx.jpg"><img
-                          alt="Generate documents to html" src="_images/20.docs-spinx.jpg"
-                          style="width: 752.0px; height: 282.40000000000003px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Generate documents to html</span><a class="headerlink"
-                            href="#id24" title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                  </section>
-                  <section id="help-information">
-                    <h3>19. Help Information<a class="headerlink" href="#help-information"
-                        title="Link to this heading"></a></h3>
-                    <p style="text-align: justify;">
+ The help information in the desktop application refers to a user guide or set of instructions that provide
+ guidance on how to use the MoilApp plugin software effectively. This information can be accessed in a number of ways,
+ including through menus or a dedicated Help button within the app.</p></section>
+<section id="application-settings">
+<h3>20. Application Settings<a class="headerlink" href="#application-settings" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                      The help information in the desktop application refers to a user guide or set of instructions that
-                      provide
-                      guidance on how to use the MoilApp plugin software effectively. This information can be accessed
-                      in a number of ways,
-                      including through menus or a dedicated Help button within the app.</p>
-                  </section>
-                  <section id="application-settings">
-                    <h3>20. Application Settings<a class="headerlink" href="#application-settings"
-                        title="Link to this heading"></a></h3>
-                    <p style="text-align: justify;">
+ Additionally, by providing information on the update history of each commit made by the developer when
+ the application is updated, users can stay informed about changes to the application and have a better understanding
+ of how the application works. Overall, the application settings are a crucial component of any modern application,
+ and they play a vital role in providing users with a rich and personalized experience.</p><figure class="align-center" id="id25">
+<a class="reference internal image-reference" href="_images/21.apps-settings.jpg"><img alt="Application Settings" src="_images/21.apps-settings.jpg" style="width: 606.0px; height: 282.40000000000003px;" /></a>
+<figcaption>
+<p><span class="caption-text">Application Settings</span><a class="headerlink" href="#id25" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="mouse-event">
+<h2>Mouse Event<a class="headerlink" href="#mouse-event" title="Link to this heading"></a></h2>
+<p style="text-align: justify;">
 
-                      Additionally, by providing information on the update history of each commit made by the developer
-                      when
-                      the application is updated, users can stay informed about changes to the application and have a
-                      better understanding
-                      of how the application works. Overall, the application settings are a crucial component of any
-                      modern application,
-                      and they play a vital role in providing users with a rich and personalized experience.</p>
-                    <figure class="align-center" id="id25">
-                      <a class="reference internal image-reference" href="_images/21.apps-settings.jpg"><img
-                          alt="Application Settings" src="_images/21.apps-settings.jpg"
-                          style="width: 606.0px; height: 282.40000000000003px;" /></a>
-                      <figcaption>
-                        <p><span class="caption-text">Application Settings</span><a class="headerlink" href="#id25"
-                            title="Link to this image"></a></p>
-                      </figcaption>
-                    </figure>
-                  </section>
-                </section>
-                <section id="mouse-event">
-                  <h2>Mouse Event<a class="headerlink" href="#mouse-event" title="Link to this heading"></a></h2>
-                  <p style="text-align: justify;">
+ There are several functions of the mouse event that you can use to speed up work. The mouse event will only work on
+ the result image and the original image of the user interface widget. Some of the mouse event functions are included. </p><section id="mouse-click-event">
+<h3>Mouse click event<a class="headerlink" href="#mouse-click-event" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                    There are several functions of the mouse event that you can use to speed up work. The mouse event
-                    will only work on
-                    the result image and the original image of the user interface widget. Some of the mouse event
-                    functions are included. </p>
-                  <section id="mouse-click-event">
-                    <h3>Mouse click event<a class="headerlink" href="#mouse-click-event"
-                        title="Link to this heading"></a></h3>
-                    <p style="text-align: justify;">
+ When in Anypoint mode, the mouse click event only functions on the original picture widget. The coordinates of
+ the points whose alpha-beta value will be transformed can be easily determined using this. which means that when
+ converting the original image to an Anypoint image, this value will be a parameter.</p></section>
+<section id="mouse-click-move-event">
+<h3>Mouse click-move event<a class="headerlink" href="#mouse-click-move-event" title="Link to this heading"></a></h3>
+<p style="text-align: justify;">
 
-                      When in Anypoint mode, the mouse click event only functions on the original picture widget. The
-                      coordinates of
-                      the points whose alpha-beta value will be transformed can be easily determined using this. which
-                      means that when
-                      converting the original image to an Anypoint image, this value will be a parameter.</p>
-                  </section>
-                  <section id="mouse-click-move-event">
-                    <h3>Mouse click-move event<a class="headerlink" href="#mouse-click-move-event"
-                        title="Link to this heading"></a></h3>
-                    <p style="text-align: justify;">
-
-                      The mouse-click event has its own function in each image widget; in the original image, this
-                      widget works in Anypoint mode, which allows for surrounding views. If you press the press-move
-                      mouse event on the resultant image widget, different functions are available. You can enlarge the
-                      area in which you are interested using this function, and it works in all-mode view, as in the
-                      example shown in the image below.</p>
-                  </section>
-                  <section id="double-click-event">
-                    <h3>Double click event<a class="headerlink" href="#double-click-event"
-                        title="Link to this heading"></a></h3>
-                    <p>The Double click mouse event has function to reset Anypoint view to default in Anypoint mode.</p>
-                  </section>
-                  <section id="right-click-event">
-                    <h3>Right click event<a class="headerlink" href="#right-click-event"
-                        title="Link to this heading"></a></h3>
-                    <p>If you right click on the mouse, it will display menu options like maximize, minimize, save image
-                      and show info.</p>
-                  </section>
-                  <section id="mouse-wheel">
-                    <h3>Mouse wheel<a class="headerlink" href="#mouse-wheel" title="Link to this heading"></a></h3>
-                    <p><strong>Wheel event</strong> will work by pressing the ctrl key simultaneously to zoom in and
-                      zoom out images on the user interface display.</p>
-                  </section>
-                </section>
-                <section id="keyboard-shortcut">
-                  <h2>Keyboard Shortcut<a class="headerlink" href="#keyboard-shortcut"
-                      title="Link to this heading"></a></h2>
-                  <p style="text-align: justify;">
-                    The majority of MoilApp's processing- and other-related commands have keyboard shortcuts. By keeping
-                    your hands on
-                    the keyboard and increasing your productivity, learning these hotkeys might be helpful. Some of the
-                    most beneficial
-                    shortcuts to learn are listed in the following table:</p>
-                  <table class="docutils align-default" id="id26">
-                    <caption><span class="caption-text">Table 1. Shortcut application</span><a class="headerlink"
-                        href="#id26" title="Link to this table"></a></caption>
-                    <colgroup>
-                      <col style="width: 33.3%" />
-                      <col style="width: 66.7%" />
-                    </colgroup>
-                    <thead>
-                      <tr class="row-odd">
-                        <th class="head">
-                          <p>Shortcut</p>
-                        </th>
-                        <th class="head">
-                          <p>Action</p>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr class="row-even">
-                        <td>
-                          <p><strong>General Shortcuts</strong></p>
-                        </td>
-                        <td></td>
-                      </tr>
-                      <tr class="row-odd">
-                        <td>
-                          <p>Ctrl+Shift+R</p>
-                        </td>
-                        <td>
-                          <p>Open panel recent project</p>
-                        </td>
-                      </tr>
-                      <tr class="row-even">
-                        <td>
-                          <p>Ctrl+Shift+S</p>
-                        </td>
-                        <td>
-                          <p>Open setting panel on left side</p>
-                        </td>
-                      </tr>
-                      <tr class="row-odd">
-                        <td>
-                          <p>Ctrl+Shift+A</p>
-                        </td>
-                        <td>
-                          <p>Open Panel About US</p>
-                        </td>
-                      </tr>
-                      <tr class="row-even">
-                        <td>
-                          <p>Ctrl+Shift+Del</p>
-                        </td>
-                        <td>
-                          <p>Remove all the data from user interface</p>
-                        </td>
-                      </tr>
-                      <tr class="row-odd">
-                        <td>
-                          <p>Ctrl+O</p>
-                        </td>
-                        <td>
-                          <p>Open dialog to select media source</p>
-                        </td>
-                      </tr>
-                      <tr class="row-even">
-                        <td>
-                          <p>Ctrl+C</p>
-                        </td>
-                        <td>
-                          <p>Open dialog to open camera Parameter Form</p>
-                        </td>
-                      </tr>
-                      <tr class="row-odd">
-                        <td>
-                          <p>Ctrl+R</p>
-                        </td>
-                        <td>
-                          <p>Record video</p>
-                        </td>
-                      </tr>
-                      <tr class="row-even">
-                        <td>
-                          <p>Ctrl+S</p>
-                        </td>
-                        <td>
-                          <p>Save image</p>
-                        </td>
-                      </tr>
-                      <tr class="row-odd">
-                        <td>
-                          <p>Ctrl+H</p>
-                        </td>
-                        <td>
-                          <p>Open Help dialog</p>
-                        </td>
-                      </tr>
-                      <tr class="row-even">
-                        <td>
-                          <p>Ctrl+F</p>
-                        </td>
-                        <td>
-                          <p>Original fisheye image view</p>
-                        </td>
-                      </tr>
-                      <tr class="row-odd">
-                        <td>
-                          <p>Ctrl+A</p>
-                        </td>
-                        <td>
-                          <p>Anypoint image view</p>
-                        </td>
-                      </tr>
-                      <tr class="row-even">
-                        <td>
-                          <p>Ctrl+P</p>
-                        </td>
-                        <td>
-                          <p>Panorama image view</p>
-                        </td>
-                      </tr>
-                      <tr class="row-odd">
-                        <td>
-                          <p>Ctrl+D</p>
-                        </td>
-                        <td>
-                          <p>Active/Deactivate Debug mode</p>
-                        </td>
-                      </tr>
-                      <tr class="row-even">
-                        <td>
-                          <p>Ctrl+T</p>
-                        </td>
-                        <td>
-                          <p>Change theme apps</p>
-                        </td>
-                      </tr>
-                      <tr class="row-odd">
-                        <td>
-                          <p>F1</p>
-                        </td>
-                        <td>
-                          <p>Read the document, it will open in browser</p>
-                        </td>
-                      </tr>
-                      <tr class="row-even">
-                        <td>
-                          <p>F5</p>
-                        </td>
-                        <td>
-                          <p>Reset view, back to original</p>
-                        </td>
-                      </tr>
-                      <tr class="row-odd">
-                        <td>
-                          <p><strong>+</strong></p>
-                        </td>
-                        <td>
-                          <p>Zoom in image view in result window</p>
-                        </td>
-                      </tr>
-                      <tr class="row-even">
-                        <td>
-                          <p><strong>-</strong></p>
-                        </td>
-                        <td>
-                          <p>Zoom out image view in result window</p>
-                        </td>
-                      </tr>
-                      <tr class="row-odd">
-                        <td>
-                          <p>Esc</p>
-                        </td>
-                        <td>
-                          <p>Close additional panel left and right when open</p>
-                        </td>
-                      </tr>
-                      <tr class="row-even">
-                        <td>
-                          <p><strong>Media Player</strong></p>
-                        </td>
-                        <td></td>
-                      </tr>
-                      <tr class="row-odd">
-                        <td>
-                          <p>Space</p>
-                        </td>
-                        <td>
-                          <p>Play/Pause media</p>
-                        </td>
-                      </tr>
-                      <tr class="row-even">
-                        <td>
-                          <p>←</p>
-                        </td>
-                        <td>
-                          <p>Backward video in 5 seconds</p>
-                        </td>
-                      </tr>
-                      <tr class="row-odd">
-                        <td>
-                          <p>→</p>
-                        </td>
-                        <td>
-                          <p>Forward video in 5 seconds</p>
-                        </td>
-                      </tr>
-                      <tr class="row-even">
-                        <td>
-                          <p>0</p>
-                        </td>
-                        <td>
-                          <p>Stop video, back to initial</p>
-                        </td>
-                      </tr>
-                      <tr class="row-odd">
-                        <td>
-                          <p><strong>In Anypoint Mode</strong></p>
-                        </td>
-                        <td></td>
-                      </tr>
-                      <tr class="row-even">
-                        <td>
-                          <p>Ctrl+←</p>
-                        </td>
-                        <td>
-                          <p>Showing anypoint transformation in left area</p>
-                        </td>
-                      </tr>
-                      <tr class="row-odd">
-                        <td>
-                          <p>Ctrl+↑</p>
-                        </td>
-                        <td>
-                          <p>Showing anypoint transformation in top area</p>
-                        </td>
-                      </tr>
-                      <tr class="row-even">
-                        <td>
-                          <p>Ctrl+→</p>
-                        </td>
-                        <td>
-                          <p>Showing anypoint transformation in right area</p>
-                        </td>
-                      </tr>
-                      <tr class="row-odd">
-                        <td>
-                          <p>Ctrl+↓</p>
-                        </td>
-                        <td>
-                          <p>Showing anypoint transformation in down area</p>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </section>
-              </section>
+ The mouse-click event has its own function in each image widget; in the original image, this widget works in Anypoint mode, which allows for surrounding views. If you press the press-move mouse event on the resultant image widget, different functions are available. You can enlarge the area in which you are interested using this function, and it works in all-mode view, as in the example shown in the image below.</p></section>
+<section id="double-click-event">
+<h3>Double click event<a class="headerlink" href="#double-click-event" title="Link to this heading"></a></h3>
+<blockquote>
+<div><ul>
+<li><dl class="simple">
+<dt>Double Click Event in Original Window:</dt><dd><p>When in Anypoint state, a double-click mouse event on the original window will reset the Anypoint view to its default settings. In this mode, both alpha and beta values are set to 0 (zero).</p>
+</dd>
+</dl>
+</li>
+<li><p>Double Click Event in Result Window:</p>
+<blockquote>
+<div><p>In the result window, a double-click mouse event will switch to full-screen mode. To exit full-screen mode and return to the default view, double-click again.</p>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</section>
+<section id="right-click-event">
+<h3>Right click event<a class="headerlink" href="#right-click-event" title="Link to this heading"></a></h3>
+<p>If you right click on the mouse, it will display menu options like maximize, minimize, save image and show info.</p>
+</section>
+<section id="mouse-wheel">
+<h3>Mouse wheel<a class="headerlink" href="#mouse-wheel" title="Link to this heading"></a></h3>
+<p><strong>Wheel event</strong> will work by pressing the ctrl key simultaneously to zoom in and zoom out images on the user interface display.</p>
+</section>
+</section>
+<section id="keyboard-shortcut">
+<h2>Keyboard Shortcut<a class="headerlink" href="#keyboard-shortcut" title="Link to this heading"></a></h2>
+<p style="text-align: justify;">
+The majority of MoilApp's processing- and other-related commands have keyboard shortcuts. By keeping your hands on
+the keyboard and increasing your productivity, learning these hotkeys might be helpful. Some of the most beneficial
+shortcuts to learn are listed in the following table:</p><table class="docutils align-default" id="id26">
+<caption><span class="caption-text">Table 1. Shortcut application</span><a class="headerlink" href="#id26" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 33.3%" />
+<col style="width: 66.7%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Shortcut</p></th>
+<th class="head"><p>Action</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>General Shortcuts</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Ctrl+Shift+R</p></td>
+<td><p>Open panel recent project</p></td>
+</tr>
+<tr class="row-even"><td><p>Ctrl+Shift+S</p></td>
+<td><p>Open setting panel on left side</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ctrl+Shift+A</p></td>
+<td><p>Open Panel About US</p></td>
+</tr>
+<tr class="row-even"><td><p>Ctrl+Shift+Del</p></td>
+<td><p>Remove all the data from user interface</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ctrl+O</p></td>
+<td><p>Open dialog to select media source</p></td>
+</tr>
+<tr class="row-even"><td><p>Ctrl+C</p></td>
+<td><p>Open dialog to open camera Parameter Form</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ctrl+R</p></td>
+<td><p>Record video</p></td>
+</tr>
+<tr class="row-even"><td><p>Ctrl+S</p></td>
+<td><p>Save image</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ctrl+H</p></td>
+<td><p>Open Help dialog</p></td>
+</tr>
+<tr class="row-even"><td><p>Ctrl+F</p></td>
+<td><p>Original fisheye image view</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ctrl+A</p></td>
+<td><p>Anypoint image view</p></td>
+</tr>
+<tr class="row-even"><td><p>Ctrl+P</p></td>
+<td><p>Panorama image view</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ctrl+D</p></td>
+<td><p>Active/Deactivate Debug mode</p></td>
+</tr>
+<tr class="row-even"><td><p>Ctrl+T</p></td>
+<td><p>Change theme apps</p></td>
+</tr>
+<tr class="row-odd"><td><p>F1</p></td>
+<td><p>Read the document, it will open in browser</p></td>
+</tr>
+<tr class="row-even"><td><p>F5</p></td>
+<td><p>Reset view, back to original</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>+</strong></p></td>
+<td><p>Zoom in image view in result window</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>-</strong></p></td>
+<td><p>Zoom out image view in result window</p></td>
+</tr>
+<tr class="row-odd"><td><p>Esc</p></td>
+<td><p>Close additional panel left and right when open</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Media Player</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Space</p></td>
+<td><p>Play/Pause media</p></td>
+</tr>
+<tr class="row-even"><td><p>←</p></td>
+<td><p>Backward video in 5 seconds</p></td>
+</tr>
+<tr class="row-odd"><td><p>→</p></td>
+<td><p>Forward video in 5 seconds</p></td>
+</tr>
+<tr class="row-even"><td><p>0</p></td>
+<td><p>Stop video, back to initial</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>In Anypoint Mode</strong></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Ctrl+←</p></td>
+<td><p>Showing anypoint transformation in left area</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ctrl+↑</p></td>
+<td><p>Showing anypoint transformation in top area</p></td>
+</tr>
+<tr class="row-even"><td><p>Ctrl+→</p></td>
+<td><p>Showing anypoint transformation in right area</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ctrl+↓</p></td>
+<td><p>Showing anypoint transformation in down area</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
 
 
-            </div>
+           </div>
           </div>
-          <footer>
-            <div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-              <a href="api_reference.html" class="btn btn-neutral float-left" title="API References" accesskey="p"
-                rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-              <a href="plugin_extention.html" class="btn btn-neutral float-right" title="Plugin Extention" accesskey="n"
-                rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-            </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="api_reference.html" class="btn btn-neutral float-left" title="API References" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="plugin_extention.html" class="btn btn-neutral float-right" title="Plugin Extention" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
-            <hr />
+  <hr/>
 
-            <div role="contentinfo">
-              <p>&#169; Copyright 2024, Perseverance Technology, Taiwan.</p>
-            </div>
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Perseverance Technology, Taiwan.</p>
+  </div>
 
-            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-            <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-            provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
-
-          </footer>
+</footer>
         </div>
       </div>
     </section>
   </div>
-  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Read the Docs</span>
       v: latest
@@ -1094,11 +696,10 @@
     </div>
   </div>
   <script>
-    jQuery(function () {
-      SphinxRtdTheme.Navigation.enable(true);
-    });
-  </script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
 </body>
-
 </html>

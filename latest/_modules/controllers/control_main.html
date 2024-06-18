@@ -96,7 +96,7 @@
 <span class="kn">from</span> <span class="nn">PyQt6.QtCore</span> <span class="kn">import</span> <span class="n">QTimer</span>
 
 <span class="kn">from</span> <span class="nn">src.models.model_apps</span> <span class="kn">import</span> <span class="n">ModelApps</span>
-<span class="kn">from</span> <span class="nn">.control_ui_animation</span> <span class="kn">import</span> <span class="n">ControlPanelPage</span>
+<span class="kn">from</span> <span class="nn">src.controllers.control_ui_animation</span> <span class="kn">import</span> <span class="n">ControlPanelPage</span>
 <span class="kn">from</span> <span class="nn">.control_setup_icon</span> <span class="kn">import</span> <span class="n">ConfigIconUI</span>
 <span class="kn">from</span> <span class="nn">.control_plugin_manager</span> <span class="kn">import</span> <span class="n">PluginManager</span>
 <span class="kn">from</span> <span class="nn">.control_github</span> <span class="kn">import</span> <span class="n">ControllerGitHub</span>
@@ -814,7 +814,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_main.Controller.back_to_home">[docs]</a>
     <span class="k">def</span> <span class="nf">back_to_home</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Switche the content view to home screen and hides plugin buttons and sets the plugin index to None.</span>
+<span class="sd">        Switch the content view to home screen and hides plugin buttons and sets the plugin index to None.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: back_to_home(), &quot;</span>
@@ -850,8 +850,8 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: onclick_help_button(), &quot;</span>
                                             <span class="s2">&quot;Click push button for help&quot;</span><span class="p">)</span>
-        <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;This is a help menu application, The content still under developing!!&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ctrl_message_box</span><span class="o">.</span><span class="n">display_message_box</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="s2">&quot;information&quot;</span><span class="p">)</span></div>
+        <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;https://perseverance-tech-tw.github.io/moilapp-doc/latest/usage.html#moilapp-of-usage&quot;</span><span class="p">,</span>
+                        <span class="n">new</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Controller.onclick_clear_user_interface">
@@ -915,6 +915,9 @@
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">checkBox_reverse_view</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">checkBox_reverse_view</span><span class="o">.</span><span class="n">setChecked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">=</span> <span class="s2">&quot;FisheyeView&quot;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">view_properties</span><span class="o">.</span><span class="n">zooming_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">round_to_nearest_100</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ui_object</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">width</span><span class="p">()</span><span class="o">-</span><span class="mi">40</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">view_properties</span><span class="o">.</span><span class="n">rotate_degree</span> <span class="o">=</span> <span class="mi">0</span>
@@ -946,14 +949,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Controller: read_the_documentation(), &quot;</span>
                                             <span class="s2">&quot;Click the &#39;Read the Doc&#39; Button&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;nt&#39;</span><span class="p">:</span>
-            <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;..\docs\build\html\index.html&#39;</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-
-        <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;posix&#39;</span><span class="p">:</span>
-            <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;../docs/build/html/index.html&#39;</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This os is not support yet!&quot;</span><span class="p">)</span></div>
+        <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;https://perseverance-tech-tw.github.io/moilapp-doc&#39;</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Controller.closeEvent">
@@ -995,14 +991,14 @@
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">round_to_nearest_100</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">           Round the given number to the nearest multiple of 20.</span>
+<span class="sd">        Round the given number to the nearest multiple of 20.</span>
 
-<span class="sd">           Arg:</span>
-<span class="sd">               num (int or float): The number to be rounded.</span>
+<span class="sd">        Arg:</span>
+<span class="sd">           num (int or float): The number to be rounded.</span>
 
-<span class="sd">           Return:</span>
-<span class="sd">               int: The rounded number.</span>
-<span class="sd">           &quot;&quot;&quot;</span>
+<span class="sd">        Return:</span>
+<span class="sd">            int: The rounded number.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">round</span><span class="p">(</span><span class="n">num</span> <span class="o">/</span> <span class="mi">20</span><span class="p">)</span> <span class="o">*</span> <span class="mi">20</span></div>
 </div>
 

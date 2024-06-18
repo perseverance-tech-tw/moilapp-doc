@@ -143,7 +143,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the value of the rotation angle in the GUI.</span>
 
-<span class="sd">        Disables the signals of the GUI double spin box widget, sets its value to</span>
+<span class="sd">        Disable the signals of the GUI double spin box widget, sets its value to</span>
 <span class="sd">        the current rotation angle and enables the signals back again.</span>
 
 <span class="sd">        Return:</span>
@@ -161,7 +161,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the rotation angle when the user changes its value.</span>
 
-<span class="sd">        Sets the new value of the rotation angle to the private attribute and also</span>
+<span class="sd">        Set the new value of the rotation angle to the private attribute and also</span>
 <span class="sd">        to the model of the application. If the rubber band tool is active, it</span>
 <span class="sd">        updates the result image and the percentage of zoom. Otherwise, it creates</span>
 <span class="sd">        a new result image.</span>
@@ -178,7 +178,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the rotation angle when the user changes its value.</span>
 
-<span class="sd">        Sets the new value of the rotation angle to the private attribute and also</span>
+<span class="sd">        Set the new value of the rotation angle to the private attribute and also</span>
 <span class="sd">        to the model of the application. If the rubber band tool is active, it</span>
 <span class="sd">        updates the result image and the percentage of zoom. Otherwise, it creates</span>
 <span class="sd">        a new result image.</span>
@@ -187,13 +187,15 @@
             <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_rotate_ori</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s1">&#39;Image_original&#39;</span><span class="p">][</span><span class="s1">&#39;rotate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">save_main_config_update</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">checkBox_reverse_view</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">view_recenter</span><span class="o">.</span><span class="n">create_image_recenter</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span><span class="o">.</span><span class="n">display_image_to_ui</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">_rotation_original_change_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the rotation angle when the user changes its value.</span>
 
-<span class="sd">        Sets the new value of the rotation angle to the private attribute and also</span>
+<span class="sd">        Set the new value of the rotation angle to the private attribute and also</span>
 <span class="sd">        to the model of the application. If the rubber band tool is active, it</span>
 <span class="sd">        updates the result image and the percentage of zoom. Otherwise, it creates</span>
 <span class="sd">        a new result image.</span>

@@ -4,7 +4,7 @@ Views Package
 Main Views
 --------------------------
 
-.. automodule:: views.main_moilapp
+.. automodule:: views.main_moilapp_ui
    :members:
    :undoc-members:
    :show-inheritance:

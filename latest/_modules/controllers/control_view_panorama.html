@@ -89,9 +89,9 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_panorama.PanoramaConfig">[docs]</a>
 <span class="k">class</span> <span class="nc">PanoramaConfig</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    The `PanoramaConfig` class handles the configuration of panorama views in the application.</span>
-
-<span class="sd">    This class provides methods to handle user interactions related to configuring panorama views, including changing modes between car and tube, setting initial values for UI elements, updating properties based on user input, and managing signals between UI elements and the underlying model.</span>
+<span class="sd">    This class provides methods to handle user interactions related to configuring panorama views,</span>
+<span class="sd">    including changing modes between car and tube, setting initial values for UI elements,</span>
+<span class="sd">    updating properties based on user input, and managing signals between UI elements and the underlying model.</span>
 
 <span class="sd">    Methods:</span>
 <span class="sd">        __init__: Initializes a new instance of the PanoramaConfig class.</span>
@@ -115,9 +115,6 @@
 <div class="viewcode-block" id="PanoramaConfig.__init__">
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_panorama.PanoramaConfig.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">controller</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initializes a new instance of the PanoramaConfig class.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span> <span class="o">=</span> <span class="n">controller</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">model</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">ui_object</span>
@@ -154,9 +151,9 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_panorama.PanoramaConfig.onclick_btn_panorama">[docs]</a>
     <span class="k">def</span> <span class="nf">onclick_btn_panorama</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handles click event for the &#39;panorama&#39; button.</span>
+<span class="sd">        Handle click event for the &#39;panorama&#39; button.</span>
 
-<span class="sd">        Changes the app&#39;s recent view state to &#39;PanoramaView&#39;,</span>
+<span class="sd">        Change the app&#39;s recent view state to &#39;PanoramaView&#39;,</span>
 <span class="sd">        shows the widget mode view and frame pointer anypoint,</span>
 <span class="sd">        sets the current index of the widget mode view to 1,</span>
 <span class="sd">        and sets the state rubberband to False if an image has been loaded.</span>
@@ -201,7 +198,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_panorama.PanoramaConfig.change_mode_panorama">[docs]</a>
     <span class="k">def</span> <span class="nf">change_mode_panorama</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Changes the panorama mode to either &#39;car&#39; or &#39;tube&#39;.</span>
+<span class="sd">        Change the panorama mode to either &#39;car&#39; or &#39;tube&#39;.</span>
 
 <span class="sd">        This method sets the panorama mode to either &#39;car&#39; or &#39;tube&#39; based on the selected radio button.</span>
 <span class="sd">        If the &#39;car&#39; radio button is selected, the car configuration frame is shown and the tube configuration frame</span>
@@ -298,7 +295,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_panorama.PanoramaConfig.change_properties_crop_panorama">[docs]</a>
     <span class="k">def</span> <span class="nf">change_properties_crop_panorama</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Changes the properties of the current panorama crop.</span>
+<span class="sd">        Change the properties of the current panorama crop.</span>
 
 <span class="sd">        If there is a panorama image loaded, this function updates the properties of the crop using the settings</span>
 <span class="sd">        selected in the UI. If the &quot;car&quot; option is selected, the panorama is cropped to a horizontal field of view</span>
@@ -344,7 +341,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_panorama.PanoramaConfig.unblock_signal_pano_tube">[docs]</a>
     <span class="k">def</span> <span class="nf">unblock_signal_pano_tube</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Unblocks the signals for the pano tube settings widgets.</span>
+<span class="sd">        Unblock the signals for the pano tube settings widgets.</span>
 
 <span class="sd">        This function calls the _unblock_signal method to unblock the signals for the pano tube settings widgets.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -361,7 +358,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_panorama.PanoramaConfig.block_signal_pano_car">[docs]</a>
     <span class="k">def</span> <span class="nf">block_signal_pano_car</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Blocks the signals of certain UI elements related to the panoramic car view.</span>
+<span class="sd">        Block the signals of certain UI elements related to the panoramic car view.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;PanoramaConfig: block_signal_pano_car(), &quot;</span>
@@ -378,7 +375,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_panorama.PanoramaConfig.unblock_signal_pano_car">[docs]</a>
     <span class="k">def</span> <span class="nf">unblock_signal_pano_car</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Unblocks signals for a set of widgets related to the panoramic car view.</span>
+<span class="sd">        Unblock signals for a set of widgets related to the panoramic car view.</span>
 
 <span class="sd">        This function unblocks signals for the following widgets: doubleSpinBox_pano_car_alpha,</span>
 <span class="sd">        doubleSpinBox_pano_car_beta, doubleSpinBox_pano_car_crop_left, doubleSpinBox_pano_car_crop_right,</span>
@@ -403,9 +400,9 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_panorama.PanoramaConfig.showing_config_panorama_tube">[docs]</a>
     <span class="k">def</span> <span class="nf">showing_config_panorama_tube</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Reads the panorama configuration from a YAML file, and populates the relevant UI elements with the values.</span>
+<span class="sd">        Read the panorama configuration from a YAML file, and populates the relevant UI elements with the values.</span>
 
-<span class="sd">        Opens the cached configuration file using the private attribute `__cached_file` as the file path, and reads its</span>
+<span class="sd">        Open the cached configuration file using the private attribute `__cached_file` as the file path, and reads its</span>
 <span class="sd">        contents using PyYAML&#39;s `safe_load` method. The relevant UI elements are then set to the corresponding values</span>
 <span class="sd">        found in the configuration file.</span>
 
@@ -431,9 +428,9 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_panorama.PanoramaConfig.showing_config_panorama_car">[docs]</a>
     <span class="k">def</span> <span class="nf">showing_config_panorama_car</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Loads the panorama car configuration from a cached YAML file and updates the user interface with its values.</span>
+<span class="sd">        Load the panorama car configuration from a cached YAML file and updates the user interface with its values.</span>
 
-<span class="sd">        Reads the cached file at `self.__cached_file` using the PyYAML library to parse the YAML content. The parsed</span>
+<span class="sd">        Read the cached file at `self.__cached_file` using the PyYAML library to parse the YAML content. The parsed</span>
 <span class="sd">        configuration values are assigned to the instance variable `self.__panorama_config`. Blocks signals from all the</span>
 <span class="sd">        widgets associated with the car panorama in the user interface to prevent any unintended updates during the UI</span>
 <span class="sd">        update process. Then, sets the values of the panorama car configuration widgets in the UI with the parsed values</span>
@@ -462,7 +459,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Change the properties of the panorama tube.</span>
 
-<span class="sd">        Reads the new values for alpha_min, alpha_max, crop_top, and crop_bottom from the</span>
+<span class="sd">        Read the new values for alpha_min, alpha_max, crop_top, and crop_bottom from the</span>
 <span class="sd">        corresponding UI elements, and updates the __panorama_config dictionary with the new</span>
 <span class="sd">        values if they meet certain criteria. Then writes the updated dictionary to a YAML file.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -489,12 +486,11 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_panorama.PanoramaConfig.change_properties_panorama_car">[docs]</a>
     <span class="k">def</span> <span class="nf">change_properties_panorama_car</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates the properties of the car panorama and saves them to a YAML file.</span>
+<span class="sd">        Update the properties of the car panorama and saves them to a YAML file.</span>
 
-<span class="sd">        Updates the alpha and beta properties of the car panorama from the GUI spinboxes.</span>
-<span class="sd">        Updates the crop_left, crop_right, crop_top, and crop_bottom properties of the car panorama from the GUI double spinboxes.</span>
+<span class="sd">        Update the alpha and beta properties of the car panorama from the GUI spinboxes.</span>
+<span class="sd">        Update the crop_left, crop_right, crop_top, and crop_bottom properties of the car panorama from the GUI double spinboxes.</span>
 <span class="sd">        Saves the updated panorama configuration to a YAML file specified in `self.__cached_file`.</span>
-
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">debug_mode</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">activity_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;PanoramaConfig: change_properties_panorama_car(), &quot;</span>

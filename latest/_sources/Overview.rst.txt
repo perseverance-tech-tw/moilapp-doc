@@ -2,7 +2,7 @@ Definition and overview
 #######################
 
 What is the MOIL app?
-================
+======================
 
 .. raw:: html
 
@@ -14,7 +14,7 @@ What is the MOIL app?
    </p>
 
 What is Fisheye Lens Technology?
-========================
+================================
 .. raw:: html
 
    <p style="text-align: justify;">
@@ -97,7 +97,7 @@ What is Panorama View?
    :align: center
 
 What is the purpose of this app?
-=============================
+=================================
 
 .. raw:: html
 

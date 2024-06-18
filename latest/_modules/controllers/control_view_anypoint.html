@@ -85,13 +85,6 @@
 
 <span class="sd">This module contains the AnypointConfig class, which is responsible for handling the configuration</span>
 <span class="sd">and user interface interactions related to the Anypoint mode.</span>
-
-<span class="sd">Classes:</span>
-<span class="sd">    AnypointConfig: A class for managing Anypoint configuration.</span>
-
-<span class="sd">Dependencies:</span>
-<span class="sd">    - PyQt6.QtCore</span>
-
 <span class="sd">&quot;&quot;&quot;</span>
 
 
@@ -123,19 +116,10 @@
 <span class="sd">           _get_pitch_yaw_for_non_radio_mode(cls, button_name): Get pitch and yaw angles for Anypoint View in non-radio mode.</span>
 <span class="sd">           __block_signal(self): Blocks signals for alpha, beta, roll, and zoom double spin boxes.</span>
 <span class="sd">           __unblock_signal(self): Unblock the signals of the alpha, beta, roll, and zoom double spin boxes in the GUI.</span>
-<span class="sd">       &quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 <div class="viewcode-block" id="AnypointConfig.__init__">
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_anypoint.AnypointConfig.__init__">[docs]</a>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">controller</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">               Initialize the AnypointConfig object.</span>
-
-<span class="sd">               Args:</span>
-<span class="sd">                   controller: The controller object.</span>
-
-<span class="sd">               Returns:</span>
-<span class="sd">                   None.</span>
-<span class="sd">               &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_controller</span> <span class="o">=</span> <span class="n">controller</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">ui_object</span>
@@ -147,11 +131,11 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_anypoint.AnypointConfig._connect_event">[docs]</a>
     <span class="k">def</span> <span class="nf">_connect_event</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">              Connects UI signals to their respective slots.</span>
+<span class="sd">        Connect UI signals to their respective slots.</span>
 
-<span class="sd">              Returns:</span>
-<span class="sd">                  None.</span>
-<span class="sd">              &quot;&quot;&quot;</span>
+<span class="sd">        Return:</span>
+<span class="sd">            None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">btn_anypoint_view</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">onclick_btn_anypoint</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">btn_anypoint_view</span><span class="o">.</span><span class="n">setShortcut</span><span class="p">(</span><span class="s2">&quot;Ctrl+A&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">radio_mode_1</span><span class="o">.</span><span class="n">toggled</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">change_mode_anypoint</span><span class="p">)</span>
@@ -177,12 +161,12 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_anypoint.AnypointConfig.onclick_btn_anypoint">[docs]</a>
     <span class="k">def</span> <span class="nf">onclick_btn_anypoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Handles the button click event for the Anypoint mode.</span>
+<span class="sd">        Handle the button click event for the Anypoint mode.</span>
 
-<span class="sd">        Changes the application state to the Anypoint mode, shows the Anypoint widget, and sets the</span>
+<span class="sd">        Change the application state to the Anypoint mode, shows the Anypoint widget, and sets the</span>
 <span class="sd">        current index of the widget to 0.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">image_original</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -222,11 +206,11 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Change the current anypoint mode.</span>
 
-<span class="sd">        Changes the anypoint mode based on the selected radio button in the user interface.</span>
+<span class="sd">        Change the anypoint mode based on the selected radio button in the user interface.</span>
 <span class="sd">        Shows or hides certain configuration options depending on the selected mode.</span>
 <span class="sd">        Updates the anypoint maps and the anypoint mode in the model.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">view_zoom_area</span><span class="o">.</span><span class="n">state_rubberband</span> <span class="o">=</span> <span class="kc">False</span>
@@ -257,16 +241,16 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_anypoint.AnypointConfig.change_properties_anypoint">[docs]</a>
     <span class="k">def</span> <span class="nf">change_properties_anypoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Changes the properties of the AnyPoint view mode.</span>
+<span class="sd">        Change the properties of the AnyPoint view mode.</span>
 
 <span class="sd">        If an image result is available, this method changes the properties of the AnyPoint view mode according to</span>
 <span class="sd">        the values set in the GUI. The changes are applied to the configuration object, and new maps are created.</span>
 <span class="sd">        The configuration file is updated accordingly.</span>
 
-<span class="sd">        Raises:</span>
+<span class="sd">        Raise:</span>
 <span class="sd">            None.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            None.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">radio_mode_1</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
@@ -324,10 +308,10 @@
 
 <span class="sd">        This method returns the alpha and beta angles based on the button name in radio mode of Anypoint View.</span>
 
-<span class="sd">        Args:</span>
+<span class="sd">        Arg:</span>
 <span class="sd">            button_name (str): The name of the button clicked in radio mode.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            tuple: A tuple containing the alpha and beta angles.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
@@ -356,10 +340,10 @@
 
 <span class="sd">        This method returns the pitch and yaw angles based on the button name in non-radio mode of Anypoint View.</span>
 
-<span class="sd">        Args:</span>
+<span class="sd">        Arg:</span>
 <span class="sd">            button_name (str): The name of the button clicked in non-radio mode.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            tuple: A tuple containing the pitch and yaw angles.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pitch</span><span class="p">,</span> <span class="n">yaw</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
@@ -402,7 +386,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_anypoint.AnypointConfig.set_initial_value_to_ui_anypoint">[docs]</a>
     <span class="k">def</span> <span class="nf">set_initial_value_to_ui_anypoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets the initial values to UI elements for Anypoint View.</span>
+<span class="sd">        Set the initial values to UI elements for Anypoint View.</span>
 
 <span class="sd">        This method sets initial values to spin boxes and double spin boxes for Anypoint View coordinates and angles.</span>
 <span class="sd">        It first blocks signals of the UI elements to prevent emitting unnecessary signals while setting values.</span>
@@ -440,7 +424,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_anypoint.AnypointConfig.showing_config_mode_1">[docs]</a>
     <span class="k">def</span> <span class="nf">showing_config_mode_1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Reads the cached file to load the configuration data for Mode 1.</span>
+<span class="sd">        Read the cached file to load the configuration data for Mode 1.</span>
 
 <span class="sd">        This function reads the YAML data from the cached file and loads it into the</span>
 <span class="sd">        `self.__anypoint_config` attribute. It then sets the values of the zoom, alpha,</span>
@@ -448,7 +432,7 @@
 <span class="sd">        signals while updating the spin box values to prevent recursive updates. Once the</span>
 <span class="sd">        values are set, the function unblocks signals.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__block_signal</span><span class="p">()</span>
@@ -462,7 +446,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_anypoint.AnypointConfig.showing_config_mode_2">[docs]</a>
     <span class="k">def</span> <span class="nf">showing_config_mode_2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Reads the cached file to load the configuration data for Mode 2.</span>
+<span class="sd">        Read the cached file to load the configuration data for Mode 2.</span>
 
 <span class="sd">        This function reads the YAML data from the cached file and loads it into the</span>
 <span class="sd">        `self.__anypoint_config` attribute. It then sets the values of the pitch, yaw,</span>
@@ -470,7 +454,7 @@
 <span class="sd">        blocks signals while updating the spin box values to prevent recursive updates.</span>
 <span class="sd">        Once the values are set, the function unblocks signals.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__block_signal</span><span class="p">()</span>
@@ -485,14 +469,14 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_anypoint.AnypointConfig.change_properties_mode_1">[docs]</a>
     <span class="k">def</span> <span class="nf">change_properties_mode_1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates the configuration data for Mode 1 and writes it to the cached file.</span>
+<span class="sd">        Update the configuration data for Mode 1 and writes it to the cached file.</span>
 
 <span class="sd">        This function updates the alpha, beta, and zoom parameters for Mode 1 using the</span>
 <span class="sd">        values in the UI double spin boxes. It rounds the zoom value to three decimal places</span>
 <span class="sd">        before updating the configuration data. The updated configuration data is then</span>
 <span class="sd">        written to the cached file using YAML format.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_1&quot;</span><span class="p">][</span><span class="s2">&quot;alpha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_alpha</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
@@ -505,7 +489,7 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_anypoint.AnypointConfig.change_properties_mode_2">[docs]</a>
     <span class="k">def</span> <span class="nf">change_properties_mode_2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Updates the configuration data for Mode 2 and writes it to the cached file.</span>
+<span class="sd">        Update the configuration data for Mode 2 and writes it to the cached file.</span>
 
 <span class="sd">        This function updates the pitch, yaw, roll, and zoom parameters for Mode 2 using the</span>
 <span class="sd">        values in the UI double spin boxes. It creates a list of tuples to store the control</span>
@@ -514,7 +498,7 @@
 <span class="sd">        places before updating the configuration data. The updated configuration data is</span>
 <span class="sd">        then written to the cached file using YAML format.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">main_config</span><span class="p">[</span><span class="s2">&quot;Mode_2&quot;</span><span class="p">][</span><span class="s2">&quot;pitch&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ui_object</span><span class="o">.</span><span class="n">doubleSpinBox_alpha</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
@@ -528,13 +512,13 @@
 <a class="viewcode-back" href="../../controller.html#controllers.control_view_anypoint.AnypointConfig.check_box_active_mode_anypoint">[docs]</a>
     <span class="k">def</span> <span class="nf">check_box_active_mode_anypoint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Checks and sets the active mode for Anypoint View.</span>
+<span class="sd">        Check and set the active mode for Anypoint View.</span>
 
 <span class="sd">        If the current mode view is &quot;AnypointView&quot;, this method blocks the signals of radio buttons to prevent</span>
 <span class="sd">        emitting unnecessary signals while updating their states. It then sets the checked state of radio buttons</span>
 <span class="sd">        based on the active view stored in the main configuration. Finally, it unblocks the signals of the radio buttons.</span>
 
-<span class="sd">        Returns:</span>
+<span class="sd">        Return:</span>
 <span class="sd">            None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="o">.</span><span class="n">mode_view</span> <span class="o">==</span> <span class="s2">&quot;AnypointView&quot;</span><span class="p">:</span>
